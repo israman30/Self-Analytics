@@ -2,7 +2,6 @@ import Foundation
 import UIKit
 
 // MARK: - Device Metrics Models
-
 struct MemoryMetrics {
     let usedMemory: UInt64
     let totalMemory: UInt64
@@ -205,7 +204,6 @@ enum HealthStatus {
 }
 
 // MARK: - Historical Data Models
-
 struct MetricsHistory {
     let deviceHealth: [DeviceHealth]
     let dateRange: DateInterval
@@ -218,7 +216,6 @@ struct MetricsHistory {
 }
 
 // MARK: - Alert Models
-
 struct DeviceAlert {
     let id = UUID()
     let type: AlertType
