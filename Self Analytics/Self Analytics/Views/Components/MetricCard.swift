@@ -62,7 +62,7 @@ struct MetricCard: View {
             }
             
             if let percentage = percentage {
-                ProgressView(value: percentage, total: 100)
+                ProgressView(value: min(max(percentage, 0), 100), total: 100)
                     .progressViewStyle(LinearProgressViewStyle(tint: color))
                     .scaleEffect(x: 1, y: 2, anchor: .center)
             }

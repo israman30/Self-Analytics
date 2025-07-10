@@ -224,7 +224,7 @@ struct DashboardView: View {
                 
                 QuickActionButton(
                     title: "App Store",
-                    icon: "app.store",
+                    icon: "apple.logo",
                     color: .blue
                 ) {
                     alertService.openAppStore()

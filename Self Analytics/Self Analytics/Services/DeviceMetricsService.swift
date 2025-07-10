@@ -96,10 +96,12 @@ class DeviceMetricsService: ObservableObject {
         
         let kerr: kern_return_t = withUnsafeMutablePointer(to: &info) {
             $0.withMemoryRebound(to: integer_t.self, capacity: 1) {
-                task_info(mach_task_self_,
-                         task_flavor_t(MACH_TASK_BASIC_INFO),
-                         $0,
-                         &count)
+                task_info(
+                    mach_task_self_,
+                    task_flavor_t(MACH_TASK_BASIC_INFO),
+                    $0,
+                    &count
+                )
             }
         }
         
@@ -112,7 +114,6 @@ class DeviceMetricsService: ObservableObject {
     }
     
     // MARK: - CPU Metrics
-    
     private func getCPUMetrics() -> CPUMetrics {
         // Note: iOS doesn't provide direct CPU usage APIs
         // This is a simplified implementation
@@ -176,7 +177,6 @@ class DeviceMetricsService: ObservableObject {
     }
     
     // MARK: - Storage Metrics
-    
     private func getStorageMetrics() -> StorageMetrics {
         let fileManager = FileManager.default
         
@@ -208,7 +208,6 @@ class DeviceMetricsService: ObservableObject {
     }
     
     // MARK: - Network Metrics
-    
     private func getNetworkMetrics() -> NetworkMetrics {
         let connectionType = getNetworkConnectionType()
         let isConnected = connectionType != .none
