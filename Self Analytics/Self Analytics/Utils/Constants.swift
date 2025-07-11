@@ -199,3 +199,38 @@ struct RecommendationCardLabels {
         static let checkmark_circle_fill = "checkmark.circle.fill"
     }
 }
+
+struct AlertServiceLabels {
+    static let storageAlmostFull = "Storage Almost Full"
+    static let highMemoryUsage = "High Memory Usage"
+    static let highCPUUsage = "High CPU Usage"
+    static let lowBattery = "Low Battery"
+    static let poorBatteryHealth = "Poor Battery Health"
+    static let slowNetworkConnection = "Slow Network Connection"
+    
+    static let clearAppCache = "Clear App Cache"
+    static let reviewLargeFiles = "Review Large Files"
+    static let enableLowPowerMode = "Enable Low Power Mode"
+    static let runNetworkSpeedTest = "Run Network Speed Test"
+    static let reviewAppPersmissions = "Review App Permissions"
+    static let updateApps = "Update Apps"
+    static let iOSUpdateAvailable = "iOS Update Available"
+    
+    static let free_up_space_by_clearing_cached_data_from_apps = "Free up space by clearing cached data from apps"
+    static let clearCache = "Clear Cache"
+    static let check_for_large_photos_videos_or_downloads_you_can_delete = "Check for large photos, videos, or downloads you can delete"
+    static let reviewFiles = "Review Files"
+    static let save_battery_by_enabling_low_power_mode = "Save battery by enabling Low Power Mode"
+    static let enable = "Enable"
+    static let check_your_actual_network_performance = "Check your actual network performance"
+    static let testSpeed = "Test Speed"
+    static let check_which_apps_have_access_to_your_data = "Check which apps have access to your data"
+    static let review = "Review"
+    static let keep_your_apps_updated_for_security_and_performance = "Keep your apps updated for security and performance"
+    static let update = "Update"
+    static let an_ios_update_is_available_with_security_improvements = "A new iOS update is available with security improvements"
+}
+
+struct SchemeURL {
+    static let appStore = "itms-apps://itunes.apple.com/app/id"
+}

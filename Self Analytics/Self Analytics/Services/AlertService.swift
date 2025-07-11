@@ -32,7 +32,7 @@ class AlertService: ObservableObject {
         if health.storage.isLowStorage {
             let alert = DeviceAlert(
                 type: .lowStorage,
-                title: "Storage Almost Full",
+                title: AlertServiceLabels.storageAlmostFull,
                 message: "Your device storage is \(String(format: "%.1f", health.storage.usagePercentage))% full. Consider freeing up space.",
                 severity: .high,
                 timestamp: Date(),
@@ -45,7 +45,7 @@ class AlertService: ObservableObject {
         if health.memory.isHighUsage {
             let alert = DeviceAlert(
                 type: .highMemoryUsage,
-                title: "High Memory Usage",
+                title: AlertServiceLabels.highMemoryUsage,
                 message: "Memory usage is at \(String(format: "%.1f", health.memory.usagePercentage))%. Close unused apps to improve performance.",
                 severity: .medium,
                 timestamp: Date(),
@@ -58,7 +58,7 @@ class AlertService: ObservableObject {
         if health.cpu.isHighUsage {
             let alert = DeviceAlert(
                 type: .highCPUUsage,
-                title: "High CPU Usage",
+                title: AlertServiceLabels.highCPUUsage,
                 message: "CPU usage is at \(String(format: "%.1f", health.cpu.usagePercentage))%. This may affect battery life.",
                 severity: .medium,
                 timestamp: Date(),
@@ -71,7 +71,7 @@ class AlertService: ObservableObject {
         if health.battery.isLowBattery {
             let alert = DeviceAlert(
                 type: .lowBattery,
-                title: "Low Battery",
+                title: AlertServiceLabels.lowBattery,
                 message: "Battery level is at \(String(format: "%.0f", health.battery.level * 100))%. Connect to power soon.",
                 severity: .medium,
                 timestamp: Date(),
@@ -83,7 +83,7 @@ class AlertService: ObservableObject {
         if health.battery.health == .poor {
             let alert = DeviceAlert(
                 type: .poorBatteryHealth,
-                title: "Poor Battery Health",
+                title: AlertServiceLabels.poorBatteryHealth,
                 message: "Your battery health is poor. Consider replacing the battery for better performance.",
                 severity: .low,
                 timestamp: Date(),
@@ -96,7 +96,7 @@ class AlertService: ObservableObject {
         if health.network.isSlowConnection {
             let alert = DeviceAlert(
                 type: .slowNetwork,
-                title: "Slow Network Connection",
+                title: AlertServiceLabels.slowNetworkConnection,
                 message: "Your network speed is slow (\(String(format: "%.1f", health.network.downloadSpeed)) Mbps). Check your connection.",
                 severity: .low,
                 timestamp: Date(),
@@ -126,7 +126,7 @@ class AlertService: ObservableObject {
         if health.storage.usagePercentage > 80 {
             let recommendation = DeviceRecommendation(
                 type: .clearCache,
-                title: "Clear App Cache",
+                title: AlertServiceLabels.clearAppCache,
                 description: "Free up space by clearing cached data from apps",
                 action: "Clear Cache",
                 impact: .medium,
@@ -136,7 +136,7 @@ class AlertService: ObservableObject {
             
             let largeFilesRecommendation = DeviceRecommendation(
                 type: .deleteLargeFiles,
-                title: "Review Large Files",
+                title: AlertServiceLabels.reviewLargeFiles,
                 description: "Check for large photos, videos, or downloads you can delete",
                 action: "Review Files",
                 impact: .high,
@@ -149,7 +149,7 @@ class AlertService: ObservableObject {
         if health.battery.level < 0.5 && !health.battery.isCharging {
             let recommendation = DeviceRecommendation(
                 type: .optimizeBattery,
-                title: "Enable Low Power Mode",
+                title: AlertServiceLabels.enableLowPowerMode,
                 description: "Save battery by enabling Low Power Mode",
                 action: "Enable",
                 impact: .medium,
@@ -162,7 +162,7 @@ class AlertService: ObservableObject {
         if health.network.isSlowConnection {
             let recommendation = DeviceRecommendation(
                 type: .runSpeedTest,
-                title: "Run Network Speed Test",
+                title: AlertServiceLabels.runNetworkSpeedTest,
                 description: "Check your actual network performance",
                 action: "Test Speed",
                 impact: .low,
@@ -174,7 +174,7 @@ class AlertService: ObservableObject {
         // Security recommendations
         let securityRecommendation = DeviceRecommendation(
             type: .checkPermissions,
-            title: "Review App Permissions",
+            title: AlertServiceLabels.reviewAppPersmissions,
             description: "Check which apps have access to your data",
             action: "Review",
             impact: .medium,
@@ -185,7 +185,7 @@ class AlertService: ObservableObject {
         // Update recommendations
         let updateRecommendation = DeviceRecommendation(
             type: .updateApps,
-            title: "Update Apps",
+            title: AlertServiceLabels.updateApps,
             description: "Keep your apps updated for security and performance",
             action: "Update",
             impact: .medium,
@@ -205,7 +205,7 @@ class AlertService: ObservableObject {
         if hasUpdate {
             let alert = DeviceAlert(
                 type: .securityUpdate,
-                title: "iOS Update Available",
+                title: AlertServiceLabels.iOSUpdateAvailable,
                 message: "A new iOS update is available with security improvements.",
                 severity: .medium,
                 timestamp: Date(),
@@ -267,7 +267,7 @@ class AlertService: ObservableObject {
     }
     
     func openAppStore() {
-        if let appStoreURL = URL(string: "itms-apps://itunes.apple.com/app/id") {
+        if let appStoreURL = URL(string: SchemeURL.appStore) {
             UIApplication.shared.open(appStoreURL)
         }
     }
