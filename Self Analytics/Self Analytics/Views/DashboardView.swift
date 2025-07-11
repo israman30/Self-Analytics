@@ -411,6 +411,7 @@ struct SpeedTestView: View {
         }
     }
     
+    // Speed Start helper
     private func startSpeedTest() async {
         isRunning = true
         progress = 0
@@ -437,6 +438,7 @@ struct SpeedTestView: View {
     }
 }
 
+// Speed Result Row
 struct SpeedResultRow: View {
     let title: String
     let speed: Double
@@ -458,7 +460,7 @@ struct SpeedResultRow: View {
                     .font(.headline)
                     .fontWeight(.semibold)
             }
-            
+
             Spacer()
             
             Text(speedDescription)
@@ -470,7 +472,7 @@ struct SpeedResultRow: View {
                 .cornerRadius(8)
         }
     }
-    
+    // Speed Description helper
     private var speedDescription: String {
         if speed >= 50 {
             return SpeedTestViewLabels.fast
@@ -482,7 +484,7 @@ struct SpeedResultRow: View {
             return SpeedTestViewLabels.slow
         }
     }
-    
+    // Speed Color helper
     private var speedColor: Color {
         if speed >= 50 {
             return .green
