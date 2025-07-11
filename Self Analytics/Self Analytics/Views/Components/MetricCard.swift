@@ -236,7 +236,7 @@ struct RecommendationCard: View {
                 Spacer()
                 
                 if recommendation.isCompleted {
-                    Image(systemName: "checkmark.circle.fill")
+                    Image(systemName: RecommendationCardLabels.Icon.checkmark_circle_fill)
                         .foregroundColor(.green)
                         .font(.title3)
                 }

@@ -193,3 +193,9 @@ struct AlertCardLabels {
         static let shield = "shield"
     }
 }
+
+struct RecommendationCardLabels {
+    struct Icon {
+        static let checkmark_circle_fill = "checkmark.circle.fill"
+    }
+}
