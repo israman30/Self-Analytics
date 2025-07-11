@@ -40,7 +40,7 @@ struct HistoryView: View {
                 }
                 .padding(.vertical)
             }
-            .navigationTitle("History")
+            .navigationTitle(HistoryViewLabels.history)
             .navigationBarTitleDisplayMode(.large)
             .onAppear {
                 generateHistoricalData()
@@ -53,11 +53,11 @@ struct HistoryView: View {
     
     private var timeRangeSelector: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Time Range")
+            Text(HistoryViewLabels.timeRange)
                 .font(.headline)
                 .foregroundColor(.primary)
             
-            Picker("Time Range", selection: $selectedTimeRange) {
+            Picker(HistoryViewLabels.timeRange, selection: $selectedTimeRange) {
                 ForEach(TimeRange.allCases, id: \.self) { range in
                     Text(range.rawValue).tag(range)
                 }
@@ -67,30 +67,36 @@ struct HistoryView: View {
         .padding(.horizontal)
     }
     
+    // MARK: - Health Score Chart setup
     private var healthScoreChart: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Health Score Trend")
+            Text(HistoryViewLabels.healthScoreTrend)
                 .font(.headline)
                 .foregroundColor(.primary)
             
             if #available(iOS 16.0, *) {
                 Chart(historicalData) { health in
+                    // LineMark Chart
                     LineMark(
-                        x: .value("Time", health.timestamp),
-                        y: .value("Score", health.overallScore)
+                        x: .value(HistoryViewLabels.time, health.timestamp),
+                        y: .value(HistoryViewLabels.score, health.overallScore)
                     )
-                    .foregroundStyle(health.overallScore >= 80 ? .green : 
-                                   health.overallScore >= 60 ? .blue :
-                                   health.overallScore >= 40 ? .orange : .red)
+                    .foregroundStyle(
+                        health.overallScore >= 80 ? .green : 
+                            health.overallScore >= 60 ? .blue :
+                            health.overallScore >= 40 ? .orange : .red
+                    )
                     .lineStyle(StrokeStyle(lineWidth: 3))
-                    
+                    // AreaMark Chart
                     AreaMark(
-                        x: .value("Time", health.timestamp),
-                        y: .value("Score", health.overallScore)
+                        x: .value(HistoryViewLabels.time, health.timestamp),
+                        y: .value(HistoryViewLabels.score, health.overallScore)
                     )
-                    .foregroundStyle(health.overallScore >= 80 ? .green.opacity(0.2) : 
-                                   health.overallScore >= 60 ? .blue.opacity(0.2) :
-                                   health.overallScore >= 40 ? .orange.opacity(0.2) : .red.opacity(0.2))
+                    .foregroundStyle(
+                        health.overallScore >= 80 ? .green.opacity(0.2) :
+                            health.overallScore >= 60 ? .blue.opacity(0.2) :
+                            health.overallScore >= 40 ? .orange.opacity(0.2) : .red.opacity(0.2)
+                    )
                 }
                 .frame(height: 200)
                 .chartYScale(domain: 0...100)
@@ -108,7 +114,7 @@ struct HistoryView: View {
                 }
             } else {
                 // Fallback for older iOS versions
-                Text("Charts require iOS 16 or later")
+                Text(HistoryViewLabels.chartRequiresiOS16OrLater)
                     .foregroundColor(.secondary)
                     .frame(height: 200)
             }
@@ -120,38 +126,39 @@ struct HistoryView: View {
         .padding(.horizontal)
     }
     
+    // MARK: - Metrics Chart setup
     private var metricsCharts: some View {
         VStack(spacing: 16) {
-            // Memory Usage Chart
+            /// `Memory Usage Chart
             MetricChartView(
-                title: "Memory Usage",
+                title: HistoryViewLabels.MetricChart.memoryUsage,
                 data: historicalData,
                 valueKeyPath: \.memory.usagePercentage,
                 color: .blue,
                 unit: "%"
             )
             
-            // CPU Usage Chart
+            /// `CPU Usage Chart
             MetricChartView(
-                title: "CPU Usage",
+                title: HistoryViewLabels.MetricChart.cpuUsage,
                 data: historicalData,
                 valueKeyPath: \.cpu.usagePercentage,
                 color: .green,
                 unit: "%"
             )
             
-            // Battery Level Chart
+            /// `Battery Level Chart
             MetricChartView(
-                title: "Battery Level",
+                title: HistoryViewLabels.MetricChart.batteryLevel,
                 data: historicalData,
                 valueKeyPath: { Double($0.battery.level * 100) },
                 color: .orange,
                 unit: "%"
             )
             
-            // Storage Usage Chart
+            /// `Storage Usage Chart
             MetricChartView(
-                title: "Storage Usage",
+                title: HistoryViewLabels.MetricChart.storageUsage,
                 data: historicalData,
                 valueKeyPath: \.storage.usagePercentage,
                 color: .purple,
@@ -161,16 +168,17 @@ struct HistoryView: View {
         .padding(.horizontal)
     }
     
+    // MARK: - Performance Summary setup
     private var performanceSummary: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Performance Summary")
+            Text(HistoryViewLabels.performanceSummary)
                 .font(.headline)
                 .foregroundColor(.primary)
             
             if let summary = calculatePerformanceSummary() {
                 VStack(spacing: 12) {
                     SummaryRow(
-                        title: "Average Health Score",
+                        title: HistoryViewLabels.SummaryRow.averageHealthScore,
                         value: "\(String(format: "%.1f", summary.averageScore))",
                         color: summary.averageScore >= 80 ? .green : 
                               summary.averageScore >= 60 ? .blue :
@@ -178,28 +186,28 @@ struct HistoryView: View {
                     )
                     
                     SummaryRow(
-                        title: "Peak Memory Usage",
+                        title: HistoryViewLabels.SummaryRow.peakMemoryUsage,
                         value: "\(String(format: "%.1f", summary.peakMemoryUsage))%",
                         color: summary.peakMemoryUsage > 80 ? .red : 
                               summary.peakMemoryUsage > 60 ? .orange : .green
                     )
                     
                     SummaryRow(
-                        title: "Peak CPU Usage",
+                        title: HistoryViewLabels.SummaryRow.peakCPUUsage,
                         value: "\(String(format: "%.1f", summary.peakCPUUsage))%",
                         color: summary.peakCPUUsage > 80 ? .red : 
                               summary.peakCPUUsage > 60 ? .orange : .green
                     )
                     
                     SummaryRow(
-                        title: "Lowest Battery Level",
+                        title: HistoryViewLabels.SummaryRow.lowestBatteryLevel,
                         value: "\(String(format: "%.0f", summary.lowestBatteryLevel))%",
                         color: summary.lowestBatteryLevel < 20 ? .red : 
                               summary.lowestBatteryLevel < 50 ? .orange : .green
                     )
                     
                     SummaryRow(
-                        title: "Data Points",
+                        title: HistoryViewLabels.SummaryRow.dataPoints,
                         value: "\(summary.dataPoints)",
                         color: .blue
                     )
@@ -214,7 +222,6 @@ struct HistoryView: View {
     }
     
     // MARK: - Helper Methods
-    
     private func generateHistoricalData() {
         historicalData = []
         let now = Date()
@@ -311,15 +318,15 @@ struct MetricChartView: View {
             if #available(iOS 16.0, *) {
                 Chart(data) { health in
                     LineMark(
-                        x: .value("Time", health.timestamp),
-                        y: .value("Value", valueKeyPath(health))
+                        x: .value(HistoryViewLabels.time, health.timestamp),
+                        y: .value(HistoryViewLabels.value, valueKeyPath(health))
                     )
                     .foregroundStyle(color)
                     .lineStyle(StrokeStyle(lineWidth: 2))
                     
                     AreaMark(
-                        x: .value("Time", health.timestamp),
-                        y: .value("Value", valueKeyPath(health))
+                        x: .value(HistoryViewLabels.time, health.timestamp),
+                        y: .value(HistoryViewLabels.value, valueKeyPath(health))
                     )
                     .foregroundStyle(color.opacity(0.2))
                 }
@@ -338,7 +345,7 @@ struct MetricChartView: View {
                 }
             } else {
                 // Fallback for older iOS versions
-                Text("Charts require iOS 16 or later")
+                Text(HistoryViewLabels.chartRequiresiOS16OrLater)
                     .foregroundColor(.secondary)
                     .frame(height: 150)
             }
@@ -346,7 +353,7 @@ struct MetricChartView: View {
             // Summary stats
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Average")
+                    Text(HistoryViewLabels.average)
                         .font(.caption)
                         .foregroundColor(.secondary)
                     Text("\(String(format: "%.1f", averageValue))\(unit)")
@@ -357,7 +364,7 @@ struct MetricChartView: View {
                 Spacer()
                 
                 VStack(alignment: .trailing, spacing: 2) {
-                    Text("Peak")
+                    Text(HistoryViewLabels.peak)
                         .font(.caption)
                         .foregroundColor(.secondary)
                     Text("\(String(format: "%.1f", peakValue))\(unit)")

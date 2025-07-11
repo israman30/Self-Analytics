@@ -37,7 +37,7 @@ struct MetricCard: View {
                 Spacer()
                 
                 if isAlert {
-                    Image(systemName: "exclamationmark.triangle.fill")
+                    Image(systemName: MetricCardLabels.Icon.exclamationmark_triangle_fill)
                         .foregroundColor(.orange)
                         .font(.caption)
                 }
@@ -98,7 +98,7 @@ struct HealthScoreCard: View {
                         .fontWeight(.bold)
                         .foregroundColor(statusColor)
                     
-                    Text("Score")
+                    Text(HealthScoreCardLabels.score)
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -109,7 +109,7 @@ struct HealthScoreCard: View {
                     .font(.headline)
                     .foregroundColor(statusColor)
                 
-                Text("Device Health")
+                Text(HealthScoreCardLabels.deviceHealth)
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -161,7 +161,7 @@ struct AlertCard: View {
             }
             
             HStack {
-                Button("Resolve") {
+                Button(AlertCardLabels.resolve) {
                     onResolve()
                 }
                 .buttonStyle(.borderedProminent)
@@ -169,7 +169,7 @@ struct AlertCard: View {
                 
                 Spacer()
                 
-                Button("Dismiss") {
+                Button(AlertCardLabels.dismiss) {
                     onDismiss()
                 }
                 .buttonStyle(.bordered)
@@ -188,13 +188,20 @@ struct AlertCard: View {
     
     private var alertIcon: String {
         switch alert.type {
-        case .lowStorage: return "externaldrive.fill"
-        case .highMemoryUsage: return "memorychip"
-        case .highCPUUsage: return "cpu"
-        case .lowBattery: return "battery.25"
-        case .poorBatteryHealth: return "battery.100"
-        case .slowNetwork: return "wifi"
-        case .securityUpdate: return "shield"
+        case .lowStorage: 
+            return AlertCardLabels.Icon.externaldrive_fill
+        case .highMemoryUsage: 
+            return AlertCardLabels.Icon.memorychip
+        case .highCPUUsage:
+            return AlertCardLabels.Icon.cpu
+        case .lowBattery:
+            return AlertCardLabels.Icon.battery_25
+        case .poorBatteryHealth:
+            return AlertCardLabels.Icon.battery_100
+        case .slowNetwork:
+            return AlertCardLabels.Icon.wifi
+        case .securityUpdate:
+            return AlertCardLabels.Icon.shield
         }
     }
     
@@ -229,7 +236,7 @@ struct RecommendationCard: View {
                 Spacer()
                 
                 if recommendation.isCompleted {
-                    Image(systemName: "checkmark.circle.fill")
+                    Image(systemName: RecommendationCardLabels.Icon.checkmark_circle_fill)
                         .foregroundColor(.green)
                         .font(.title3)
                 }
