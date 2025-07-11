@@ -1,3 +1,10 @@
+//
+//  MetricCard.swift
+//  Self Analytics
+//
+//  Created by Israel Manzo on 7/9/25.
+//
+
 import SwiftUI
 
 struct MetricCard: View {
