@@ -91,3 +91,51 @@ struct HistoryViewLabels {
     static let average = "Average"
     static let peak = "Peak"
 }
+
+struct DashboardViewLabels {
+    static let deviceHealth = "Device Health"
+    static let alerts = "Alerts"
+    static let recommendations = "Recommendations"
+    static let quickActions = "Quick Actions"
+    
+    struct MetricCard {
+        static let memory = "Memory"
+        static let cpu = "CPU"
+        static let battery = "Battery"
+        static let storage = "Storage"
+        static let network = "Network"
+        static let available = "Available"
+        static let highUsage = "High Usage"
+        static let normal = "Normal"
+        static let charging = "Charging"
+        static let lowPowerMode = "Low Power Mode"
+        static let freeSpace = "Free Space"
+    }
+    
+    struct Icon {
+        static let memorychip = "memorychip"
+        static let cpu = "cpu"
+        static let externaldrive_fill = "externaldrive.fill"
+        static let externaldrive = "externaldrive"
+        
+        static let speedometer = "speedometer"
+        static let trash = "trash"
+        static let gear = "gear"
+        static let apple_logo = "apple.logo"
+        
+        static let battery_100_bolt = "battery.100.bolt"
+        static let battery_25 = "battery.25"
+        static let battery_50 = "battery.50"
+        static let battery_75 = "battery.75"
+        
+        static let wifi = "wifi"
+        static let antenna_radiowaves_left_and_right = "antenna.radiowaves.left.and.right"
+        static let network = "network"
+        static let wifi_slash = "wifi.slash"
+    }
+    
+    static let speedTest = "Speed Test"
+    static let clearCache = "Clear Cache"
+    static let setting = "Settings"
+    static let appStore = "App Store"
+}

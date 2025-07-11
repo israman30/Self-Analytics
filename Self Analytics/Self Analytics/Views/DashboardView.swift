@@ -40,8 +40,7 @@ struct DashboardView: View {
                 }
                 .padding(.vertical)
             }
-            .navigationTitle("Device Health")
-            .navigationBarTitleDisplayMode(.large)
+            .navigationTitle(DashboardViewLabels.deviceHealth)
             .refreshable {
                 metricsService.updateMetrics()
             }
@@ -59,31 +58,31 @@ struct DashboardView: View {
             if let health = metricsService.currentHealth {
                 // Memory Card
                 MetricCard(
-                    title: "Memory",
+                    title: DashboardViewLabels.MetricCard.memory,
                     value: ByteCountFormatter.string(fromByteCount: Int64(health.memory.usedMemory), countStyle: .memory),
                     subtitle: "of \(ByteCountFormatter.string(fromByteCount: Int64(health.memory.totalMemory), countStyle: .memory))",
                     percentage: health.memory.usagePercentage,
                     color: health.memory.isHighUsage ? .orange : .blue,
-                    icon: "memorychip",
+                    icon: DashboardViewLabels.Icon.memorychip,
                     isAlert: health.memory.isHighUsage
                 )
                 
                 // CPU Card
                 MetricCard(
-                    title: "CPU",
+                    title: DashboardViewLabels.MetricCard.cpu,
                     value: "\(String(format: "%.1f", health.cpu.usagePercentage))%",
-                    subtitle: health.cpu.isHighUsage ? "High Usage" : "Normal",
+                    subtitle: health.cpu.isHighUsage ? DashboardViewLabels.MetricCard.highUsage : DashboardViewLabels.MetricCard.normal,
                     percentage: health.cpu.usagePercentage,
                     color: health.cpu.isHighUsage ? .orange : .green,
-                    icon: "cpu",
+                    icon: DashboardViewLabels.Icon.cpu,
                     isAlert: health.cpu.isHighUsage
                 )
                 
                 // Battery Card
                 MetricCard(
-                    title: "Battery",
+                    title: DashboardViewLabels.MetricCard.battery,
                     value: "\(String(format: "%.0f", health.battery.level * 100))%",
-                    subtitle: health.battery.isCharging ? "Charging" : health.battery.isLowPowerMode ? "Low Power Mode" : health.battery.health.description,
+                    subtitle: health.battery.isCharging ? DashboardViewLabels.MetricCard.charging : health.battery.isLowPowerMode ? DashboardViewLabels.MetricCard.lowPowerMode : health.battery.health.description,
                     percentage: Double(health.battery.level) * 100,
                     color: batteryColor(for: health.battery),
                     icon: batteryIcon(for: health.battery),
@@ -92,18 +91,18 @@ struct DashboardView: View {
                 
                 // Storage Card
                 MetricCard(
-                    title: "Storage",
+                    title: DashboardViewLabels.MetricCard.storage,
                     value: health.storage.formattedUsedSpace,
                     subtitle: "of \(health.storage.formattedTotalSpace)",
                     percentage: health.storage.usagePercentage,
                     color: health.storage.isLowStorage ? .red : .blue,
-                    icon: "externaldrive.fill",
+                    icon: DashboardViewLabels.Icon.externaldrive_fill,
                     isAlert: health.storage.isLowStorage
                 )
                 
                 // Network Card
                 MetricCard(
-                    title: "Network",
+                    title: DashboardViewLabels.MetricCard.network,
                     value: "\(String(format: "%.1f", health.network.downloadSpeed)) Mbps",
                     subtitle: health.network.connectionType.description,
                     color: health.network.isSlowConnection ? .orange : .green,
@@ -113,11 +112,11 @@ struct DashboardView: View {
                 
                 // Available Storage Card
                 MetricCard(
-                    title: "Available",
+                    title: DashboardViewLabels.MetricCard.available,
                     value: health.storage.formattedAvailableSpace,
-                    subtitle: "Free Space",
+                    subtitle: DashboardViewLabels.MetricCard.freeSpace,
                     color: health.storage.availableSpace < 5 * 1024 * 1024 * 1024 ? .red : .green,
-                    icon: "externaldrive",
+                    icon: DashboardViewLabels.Icon.externaldrive,
                     isAlert: health.storage.availableSpace < 5 * 1024 * 1024 * 1024
                 )
             }
@@ -128,7 +127,7 @@ struct DashboardView: View {
     private var alertsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Alerts")
+                Text(DashboardViewLabels.alerts)
                     .font(.headline)
                     .foregroundColor(.primary)
                 
@@ -161,7 +160,7 @@ struct DashboardView: View {
     private var recommendationsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Recommendations")
+                Text(DashboardViewLabels.recommendations)
                     .font(.headline)
                     .foregroundColor(.primary)
                 
@@ -190,7 +189,7 @@ struct DashboardView: View {
     
     private var quickActionsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Quick Actions")
+            Text(DashboardViewLabels.quickActions)
                 .font(.headline)
                 .foregroundColor(.primary)
             
@@ -199,32 +198,32 @@ struct DashboardView: View {
                 GridItem(.flexible())
             ], spacing: 12) {
                 QuickActionButton(
-                    title: "Speed Test",
-                    icon: "speedometer",
+                    title: DashboardViewLabels.speedTest,
+                    icon: DashboardViewLabels.Icon.speedometer,
                     color: .blue
                 ) {
                     showingSpeedTest = true
                 }
                 
                 QuickActionButton(
-                    title: "Clear Cache",
-                    icon: "trash",
+                    title: DashboardViewLabels.clearCache,
+                    icon: DashboardViewLabels.Icon.trash,
                     color: .orange
                 ) {
                     alertService.clearSafariCache()
                 }
                 
                 QuickActionButton(
-                    title: "Settings",
-                    icon: "gear",
+                    title: DashboardViewLabels.setting,
+                    icon: DashboardViewLabels.Icon.gear,
                     color: .gray
                 ) {
                     alertService.openSettings()
                 }
                 
                 QuickActionButton(
-                    title: "App Store",
-                    icon: "apple.logo",
+                    title: DashboardViewLabels.appStore,
+                    icon: DashboardViewLabels.Icon.apple_logo,
                     color: .blue
                 ) {
                     alertService.openAppStore()
@@ -250,26 +249,26 @@ struct DashboardView: View {
     
     private func batteryIcon(for battery: BatteryMetrics) -> String {
         if battery.isCharging {
-            return "battery.100.bolt"
+            return DashboardViewLabels.Icon.battery_100_bolt
         } else if battery.isLowBattery {
-            return "battery.25"
+            return DashboardViewLabels.Icon.battery_25
         } else if battery.level < 0.5 {
-            return "battery.50"
+            return DashboardViewLabels.Icon.battery_50
         } else {
-            return "battery.75"
+            return DashboardViewLabels.Icon.battery_75
         }
     }
     
     private func networkIcon(for connectionType: NetworkConnectionType) -> String {
         switch connectionType {
         case .wifi:
-            return "wifi"
+            return DashboardViewLabels.Icon.wifi
         case .cellular:
-            return "antenna.radiowaves.left.and.right"
+            return DashboardViewLabels.Icon.antenna_radiowaves_left_and_right
         case .ethernet:
-            return "network"
+            return DashboardViewLabels.Icon.network
         case .none:
-            return "wifi.slash"
+            return DashboardViewLabels.Icon.wifi_slash
         }
     }
     
