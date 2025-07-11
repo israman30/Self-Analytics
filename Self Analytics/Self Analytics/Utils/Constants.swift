@@ -139,3 +139,26 @@ struct DashboardViewLabels {
     static let setting = "Settings"
     static let appStore = "App Store"
 }
+
+struct SpeedTestViewLabels {
+    static let testingNetworkSpeed = "Testing network speed..."
+    static let speedTestComplete = "Speed Test Complete"
+    static let networkSpeedTest = "Network Speed Test"
+    static let testInternetConnectionPerformance = "Test your internet connection speed to check performance"
+    
+    static let startTest = "Start Test"
+    static let testAgain = "Test Again"
+    
+    static let done = "Done"
+    static let speedTest = "Speed Test"
+    
+    static let download = "Download"
+    static let upload = "Upload"
+    
+    struct Icon {
+        static let checkmark_circle_fill = "checkmark.circle.fill"
+        static let arrow_down_circle_fill = "arrow.down.circle.fill"
+        static let arrow_up_circle_fill = "arrow.up.circle.fill"
+        static let speedometer = "speedometer"
+    }
+}

@@ -291,6 +291,7 @@ struct DashboardView: View {
     }
 }
 
+// MARK: - QuickActionButton setup
 struct QuickActionButton: View {
     let title: String
     let icon: String
@@ -333,7 +334,7 @@ struct SpeedTestView: View {
                             .progressViewStyle(LinearProgressViewStyle(tint: .blue))
                             .scaleEffect(x: 1, y: 2, anchor: .center)
                         
-                        Text("Testing network speed...")
+                        Text(SpeedTestViewLabels.testingNetworkSpeed)
                             .font(.headline)
                         
                         Text("\(String(format: "%.0f", progress))%")
@@ -343,26 +344,26 @@ struct SpeedTestView: View {
                     }
                 } else if let result = result {
                     VStack(spacing: 20) {
-                        Image(systemName: "checkmark.circle.fill")
+                        Image(systemName: SpeedTestViewLabels.Icon.checkmark_circle_fill)
                             .font(.system(size: 60))
                             .foregroundColor(.green)
                         
-                        Text("Speed Test Complete")
+                        Text(SpeedTestViewLabels.speedTestComplete)
                             .font(.title2)
                             .fontWeight(.semibold)
                         
                         VStack(spacing: 16) {
                             SpeedResultRow(
-                                title: "Download",
+                                title: SpeedTestViewLabels.download,
                                 speed: result.download,
-                                icon: "arrow.down.circle.fill",
+                                icon: SpeedTestViewLabels.Icon.arrow_down_circle_fill,
                                 color: .blue
                             )
                             
                             SpeedResultRow(
-                                title: "Upload",
+                                title: SpeedTestViewLabels.upload,
                                 speed: result.upload,
-                                icon: "arrow.up.circle.fill",
+                                icon: SpeedTestViewLabels.Icon.arrow_up_circle_fill,
                                 color: .green
                             )
                         }
@@ -372,15 +373,15 @@ struct SpeedTestView: View {
                     }
                 } else {
                     VStack(spacing: 20) {
-                        Image(systemName: "speedometer")
+                        Image(systemName: SpeedTestViewLabels.Icon.speedometer)
                             .font(.system(size: 60))
                             .foregroundColor(.blue)
                         
-                        Text("Network Speed Test")
+                        Text(SpeedTestViewLabels.networkSpeedTest)
                             .font(.title2)
                             .fontWeight(.semibold)
                         
-                        Text("Test your internet connection speed to check performance")
+                        Text(SpeedTestViewLabels.testInternetConnectionPerformance)
                             .font(.body)
                             .foregroundColor(.secondary)
                             .multilineTextAlignment(.center)
@@ -390,7 +391,7 @@ struct SpeedTestView: View {
                 Spacer()
                 
                 if !isRunning {
-                    Button(result == nil ? "Start Test" : "Test Again") {
+                    Button(result == nil ? SpeedTestViewLabels.startTest : SpeedTestViewLabels.testAgain) {
                         startSpeedTest()
                     }
                     .buttonStyle(.borderedProminent)
@@ -398,11 +399,11 @@ struct SpeedTestView: View {
                 }
             }
             .padding()
-            .navigationTitle("Speed Test")
+            .navigationTitle(SpeedTestViewLabels.speedTest)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
+                    Button(SpeedTestViewLabels.done) {
                         dismiss()
                     }
                 }
