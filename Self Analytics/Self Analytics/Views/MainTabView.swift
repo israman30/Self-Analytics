@@ -25,75 +25,78 @@ struct MainTabView: View {
 }
 
 struct SettingsView: View {
-    @AppStorage("notificationsEnabled") private var notificationsEnabled = true
-    @AppStorage("autoRefreshInterval") private var autoRefreshInterval = 5.0
-    @AppStorage("showAlerts") private var showAlerts = true
-    @AppStorage("darkModeEnabled") private var darkModeEnabled = false
+    @AppStorage(StorageProperties.notificationsEnabled) private var notificationsEnabled = true
+    @AppStorage(StorageProperties.autoRefreshInterval) private var autoRefreshInterval = 5.0
+    @AppStorage(StorageProperties.showAlerts) private var showAlerts = true
+    @AppStorage(StorageProperties.darkModeEnabled) private var darkModeEnabled = false
     
     var body: some View {
         NavigationView {
             Form {
-                Section("Notifications") {
-                    Toggle("Enable Notifications", isOn: $notificationsEnabled)
+                Section(SettingViewLabels.notifications) {
+                    Toggle(SettingViewLabels.enableNotifications, isOn: $notificationsEnabled)
                     
                     if notificationsEnabled {
-                        Toggle("Show Alerts", isOn: $showAlerts)
+                        Toggle(SettingViewLabels.showAlerts, isOn: $showAlerts)
                     }
                 }
                 
-                Section("App Settings") {
-                    Picker("Auto Refresh Interval", selection: $autoRefreshInterval) {
-                        Text("2 seconds").tag(2.0)
-                        Text("5 seconds").tag(5.0)
-                        Text("10 seconds").tag(10.0)
-                        Text("30 seconds").tag(30.0)
+                Section(SettingViewLabels.appSettings) {
+                    Picker(SettingViewLabels.autorefreshInterval, selection: $autoRefreshInterval) {
+                        Text(SettingViewLabels.TimeIntervar.ten_seconds)
+                            .tag(2.0)
+                        Text(SettingViewLabels.TimeIntervar.five_seconds)
+                            .tag(5.0)
+                        Text(SettingViewLabels.TimeIntervar.ten_seconds)
+                            .tag(10.0)
+                        Text(SettingViewLabels.TimeIntervar.thirty_seonconds)
+                            .tag(30.0)
                     }
                     
-                    Toggle("Dark Mode", isOn: $darkModeEnabled)
+                    Toggle(SettingViewLabels.darkMode, isOn: $darkModeEnabled)
                 }
                 
-                Section("About") {
+                Section(SettingViewLabels.about) {
                     HStack {
-                        Text("Version")
+                        Text(SettingViewLabels.version)
                         Spacer()
-                        Text("1.0.0")
+                        Text(SettingViewLabels.version_number)
                             .foregroundColor(.secondary)
                     }
                     
                     HStack {
-                        Text("Build")
+                        Text(SettingViewLabels.build)
                         Spacer()
-                        Text("1")
+                        Text(SettingViewLabels.build_number)
                             .foregroundColor(.secondary)
                     }
                 }
                 
-                Section("Support") {
-                    Button("Privacy Policy") {
+                Section(SettingViewLabels.support) {
+                    Button(SettingViewLabels.privacyPolicy) {
                         // Open privacy policy
                     }
                     
-                    Button("Terms of Service") {
+                    Button(SettingViewLabels.termsOfService) {
                         // Open terms of service
                     }
                     
-                    Button("Contact Support") {
+                    Button(SettingViewLabels.contactSupport) {
                         // Open support contact
                     }
                 }
                 
-                Section("Data") {
-                    Button("Export Data") {
+                Section(SettingViewLabels.data) {
+                    Button(SettingViewLabels.exportData) {
                         // Export functionality
                     }
                     
-                    Button("Clear All Data") {
+                    Button(SettingViewLabels.clearAllData, role: .destructive) {
                         // Clear data functionality
                     }
-                    .foregroundColor(.red)
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle(SettingViewLabels.settings)
             .navigationBarTitleDisplayMode(.large)
         }
     }
