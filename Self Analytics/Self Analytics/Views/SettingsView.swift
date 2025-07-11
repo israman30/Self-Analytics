@@ -60,7 +60,7 @@ struct SettingsView: View {
                 Section(SettingViewLabels.support) {
                     Button(SettingViewLabels.privacyPolicy) {
                         // Open privacy policy
-                        showAlert = true
+                        showAlert.toggle()
                     }
                     
                     Button(SettingViewLabels.termsOfService) {
@@ -70,9 +70,6 @@ struct SettingsView: View {
                     Button(SettingViewLabels.contactSupport) {
                         // Open support contact
                     }
-                }
-                .sheet(isPresented: $showAlert) {
-                    EmptyView()
                 }
                 
                 Section(SettingViewLabels.data) {
@@ -84,6 +81,9 @@ struct SettingsView: View {
                         // Clear data functionality
                     }
                 }
+            }
+            .sheet(isPresented: $showAlert) {
+                PrivacyPolicyView()
             }
             .navigationTitle(SettingViewLabels.settings)
             .navigationBarTitleDisplayMode(.large)

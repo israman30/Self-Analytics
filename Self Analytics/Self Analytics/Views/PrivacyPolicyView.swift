@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Privacy: Identifiable, Hashable {
-    var id: String {UUID().uuidString }
+    var id: String { title }
     let title: String
     let message: String
 }
@@ -29,13 +29,24 @@ struct PrivacyPolicyLabels {
 }
 
 struct PrivacyPolicyView: View {
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                Text("Privacy Policy")
-                    .font(.largeTitle)
-                    .bold()
-                    .padding(.bottom, 10)
+                HStack(alignment: .top) {
+                    Text("Privacy Policy")
+                        .font(.largeTitle)
+                        .bold()
+                        .padding(.bottom, 10)
+                    Spacer()
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark.circle")
+                            .font(.title)
+                    }
+                }
                 
                 Text("Effective Date: July 11, 2025")
                     .font(.subheadline)
