@@ -13,6 +13,8 @@ struct SettingsView: View {
     @AppStorage(StorageProperties.showAlerts) private var showAlerts = true
     @AppStorage(StorageProperties.darkModeEnabled) private var darkModeEnabled = false
     
+    @State private var showAlert = false
+    
     var body: some View {
         NavigationView {
             Form {
@@ -58,6 +60,7 @@ struct SettingsView: View {
                 Section(SettingViewLabels.support) {
                     Button(SettingViewLabels.privacyPolicy) {
                         // Open privacy policy
+                        showAlert = true
                     }
                     
                     Button(SettingViewLabels.termsOfService) {
@@ -67,6 +70,9 @@ struct SettingsView: View {
                     Button(SettingViewLabels.contactSupport) {
                         // Open support contact
                     }
+                }
+                .sheet(isPresented: $showAlert) {
+                    EmptyView()
                 }
                 
                 Section(SettingViewLabels.data) {
