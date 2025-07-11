@@ -178,3 +178,8 @@ struct HealthScoreCardLabels {
     static let score = "Score"
     static let deviceHealth = "Device Health"
 }
+
+struct AlertCardLabels {
+    static let resolve = "Resolve"
+    static let dismiss = "Dismiss"
+}

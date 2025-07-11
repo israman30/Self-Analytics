@@ -161,7 +161,7 @@ struct AlertCard: View {
             }
             
             HStack {
-                Button("Resolve") {
+                Button(AlertCardLabels.resolve) {
                     onResolve()
                 }
                 .buttonStyle(.borderedProminent)
@@ -169,7 +169,7 @@ struct AlertCard: View {
                 
                 Spacer()
                 
-                Button("Dismiss") {
+                Button(AlertCardLabels.dismiss) {
                     onDismiss()
                 }
                 .buttonStyle(.bordered)
