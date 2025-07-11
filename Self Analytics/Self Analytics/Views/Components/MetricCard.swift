@@ -188,13 +188,20 @@ struct AlertCard: View {
     
     private var alertIcon: String {
         switch alert.type {
-        case .lowStorage: return "externaldrive.fill"
-        case .highMemoryUsage: return "memorychip"
-        case .highCPUUsage: return "cpu"
-        case .lowBattery: return "battery.25"
-        case .poorBatteryHealth: return "battery.100"
-        case .slowNetwork: return "wifi"
-        case .securityUpdate: return "shield"
+        case .lowStorage: 
+            return AlertCardLabels.Icon.externaldrive_fill
+        case .highMemoryUsage: 
+            return AlertCardLabels.Icon.memorychip
+        case .highCPUUsage:
+            return AlertCardLabels.Icon.cpu
+        case .lowBattery:
+            return AlertCardLabels.Icon.battery_25
+        case .poorBatteryHealth:
+            return AlertCardLabels.Icon.battery_100
+        case .slowNetwork:
+            return AlertCardLabels.Icon.wifi
+        case .securityUpdate:
+            return AlertCardLabels.Icon.shield
         }
     }
     

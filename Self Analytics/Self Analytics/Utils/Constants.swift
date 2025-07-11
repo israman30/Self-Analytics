@@ -182,4 +182,14 @@ struct HealthScoreCardLabels {
 struct AlertCardLabels {
     static let resolve = "Resolve"
     static let dismiss = "Dismiss"
+    
+    struct Icon {
+        static let externaldrive_fill = "externaldrive.fill"
+        static let memorychip = "memorychip"
+        static let cpu = "cpu"
+        static let battery_25 = "battery.25"
+        static let battery_100 = "battery.100"
+        static let wifi = "wifi"
+        static let shield = "shield"
+    }
 }
