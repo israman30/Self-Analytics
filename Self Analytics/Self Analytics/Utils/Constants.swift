@@ -161,4 +161,9 @@ struct SpeedTestViewLabels {
         static let arrow_up_circle_fill = "arrow.up.circle.fill"
         static let speedometer = "speedometer"
     }
+    
+    static let fast = "Fast"
+    static let good = "Good"
+    static let fair = "Fair"
+    static let slow = "Slow"
 }
