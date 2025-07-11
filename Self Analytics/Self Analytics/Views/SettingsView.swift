@@ -7,11 +7,25 @@
 
 import SwiftUI
 
+enum SettingsSheet: Identifiable {
+    case privacyPolicy, termsOfService, contactSupport
+
+    var id: Int {
+        switch self {
+        case .privacyPolicy: return 0
+        case .termsOfService: return 1
+        case .contactSupport: return 2
+        }
+    }
+}
+
 struct SettingsView: View {
     @AppStorage(StorageProperties.notificationsEnabled) private var notificationsEnabled = true
     @AppStorage(StorageProperties.autoRefreshInterval) private var autoRefreshInterval = 5.0
     @AppStorage(StorageProperties.showAlerts) private var showAlerts = true
     @AppStorage(StorageProperties.darkModeEnabled) private var darkModeEnabled = false
+    
+    @State private var activeSheet: SettingsSheet?
     
     var body: some View {
         NavigationView {
@@ -58,14 +72,17 @@ struct SettingsView: View {
                 Section(SettingViewLabels.support) {
                     Button(SettingViewLabels.privacyPolicy) {
                         // Open privacy policy
+                        activeSheet = .privacyPolicy
                     }
                     
                     Button(SettingViewLabels.termsOfService) {
                         // Open terms of service
+                        activeSheet = .termsOfService
                     }
                     
                     Button(SettingViewLabels.contactSupport) {
                         // Open support contact
+                        activeSheet = .contactSupport
                     }
                 }
                 
@@ -77,6 +94,16 @@ struct SettingsView: View {
                     Button(SettingViewLabels.clearAllData, role: .destructive) {
                         // Clear data functionality
                     }
+                }
+            }
+            .sheet(item: $activeSheet) { sheet in
+                switch sheet {
+                case .privacyPolicy:
+                    PrivacyPolicyView()
+                case .termsOfService:
+                    TermsOfServiceView()
+                case .contactSupport:
+                    ContactSupport()
                 }
             }
             .navigationTitle(SettingViewLabels.settings)
