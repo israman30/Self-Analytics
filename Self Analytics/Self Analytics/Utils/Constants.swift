@@ -59,3 +59,35 @@ struct MainTabViewLabels {
         static let gear = "gear"
     }
 }
+
+struct HistoryViewLabels {
+    static let history = "History"
+    static let timeRange = "Time Range"
+    static let healthScoreTrend = "Health Score Trend"
+    
+    static let time = "Time"
+    static let score = "Score"
+    static let value = "Value"
+    
+    static let chartRequiresiOS16OrLater = "Charts require iOS 16 or later."
+    
+    struct MetricChart {
+        static let memoryUsage = "Memory Usage"
+        static let cpuUsage = "CPU Usage"
+        static let batteryLevel = "Battery Level"
+        static let storageUsage = "Storage Usage"
+    }
+    
+    static let performanceSummary = "Performance Summary"
+    
+    struct SummaryRow {
+        static let averageHealthScore = "Average Health Score"
+        static let peakMemoryUsage = "Peak Memory Usage"
+        static let peakCPUUsage = "Peak CPU Usage"
+        static let lowestBatteryLevel = "Lowest Battery Level"
+        static let dataPoints = "Data Points"
+    }
+
+    static let average = "Average"
+    static let peak = "Peak"
+}
