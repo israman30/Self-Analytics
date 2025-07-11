@@ -47,3 +47,15 @@ struct SettingViewLabels {
     static let clearAllData = "Clear All Data"
     static let settings = "Settings"
 }
+
+struct MainTabViewLabels {
+    static let dashboard = "Dashboard"
+    static let history = "History"
+    static let settings = "Settings"
+    
+    struct Icon {
+        static let gauge = "gauge"
+        static let chart_line_uptrend_xyaxis = "chart.line.uptrend.xyaxis"
+        static let gear = "gear"
+    }
+}

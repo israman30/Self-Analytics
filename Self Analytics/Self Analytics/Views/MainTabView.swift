@@ -5,20 +5,20 @@ struct MainTabView: View {
         TabView {
             DashboardView()
                 .tabItem {
-                    Image(systemName: "gauge")
-                    Text("Dashboard")
+                    Image(systemName: MainTabViewLabels.Icon.gauge)
+                    Text(MainTabViewLabels.dashboard)
                 }
             
             HistoryView()
                 .tabItem {
-                    Image(systemName: "chart.line.uptrend.xyaxis")
-                    Text("History")
+                    Image(systemName: MainTabViewLabels.Icon.chart_line_uptrend_xyaxis)
+                    Text(MainTabViewLabels.history)
                 }
             
             SettingsView()
                 .tabItem {
-                    Image(systemName: "gear")
-                    Text("Settings")
+                    Image(systemName: MainTabViewLabels.Icon.gear)
+                    Text(MainTabViewLabels.settings)
                 }
         }
     }
