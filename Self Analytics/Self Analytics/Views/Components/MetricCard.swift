@@ -37,7 +37,7 @@ struct MetricCard: View {
                 Spacer()
                 
                 if isAlert {
-                    Image(systemName: "exclamationmark.triangle.fill")
+                    Image(systemName: MetricCardLabels.Icon.exclamationmark_triangle_fill)
                         .foregroundColor(.orange)
                         .font(.caption)
                 }
@@ -98,7 +98,7 @@ struct HealthScoreCard: View {
                         .fontWeight(.bold)
                         .foregroundColor(statusColor)
                     
-                    Text("Score")
+                    Text(HealthScoreCardLabels.score)
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -109,7 +109,7 @@ struct HealthScoreCard: View {
                     .font(.headline)
                     .foregroundColor(statusColor)
                 
-                Text("Device Health")
+                Text(HealthScoreCardLabels.deviceHealth)
                     .font(.caption)
                     .foregroundColor(.secondary)
             }

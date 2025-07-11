@@ -167,3 +167,14 @@ struct SpeedTestViewLabels {
     static let fair = "Fair"
     static let slow = "Slow"
 }
+
+struct MetricCardLabels {
+    struct Icon {
+        static let exclamationmark_triangle_fill = "exclamationmark.triangle.fill"
+    }
+}
+
+struct HealthScoreCardLabels {
+    static let score = "Score"
+    static let deviceHealth = "Device Health"
+}
