@@ -1,6 +1,6 @@
 # Self Analytics - iOS Device Health Monitor
 
-Copyright © 2024 Self Analytics. All rights reserved.
+Copyright © 2025 Self Analytics. All rights reserved.
 
 A comprehensive iOS app for monitoring device health, performance metrics, and providing smart recommendations to optimize your device.
 
