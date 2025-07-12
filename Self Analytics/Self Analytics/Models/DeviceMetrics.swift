@@ -225,7 +225,7 @@ struct MetricsHistory {
 
 // MARK: - Alert Models
 struct DeviceAlert: Codable {
-    let id = UUID()
+    var id = UUID()
     let type: AlertType
     let title: String
     let message: String
@@ -263,7 +263,7 @@ struct DeviceAlert: Codable {
 // MARK: - Recommendation Models
 
 struct DeviceRecommendation: Codable {
-    let id = UUID()
+    var id = UUID()
     let type: RecommendationType
     let title: String
     let description: String
