@@ -227,29 +227,29 @@ class DataManagementService: ObservableObject {
     }
     
     private func createCSVExport(from exportData: ExportData) -> Data {
-        var csvString = "Export Date,App Version,Build Number,Device Name,Device Model,iOS Version\n"
+        var csvString = "\(CSVExportString.export_Date_App_Version_Build_Number_Device_Name_Device_Model_iOS_Version)\n"
         csvString += "\(exportData.exportDate),\(exportData.appVersion),\(exportData.buildNumber),\(exportData.deviceInfo.name),\(exportData.deviceInfo.model),\(exportData.deviceInfo.systemVersion)\n\n"
         
-        csvString += "Settings\n"
-        csvString += "Notifications Enabled,Auto Refresh Interval,Show Alerts,Dark Mode Enabled\n"
+        csvString += "\(CSVExportString.settings)\n"
+        csvString += "\(CSVExportString.notifications_Enabled_Auto_Refresh_Interval_Show_Alerts_Dark_Mode_Enabled)\n"
         csvString += "\(exportData.settings.notificationsEnabled),\(exportData.settings.autoRefreshInterval),\(exportData.settings.showAlerts),\(exportData.settings.darkModeEnabled)\n\n"
         
-        csvString += "Historical Data\n"
-        csvString += "Timestamp,Health Score,Memory Usage %,CPU Usage %,Battery Level %,Storage Usage %\n"
+        csvString += "\(CSVExportString.historicalData)\n"
+        csvString += "\(CSVExportString.timestamp_Health_Score_Memory_Usage_percentage_CPU_Usage_percentage_Battery_Level_percentage_Storage_Usage)\n"
         
         for health in exportData.historicalData {
             csvString += "\(health.timestamp),\(health.overallScore),\(health.memory.usagePercentage),\(health.cpu.usagePercentage),\(health.battery.level * 100),\(health.storage.usagePercentage)\n"
         }
         
-        csvString += "\nAlerts\n"
-        csvString += "Timestamp,Type,Title,Message,Severity,Is Resolved\n"
+        csvString += "\n\(CSVExportString.alert)\n"
+        csvString += "\(CSVExportString.timestamp_Type_Title_Message_Severity_Is_Resolved)\n"
         
         for alert in exportData.alerts {
             csvString += "\(alert.timestamp),\(alert.type),\(alert.title),\(alert.message),\(alert.severity),\(alert.isResolved)\n"
         }
         
-        csvString += "\nRecommendations\n"
-        csvString += "Type,Title,Description,Action,Impact,Is Completed\n"
+        csvString += "\n\(CSVExportString.recommendations)\n"
+        csvString += "\(CSVExportString.type_Title_Description_Action_Impact_Is_Completed)\n"
         
         for recommendation in exportData.recommendations {
             csvString += "\(recommendation.type),\(recommendation.title),\(recommendation.description),\(recommendation.action),\(recommendation.impact),\(recommendation.isCompleted)\n"

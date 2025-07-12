@@ -253,3 +253,15 @@ struct AlertServiceLabels {
 struct SchemeURL {
     static let appStore = "itms-apps://itunes.apple.com/app/id"
 }
+
+struct CSVExportString {
+    static let export_Date_App_Version_Build_Number_Device_Name_Device_Model_iOS_Version = "Export Date, App Version, Build Number, Device Name, Device Model, iOS Version"
+    static let settings = "Settings"
+    static let notifications_Enabled_Auto_Refresh_Interval_Show_Alerts_Dark_Mode_Enabled = "Notifications Enabled, Auto Refresh Interval, Show Alerts, Dark Mode Enabled"
+    static let historicalData = "Historical Data"
+    static let timestamp_Health_Score_Memory_Usage_percentage_CPU_Usage_percentage_Battery_Level_percentage_Storage_Usage = "Timestamp, Health Score, Memory Usage %,CPU Usage %, Battery Level %, Storage Usage %"
+    static let alert = "Alert"
+    static let timestamp_Type_Title_Message_Severity_Is_Resolved = "Timestamp,Type,Title,Message,Severity,Is Resolved"
+    static let recommendations = "Recommendations"
+    static let type_Title_Description_Action_Impact_Is_Completed = "Type,Title,Description,Action,Impact,Is Completed"
+}
