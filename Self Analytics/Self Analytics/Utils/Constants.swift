@@ -245,6 +245,9 @@ struct AlertServiceLabels {
     static let keep_your_apps_updated_for_security_and_performance = "Keep your apps updated for security and performance"
     static let update = "Update"
     static let an_ios_update_is_available_with_security_improvements = "A new iOS update is available with security improvements"
+    
+    static let your_device_storage_is_running_low_Consider_clearing_some_space = "Your device storage is running low. Consider clearing some space."
+    static let your_device_is_using_a_lot_of_memory_Consider_closing_some_apps = "Your device is using a lot of memory. Consider closing some apps."
 }
 
 struct SchemeURL {

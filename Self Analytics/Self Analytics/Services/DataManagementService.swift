@@ -186,16 +186,16 @@ class DataManagementService: ObservableObject {
         return [
             DeviceAlert(
                 type: .lowStorage,
-                title: "Storage Almost Full",
-                message: "Your device storage is running low. Consider clearing some space.",
+                title: AlertServiceLabels.storageAlmostFull,
+                message: AlertServiceLabels.your_device_storage_is_running_low_Consider_clearing_some_space,
                 severity: .medium,
                 timestamp: Date().addingTimeInterval(-3600),
                 isResolved: false
             ),
             DeviceAlert(
                 type: .highMemoryUsage,
-                title: "High Memory Usage",
-                message: "Your device is using a lot of memory. Consider closing some apps.",
+                title: AlertServiceLabels.highMemoryUsage,
+                message: AlertServiceLabels.your_device_is_using_a_lot_of_memory_Consider_closing_some_apps,
                 severity: .low,
                 timestamp: Date().addingTimeInterval(-7200),
                 isResolved: true
@@ -209,17 +209,17 @@ class DataManagementService: ObservableObject {
         return [
             DeviceRecommendation(
                 type: .clearCache,
-                title: "Clear App Cache",
-                description: "Free up space by clearing cached data from apps",
-                action: "Clear Cache",
+                title: AlertServiceLabels.clearAppCache,
+                description: AlertServiceLabels.free_up_space_by_clearing_cached_data_from_apps,
+                action: AlertServiceLabels.clearCache,
                 impact: .medium,
                 isCompleted: false
             ),
             DeviceRecommendation(
                 type: .optimizeBattery,
-                title: "Enable Low Power Mode",
-                description: "Save battery by enabling Low Power Mode",
-                action: "Enable",
+                title: AlertServiceLabels.enableLowPowerMode,
+                description: AlertServiceLabels.save_battery_by_enabling_low_power_mode,
+                action: AlertServiceLabels.enable,
                 impact: .medium,
                 isCompleted: true
             )
