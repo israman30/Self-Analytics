@@ -46,6 +46,22 @@ struct SettingViewLabels {
     static let exportData = "Export Data"
     static let clearAllData = "Clear All Data"
     static let settings = "Settings"
+    
+    // Data Management Labels
+    static let exportInProgress = "Exporting Data..."
+    static let exportComplete = "Export Complete"
+    static let exportFailed = "Export Failed"
+    static let clearDataTitle = "Clear All Data"
+    static let clearDataMessage = "This will permanently delete all your data including settings, history, and preferences. This action cannot be undone."
+    static let clearDataConfirm = "Clear Data"
+    static let clearDataCancel = "Cancel"
+    static let clearingData = "Clearing Data..."
+    static let dataCleared = "Data Cleared"
+    static let shareExport = "Share Export"
+    static let exportSuccess = "Data exported successfully"
+    static let exportError = "Export Error"
+    static let generalError = "Error"
+    static let ok = "OK"
 }
 
 struct MainTabViewLabels {

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // MARK: - Device Metrics Models
-struct MemoryMetrics {
+struct MemoryMetrics: Codable {
     let usedMemory: UInt64
     let totalMemory: UInt64
     let availableMemory: UInt64
@@ -26,7 +26,7 @@ struct MemoryMetrics {
     }
 }
 
-enum MemoryPressure {
+enum MemoryPressure: Codable {
     case normal
     case warning
     case critical
@@ -40,7 +40,7 @@ enum MemoryPressure {
     }
 }
 
-struct CPUMetrics {
+struct CPUMetrics: Codable {
     let usagePercentage: Double
     let temperature: Double?
     let isHighUsage: Bool
@@ -52,7 +52,7 @@ struct CPUMetrics {
     }
 }
 
-struct BatteryMetrics {
+struct BatteryMetrics: Codable {
     let level: Double
     let isCharging: Bool
     let isLowPowerMode: Bool
@@ -64,7 +64,7 @@ struct BatteryMetrics {
     }
 }
 
-enum BatteryHealth {
+enum BatteryHealth: Codable {
     case excellent
     case good
     case fair
@@ -89,7 +89,7 @@ enum BatteryHealth {
     }
 }
 
-struct StorageMetrics {
+struct StorageMetrics: Codable {
     let totalSpace: UInt64
     let usedSpace: UInt64
     let availableSpace: UInt64
@@ -117,7 +117,7 @@ struct StorageMetrics {
     }
 }
 
-struct NetworkMetrics {
+struct NetworkMetrics: Codable {
     let downloadSpeed: Double // Mbps
     let uploadSpeed: Double // Mbps
     let connectionType: NetworkConnectionType
@@ -128,7 +128,7 @@ struct NetworkMetrics {
     }
 }
 
-enum NetworkConnectionType {
+enum NetworkConnectionType: Codable {
     case wifi
     case cellular
     case ethernet
@@ -144,7 +144,7 @@ enum NetworkConnectionType {
     }
 }
 
-struct DeviceHealth: Identifiable {
+struct DeviceHealth: Identifiable, Codable {
     let memory: MemoryMetrics
     let cpu: CPUMetrics
     let battery: BatteryMetrics
@@ -186,7 +186,7 @@ struct DeviceHealth: Identifiable {
     }
 }
 
-enum HealthStatus {
+enum HealthStatus: Codable {
     case excellent
     case good
     case fair
@@ -224,7 +224,7 @@ struct MetricsHistory {
 }
 
 // MARK: - Alert Models
-struct DeviceAlert {
+struct DeviceAlert: Codable {
     let id = UUID()
     let type: AlertType
     let title: String
@@ -233,7 +233,7 @@ struct DeviceAlert {
     let timestamp: Date
     let isResolved: Bool
     
-    enum AlertType {
+    enum AlertType: Codable {
         case lowStorage
         case highMemoryUsage
         case highCPUUsage
@@ -243,7 +243,7 @@ struct DeviceAlert {
         case securityUpdate
     }
     
-    enum AlertSeverity {
+    enum AlertSeverity: Codable {
         case low
         case medium
         case high
@@ -262,7 +262,7 @@ struct DeviceAlert {
 
 // MARK: - Recommendation Models
 
-struct DeviceRecommendation {
+struct DeviceRecommendation: Codable {
     let id = UUID()
     let type: RecommendationType
     let title: String
@@ -271,7 +271,7 @@ struct DeviceRecommendation {
     let impact: RecommendationImpact
     let isCompleted: Bool
     
-    enum RecommendationType {
+    enum RecommendationType: Codable {
         case clearCache
         case deleteLargeFiles
         case updateApps
@@ -280,7 +280,7 @@ struct DeviceRecommendation {
         case runSpeedTest
     }
     
-    enum RecommendationImpact {
+    enum RecommendationImpact: Codable {
         case low
         case medium
         case high
