@@ -7,22 +7,8 @@
 
 import SwiftUI
 
-struct ContactSupportLabel {
-    static let contactSupport = "Contact Support"
-    static let contactMessage = "If you have any questions, issues, or feedback, please reach out to our support team. We're here to help!"
-    
-    struct Icon {
-        static let envelope = "envelope"
-        static let square_and_pencil = "square.and.pencil"
-    }
-    static let emailSupport = "Email Support"
-    static let alertTitle = "Copied!"
-    static let alertMessage = "Support email copied to clipboard."
-    static let ok = "OK"
-}
-
 struct ContactSupport: View {
-    private let supportEmail = "israelmanzo814@gmail.com" // Replace with your real support email
+    private let supportEmail = "israelmanzo814@gmail.com" 
     @State private var showCopiedAlert = false
     
     private var emailSupport: String {

@@ -265,3 +265,17 @@ struct CSVExportString {
     static let recommendations = "Recommendations"
     static let type_Title_Description_Action_Impact_Is_Completed = "Type,Title,Description,Action,Impact,Is Completed"
 }
+
+struct ContactSupportLabel {
+    static let contactSupport = "Contact Support"
+    static let contactMessage = "If you have any questions, issues, or feedback, please reach out to our support team. We're here to help!"
+    
+    struct Icon {
+        static let envelope = "envelope"
+        static let square_and_pencil = "square.and.pencil"
+    }
+    static let emailSupport = "Email Support"
+    static let alertTitle = "Copied!"
+    static let alertMessage = "Support email copied to clipboard."
+    static let ok = "OK"
+}
