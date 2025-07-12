@@ -25,6 +25,10 @@ struct TermsOfServiceLabels {
     ]
     static let title = "Terms of Service"
     static let dateString = "Effective Date: July 11, 2025"
+    
+    struct Icon {
+        static let xmark_circle = "xmark.circle"
+    }
 }
 
 struct TermsOfServiceView: View {
@@ -42,7 +46,7 @@ struct TermsOfServiceView: View {
                     Button {
                         dismiss()
                     } label: {
-                        Image(systemName: "xmark.circle")
+                        Image(systemName: TermsOfServiceLabels.Icon.xmark_circle)
                             .font(.title)
                     }
                 }

@@ -46,6 +46,22 @@ struct SettingViewLabels {
     static let exportData = "Export Data"
     static let clearAllData = "Clear All Data"
     static let settings = "Settings"
+    
+    // Data Management Labels
+    static let exportInProgress = "Exporting Data..."
+    static let exportComplete = "Export Complete"
+    static let exportFailed = "Export Failed"
+    static let clearDataTitle = "Clear All Data"
+    static let clearDataMessage = "This will permanently delete all your data including settings, history, and preferences. This action cannot be undone."
+    static let clearDataConfirm = "Clear Data"
+    static let clearDataCancel = "Cancel"
+    static let clearingData = "Clearing Data..."
+    static let dataCleared = "Data Cleared"
+    static let shareExport = "Share Export"
+    static let exportSuccess = "Data exported successfully"
+    static let exportError = "Export Error"
+    static let generalError = "Error"
+    static let ok = "OK"
 }
 
 struct MainTabViewLabels {
@@ -229,8 +245,37 @@ struct AlertServiceLabels {
     static let keep_your_apps_updated_for_security_and_performance = "Keep your apps updated for security and performance"
     static let update = "Update"
     static let an_ios_update_is_available_with_security_improvements = "A new iOS update is available with security improvements"
+    
+    static let your_device_storage_is_running_low_Consider_clearing_some_space = "Your device storage is running low. Consider clearing some space."
+    static let your_device_is_using_a_lot_of_memory_Consider_closing_some_apps = "Your device is using a lot of memory. Consider closing some apps."
 }
 
 struct SchemeURL {
     static let appStore = "itms-apps://itunes.apple.com/app/id"
+}
+
+struct CSVExportString {
+    static let export_Date_App_Version_Build_Number_Device_Name_Device_Model_iOS_Version = "Export Date, App Version, Build Number, Device Name, Device Model, iOS Version"
+    static let settings = "Settings"
+    static let notifications_Enabled_Auto_Refresh_Interval_Show_Alerts_Dark_Mode_Enabled = "Notifications Enabled, Auto Refresh Interval, Show Alerts, Dark Mode Enabled"
+    static let historicalData = "Historical Data"
+    static let timestamp_Health_Score_Memory_Usage_percentage_CPU_Usage_percentage_Battery_Level_percentage_Storage_Usage = "Timestamp, Health Score, Memory Usage %,CPU Usage %, Battery Level %, Storage Usage %"
+    static let alert = "Alert"
+    static let timestamp_Type_Title_Message_Severity_Is_Resolved = "Timestamp,Type,Title,Message,Severity,Is Resolved"
+    static let recommendations = "Recommendations"
+    static let type_Title_Description_Action_Impact_Is_Completed = "Type,Title,Description,Action,Impact,Is Completed"
+}
+
+struct ContactSupportLabel {
+    static let contactSupport = "Contact Support"
+    static let contactMessage = "If you have any questions, issues, or feedback, please reach out to our support team. We're here to help!"
+    
+    struct Icon {
+        static let envelope = "envelope"
+        static let square_and_pencil = "square.and.pencil"
+    }
+    static let emailSupport = "Email Support"
+    static let alertTitle = "Copied!"
+    static let alertMessage = "Support email copied to clipboard."
+    static let ok = "OK"
 }

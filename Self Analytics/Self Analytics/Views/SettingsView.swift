@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 enum SettingsSheet: Identifiable {
     case privacyPolicy, termsOfService, contactSupport
@@ -23,9 +24,14 @@ struct SettingsView: View {
     @AppStorage(StorageProperties.notificationsEnabled) private var notificationsEnabled = true
     @AppStorage(StorageProperties.autoRefreshInterval) private var autoRefreshInterval = 5.0
     @AppStorage(StorageProperties.showAlerts) private var showAlerts = true
-    @AppStorage(StorageProperties.darkModeEnabled) private var darkModeEnabled = false
     
     @State private var activeSheet: SettingsSheet?
+    @StateObject private var dataManagementService = DataManagementService()
+    @State private var showingClearDataAlert = false
+    @State private var showingExportSheet = false
+    @State private var exportURL: URL?
+    @State private var showingErrorAlert = false
+    @State private var errorMessage = ""
     
     var body: some View {
         NavigationView {
@@ -50,7 +56,6 @@ struct SettingsView: View {
                             .tag(30.0)
                     }
                     
-                    Toggle(SettingViewLabels.darkMode, isOn: $darkModeEnabled)
                 }
                 
                 Section(SettingViewLabels.about) {
@@ -88,11 +93,33 @@ struct SettingsView: View {
                 
                 Section(SettingViewLabels.data) {
                     Button(SettingViewLabels.exportData) {
-                        // Export functionality
+                        Task {
+                            await exportData()
+                        }
+                    }
+                    .disabled(dataManagementService.isExporting)
+                    
+                    if dataManagementService.isExporting {
+                        HStack {
+                            ProgressView()
+                                .scaleEffect(0.8)
+                            Text(SettingViewLabels.exportInProgress)
+                                .foregroundColor(.secondary)
+                        }
                     }
                     
                     Button(SettingViewLabels.clearAllData, role: .destructive) {
-                        // Clear data functionality
+                        showingClearDataAlert = true
+                    }
+                    .disabled(dataManagementService.isClearing)
+                    
+                    if dataManagementService.isClearing {
+                        HStack {
+                            ProgressView()
+                                .scaleEffect(0.8)
+                            Text(SettingViewLabels.clearingData)
+                                .foregroundColor(.secondary)
+                        }
                     }
                 }
             }
@@ -106,10 +133,64 @@ struct SettingsView: View {
                     ContactSupport()
                 }
             }
+            .sheet(isPresented: $showingExportSheet) {
+                if let url = exportURL {
+                    ShareSheet(activityItems: [url])
+                }
+            }
+            .alert(SettingViewLabels.clearDataTitle, isPresented: $showingClearDataAlert) {
+                Button(SettingViewLabels.clearDataCancel, role: .cancel) { }
+                Button(SettingViewLabels.clearDataConfirm, role: .destructive) {
+                    Task {
+                        await clearAllData()
+                    }
+                }
+            } message: {
+                Text(SettingViewLabels.clearDataMessage)
+            }
+            .alert("Error", isPresented: $showingErrorAlert) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text(errorMessage)
+            }
             .navigationTitle(SettingViewLabels.settings)
             .navigationBarTitleDisplayMode(.large)
         }
     }
+
+    // MARK: - Helper Methods
+    
+    private func exportData() async {
+        do {
+            let url = try await dataManagementService.exportData()
+            exportURL = url
+            showingExportSheet = true
+        } catch {
+            errorMessage = "Failed to export data: \(error.localizedDescription)"
+            showingErrorAlert = true
+        }
+    }
+    
+    private func clearAllData() async {
+        await dataManagementService.clearAllData()
+        // Reset local state
+        notificationsEnabled = true
+        autoRefreshInterval = 5.0
+        showAlerts = true
+    }
+}
+
+// MARK: - ShareSheet
+
+struct ShareSheet: UIViewControllerRepresentable {
+    let activityItems: [Any]
+    
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        return controller
+    }
+    
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
 #Preview {

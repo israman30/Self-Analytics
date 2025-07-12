@@ -8,23 +8,27 @@
 import SwiftUI
 
 struct ContactSupport: View {
-    let supportEmail = "israelmanzo814@gmail.com" // Replace with your real support email
+    private let supportEmail = "israelmanzo814@gmail.com" 
     @State private var showCopiedAlert = false
+    
+    private var emailSupport: String {
+        "mailto:\(supportEmail)?subject=Support%20Request"
+    }
     
     var body: some View {
         VStack(spacing: 24) {
-            Text("Contact Support")
+            Text(ContactSupportLabel.contactSupport)
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .padding(.top, 40)
             
-            Text("If you have any questions, issues, or feedback, please reach out to our support team. We're here to help!")
+            Text(ContactSupportLabel.contactMessage)
                 .font(.body)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
             
             HStack {
-                Image(systemName: "envelope")
+                Image(systemName: ContactSupportLabel.Icon.envelope)
                 Text(supportEmail)
                     .foregroundColor(.blue)
                     .onTapGesture {
@@ -33,15 +37,14 @@ struct ContactSupport: View {
                     }
                 Spacer()
                 Button(action: {
-                    let email = "mailto:\(supportEmail)?subject=Support%20Request"
-                    if let url = URL(string: email) {
+                    if let url = URL(string: emailSupport) {
                         UIApplication.shared.open(url)
                     }
                 }) {
-                    Image(systemName: "square.and.pencil")
+                    Image(systemName: ContactSupportLabel.Icon.square_and_pencil)
                         .foregroundColor(.blue)
                 }
-                .accessibilityLabel("Email Support")
+                .accessibilityLabel(ContactSupportLabel.emailSupport)
             }
             .padding()
             .background(Color(.systemGray6))
@@ -51,7 +54,20 @@ struct ContactSupport: View {
             Spacer()
         }
         .alert(isPresented: $showCopiedAlert) {
-            Alert(title: Text("Copied!"), message: Text("Support email copied to clipboard."), dismissButton: .default(Text("OK")))
+            Alert(
+                title: Text(ContactSupportLabel.alertTitle),
+                message: Text(ContactSupportLabel.alertMessage),
+                dismissButton: .default(Text(ContactSupportLabel.ok))
+            )
+        }
+    }
+    
+    private func openEmail(urlString: String) {
+        let url = URL(string: urlString)
+        if let url = url {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
         }
     }
 }

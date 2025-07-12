@@ -26,6 +26,10 @@ struct PrivacyPolicyLabels {
     static let privacyPolicy = "Privacy Policy"
     static let dateString = "Effective Date: July 11, 2025"
     
+    struct Icon {
+        static let xmark_circle = "xmark.circle"
+    }
+    
 }
 
 struct PrivacyPolicyView: View {
@@ -35,7 +39,7 @@ struct PrivacyPolicyView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 HStack(alignment: .top) {
-                    Text("Privacy Policy")
+                    Text(PrivacyPolicyLabels.privacyPolicy)
                         .font(.largeTitle)
                         .bold()
                         .padding(.bottom, 10)
@@ -43,12 +47,12 @@ struct PrivacyPolicyView: View {
                     Button {
                         dismiss()
                     } label: {
-                        Image(systemName: "xmark.circle")
+                        Image(systemName: PrivacyPolicyLabels.Icon.xmark_circle)
                             .font(.title)
                     }
                 }
                 
-                Text("Effective Date: July 11, 2025")
+                Text(PrivacyPolicyLabels.dateString)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                 
@@ -63,7 +67,7 @@ struct PrivacyPolicyView: View {
             }
             .padding()
         }
-        .navigationTitle("Privacy Policy")
+        .navigationTitle(PrivacyPolicyLabels.privacyPolicy)
     }
 }
 
