@@ -25,6 +25,10 @@ struct ContactSupport: View {
     private let supportEmail = "israelmanzo814@gmail.com" // Replace with your real support email
     @State private var showCopiedAlert = false
     
+    private var emailSupport: String {
+        "mailto:\(supportEmail)?subject=Support%20Request"
+    }
+    
     var body: some View {
         VStack(spacing: 24) {
             Text(ContactSupportLabel.contactSupport)
@@ -47,8 +51,7 @@ struct ContactSupport: View {
                     }
                 Spacer()
                 Button(action: {
-                    let email = "mailto:\(supportEmail)?subject=Support%20Request"
-                    if let url = URL(string: email) {
+                    if let url = URL(string: emailSupport) {
                         UIApplication.shared.open(url)
                     }
                 }) {
@@ -70,6 +73,15 @@ struct ContactSupport: View {
                 message: Text(ContactSupportLabel.alertMessage),
                 dismissButton: .default(Text(ContactSupportLabel.ok))
             )
+        }
+    }
+    
+    private func openEmail(urlString: String) {
+        let url = URL(string: urlString)
+        if let url = url {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
         }
     }
 }
