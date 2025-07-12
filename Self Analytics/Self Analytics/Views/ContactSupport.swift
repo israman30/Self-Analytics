@@ -7,24 +7,38 @@
 
 import SwiftUI
 
+struct ContactSupportLabel {
+    static let contactSupport = "Contact Support"
+    static let contactMessage = "If you have any questions, issues, or feedback, please reach out to our support team. We're here to help!"
+    
+    struct Icon {
+        static let envelope = "envelope"
+        static let square_and_pencil = "square.and.pencil"
+    }
+    static let emailSupport = "Email Support"
+    static let alertTitle = "Copied!"
+    static let alertMessage = "Support email copied to clipboard."
+    static let ok = "OK"
+}
+
 struct ContactSupport: View {
-    let supportEmail = "israelmanzo814@gmail.com" // Replace with your real support email
+    private let supportEmail = "israelmanzo814@gmail.com" // Replace with your real support email
     @State private var showCopiedAlert = false
     
     var body: some View {
         VStack(spacing: 24) {
-            Text("Contact Support")
+            Text(ContactSupportLabel.contactSupport)
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .padding(.top, 40)
             
-            Text("If you have any questions, issues, or feedback, please reach out to our support team. We're here to help!")
+            Text(ContactSupportLabel.contactMessage)
                 .font(.body)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
             
             HStack {
-                Image(systemName: "envelope")
+                Image(systemName: ContactSupportLabel.Icon.envelope)
                 Text(supportEmail)
                     .foregroundColor(.blue)
                     .onTapGesture {
@@ -38,10 +52,10 @@ struct ContactSupport: View {
                         UIApplication.shared.open(url)
                     }
                 }) {
-                    Image(systemName: "square.and.pencil")
+                    Image(systemName: ContactSupportLabel.Icon.square_and_pencil)
                         .foregroundColor(.blue)
                 }
-                .accessibilityLabel("Email Support")
+                .accessibilityLabel(ContactSupportLabel.emailSupport)
             }
             .padding()
             .background(Color(.systemGray6))
@@ -51,7 +65,11 @@ struct ContactSupport: View {
             Spacer()
         }
         .alert(isPresented: $showCopiedAlert) {
-            Alert(title: Text("Copied!"), message: Text("Support email copied to clipboard."), dismissButton: .default(Text("OK")))
+            Alert(
+                title: Text(ContactSupportLabel.alertTitle),
+                message: Text(ContactSupportLabel.alertMessage),
+                dismissButton: .default(Text(ContactSupportLabel.ok))
+            )
         }
     }
 }
