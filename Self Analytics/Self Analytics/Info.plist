@@ -60,11 +60,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<false/>
-	</dict>
 	<key>UIUserInterfaceStyle</key>
 	<string>Automatic</string>
 	<key>NSCameraUsageDescription</key>
@@ -81,5 +76,50 @@
 	<string>This app does not access health data.</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>This app does not update some health data.</string>
+	<key>NSUserNotificationsUsageDescription</key>
+	<string>This app uses notifications to alert you about device health issues and provide recommendations for optimization.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>This app checks network connectivity and performs speed tests to monitor your internet connection performance.</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>This app exports device health data to your Documents folder for backup and analysis purposes.</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>apple.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<false/>
+				<key>NSExceptionMinimumTLSVersion</key>
+				<string>TLSv1.2</string>
+			</dict>
+		</dict>
+	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>background-processing</string>
+		<string>background-fetch</string>
+	</array>
+	<key>NSBackgroundModes</key>
+	<array>
+		<string>background-processing</string>
+		<string>background-fetch</string>
+	</array>
+	<key>NSMotionUsageDescription</key>
+	<string>This app does not use motion and fitness data.</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>This app does not use Bluetooth.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>This app does not use Bluetooth peripherals.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>This app does not use Face ID.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>This app does not access your calendar.</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>This app does not access your reminders.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>This app does not use speech recognition.</string>
 </dict>
 </plist>
