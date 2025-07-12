@@ -23,7 +23,6 @@ struct SettingsView: View {
     @AppStorage(StorageProperties.notificationsEnabled) private var notificationsEnabled = true
     @AppStorage(StorageProperties.autoRefreshInterval) private var autoRefreshInterval = 5.0
     @AppStorage(StorageProperties.showAlerts) private var showAlerts = true
-    @AppStorage(StorageProperties.darkModeEnabled) private var darkModeEnabled = false
     
     @State private var activeSheet: SettingsSheet?
     
@@ -50,7 +49,6 @@ struct SettingsView: View {
                             .tag(30.0)
                     }
                     
-                    Toggle(SettingViewLabels.darkMode, isOn: $darkModeEnabled)
                 }
                 
                 Section(SettingViewLabels.about) {
