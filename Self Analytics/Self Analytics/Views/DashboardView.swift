@@ -8,9 +8,25 @@
 import SwiftUI
 import Charts
 
+class DeviceInformation {
+    
+    func getDeviceName() -> String {
+        return UIDevice.current.name
+    }
+    
+    func getDeviceModel() -> String {
+        let device = UIDevice.current
+        let systemName = device.systemName
+        let systemVersion = device.systemVersion
+        
+        return "\(systemName) \(systemVersion)"
+    }
+}
+
 struct DashboardView: View {
     @StateObject private var metricsService = DeviceMetricsService()
     @StateObject private var alertService: AlertService
+    private var deviceInformation = DeviceInformation()
     @State private var showingSpeedTest = false
     @State private var speedTestResult: (download: Double, upload: Double)?
     
@@ -67,19 +83,19 @@ struct DashboardView: View {
     private var deviceNameHeader: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
-                Text(getDeviceName())
+                Text(deviceInformation.getDeviceName())
                     .font(.title2)
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
                 
-                Text(getDeviceModel())
+                Text(deviceInformation.getDeviceModel())
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
             
             Spacer()
             
-            Image(systemName: "iphone")
+            Image(systemName: DashboardViewLabels.Icon.iphone)
                 .font(.title2)
                 .foregroundColor(.blue)
         }
@@ -272,19 +288,6 @@ struct DashboardView: View {
     }
     
     // MARK: - Helper Methods
-    
-    private func getDeviceName() -> String {
-        return UIDevice.current.name
-    }
-    
-    private func getDeviceModel() -> String {
-        let device = UIDevice.current
-        let model = device.model
-        let systemName = device.systemName
-        let systemVersion = device.systemVersion
-        
-        return "\(model) • \(systemName) \(systemVersion)"
-    }
     
     private func batteryColor(for battery: BatteryMetrics) -> Color {
         if battery.isCharging {
