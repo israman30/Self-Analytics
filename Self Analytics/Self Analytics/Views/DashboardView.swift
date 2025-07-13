@@ -22,30 +22,37 @@ struct DashboardView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                LazyVStack(spacing: 20) {
-                    // Health Score Section
-                    if let health = metricsService.currentHealth {
-                        HealthScoreCard(score: health.overallScore, status: health.healthStatus)
-                            .padding(.horizontal)
+                VStack(spacing: 0) {
+                    // Device Name Header
+                    deviceNameHeader
+                        .padding(.horizontal)
+                        .padding(.top, 8)
+                    
+                    LazyVStack(spacing: 20) {
+                        // Health Score Section
+                        if let health = metricsService.currentHealth {
+                            HealthScoreCard(score: health.overallScore, status: health.healthStatus)
+                                .padding(.horizontal)
+                        }
+                        
+                        // Metrics Grid
+                        metricsGrid
+                        
+                        // Alerts Section
+                        if !alertService.activeAlerts.isEmpty {
+                            alertsSection
+                        }
+                        
+                        // Recommendations Section
+                        if !alertService.recommendations.isEmpty {
+                            recommendationsSection
+                        }
+                        
+                        // Quick Actions
+                        quickActionsSection
                     }
-                    
-                    // Metrics Grid
-                    metricsGrid
-                    
-                    // Alerts Section
-                    if !alertService.activeAlerts.isEmpty {
-                        alertsSection
-                    }
-                    
-                    // Recommendations Section
-                    if !alertService.recommendations.isEmpty {
-                        recommendationsSection
-                    }
-                    
-                    // Quick Actions
-                    quickActionsSection
+                    .padding(.vertical)
                 }
-                .padding(.vertical)
             }
             .navigationTitle(DashboardViewLabels.deviceHealth)
             .refreshable {
@@ -55,6 +62,30 @@ struct DashboardView: View {
                 SpeedTestView(result: $speedTestResult)
             }
         }
+    }
+    
+    private var deviceNameHeader: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(getDeviceName())
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
+                
+                Text(getDeviceModel())
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+            
+            Spacer()
+            
+            Image(systemName: "iphone")
+                .font(.title2)
+                .foregroundColor(.blue)
+        }
+        .padding()
+        .background(Color(.systemGray6))
+        .cornerRadius(12)
     }
     
     private var metricsGrid: some View {
@@ -241,6 +272,19 @@ struct DashboardView: View {
     }
     
     // MARK: - Helper Methods
+    
+    private func getDeviceName() -> String {
+        return UIDevice.current.name
+    }
+    
+    private func getDeviceModel() -> String {
+        let device = UIDevice.current
+        let model = device.model
+        let systemName = device.systemName
+        let systemVersion = device.systemVersion
+        
+        return "\(model) • \(systemName) \(systemVersion)"
+    }
     
     private func batteryColor(for battery: BatteryMetrics) -> Color {
         if battery.isCharging {
