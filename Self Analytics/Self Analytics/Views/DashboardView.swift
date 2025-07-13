@@ -157,11 +157,11 @@ struct DashboardView: View {
                 // Network Card
                 MetricCard(
                     title: DashboardViewLabels.MetricCard.network,
-                    value: "\(String(format: "%.1f", health.network.downloadSpeed)) Mbps",
-                    subtitle: health.network.connectionType.description,
-                    color: health.network.isSlowConnection ? .orange : .green,
-                    icon: networkIcon(for: health.network.connectionType),
-                    isAlert: health.network.isSlowConnection
+                    value: health.network.status.isConnected ? "\(String(format: "%.1f", health.network.downloadSpeed)) Mbps" : health.network.status.description,
+                    subtitle: health.network.status.isConnected ? health.network.connectionType.description : DashboardViewLabels.MetricCard.noInternetConnection,
+                    color: networkColor(for: health.network),
+                    icon: networkIcon(for: health.network),
+                    isAlert: !health.network.status.isConnected || health.network.isSlowConnection
                 )
                 
                 // Available Storage Card
@@ -313,16 +313,39 @@ struct DashboardView: View {
         }
     }
     
-    private func networkIcon(for connectionType: NetworkConnectionType) -> String {
-        switch connectionType {
-        case .wifi:
-            return DashboardViewLabels.Icon.wifi
-        case .cellular:
-            return DashboardViewLabels.Icon.antenna_radiowaves_left_and_right
-        case .ethernet:
+    private func networkIcon(for network: NetworkMetrics) -> String {
+        switch network.status {
+        case .wifiConnected:
+            return DashboardViewLabels.Icon.wifi_fill
+        case .cellularConnected:
+            return DashboardViewLabels.Icon.antenna_radiowaves_left_and_right_fill
+        case .ethernetConnected:
             return DashboardViewLabels.Icon.network
-        case .none:
+        case .connected, .restored:
+            return DashboardViewLabels.Icon.checkmark_circle
+        case .disconnected, .notFound:
             return DashboardViewLabels.Icon.wifi_slash
+        case .unknown:
+            return DashboardViewLabels.Icon.exclamationmark_triangle
+        }
+    }
+    
+    private func networkColor(for network: NetworkMetrics) -> Color {
+        if !network.status.isConnected {
+            return .red
+        } else if network.isSlowConnection {
+            return .orange
+        } else {
+            switch network.status {
+            case .wifiConnected, .ethernetConnected:
+                return .green
+            case .cellularConnected:
+                return .blue
+            case .connected, .restored:
+                return .green
+            case .disconnected, .notFound, .unknown:
+                return .red
+            }
         }
     }
     

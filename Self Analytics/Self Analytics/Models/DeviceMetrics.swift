@@ -117,11 +117,45 @@ struct StorageMetrics: Codable {
     }
 }
 
+enum NetworkStatus: Codable {
+    case unknown
+    case connected
+    case wifiConnected
+    case cellularConnected
+    case ethernetConnected
+    case disconnected
+    case restored
+    case notFound
+    
+    var description: String {
+        switch self {
+        case .unknown: return "Unknown"
+        case .connected: return "Connected"
+        case .wifiConnected: return "Wi-Fi Connected"
+        case .cellularConnected: return "Cellular Connected"
+        case .ethernetConnected: return "Ethernet Connected"
+        case .disconnected: return "Disconnected"
+        case .restored: return "Connection Restored"
+        case .notFound: return "No Network Found"
+        }
+    }
+    
+    var isConnected: Bool {
+        switch self {
+        case .connected, .wifiConnected, .cellularConnected, .ethernetConnected, .restored:
+            return true
+        case .unknown, .disconnected, .notFound:
+            return false
+        }
+    }
+}
+
 struct NetworkMetrics: Codable {
     let downloadSpeed: Double // Mbps
     let uploadSpeed: Double // Mbps
     let connectionType: NetworkConnectionType
     let isConnected: Bool
+    let status: NetworkStatus
     
     var isSlowConnection: Bool {
         return downloadSpeed < 5.0 || uploadSpeed < 1.0

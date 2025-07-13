@@ -272,7 +272,8 @@ struct HistoryView: View {
                 downloadSpeed: Double.random(in: 20...100),
                 uploadSpeed: Double.random(in: 10...50),
                 connectionType: .wifi,
-                isConnected: true
+                isConnected: true,
+                status: .wifiConnected
             )
             
             let health = DeviceHealth(

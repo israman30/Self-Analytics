@@ -130,6 +130,10 @@ struct DashboardViewLabels {
         static let charging = "Charging"
         static let lowPowerMode = "Low Power Mode"
         static let freeSpace = "Free Space"
+        static let noInternetConnection = "No Internet Connection"
+        static let connected = "Connected"
+        static let disconnected = "Disconnected"
+        static let restored = "Connection Restored"
     }
     
     struct Icon {
@@ -149,9 +153,14 @@ struct DashboardViewLabels {
         static let battery_75 = "battery.75"
         
         static let wifi = "wifi"
-        static let antenna_radiowaves_left_and_right = "antenna.radiowaves.left.and.right"
-        static let network = "network"
+        static let wifi_fill = "wifi"
         static let wifi_slash = "wifi.slash"
+        static let antenna_radiowaves_left_and_right = "antenna.radiowaves.left.and.right"
+        static let antenna_radiowaves_left_and_right_fill = "antenna.radiowaves.left.and.right.fill"
+        static let network = "network"
+        static let network_slash = "network.slash"
+        static let exclamationmark_triangle = "exclamationmark.triangle"
+        static let checkmark_circle = "checkmark.circle"
         
         static let iphone = "iphone"
     }
