@@ -62,6 +62,10 @@ struct SettingViewLabels {
     static let exportError = "Export Error"
     static let generalError = "Error"
     static let ok = "OK"
+    
+    static let deviceModel = "Model"
+    static let systemVersion = "System Version"
+    static let currentDevice = "Current Device"
 }
 
 struct MainTabViewLabels {
@@ -148,6 +152,8 @@ struct DashboardViewLabels {
         static let antenna_radiowaves_left_and_right = "antenna.radiowaves.left.and.right"
         static let network = "network"
         static let wifi_slash = "wifi.slash"
+        
+        static let iphone = "iphone"
     }
     
     static let speedTest = "Speed Test"

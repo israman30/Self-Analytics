@@ -8,9 +8,25 @@
 import SwiftUI
 import Charts
 
+class DeviceInformation {
+    
+    func getDeviceName() -> String {
+        return UIDevice.current.name
+    }
+    
+    func getDeviceModel() -> String {
+        let device = UIDevice.current
+        let systemName = device.systemName
+        let systemVersion = device.systemVersion
+        
+        return "\(systemName) \(systemVersion)"
+    }
+}
+
 struct DashboardView: View {
     @StateObject private var metricsService = DeviceMetricsService()
     @StateObject private var alertService: AlertService
+    private var deviceInformation = DeviceInformation()
     @State private var showingSpeedTest = false
     @State private var speedTestResult: (download: Double, upload: Double)?
     
@@ -22,30 +38,37 @@ struct DashboardView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                LazyVStack(spacing: 20) {
-                    // Health Score Section
-                    if let health = metricsService.currentHealth {
-                        HealthScoreCard(score: health.overallScore, status: health.healthStatus)
-                            .padding(.horizontal)
+                VStack(spacing: 0) {
+                    // Device Name Header
+                    deviceNameHeader
+                        .padding(.horizontal)
+                        .padding(.top, 8)
+                    
+                    LazyVStack(spacing: 20) {
+                        // Health Score Section
+                        if let health = metricsService.currentHealth {
+                            HealthScoreCard(score: health.overallScore, status: health.healthStatus)
+                                .padding(.horizontal)
+                        }
+                        
+                        // Metrics Grid
+                        metricsGrid
+                        
+                        // Alerts Section
+                        if !alertService.activeAlerts.isEmpty {
+                            alertsSection
+                        }
+                        
+                        // Recommendations Section
+                        if !alertService.recommendations.isEmpty {
+                            recommendationsSection
+                        }
+                        
+                        // Quick Actions
+                        quickActionsSection
                     }
-                    
-                    // Metrics Grid
-                    metricsGrid
-                    
-                    // Alerts Section
-                    if !alertService.activeAlerts.isEmpty {
-                        alertsSection
-                    }
-                    
-                    // Recommendations Section
-                    if !alertService.recommendations.isEmpty {
-                        recommendationsSection
-                    }
-                    
-                    // Quick Actions
-                    quickActionsSection
+                    .padding(.vertical)
                 }
-                .padding(.vertical)
             }
             .navigationTitle(DashboardViewLabels.deviceHealth)
             .refreshable {
@@ -55,6 +78,30 @@ struct DashboardView: View {
                 SpeedTestView(result: $speedTestResult)
             }
         }
+    }
+    
+    private var deviceNameHeader: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(deviceInformation.getDeviceName())
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
+                
+                Text(deviceInformation.getDeviceModel())
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+            
+            Spacer()
+            
+            Image(systemName: DashboardViewLabels.Icon.iphone)
+                .font(.title2)
+                .foregroundColor(.blue)
+        }
+        .padding()
+        .background(Color(.systemGray6))
+        .cornerRadius(12)
     }
     
     private var metricsGrid: some View {

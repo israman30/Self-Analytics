@@ -32,19 +32,40 @@ struct SettingsView: View {
     @State private var exportURL: URL?
     @State private var showingErrorAlert = false
     @State private var errorMessage = ""
+    private var deviceInformation = DeviceInformation()
     
     var body: some View {
         NavigationView {
             Form {
-                Section(SettingViewLabels.notifications) {
+                Section {
+                    HStack {
+                        Text(SettingViewLabels.deviceModel)
+                        Spacer()
+                        Text(deviceInformation.getDeviceName())
+                            .foregroundStyle(.secondary)
+                    }
+                    HStack {
+                        Text(SettingViewLabels.systemVersion)
+                        Spacer()
+                        Text(deviceInformation.getDeviceModel())
+                            .foregroundStyle(.secondary)
+                    }
+                    
+                } header: {
+                    Text(SettingViewLabels.currentDevice)
+                }
+                
+                Section {
                     Toggle(SettingViewLabels.enableNotifications, isOn: $notificationsEnabled)
                     
                     if notificationsEnabled {
                         Toggle(SettingViewLabels.showAlerts, isOn: $showAlerts)
                     }
+                } header: {
+                    Text(SettingViewLabels.notifications)
                 }
                 
-                Section(SettingViewLabels.appSettings) {
+                Section {
                     Picker(SettingViewLabels.autorefreshInterval, selection: $autoRefreshInterval) {
                         Text(SettingViewLabels.TimeIntervar.ten_seconds)
                             .tag(2.0)
@@ -56,9 +77,11 @@ struct SettingsView: View {
                             .tag(30.0)
                     }
                     
+                } header: {
+                    Text(SettingViewLabels.appSettings)
                 }
                 
-                Section(SettingViewLabels.about) {
+                Section {
                     HStack {
                         Text(SettingViewLabels.version)
                         Spacer()
@@ -72,9 +95,11 @@ struct SettingsView: View {
                         Text(SettingViewLabels.build_number)
                             .foregroundColor(.secondary)
                     }
+                } header: {
+                    Text(SettingViewLabels.about)
                 }
                 
-                Section(SettingViewLabels.support) {
+                Section {
                     Button(SettingViewLabels.privacyPolicy) {
                         // Open privacy policy
                         activeSheet = .privacyPolicy
@@ -89,9 +114,11 @@ struct SettingsView: View {
                         // Open support contact
                         activeSheet = .contactSupport
                     }
+                } header: {
+                    Text(SettingViewLabels.support)
                 }
                 
-                Section(SettingViewLabels.data) {
+                Section {
                     Button(SettingViewLabels.exportData) {
                         Task {
                             await exportData()
@@ -121,6 +148,8 @@ struct SettingsView: View {
                                 .foregroundColor(.secondary)
                         }
                     }
+                } header: {
+                    Text(SettingViewLabels.data)
                 }
             }
             .sheet(item: $activeSheet) { sheet in
