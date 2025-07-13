@@ -186,6 +186,14 @@ struct SpeedTestViewLabels {
     static let download = "Download"
     static let upload = "Upload"
     
+    static let networkTesting = "Network Testing"
+    static let testAnyWiFiNetwork = "Test Any WiFi Network"
+    static let checkCurrentNetworkPerformance = "Check your current network performance"
+    static let testNow = "Test Now"
+    static let currentNetwork = "Current Network"
+    static let speed = "Speed"
+    static let testHistory = "Test History"
+    
     struct Icon {
         static let checkmark_circle_fill = "checkmark.circle.fill"
         static let arrow_down_circle_fill = "arrow.down.circle.fill"

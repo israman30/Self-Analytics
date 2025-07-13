@@ -64,8 +64,11 @@ struct DashboardView: View {
                             recommendationsSection
                         }
                         
-                        // Quick Actions
-                        quickActionsSection
+                                            // Quick Actions
+                    quickActionsSection
+                    
+                    // Persistent Network Test Section
+                    persistentNetworkTestSection
                     }
                     .padding(.vertical)
                 }
@@ -287,6 +290,94 @@ struct DashboardView: View {
         .padding(.horizontal)
     }
     
+    // MARK: - Persistent Network Test Section
+    private var persistentNetworkTestSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text(SpeedTestViewLabels.networkTesting)
+                    .font(.headline)
+                    .foregroundColor(.primary)
+                
+                Spacer()
+                
+                Image(systemName: DashboardViewLabels.Icon.wifi_fill)
+                    .foregroundColor(.blue)
+                    .font(.title3)
+            }
+            
+            VStack(spacing: 12) {
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(SpeedTestViewLabels.testAnyWiFiNetwork)
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.primary)
+                        
+                        Text(SpeedTestViewLabels.checkCurrentNetworkPerformance)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        showingSpeedTest = true
+                    }) {
+                        HStack(spacing: 6) {
+                            Image(systemName: DashboardViewLabels.Icon.speedometer)
+                                .font(.caption)
+                            
+                            Text(SpeedTestViewLabels.testNow)
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                    }
+                }
+                
+                if let health = metricsService.currentHealth {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(SpeedTestViewLabels.currentNetwork)
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                            
+                            Text(health.network.status.description)
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundColor(networkColor(for: health.network))
+                        }
+                        
+                        Spacer()
+                        
+                        VStack(alignment: .trailing, spacing: 2) {
+                            Text(SpeedTestViewLabels.speed)
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                            
+                            Text("\(String(format: "%.1f", health.network.downloadSpeed)) Mbps")
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.primary)
+                        }
+                    }
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(8)
+                }
+            }
+        }
+        .padding()
+        .background(Color(.systemBackground))
+        .cornerRadius(12)
+        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+        .padding(.horizontal)
+    }
+    
     // MARK: - Helper Methods
     
     private func batteryColor(for battery: BatteryMetrics) -> Color {
@@ -401,6 +492,8 @@ struct SpeedTestView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var isRunning = false
     @State private var progress = 0.0
+    @State private var testHistory: [(download: Double, upload: Double, timestamp: Date)] = []
+    @State private var showingHistory = false
     
     var body: some View {
         NavigationView {
@@ -479,11 +572,21 @@ struct SpeedTestView: View {
             .navigationTitle(SpeedTestViewLabels.speedTest)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("History") {
+                        showingHistory = true
+                    }
+                    .disabled(testHistory.isEmpty)
+                }
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(SpeedTestViewLabels.done) {
                         dismiss()
                     }
                 }
+            }
+            .sheet(isPresented: $showingHistory) {
+                SpeedTestHistoryView(history: testHistory)
             }
         }
     }
@@ -500,10 +603,24 @@ struct SpeedTestView: View {
         }
         
         // Simulate speed test result
-        result = (
+        let newResult = (
             download: Double.random(in: 10...100),
             upload: Double.random(in: 5...50)
         )
+        
+        result = newResult
+        
+        // Add to history
+        testHistory.append((
+            download: newResult.download,
+            upload: newResult.upload,
+            timestamp: Date()
+        ))
+        
+        // Keep only last 10 tests
+        if testHistory.count > 10 {
+            testHistory.removeFirst()
+        }
         
         isRunning = false
     }
@@ -563,6 +680,112 @@ struct SpeedResultRow: View {
     }
     // Speed Color helper
     private var speedColor: Color {
+        if speed >= 50 {
+            return .green
+        } else if speed >= 25 {
+            return .blue
+        } else if speed >= 10 {
+            return .orange
+        } else {
+            return .red
+        }
+    }
+}
+
+// MARK: - Speed Test History View
+struct SpeedTestHistoryView: View {
+    let history: [(download: Double, upload: Double, timestamp: Date)]
+    @Environment(\.dismiss) private var dismiss
+    
+    var body: some View {
+        NavigationView {
+            List {
+                ForEach(Array(history.enumerated().reversed()), id: \.offset) { index, test in
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Text("Test #\(history.count - index)")
+                                .font(.headline)
+                                .foregroundColor(.primary)
+                            
+                            Spacer()
+                            
+                            Text(test.timestamp, style: .relative)
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                        
+                        HStack {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Download")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                Text("\(String(format: "%.1f", test.download)) Mbps")
+                                    .font(.subheadline)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.blue)
+                            }
+                            
+                            Spacer()
+                            
+                            VStack(alignment: .trailing, spacing: 4) {
+                                Text("Upload")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                Text("\(String(format: "%.1f", test.upload)) Mbps")
+                                    .font(.subheadline)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.green)
+                            }
+                        }
+                        
+                        HStack {
+                            Text(speedDescription(for: test.download))
+                                .font(.caption)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(speedColor(for: test.download).opacity(0.2))
+                                .foregroundColor(speedColor(for: test.download))
+                                .cornerRadius(8)
+                            
+                            Spacer()
+                            
+                            Text(speedDescription(for: test.upload))
+                                .font(.caption)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(speedColor(for: test.upload).opacity(0.2))
+                                .foregroundColor(speedColor(for: test.upload))
+                                .cornerRadius(8)
+                        }
+                    }
+                    .padding(.vertical, 4)
+                }
+            }
+            .navigationTitle(SpeedTestViewLabels.testHistory)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
+                        dismiss()
+                    }
+                }
+            }
+        }
+    }
+    
+    private func speedDescription(for speed: Double) -> String {
+        if speed >= 50 {
+            return "Fast"
+        } else if speed >= 25 {
+            return "Good"
+        } else if speed >= 10 {
+            return "Fair"
+        } else {
+            return "Slow"
+        }
+    }
+    
+    private func speedColor(for speed: Double) -> Color {
         if speed >= 50 {
             return .green
         } else if speed >= 25 {
