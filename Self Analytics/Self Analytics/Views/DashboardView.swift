@@ -97,7 +97,7 @@ struct DashboardView: View {
                         .foregroundColor(.secondary)
                     
                     if let health = metricsService.currentHealth, health.network.connectionType == .cellular {
-                        Text("📱 Cellular Data")
+                        Text("📱 \(DashboardViewLabels.cellularData)")
                             .font(.caption)
                             .foregroundColor(.blue)
                             .padding(.horizontal, 6)

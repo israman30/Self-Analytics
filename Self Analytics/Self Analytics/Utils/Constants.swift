@@ -117,6 +117,7 @@ struct DashboardViewLabels {
     static let alerts = "Alerts"
     static let recommendations = "Recommendations"
     static let quickActions = "Quick Actions"
+    static let cellularData = "Cellular Data"
     
     struct MetricCard {
         static let memory = "Memory"
