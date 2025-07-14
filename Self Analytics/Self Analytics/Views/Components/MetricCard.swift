@@ -190,27 +190,30 @@ struct AlertCard: View {
                     .font(.caption2)
                     .foregroundColor(.secondary)
             }
+            .accessibilityElement(children: .combine)
             
             HStack {
-                Button(AlertCardLabels.resolve) {
+                Button {
                     onResolve()
+                } label: {
+                    Text(AlertCardLabels.resolve)
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.small)
-                .accessibilityLabel("Resolve alert")
+                .accessibilityLabel(AlertCardLabels.resolve)
                 .accessibilityHint("Tap to activate")
-                .accessibilityElement()
                 
                 Spacer()
                 
-                Button(AlertCardLabels.dismiss) {
+                Button {
                     onDismiss()
+                } label: {
+                    Text(AlertCardLabels.dismiss)
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.small)
-                .accessibilityLabel("Dismiss alert")
+                .accessibilityLabel(AlertCardLabels.dismiss)
                 .accessibilityHint("Tap to activate")
-                .accessibilityElement()
             }
         }
         .padding()
@@ -221,7 +224,6 @@ struct AlertCard: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(severityColor.opacity(0.3), lineWidth: 1)
         )
-        .accessibilityElement(children: .combine)
     }
     
     private var alertIcon: String {
@@ -283,6 +285,7 @@ struct RecommendationCard: View {
                         .accessibilityLabel("Completed")
                 }
             }
+            .accessibilityElement(children: .combine)
             
             HStack {
                 Text(recommendation.impact.description)
@@ -303,7 +306,6 @@ struct RecommendationCard: View {
                     .controlSize(.small)
                     .accessibilityLabel("\(recommendation.action)")
                     .accessibilityHint("Tap to activate")
-                    .accessibilityElement()
                 }
             }
         }
@@ -312,7 +314,6 @@ struct RecommendationCard: View {
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
         .opacity(recommendation.isCompleted ? 0.6 : 1.0)
-        .accessibilityElement(children: .combine)
     }
     
     private var impactColor: Color {

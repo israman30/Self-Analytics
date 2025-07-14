@@ -217,6 +217,7 @@ struct DashboardView: View {
                     .foregroundColor(.red)
                     .cornerRadius(8)
             }
+            .accessibilityElement(children: .combine)
             
             ForEach(alertService.activeAlerts, id: \.id) { alert in
                 AlertCard(
@@ -231,7 +232,6 @@ struct DashboardView: View {
             }
         }
         .padding(.horizontal)
-        .accessibilityElement(children: .combine)
     }
     
     private var recommendationsSection: some View {
@@ -252,6 +252,7 @@ struct DashboardView: View {
                     .foregroundColor(.blue)
                     .cornerRadius(8)
             }
+            .accessibilityElement(children: .combine)
             
             ForEach(alertService.recommendations, id: \.id) { recommendation in
                 RecommendationCard(
@@ -263,7 +264,6 @@ struct DashboardView: View {
             }
         }
         .padding(.horizontal)
-        .accessibilityElement(children: .combine)
     }
     
     private var quickActionsSection: some View {
@@ -311,7 +311,6 @@ struct DashboardView: View {
             }
         }
         .padding(.horizontal)
-        .accessibilityElement(children: .combine)
     }
     
     // MARK: - Persistent Network Test Section
@@ -344,6 +343,7 @@ struct DashboardView: View {
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
+                    .accessibilityElement(children: .combine)
                     
                     Spacer()
                     
@@ -367,7 +367,6 @@ struct DashboardView: View {
                     }
                     .accessibilityLabel(SpeedTestViewLabels.testNow)
                     .accessibilityHint("Tap to activate")
-                    .accessibilityElement()
                 }
                 
                 if let health = metricsService.currentHealth {
@@ -405,6 +404,7 @@ struct DashboardView: View {
                                 .fontWeight(.semibold)
                                 .foregroundColor(.primary)
                         }
+                        .accessibilityElement(children: .combine)
                     }
                     .padding()
                     .background(Color(.systemGray6))
@@ -418,7 +418,6 @@ struct DashboardView: View {
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
         .padding(.horizontal)
-        .accessibilityElement(children: .combine)
     }
     
     // MARK: - Helper Methods
@@ -547,7 +546,6 @@ struct QuickActionButton: View {
         .buttonStyle(PlainButtonStyle())
         .accessibilityLabel(title)
         .accessibilityHint("Tap to activate")
-        .accessibilityElement()
     }
 }
 
