@@ -204,6 +204,7 @@ struct SettingsView: View {
             .navigationTitle(SettingViewLabels.settings)
             .navigationBarTitleDisplayMode(.large)
         }
+        .navigationViewStyle(.stack)
     }
 
     // MARK: - Helper Methods
