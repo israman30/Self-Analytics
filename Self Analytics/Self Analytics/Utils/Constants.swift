@@ -33,7 +33,7 @@ struct SettingViewLabels {
     static let darkMode = "Dark Mode"
     static let about = "About"
     static let version = "Version"
-    static let version_number = "1.0.0"
+    static let version_number = "1.0.1"
     static let build = "Build"
     static let build_number = "1"
     
