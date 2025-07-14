@@ -135,7 +135,6 @@ struct HistoryView: View {
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
         .padding(.horizontal)
-        .accessibilityElement(children: .combine)
     }
     
     // MARK: - Metrics Chart setup
@@ -178,7 +177,6 @@ struct HistoryView: View {
             )
         }
         .padding(.horizontal)
-        .accessibilityElement(children: .combine)
     }
     
     // MARK: - Performance Summary setup
@@ -226,7 +224,6 @@ struct HistoryView: View {
                         color: .blue
                     )
                 }
-                .accessibilityElement(children: .combine)
             }
         }
         .padding()
@@ -234,7 +231,6 @@ struct HistoryView: View {
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
         .padding(.horizontal)
-        .accessibilityElement(children: .combine)
     }
     
     // MARK: - Helper Methods
@@ -377,6 +373,7 @@ struct MetricChartView: View {
                         .font(.subheadline)
                         .fontWeight(.semibold)
                 }
+                .accessibilityElement(children: .combine)
                 
                 Spacer()
                 
@@ -388,6 +385,7 @@ struct MetricChartView: View {
                         .font(.subheadline)
                         .fontWeight(.semibold)
                 }
+                .accessibilityElement(children: .combine)
             }
         }
         .padding()
@@ -426,6 +424,7 @@ struct SummaryRow: View {
                 .fontWeight(.semibold)
                 .foregroundColor(color)
         }
+        .accessibilityElement(children: .combine)
     }
 }
 

@@ -44,12 +44,15 @@ struct SettingsView: View {
                         Text(deviceInformation.getDeviceName())
                             .foregroundStyle(.secondary)
                     }
+                    .accessibilityElement(children: .combine)
+                    
                     HStack {
                         Text(SettingViewLabels.systemVersion)
                         Spacer()
                         Text(deviceInformation.getDeviceModel())
                             .foregroundStyle(.secondary)
                     }
+                    .accessibilityElement(children: .combine)
                     
                 } header: {
                     Text(SettingViewLabels.currentDevice)
@@ -91,6 +94,7 @@ struct SettingsView: View {
                         Text(SettingViewLabels.version_number)
                             .foregroundColor(.secondary)
                     }
+                    .accessibilityElement(children: .combine)
                     
                     HStack {
                         Text(SettingViewLabels.build)
@@ -98,6 +102,7 @@ struct SettingsView: View {
                         Text(SettingViewLabels.build_number)
                             .foregroundColor(.secondary)
                     }
+                    .accessibilityElement(children: .combine)
                 } header: {
                     Text(SettingViewLabels.about)
                         .accessibilityAddTraits(.isHeader)
