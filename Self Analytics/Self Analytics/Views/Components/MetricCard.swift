@@ -43,6 +43,7 @@ struct MetricCard: View {
                 Image(systemName: icon)
                     .font(.title2)
                     .foregroundColor(color)
+                    .accessibilityHidden(true) // Decorative icon
                 
                 Spacer()
                 
@@ -50,12 +51,14 @@ struct MetricCard: View {
                     if showCellularIndicator {
                         Text("📱")
                             .font(.caption)
+                            .accessibilityLabel("Cellular Data")
                     }
                     
                     if isAlert {
                         Image(systemName: MetricCardLabels.Icon.exclamationmark_triangle_fill)
                             .foregroundColor(.orange)
                             .font(.caption)
+                            .accessibilityLabel("Alert")
                     }
                 }
             }
@@ -65,6 +68,7 @@ struct MetricCard: View {
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .textCase(.uppercase)
+                    .accessibilityAddTraits(.isHeader)
                 
                 Text(value)
                     .font(.title2)
@@ -82,12 +86,14 @@ struct MetricCard: View {
                 ProgressView(value: min(max(percentage, 0), 100), total: 100)
                     .progressViewStyle(LinearProgressViewStyle(tint: color))
                     .scaleEffect(x: 1, y: 2, anchor: .center)
+                    .accessibilityLabel("Progress: \(Int(percentage ?? 0)) percent")
             }
         }
         .padding()
         .background(Color(.systemBackground))
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+        .accessibilityElement(children: .combine)
     }
 }
 
@@ -101,6 +107,7 @@ struct HealthScoreCard: View {
                 Circle()
                     .stroke(Color.gray.opacity(0.2), lineWidth: 8)
                     .frame(width: 120, height: 120)
+                    .accessibilityHidden(true)
                 
                 Circle()
                     .trim(from: 0, to: CGFloat(score) / 100)
@@ -108,12 +115,15 @@ struct HealthScoreCard: View {
                     .frame(width: 120, height: 120)
                     .rotationEffect(.degrees(-90))
                     .animation(.easeInOut(duration: 1), value: score)
+                    .accessibilityHidden(true)
                 
                 VStack(spacing: 4) {
                     Text("\(score)")
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundColor(statusColor)
+                        .accessibilityLabel("Health Score: \(score)")
+                        .accessibilityAddTraits(.isHeader)
                     
                     Text(HealthScoreCardLabels.score)
                         .font(.caption)
@@ -125,6 +135,7 @@ struct HealthScoreCard: View {
                 Text(status.description)
                     .font(.headline)
                     .foregroundColor(statusColor)
+                    .accessibilityAddTraits(.isHeader)
                 
                 Text(HealthScoreCardLabels.deviceHealth)
                     .font(.caption)
@@ -135,6 +146,7 @@ struct HealthScoreCard: View {
         .background(Color(.systemBackground))
         .cornerRadius(16)
         .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+        .accessibilityElement(children: .combine)
     }
     
     private var statusColor: Color {
@@ -158,11 +170,13 @@ struct AlertCard: View {
                 Image(systemName: alertIcon)
                     .foregroundColor(severityColor)
                     .font(.title3)
+                    .accessibilityHidden(true)
                 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(alert.title)
                         .font(.headline)
                         .foregroundColor(.primary)
+                        .accessibilityAddTraits(.isHeader)
                     
                     Text(alert.message)
                         .font(.caption)
@@ -183,6 +197,9 @@ struct AlertCard: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.small)
+                .accessibilityLabel("Resolve alert")
+                .accessibilityHint("Tap to activate")
+                .accessibilityElement()
                 
                 Spacer()
                 
@@ -191,6 +208,9 @@ struct AlertCard: View {
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.small)
+                .accessibilityLabel("Dismiss alert")
+                .accessibilityHint("Tap to activate")
+                .accessibilityElement()
             }
         }
         .padding()
@@ -201,6 +221,7 @@ struct AlertCard: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(severityColor.opacity(0.3), lineWidth: 1)
         )
+        .accessibilityElement(children: .combine)
     }
     
     private var alertIcon: String {
@@ -245,6 +266,7 @@ struct RecommendationCard: View {
                     Text(recommendation.title)
                         .font(.headline)
                         .foregroundColor(.primary)
+                        .accessibilityAddTraits(.isHeader)
                     
                     Text(recommendation.description)
                         .font(.caption)
@@ -258,6 +280,7 @@ struct RecommendationCard: View {
                     Image(systemName: RecommendationCardLabels.Icon.checkmark_circle_fill)
                         .foregroundColor(.green)
                         .font(.title3)
+                        .accessibilityLabel("Completed")
                 }
             }
             
@@ -278,6 +301,9 @@ struct RecommendationCard: View {
                     }
                     .buttonStyle(.borderedProminent)
                     .controlSize(.small)
+                    .accessibilityLabel("\(recommendation.action)")
+                    .accessibilityHint("Tap to activate")
+                    .accessibilityElement()
                 }
             }
         }
@@ -286,6 +312,7 @@ struct RecommendationCard: View {
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
         .opacity(recommendation.isCompleted ? 0.6 : 1.0)
+        .accessibilityElement(children: .combine)
     }
     
     private var impactColor: Color {

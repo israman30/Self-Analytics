@@ -53,6 +53,7 @@ struct SettingsView: View {
                     
                 } header: {
                     Text(SettingViewLabels.currentDevice)
+                        .accessibilityAddTraits(.isHeader)
                 }
                 
                 Section {
@@ -63,6 +64,7 @@ struct SettingsView: View {
                     }
                 } header: {
                     Text(SettingViewLabels.notifications)
+                        .accessibilityAddTraits(.isHeader)
                 }
                 
                 Section {
@@ -79,6 +81,7 @@ struct SettingsView: View {
                     
                 } header: {
                     Text(SettingViewLabels.appSettings)
+                        .accessibilityAddTraits(.isHeader)
                 }
                 
                 Section {
@@ -97,6 +100,7 @@ struct SettingsView: View {
                     }
                 } header: {
                     Text(SettingViewLabels.about)
+                        .accessibilityAddTraits(.isHeader)
                 }
                 
                 Section {
@@ -116,6 +120,7 @@ struct SettingsView: View {
                     }
                 } header: {
                     Text(SettingViewLabels.support)
+                        .accessibilityAddTraits(.isHeader)
                 }
                 
                 Section {
@@ -150,6 +155,7 @@ struct SettingsView: View {
                     }
                 } header: {
                     Text(SettingViewLabels.data)
+                        .accessibilityAddTraits(.isHeader)
                 }
             }
             .sheet(item: $activeSheet) { sheet in

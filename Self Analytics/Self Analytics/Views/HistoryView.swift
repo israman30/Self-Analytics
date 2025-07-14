@@ -63,6 +63,7 @@ struct HistoryView: View {
             Text(HistoryViewLabels.timeRange)
                 .font(.headline)
                 .foregroundColor(.primary)
+                .accessibilityAddTraits(.isHeader)
             
             Picker(HistoryViewLabels.timeRange, selection: $selectedTimeRange) {
                 ForEach(TimeRange.allCases, id: \.self) { range in
@@ -72,6 +73,7 @@ struct HistoryView: View {
             .pickerStyle(SegmentedPickerStyle())
         }
         .padding(.horizontal)
+        .accessibilityElement(children: .combine)
     }
     
     // MARK: - Health Score Chart setup
@@ -80,6 +82,7 @@ struct HistoryView: View {
             Text(HistoryViewLabels.healthScoreTrend)
                 .font(.headline)
                 .foregroundColor(.primary)
+                .accessibilityAddTraits(.isHeader)
             
             if #available(iOS 16.0, *) {
                 Chart(historicalData) { health in
@@ -119,6 +122,7 @@ struct HistoryView: View {
                         AxisValueLabel()
                     }
                 }
+                .accessibilityLabel("Health Score Trend Chart")
             } else {
                 // Fallback for older iOS versions
                 Text(HistoryViewLabels.chartRequiresiOS16OrLater)
@@ -131,6 +135,7 @@ struct HistoryView: View {
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
         .padding(.horizontal)
+        .accessibilityElement(children: .combine)
     }
     
     // MARK: - Metrics Chart setup
@@ -173,6 +178,7 @@ struct HistoryView: View {
             )
         }
         .padding(.horizontal)
+        .accessibilityElement(children: .combine)
     }
     
     // MARK: - Performance Summary setup
@@ -181,6 +187,7 @@ struct HistoryView: View {
             Text(HistoryViewLabels.performanceSummary)
                 .font(.headline)
                 .foregroundColor(.primary)
+                .accessibilityAddTraits(.isHeader)
             
             if let summary = calculatePerformanceSummary() {
                 VStack(spacing: 12) {
@@ -219,6 +226,7 @@ struct HistoryView: View {
                         color: .blue
                     )
                 }
+                .accessibilityElement(children: .combine)
             }
         }
         .padding()
@@ -226,6 +234,7 @@ struct HistoryView: View {
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
         .padding(.horizontal)
+        .accessibilityElement(children: .combine)
     }
     
     // MARK: - Helper Methods

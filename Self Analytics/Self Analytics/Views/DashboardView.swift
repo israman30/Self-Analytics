@@ -90,6 +90,7 @@ struct DashboardView: View {
                     .font(.title2)
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
+                    .accessibilityAddTraits(.isHeader)
                 
                 HStack(spacing: 4) {
                     Text(deviceInformation.getDeviceModel())
@@ -104,19 +105,23 @@ struct DashboardView: View {
                             .padding(.vertical, 2)
                             .background(Color.blue.opacity(0.1))
                             .cornerRadius(4)
+                            .accessibilityLabel("Cellular Data")
                     }
                 }
             }
+            .accessibilityElement(children: .combine)
             
             Spacer()
             
             Image(systemName: DashboardViewLabels.Icon.iphone)
                 .font(.title2)
                 .foregroundColor(.blue)
+                .accessibilityHidden(true)
         }
         .padding()
         .background(Color(.systemGray6))
         .cornerRadius(12)
+        .accessibilityElement(children: .combine)
     }
     
     private var metricsGrid: some View {
@@ -200,6 +205,7 @@ struct DashboardView: View {
                 Text(DashboardViewLabels.alerts)
                     .font(.headline)
                     .foregroundColor(.primary)
+                    .accessibilityAddTraits(.isHeader)
                 
                 Spacer()
                 
@@ -225,6 +231,7 @@ struct DashboardView: View {
             }
         }
         .padding(.horizontal)
+        .accessibilityElement(children: .combine)
     }
     
     private var recommendationsSection: some View {
@@ -233,6 +240,7 @@ struct DashboardView: View {
                 Text(DashboardViewLabels.recommendations)
                     .font(.headline)
                     .foregroundColor(.primary)
+                    .accessibilityAddTraits(.isHeader)
                 
                 Spacer()
                 
@@ -255,6 +263,7 @@ struct DashboardView: View {
             }
         }
         .padding(.horizontal)
+        .accessibilityElement(children: .combine)
     }
     
     private var quickActionsSection: some View {
@@ -262,6 +271,7 @@ struct DashboardView: View {
             Text(DashboardViewLabels.quickActions)
                 .font(.headline)
                 .foregroundColor(.primary)
+                .accessibilityAddTraits(.isHeader)
             
             LazyVGrid(columns: [
                 GridItem(.flexible()),
@@ -301,6 +311,7 @@ struct DashboardView: View {
             }
         }
         .padding(.horizontal)
+        .accessibilityElement(children: .combine)
     }
     
     // MARK: - Persistent Network Test Section
@@ -310,12 +321,14 @@ struct DashboardView: View {
                 Text(SpeedTestViewLabels.networkTesting)
                     .font(.headline)
                     .foregroundColor(.primary)
+                    .accessibilityAddTraits(.isHeader)
                 
                 Spacer()
                 
                 Image(systemName: DashboardViewLabels.Icon.wifi_fill)
                     .foregroundColor(.blue)
                     .font(.title3)
+                    .accessibilityHidden(true)
             }
             
             VStack(spacing: 12) {
@@ -325,6 +338,7 @@ struct DashboardView: View {
                             .font(.subheadline)
                             .fontWeight(.semibold)
                             .foregroundColor(.primary)
+                            .accessibilityAddTraits(.isHeader)
                         
                         Text(SpeedTestViewLabels.checkCurrentNetworkPerformance)
                             .font(.caption)
@@ -339,6 +353,7 @@ struct DashboardView: View {
                         HStack(spacing: 6) {
                             Image(systemName: DashboardViewLabels.Icon.speedometer)
                                 .font(.caption)
+                                .accessibilityHidden(true)
                             
                             Text(SpeedTestViewLabels.testNow)
                                 .font(.caption)
@@ -350,6 +365,9 @@ struct DashboardView: View {
                         .foregroundColor(.white)
                         .cornerRadius(8)
                     }
+                    .accessibilityLabel(SpeedTestViewLabels.testNow)
+                    .accessibilityHint("Tap to activate")
+                    .accessibilityElement()
                 }
                 
                 if let health = metricsService.currentHealth {
@@ -358,6 +376,7 @@ struct DashboardView: View {
                             Text(SpeedTestViewLabels.currentNetwork)
                                 .font(.caption)
                                 .foregroundColor(.secondary)
+                                .accessibilityAddTraits(.isHeader)
                             
                             HStack(spacing: 4) {
                                 Text(health.network.status.description)
@@ -368,6 +387,7 @@ struct DashboardView: View {
                                 if health.network.connectionType == .cellular {
                                     Text("📱")
                                         .font(.caption)
+                                        .accessibilityLabel("Cellular Data")
                                 }
                             }
                         }
@@ -378,6 +398,7 @@ struct DashboardView: View {
                             Text(SpeedTestViewLabels.speed)
                                 .font(.caption)
                                 .foregroundColor(.secondary)
+                                .accessibilityAddTraits(.isHeader)
                             
                             Text("\(String(format: "%.1f", health.network.downloadSpeed)) Mbps")
                                 .font(.subheadline)
@@ -388,6 +409,7 @@ struct DashboardView: View {
                     .padding()
                     .background(Color(.systemGray6))
                     .cornerRadius(8)
+                    .accessibilityElement(children: .combine)
                 }
             }
         }
@@ -396,6 +418,7 @@ struct DashboardView: View {
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
         .padding(.horizontal)
+        .accessibilityElement(children: .combine)
     }
     
     // MARK: - Helper Methods
@@ -509,6 +532,7 @@ struct QuickActionButton: View {
                 Image(systemName: icon)
                     .font(.title2)
                     .foregroundColor(color)
+                    .accessibilityHidden(true)
                 
                 Text(title)
                     .font(.caption)
@@ -521,6 +545,9 @@ struct QuickActionButton: View {
             .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
         }
         .buttonStyle(PlainButtonStyle())
+        .accessibilityLabel(title)
+        .accessibilityHint("Tap to activate")
+        .accessibilityElement()
     }
 }
 
