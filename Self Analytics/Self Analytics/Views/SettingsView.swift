@@ -107,27 +107,31 @@ struct SettingsView: View {
                     Text(SettingViewLabels.about)
                         .accessibilityAddTraits(.isHeader)
                 }
-                
+                // SUPPORT SECTION
                 Section {
                     Button(SettingViewLabels.privacyPolicy) {
                         // Open privacy policy
                         activeSheet = .privacyPolicy
                     }
+                    .accessibilityHint("Tap to view our privacy policy.")
                     
                     Button(SettingViewLabels.termsOfService) {
                         // Open terms of service
                         activeSheet = .termsOfService
                     }
+                    .accessibilityHint("Tap to view our terms of service.")
                     
                     Button(SettingViewLabels.contactSupport) {
                         // Open support contact
                         activeSheet = .contactSupport
                     }
+                    .accessibilityHint("Tap to contact our support team.")
                 } header: {
                     Text(SettingViewLabels.support)
                         .accessibilityAddTraits(.isHeader)
                 }
                 
+                // DATA SECTION
                 Section {
                     Button(SettingViewLabels.exportData) {
                         Task {
@@ -135,6 +139,7 @@ struct SettingsView: View {
                         }
                     }
                     .disabled(dataManagementService.isExporting)
+                    .accessibilityHint("Tap to export your data.")
                     
                     if dataManagementService.isExporting {
                         HStack {
@@ -143,12 +148,14 @@ struct SettingsView: View {
                             Text(SettingViewLabels.exportInProgress)
                                 .foregroundColor(.secondary)
                         }
+                        .accessibilityElement(children: .combine)
                     }
                     
                     Button(SettingViewLabels.clearAllData, role: .destructive) {
                         showingClearDataAlert = true
                     }
                     .disabled(dataManagementService.isClearing)
+                    .accessibilityHint("Tap to clear all your data. This action cannot be undone.")
                     
                     if dataManagementService.isClearing {
                         HStack {
@@ -157,6 +164,7 @@ struct SettingsView: View {
                             Text(SettingViewLabels.clearingData)
                                 .foregroundColor(.secondary)
                         }
+                        .accessibilityElement(children: .combine)
                     }
                 } header: {
                     Text(SettingViewLabels.data)
