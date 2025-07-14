@@ -22,7 +22,9 @@ struct DeviceHealthTimelineProvider: TimelineProvider {
             memoryUsage: 65,
             batteryLevel: 75,
             storageUsage: 70,
-            isCharging: false
+            isCharging: false,
+            networkType: "Wi-Fi",
+            isUsingCellular: false
         )
     }
 
@@ -33,7 +35,9 @@ struct DeviceHealthTimelineProvider: TimelineProvider {
             memoryUsage: 65,
             batteryLevel: 75,
             storageUsage: 70,
-            isCharging: false
+            isCharging: false,
+            networkType: "Wi-Fi",
+            isUsingCellular: false
         )
         completion(entry)
     }
@@ -43,13 +47,18 @@ struct DeviceHealthTimelineProvider: TimelineProvider {
         let currentDate = Date()
         let refreshDate = Calendar.current.date(byAdding: .minute, value: 5, to: currentDate)!
         
+        let isUsingCellular = Bool.random()
+        let networkType = isUsingCellular ? "Cellular" : "Wi-Fi"
+        
         let entry = DeviceHealthEntry(
             date: currentDate,
             healthScore: Int.random(in: 70...95),
             memoryUsage: Double.random(in: 50...80),
             batteryLevel: Double.random(in: 20...100),
             storageUsage: Double.random(in: 60...90),
-            isCharging: Bool.random()
+            isCharging: Bool.random(),
+            networkType: networkType,
+            isUsingCellular: isUsingCellular
         )
         
         let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
@@ -64,6 +73,8 @@ struct DeviceHealthEntry: TimelineEntry {
     let batteryLevel: Double
     let storageUsage: Double
     let isCharging: Bool
+    let networkType: String
+    let isUsingCellular: Bool
 }
 
 struct DeviceHealthWidgetEntryView: View {
@@ -133,6 +144,18 @@ struct SmallWidgetView: View {
                     .font(.caption)
                     .fontWeight(.semibold)
                     .foregroundColor(memoryColor)
+            }
+            
+            // Network Status
+            HStack(spacing: 4) {
+                Image(systemName: entry.isUsingCellular ? "antenna.radiowaves.left.and.right.circle.fill" : "wifi")
+                    .foregroundColor(entry.isUsingCellular ? .blue : .green)
+                    .font(.caption)
+                
+                Text(entry.isUsingCellular ? "📱" : entry.networkType)
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .foregroundColor(entry.isUsingCellular ? .blue : .green)
             }
         }
         .padding()
@@ -224,6 +247,13 @@ struct MediumWidgetView: View {
                     value: "\(Int(entry.storageUsage))%",
                     color: storageColor
                 )
+                
+                MetricRow(
+                    icon: entry.isUsingCellular ? "antenna.radiowaves.left.and.right.circle.fill" : "wifi",
+                    title: "Network",
+                    value: entry.isUsingCellular ? "📱 Cellular" : entry.networkType,
+                    color: entry.isUsingCellular ? .blue : .green
+                )
             }
             
             Spacer()
@@ -304,7 +334,9 @@ struct MetricRow: View {
         memoryUsage: 65,
         batteryLevel: 75,
         storageUsage: 70,
-        isCharging: false
+        isCharging: false,
+        networkType: "Wi-Fi",
+        isUsingCellular: false
     )
 }
 
@@ -317,6 +349,8 @@ struct MetricRow: View {
         memoryUsage: 65,
         batteryLevel: 75,
         storageUsage: 70,
-        isCharging: false
+        isCharging: false,
+        networkType: "Cellular",
+        isUsingCellular: true
     )
 } 

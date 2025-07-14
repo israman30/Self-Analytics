@@ -274,6 +274,7 @@ struct DeviceAlert: Codable {
         case lowBattery
         case poorBatteryHealth
         case slowNetwork
+        case cellularDataUsage
         case securityUpdate
     }
     

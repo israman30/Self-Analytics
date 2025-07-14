@@ -117,6 +117,19 @@ class AlertService: ObservableObject {
                     alerts.append(alert)
                 }
                 
+                // Cellular data usage alert
+                if health.network.connectionType == .cellular {
+                    let alert = DeviceAlert(
+                        type: .cellularDataUsage,
+                        title: "📱 Using Cellular Data",
+                        message: "Your device is currently using cellular data instead of Wi-Fi. This may consume your data plan.",
+                        severity: .medium,
+                        timestamp: Date(),
+                        isResolved: false
+                    )
+                    alerts.append(alert)
+                }
+                
                 continuation.resume(returning: alerts)
             }
         }
@@ -188,6 +201,19 @@ class AlertService: ObservableObject {
                         description: "Check your actual network performance",
                         action: "Test Speed",
                         impact: .low,
+                        isCompleted: false
+                    )
+                    recommendations.append(recommendation)
+                }
+                
+                // Cellular data recommendation
+                if health.network.connectionType == .cellular {
+                    let recommendation = DeviceRecommendation(
+                        type: .checkPermissions,
+                        title: "Connect to Wi-Fi",
+                        description: "Switch to Wi-Fi to save cellular data and improve connection speed",
+                        action: "Open Settings",
+                        impact: .medium,
                         isCompleted: false
                     )
                     recommendations.append(recommendation)

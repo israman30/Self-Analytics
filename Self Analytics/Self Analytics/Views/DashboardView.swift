@@ -91,9 +91,21 @@ struct DashboardView: View {
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
                 
-                Text(deviceInformation.getDeviceModel())
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                HStack(spacing: 4) {
+                    Text(deviceInformation.getDeviceModel())
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    
+                    if let health = metricsService.currentHealth, health.network.connectionType == .cellular {
+                        Text("📱 Cellular Data")
+                            .font(.caption)
+                            .foregroundColor(.blue)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(Color.blue.opacity(0.1))
+                            .cornerRadius(4)
+                    }
+                }
             }
             
             Spacer()
@@ -161,10 +173,11 @@ struct DashboardView: View {
                 MetricCard(
                     title: DashboardViewLabels.MetricCard.network,
                     value: health.network.status.isConnected ? "\(String(format: "%.1f", health.network.downloadSpeed)) Mbps" : health.network.status.description,
-                    subtitle: health.network.status.isConnected ? health.network.connectionType.description : DashboardViewLabels.MetricCard.noInternetConnection,
+                    subtitle: getNetworkSubtitle(for: health.network),
                     color: networkColor(for: health.network),
                     icon: networkIcon(for: health.network),
-                    isAlert: !health.network.status.isConnected || health.network.isSlowConnection
+                    isAlert: !health.network.status.isConnected || health.network.isSlowConnection,
+                    showCellularIndicator: health.network.connectionType == .cellular
                 )
                 
                 // Available Storage Card
@@ -346,10 +359,17 @@ struct DashboardView: View {
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                             
-                            Text(health.network.status.description)
-                                .font(.subheadline)
-                                .fontWeight(.semibold)
-                                .foregroundColor(networkColor(for: health.network))
+                            HStack(spacing: 4) {
+                                Text(health.network.status.description)
+                                    .font(.subheadline)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(networkColor(for: health.network))
+                                
+                                if health.network.connectionType == .cellular {
+                                    Text("📱")
+                                        .font(.caption)
+                                }
+                            }
                         }
                         
                         Spacer()
@@ -409,7 +429,7 @@ struct DashboardView: View {
         case .wifiConnected:
             return DashboardViewLabels.Icon.wifi_fill
         case .cellularConnected:
-            return DashboardViewLabels.Icon.antenna_radiowaves_left_and_right_fill
+            return "antenna.radiowaves.left.and.right.circle.fill"
         case .ethernetConnected:
             return DashboardViewLabels.Icon.network
         case .connected, .restored:
@@ -418,6 +438,23 @@ struct DashboardView: View {
             return DashboardViewLabels.Icon.wifi_slash
         case .unknown:
             return DashboardViewLabels.Icon.exclamationmark_triangle
+        }
+    }
+    
+    private func getNetworkSubtitle(for network: NetworkMetrics) -> String {
+        if !network.status.isConnected {
+            return DashboardViewLabels.MetricCard.noInternetConnection
+        }
+        
+        switch network.connectionType {
+        case .wifi:
+            return "Wi-Fi Connected"
+        case .cellular:
+            return "📱 Using Cellular Data"
+        case .ethernet:
+            return "Ethernet Connected"
+        case .none:
+            return DashboardViewLabels.MetricCard.noInternetConnection
         }
     }
     

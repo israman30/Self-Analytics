@@ -15,6 +15,7 @@ struct MetricCard: View {
     let color: Color
     let icon: String
     let isAlert: Bool
+    let showCellularIndicator: Bool
     
     init(
         title: String,
@@ -23,7 +24,8 @@ struct MetricCard: View {
         percentage: Double? = nil,
         color: Color = .blue,
         icon: String,
-        isAlert: Bool = false
+        isAlert: Bool = false,
+        showCellularIndicator: Bool = false
     ) {
         self.title = title
         self.value = value
@@ -32,6 +34,7 @@ struct MetricCard: View {
         self.color = color
         self.icon = icon
         self.isAlert = isAlert
+        self.showCellularIndicator = showCellularIndicator
     }
     
     var body: some View {
@@ -43,10 +46,17 @@ struct MetricCard: View {
                 
                 Spacer()
                 
-                if isAlert {
-                    Image(systemName: MetricCardLabels.Icon.exclamationmark_triangle_fill)
-                        .foregroundColor(.orange)
-                        .font(.caption)
+                HStack(spacing: 4) {
+                    if showCellularIndicator {
+                        Text("📱")
+                            .font(.caption)
+                    }
+                    
+                    if isAlert {
+                        Image(systemName: MetricCardLabels.Icon.exclamationmark_triangle_fill)
+                            .foregroundColor(.orange)
+                            .font(.caption)
+                    }
                 }
             }
             
@@ -207,6 +217,8 @@ struct AlertCard: View {
             return AlertCardLabels.Icon.battery_100
         case .slowNetwork:
             return AlertCardLabels.Icon.wifi
+        case .cellularDataUsage:
+            return "antenna.radiowaves.left.and.right.circle.fill"
         case .securityUpdate:
             return AlertCardLabels.Icon.shield
         }
