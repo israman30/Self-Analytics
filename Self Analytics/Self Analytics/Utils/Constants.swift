@@ -33,7 +33,7 @@ struct SettingViewLabels {
     static let darkMode = "Dark Mode"
     static let about = "About"
     static let version = "Version"
-    static let version_number = "1.0.0"
+    static let version_number = "1.0.1"
     static let build = "Build"
     static let build_number = "1"
     
@@ -117,6 +117,7 @@ struct DashboardViewLabels {
     static let alerts = "Alerts"
     static let recommendations = "Recommendations"
     static let quickActions = "Quick Actions"
+    static let cellularData = "Cellular Data"
     
     struct MetricCard {
         static let memory = "Memory"
@@ -130,6 +131,10 @@ struct DashboardViewLabels {
         static let charging = "Charging"
         static let lowPowerMode = "Low Power Mode"
         static let freeSpace = "Free Space"
+        static let noInternetConnection = "No Internet Connection"
+        static let connected = "Connected"
+        static let disconnected = "Disconnected"
+        static let restored = "Connection Restored"
     }
     
     struct Icon {
@@ -149,9 +154,14 @@ struct DashboardViewLabels {
         static let battery_75 = "battery.75"
         
         static let wifi = "wifi"
-        static let antenna_radiowaves_left_and_right = "antenna.radiowaves.left.and.right"
-        static let network = "network"
+        static let wifi_fill = "wifi"
         static let wifi_slash = "wifi.slash"
+        static let antenna_radiowaves_left_and_right = "antenna.radiowaves.left.and.right"
+        static let antenna_radiowaves_left_and_right_fill = "antenna.radiowaves.left.and.right.fill"
+        static let network = "network"
+        static let network_slash = "network.slash"
+        static let exclamationmark_triangle = "exclamationmark.triangle"
+        static let checkmark_circle = "checkmark.circle"
         
         static let iphone = "iphone"
     }
@@ -176,6 +186,14 @@ struct SpeedTestViewLabels {
     
     static let download = "Download"
     static let upload = "Upload"
+    
+    static let networkTesting = "Network Testing"
+    static let testAnyWiFiNetwork = "Test Any WiFi Network"
+    static let checkCurrentNetworkPerformance = "Check your current network performance"
+    static let testNow = "Test Now"
+    static let currentNetwork = "Current Network"
+    static let speed = "Speed"
+    static let testHistory = "Test History"
     
     struct Icon {
         static let checkmark_circle_fill = "checkmark.circle.fill"

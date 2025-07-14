@@ -21,6 +21,7 @@ struct ContactSupport: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .padding(.top, 40)
+                .accessibilityAddTraits(.isHeader)
             
             Text(ContactSupportLabel.contactMessage)
                 .font(.body)
@@ -29,6 +30,7 @@ struct ContactSupport: View {
             
             HStack {
                 Image(systemName: ContactSupportLabel.Icon.envelope)
+                    .accessibilityHidden(true)
                 Text(supportEmail)
                     .foregroundColor(.blue)
                     .onTapGesture {
@@ -43,6 +45,7 @@ struct ContactSupport: View {
                 }) {
                     Image(systemName: ContactSupportLabel.Icon.square_and_pencil)
                         .foregroundColor(.blue)
+                        .accessibilityHidden(true)
                 }
                 .accessibilityLabel(ContactSupportLabel.emailSupport)
             }
@@ -50,6 +53,7 @@ struct ContactSupport: View {
             .background(Color(.systemGray6))
             .cornerRadius(10)
             .padding(.horizontal)
+            .accessibilityElement(children: .combine)
             
             Spacer()
         }

@@ -63,6 +63,7 @@ struct HistoryView: View {
             Text(HistoryViewLabels.timeRange)
                 .font(.headline)
                 .foregroundColor(.primary)
+                .accessibilityAddTraits(.isHeader)
             
             Picker(HistoryViewLabels.timeRange, selection: $selectedTimeRange) {
                 ForEach(TimeRange.allCases, id: \.self) { range in
@@ -72,6 +73,7 @@ struct HistoryView: View {
             .pickerStyle(SegmentedPickerStyle())
         }
         .padding(.horizontal)
+        .accessibilityElement(children: .combine)
     }
     
     // MARK: - Health Score Chart setup
@@ -80,6 +82,7 @@ struct HistoryView: View {
             Text(HistoryViewLabels.healthScoreTrend)
                 .font(.headline)
                 .foregroundColor(.primary)
+                .accessibilityAddTraits(.isHeader)
             
             if #available(iOS 16.0, *) {
                 Chart(historicalData) { health in
@@ -119,6 +122,7 @@ struct HistoryView: View {
                         AxisValueLabel()
                     }
                 }
+                .accessibilityLabel("Health Score Trend Chart")
             } else {
                 // Fallback for older iOS versions
                 Text(HistoryViewLabels.chartRequiresiOS16OrLater)
@@ -181,6 +185,7 @@ struct HistoryView: View {
             Text(HistoryViewLabels.performanceSummary)
                 .font(.headline)
                 .foregroundColor(.primary)
+                .accessibilityAddTraits(.isHeader)
             
             if let summary = calculatePerformanceSummary() {
                 VStack(spacing: 12) {
@@ -272,7 +277,8 @@ struct HistoryView: View {
                 downloadSpeed: Double.random(in: 20...100),
                 uploadSpeed: Double.random(in: 10...50),
                 connectionType: .wifi,
-                isConnected: true
+                isConnected: true,
+                status: .wifiConnected
             )
             
             let health = DeviceHealth(
@@ -367,6 +373,7 @@ struct MetricChartView: View {
                         .font(.subheadline)
                         .fontWeight(.semibold)
                 }
+                .accessibilityElement(children: .combine)
                 
                 Spacer()
                 
@@ -378,6 +385,7 @@ struct MetricChartView: View {
                         .font(.subheadline)
                         .fontWeight(.semibold)
                 }
+                .accessibilityElement(children: .combine)
             }
         }
         .padding()
@@ -416,6 +424,7 @@ struct SummaryRow: View {
                 .fontWeight(.semibold)
                 .foregroundColor(color)
         }
+        .accessibilityElement(children: .combine)
     }
 }
 

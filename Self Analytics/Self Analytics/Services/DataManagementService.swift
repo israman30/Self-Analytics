@@ -32,7 +32,7 @@ class DataManagementService: ObservableObject {
         // Create export data structure
         let exportData = ExportData(
             exportDate: Date(),
-            appVersion: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0",
+            appVersion: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.1",
             buildNumber: Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1",
             deviceInfo: getDeviceInfo(),
             settings: getAppSettings(),
@@ -162,7 +162,8 @@ class DataManagementService: ObservableObject {
                 downloadSpeed: Double.random(in: 20...100),
                 uploadSpeed: Double.random(in: 10...50),
                 connectionType: .wifi,
-                isConnected: true
+                isConnected: true,
+                status: .wifiConnected
             )
             
             let health = DeviceHealth(

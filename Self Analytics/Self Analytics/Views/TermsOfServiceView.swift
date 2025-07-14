@@ -42,12 +42,14 @@ struct TermsOfServiceView: View {
                         .font(.largeTitle)
                         .bold()
                         .padding(.bottom, 10)
+                        .accessibilityAddTraits(.isHeader)
                     Spacer()
                     Button {
                         dismiss()
                     } label: {
                         Image(systemName: TermsOfServiceLabels.Icon.xmark_circle)
                             .font(.title)
+                            .accessibilityHidden(true)
                     }
                 }
                 Text(TermsOfServiceLabels.dateString)
@@ -58,6 +60,7 @@ struct TermsOfServiceView: View {
                         Text(section.title)
                             .font(.title2)
                             .bold()
+                            .accessibilityAddTraits(.isHeader)
                         Text(section.message)
                     }
                 }

@@ -32,6 +32,9 @@ class DeviceMetricsService: ObservableObject {
         guard !isMonitoring else { return }
         isMonitoring = true
         
+        // Start network monitoring
+        startNetworkMonitoring()
+        
         // Initial update
         updateMetrics()
         
@@ -47,6 +50,7 @@ class DeviceMetricsService: ObservableObject {
         isMonitoring = false
         timer?.invalidate()
         timer = nil
+        stopNetworkMonitoring()
     }
     
     func updateMetrics() {
@@ -215,6 +219,10 @@ class DeviceMetricsService: ObservableObject {
     }
     
     // MARK: - Network Metrics
+    private var networkMonitor: NWPathMonitor?
+    private var networkQueue = DispatchQueue(label: "NetworkMonitor")
+    @Published var networkStatus: NetworkStatus = .unknown
+    
     private func getNetworkMetrics() -> NetworkMetrics {
         let connectionType = getNetworkConnectionType()
         let isConnected = connectionType != .none
@@ -228,42 +236,124 @@ class DeviceMetricsService: ObservableObject {
             downloadSpeed: downloadSpeed,
             uploadSpeed: uploadSpeed,
             connectionType: connectionType,
-            isConnected: isConnected
+            isConnected: isConnected,
+            status: networkStatus
         )
     }
     
     private func getNetworkConnectionType() -> NetworkConnectionType {
-        var zeroAddress = sockaddr_in()
-        zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
-        zeroAddress.sin_family = sa_family_t(AF_INET)
-        
+        // Use Network framework for better network detection
         let monitor = NWPathMonitor()
-        let queue = DispatchQueue(label: "MonitorQueue")
-        monitor.start(queue: queue)
+        let queue = DispatchQueue(label: "NetworkTypeQueue")
+        
+        var connectionType: NetworkConnectionType = .none
+        var isDetermined = false
         
         monitor.pathUpdateHandler = { path in
             if path.status == .satisfied {
-                print("Network is available")
+                if path.usesInterfaceType(.wifi) {
+                    connectionType = .wifi
+                } else if path.usesInterfaceType(.cellular) {
+                    connectionType = .cellular
+                } else if path.usesInterfaceType(.wiredEthernet) {
+                    connectionType = .ethernet
+                } else {
+                    connectionType = .wifi // Default to wifi if interface type is unknown but connected
+                }
             } else {
-                print("Network is unavailable")
+                connectionType = .none
+            }
+            isDetermined = true
+        }
+        
+        monitor.start(queue: queue)
+        
+        // Wait for a short time to get the result
+        let semaphore = DispatchSemaphore(value: 0)
+        queue.asyncAfter(deadline: .now() + 0.1) {
+            semaphore.signal()
+        }
+        _ = semaphore.wait(timeout: .now() + 0.5)
+        
+        monitor.cancel()
+        return connectionType
+    }
+    
+    private func checkNetworkAvailability() {
+        // Check if any network interfaces are available
+        let monitor = NWPathMonitor()
+        let queue = DispatchQueue(label: "NetworkAvailabilityQueue")
+        
+        monitor.pathUpdateHandler = { [weak self] path in
+            DispatchQueue.main.async {
+                if path.status == .unsatisfied && path.availableInterfaces.isEmpty {
+                    self?.networkStatus = .notFound
+                    self?.updateMetrics()
+                }
             }
         }
         
-        let flags: SCNetworkReachabilityFlags = []
+        monitor.start(queue: queue)
         
-        let isReachable = flags.contains(.reachable)
-        let needsConnection = flags.contains(.connectionRequired)
-        
-        if !isReachable || needsConnection {
-            return .none
+        // Stop monitoring after a short delay
+        queue.asyncAfter(deadline: .now() + 1.0) {
+            monitor.cancel()
         }
+    }
+    
+    private func startNetworkMonitoring() {
+        networkMonitor = NWPathMonitor()
+        networkMonitor?.pathUpdateHandler = { [weak self] path in
+            DispatchQueue.main.async {
+                self?.updateNetworkStatus(path: path)
+            }
+        }
+        networkMonitor?.start(queue: networkQueue)
         
-        // Check if it's WiFi or cellular
-        if flags.contains(.isWWAN) {
-            return .cellular
+        // Initial network availability check
+        checkNetworkAvailability()
+    }
+    
+    private var previousNetworkStatus: NetworkStatus = .unknown
+    
+    private func updateNetworkStatus(path: NWPath) {
+        let newStatus: NetworkStatus
+        
+        if path.status == .satisfied {
+            if path.usesInterfaceType(.wifi) {
+                newStatus = .wifiConnected
+            } else if path.usesInterfaceType(.cellular) {
+                newStatus = .cellularConnected
+            } else if path.usesInterfaceType(.wiredEthernet) {
+                newStatus = .ethernetConnected
+            } else {
+                newStatus = .connected
+            }
         } else {
-            return .wifi
+            newStatus = .disconnected
         }
+        
+        // Check if connection was restored
+        if !previousNetworkStatus.isConnected && newStatus.isConnected {
+            networkStatus = .restored
+            // Reset to actual status after a short delay
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                self?.networkStatus = newStatus
+                self?.updateMetrics()
+            }
+        } else {
+            networkStatus = newStatus
+        }
+        
+        previousNetworkStatus = newStatus
+        
+        // Update metrics when network status changes
+        updateMetrics()
+    }
+    
+    private func stopNetworkMonitoring() {
+        networkMonitor?.cancel()
+        networkMonitor = nil
     }
     
     private func estimateDownloadSpeed(connectionType: NetworkConnectionType) -> Double {

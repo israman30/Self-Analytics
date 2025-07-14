@@ -15,6 +15,7 @@ struct MetricCard: View {
     let color: Color
     let icon: String
     let isAlert: Bool
+    let showCellularIndicator: Bool
     
     init(
         title: String,
@@ -23,7 +24,8 @@ struct MetricCard: View {
         percentage: Double? = nil,
         color: Color = .blue,
         icon: String,
-        isAlert: Bool = false
+        isAlert: Bool = false,
+        showCellularIndicator: Bool = false
     ) {
         self.title = title
         self.value = value
@@ -32,6 +34,7 @@ struct MetricCard: View {
         self.color = color
         self.icon = icon
         self.isAlert = isAlert
+        self.showCellularIndicator = showCellularIndicator
     }
     
     var body: some View {
@@ -40,13 +43,23 @@ struct MetricCard: View {
                 Image(systemName: icon)
                     .font(.title2)
                     .foregroundColor(color)
+                    .accessibilityHidden(true) // Decorative icon
                 
                 Spacer()
                 
-                if isAlert {
-                    Image(systemName: MetricCardLabels.Icon.exclamationmark_triangle_fill)
-                        .foregroundColor(.orange)
-                        .font(.caption)
+                HStack(spacing: 4) {
+                    if showCellularIndicator {
+                        Text("📱")
+                            .font(.caption)
+                            .accessibilityLabel("Cellular Data")
+                    }
+                    
+                    if isAlert {
+                        Image(systemName: MetricCardLabels.Icon.exclamationmark_triangle_fill)
+                            .foregroundColor(.orange)
+                            .font(.caption)
+                            .accessibilityLabel("Alert")
+                    }
                 }
             }
             
@@ -55,6 +68,7 @@ struct MetricCard: View {
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .textCase(.uppercase)
+                    .accessibilityAddTraits(.isHeader)
                 
                 Text(value)
                     .font(.title2)
@@ -72,12 +86,14 @@ struct MetricCard: View {
                 ProgressView(value: min(max(percentage, 0), 100), total: 100)
                     .progressViewStyle(LinearProgressViewStyle(tint: color))
                     .scaleEffect(x: 1, y: 2, anchor: .center)
+                    .accessibilityLabel("Progress: \(Int(percentage ?? 0)) percent")
             }
         }
         .padding()
         .background(Color(.systemBackground))
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+        .accessibilityElement(children: .combine)
     }
 }
 
@@ -91,6 +107,7 @@ struct HealthScoreCard: View {
                 Circle()
                     .stroke(Color.gray.opacity(0.2), lineWidth: 8)
                     .frame(width: 120, height: 120)
+                    .accessibilityHidden(true)
                 
                 Circle()
                     .trim(from: 0, to: CGFloat(score) / 100)
@@ -98,12 +115,15 @@ struct HealthScoreCard: View {
                     .frame(width: 120, height: 120)
                     .rotationEffect(.degrees(-90))
                     .animation(.easeInOut(duration: 1), value: score)
+                    .accessibilityHidden(true)
                 
                 VStack(spacing: 4) {
                     Text("\(score)")
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundColor(statusColor)
+                        .accessibilityLabel("Health Score: \(score)")
+                        .accessibilityAddTraits(.isHeader)
                     
                     Text(HealthScoreCardLabels.score)
                         .font(.caption)
@@ -115,6 +135,7 @@ struct HealthScoreCard: View {
                 Text(status.description)
                     .font(.headline)
                     .foregroundColor(statusColor)
+                    .accessibilityAddTraits(.isHeader)
                 
                 Text(HealthScoreCardLabels.deviceHealth)
                     .font(.caption)
@@ -125,6 +146,7 @@ struct HealthScoreCard: View {
         .background(Color(.systemBackground))
         .cornerRadius(16)
         .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+        .accessibilityElement(children: .combine)
     }
     
     private var statusColor: Color {
@@ -148,11 +170,13 @@ struct AlertCard: View {
                 Image(systemName: alertIcon)
                     .foregroundColor(severityColor)
                     .font(.title3)
+                    .accessibilityHidden(true)
                 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(alert.title)
                         .font(.headline)
                         .foregroundColor(.primary)
+                        .accessibilityAddTraits(.isHeader)
                     
                     Text(alert.message)
                         .font(.caption)
@@ -166,21 +190,30 @@ struct AlertCard: View {
                     .font(.caption2)
                     .foregroundColor(.secondary)
             }
+            .accessibilityElement(children: .combine)
             
             HStack {
-                Button(AlertCardLabels.resolve) {
+                Button {
                     onResolve()
+                } label: {
+                    Text(AlertCardLabels.resolve)
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.small)
+                .accessibilityLabel(AlertCardLabels.resolve)
+                .accessibilityHint("Tap to activate")
                 
                 Spacer()
                 
-                Button(AlertCardLabels.dismiss) {
+                Button {
                     onDismiss()
+                } label: {
+                    Text(AlertCardLabels.dismiss)
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.small)
+                .accessibilityLabel(AlertCardLabels.dismiss)
+                .accessibilityHint("Tap to activate")
             }
         }
         .padding()
@@ -207,6 +240,8 @@ struct AlertCard: View {
             return AlertCardLabels.Icon.battery_100
         case .slowNetwork:
             return AlertCardLabels.Icon.wifi
+        case .cellularDataUsage:
+            return "antenna.radiowaves.left.and.right.circle.fill"
         case .securityUpdate:
             return AlertCardLabels.Icon.shield
         }
@@ -233,6 +268,7 @@ struct RecommendationCard: View {
                     Text(recommendation.title)
                         .font(.headline)
                         .foregroundColor(.primary)
+                        .accessibilityAddTraits(.isHeader)
                     
                     Text(recommendation.description)
                         .font(.caption)
@@ -246,8 +282,10 @@ struct RecommendationCard: View {
                     Image(systemName: RecommendationCardLabels.Icon.checkmark_circle_fill)
                         .foregroundColor(.green)
                         .font(.title3)
+                        .accessibilityLabel("Completed")
                 }
             }
+            .accessibilityElement(children: .combine)
             
             HStack {
                 Text(recommendation.impact.description)
@@ -266,6 +304,8 @@ struct RecommendationCard: View {
                     }
                     .buttonStyle(.borderedProminent)
                     .controlSize(.small)
+                    .accessibilityLabel("\(recommendation.action)")
+                    .accessibilityHint("Tap to activate")
                 }
             }
         }

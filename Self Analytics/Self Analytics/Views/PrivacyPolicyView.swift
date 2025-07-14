@@ -43,12 +43,14 @@ struct PrivacyPolicyView: View {
                         .font(.largeTitle)
                         .bold()
                         .padding(.bottom, 10)
+                        .accessibilityAddTraits(.isHeader)
                     Spacer()
                     Button {
                         dismiss()
                     } label: {
                         Image(systemName: PrivacyPolicyLabels.Icon.xmark_circle)
                             .font(.title)
+                            .accessibilityHidden(true)
                     }
                 }
                 
@@ -61,6 +63,7 @@ struct PrivacyPolicyView: View {
                         Text(text.title)
                             .font(.title2)
                             .bold()
+                            .accessibilityAddTraits(.isHeader)
                         Text(text.message)
                     }
                 }
