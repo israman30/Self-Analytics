@@ -312,4 +312,5 @@ struct ContactSupportLabel {
 struct AccessibilityLabels {
     static let cellularData = "Cellular Data"
     static let tapToActivate = "Tap to activate"
+    static let healthScoreTrendChart = "Health Score Trend Chart"
 }
