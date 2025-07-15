@@ -313,4 +313,9 @@ struct AccessibilityLabels {
     static let cellularData = "Cellular Data"
     static let tapToActivate = "Tap to activate"
     static let healthScoreTrendChart = "Health Score Trend Chart"
+    static let tapToViewOurPrivacyPolicy = "Tap to view our privacy policy."
+    static let tapToViewOurTermsOfService = "Tap to view our terms of service."
+    static let tapToContactOurSupportTeam = "Tap to contact our support team."
+    static let tapToExportYourData = "Tap to export your data."
+    static let tapToClearAllYourData_thisActionCannotBeUndone = "Tap to clear all your data. This action cannot be undone"
 }
