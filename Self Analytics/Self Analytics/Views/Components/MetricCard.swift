@@ -86,7 +86,7 @@ struct MetricCard: View {
                 ProgressView(value: min(max(percentage, 0), 100), total: 100)
                     .progressViewStyle(LinearProgressViewStyle(tint: color))
                     .scaleEffect(x: 1, y: 2, anchor: .center)
-                    .accessibilityLabel("Progress: \(Int(percentage ?? 0)) percent")
+                    .accessibilityLabel("Progress: \(Int(percentage)) percent")
             }
         }
         .padding()

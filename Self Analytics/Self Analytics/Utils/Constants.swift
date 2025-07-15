@@ -135,6 +135,9 @@ struct DashboardViewLabels {
         static let connected = "Connected"
         static let disconnected = "Disconnected"
         static let restored = "Connection Restored"
+        static let wifiConnected = "Wi-Fi Connected"
+        static let usingCellularData = "Using Cellular Data"
+        static let ethernetConnected = "Ethernet Connected"
     }
     
     struct Icon {
@@ -162,6 +165,7 @@ struct DashboardViewLabels {
         static let network_slash = "network.slash"
         static let exclamationmark_triangle = "exclamationmark.triangle"
         static let checkmark_circle = "checkmark.circle"
+        static let antenna_radiowaves_left_and_right_circle_fill = "antenna.radiowaves.left.and.right.circle.fill"
         
         static let iphone = "iphone"
     }
@@ -194,6 +198,7 @@ struct SpeedTestViewLabels {
     static let currentNetwork = "Current Network"
     static let speed = "Speed"
     static let testHistory = "Test History"
+    static let history = "History"
     
     struct Icon {
         static let checkmark_circle_fill = "checkmark.circle.fill"
@@ -302,4 +307,9 @@ struct ContactSupportLabel {
     static let alertTitle = "Copied!"
     static let alertMessage = "Support email copied to clipboard."
     static let ok = "OK"
+}
+
+struct AccessibilityLabels {
+    static let cellularData = "Cellular Data"
+    static let tapToActivate = "Tap to activate"
 }
