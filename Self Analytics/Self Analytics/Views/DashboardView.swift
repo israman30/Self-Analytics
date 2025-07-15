@@ -81,6 +81,7 @@ struct DashboardView: View {
                 SpeedTestView(result: $speedTestResult)
             }
         }
+        .navigationViewStyle(.stack)
     }
     
     private var deviceNameHeader: some View {

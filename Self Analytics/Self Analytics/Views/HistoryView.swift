@@ -56,6 +56,7 @@ struct HistoryView: View {
                 generateHistoricalData()
             }
         }
+        .navigationViewStyle(.stack)
     }
     
     private var timeRangeSelector: some View {
