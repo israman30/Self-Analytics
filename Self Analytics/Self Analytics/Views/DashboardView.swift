@@ -838,13 +838,13 @@ struct SpeedTestHistoryView: View {
     
     private func speedDescription(for speed: Double) -> String {
         if speed >= 50 {
-            return "Fast"
+            return SpeedTestViewLabels.fast
         } else if speed >= 25 {
-            return "Good"
+            return SpeedTestViewLabels.good
         } else if speed >= 10 {
-            return "Fair"
+            return SpeedTestViewLabels.fair
         } else {
-            return "Slow"
+            return SpeedTestViewLabels.slow
         }
     }
     
