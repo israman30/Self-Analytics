@@ -236,6 +236,7 @@ struct AlertCardLabels {
         static let battery_100 = "battery.100"
         static let wifi = "wifi"
         static let shield = "shield"
+        static let antenna_radiowaves_left_and_right_circle_fill = "antenna.radiowaves.left.and.right.circle.fill"
     }
 }
 
@@ -318,4 +319,7 @@ struct AccessibilityLabels {
     static let tapToContactOurSupportTeam = "Tap to contact our support team."
     static let tapToExportYourData = "Tap to export your data."
     static let tapToClearAllYourData_thisActionCannotBeUndone = "Tap to clear all your data. This action cannot be undone"
+    static let alert = "Alert"
+    static let percent = "percent"
+    static let completed = "Completed"
 }
