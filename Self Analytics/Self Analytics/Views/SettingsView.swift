@@ -113,19 +113,19 @@ struct SettingsView: View {
                         // Open privacy policy
                         activeSheet = .privacyPolicy
                     }
-                    .accessibilityHint("Tap to view our privacy policy.")
+                    .accessibilityHint(AccessibilityLabels.tapToViewOurPrivacyPolicy)
                     
                     Button(SettingViewLabels.termsOfService) {
                         // Open terms of service
                         activeSheet = .termsOfService
                     }
-                    .accessibilityHint("Tap to view our terms of service.")
+                    .accessibilityHint(AccessibilityLabels.tapToViewOurTermsOfService)
                     
                     Button(SettingViewLabels.contactSupport) {
                         // Open support contact
                         activeSheet = .contactSupport
                     }
-                    .accessibilityHint("Tap to contact our support team.")
+                    .accessibilityHint(AccessibilityLabels.tapToContactOurSupportTeam)
                 } header: {
                     Text(SettingViewLabels.support)
                         .accessibilityAddTraits(.isHeader)
@@ -139,7 +139,7 @@ struct SettingsView: View {
                         }
                     }
                     .disabled(dataManagementService.isExporting)
-                    .accessibilityHint("Tap to export your data.")
+                    .accessibilityHint(AccessibilityLabels.tapToExportYourData)
                     
                     if dataManagementService.isExporting {
                         HStack {
@@ -155,7 +155,7 @@ struct SettingsView: View {
                         showingClearDataAlert = true
                     }
                     .disabled(dataManagementService.isClearing)
-                    .accessibilityHint("Tap to clear all your data. This action cannot be undone.")
+                    .accessibilityHint(AccessibilityLabels.tapToClearAllYourData_thisActionCannotBeUndone)
                     
                     if dataManagementService.isClearing {
                         HStack {
@@ -196,8 +196,8 @@ struct SettingsView: View {
             } message: {
                 Text(SettingViewLabels.clearDataMessage)
             }
-            .alert("Error", isPresented: $showingErrorAlert) {
-                Button("OK", role: .cancel) { }
+            .alert(SettingViewLabels.generalError, isPresented: $showingErrorAlert) {
+                Button(SettingViewLabels.ok, role: .cancel) { }
             } message: {
                 Text(errorMessage)
             }

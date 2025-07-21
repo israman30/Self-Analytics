@@ -106,7 +106,7 @@ struct DashboardView: View {
                             .padding(.vertical, 2)
                             .background(Color.blue.opacity(0.1))
                             .cornerRadius(4)
-                            .accessibilityLabel("Cellular Data")
+                            .accessibilityLabel(AccessibilityLabels.cellularData)
                     }
                 }
             }
@@ -367,7 +367,7 @@ struct DashboardView: View {
                         .cornerRadius(8)
                     }
                     .accessibilityLabel(SpeedTestViewLabels.testNow)
-                    .accessibilityHint("Tap to activate")
+                    .accessibilityHint(AccessibilityLabels.tapToActivate)
                 }
                 
                 if let health = metricsService.currentHealth {
@@ -387,7 +387,7 @@ struct DashboardView: View {
                                 if health.network.connectionType == .cellular {
                                     Text("📱")
                                         .font(.caption)
-                                        .accessibilityLabel("Cellular Data")
+                                        .accessibilityLabel(AccessibilityLabels.cellularData)
                                 }
                             }
                         }
@@ -452,7 +452,7 @@ struct DashboardView: View {
         case .wifiConnected:
             return DashboardViewLabels.Icon.wifi_fill
         case .cellularConnected:
-            return "antenna.radiowaves.left.and.right.circle.fill"
+            return DashboardViewLabels.Icon.antenna_radiowaves_left_and_right_circle_fill
         case .ethernetConnected:
             return DashboardViewLabels.Icon.network
         case .connected, .restored:
@@ -471,11 +471,11 @@ struct DashboardView: View {
         
         switch network.connectionType {
         case .wifi:
-            return "Wi-Fi Connected"
+            return DashboardViewLabels.MetricCard.wifiConnected
         case .cellular:
-            return "📱 Using Cellular Data"
+            return "📱 \(DashboardViewLabels.MetricCard.usingCellularData)"
         case .ethernet:
-            return "Ethernet Connected"
+            return DashboardViewLabels.MetricCard.ethernetConnected
         case .none:
             return DashboardViewLabels.MetricCard.noInternetConnection
         }
@@ -546,7 +546,7 @@ struct QuickActionButton: View {
         }
         .buttonStyle(PlainButtonStyle())
         .accessibilityLabel(title)
-        .accessibilityHint("Tap to activate")
+        .accessibilityHint(AccessibilityLabels.tapToActivate)
     }
 }
 
@@ -636,7 +636,7 @@ struct SpeedTestView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("History") {
+                    Button(SpeedTestViewLabels.history) {
                         showingHistory = true
                     }
                     .disabled(testHistory.isEmpty)
@@ -779,7 +779,7 @@ struct SpeedTestHistoryView: View {
                         
                         HStack {
                             VStack(alignment: .leading, spacing: 4) {
-                                Text("Download")
+                                Text(SpeedTestViewLabels.download)
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                                 Text("\(String(format: "%.1f", test.download)) Mbps")
@@ -791,7 +791,7 @@ struct SpeedTestHistoryView: View {
                             Spacer()
                             
                             VStack(alignment: .trailing, spacing: 4) {
-                                Text("Upload")
+                                Text(SpeedTestViewLabels.upload)
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                                 Text("\(String(format: "%.1f", test.upload)) Mbps")
@@ -828,7 +828,7 @@ struct SpeedTestHistoryView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
+                    Button(SpeedTestViewLabels.done) {
                         dismiss()
                     }
                 }
@@ -838,13 +838,13 @@ struct SpeedTestHistoryView: View {
     
     private func speedDescription(for speed: Double) -> String {
         if speed >= 50 {
-            return "Fast"
+            return SpeedTestViewLabels.fast
         } else if speed >= 25 {
-            return "Good"
+            return SpeedTestViewLabels.good
         } else if speed >= 10 {
-            return "Fair"
+            return SpeedTestViewLabels.fair
         } else {
-            return "Slow"
+            return SpeedTestViewLabels.slow
         }
     }
     

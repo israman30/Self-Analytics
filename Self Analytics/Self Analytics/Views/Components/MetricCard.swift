@@ -51,14 +51,14 @@ struct MetricCard: View {
                     if showCellularIndicator {
                         Text("📱")
                             .font(.caption)
-                            .accessibilityLabel("Cellular Data")
+                            .accessibilityLabel(AccessibilityLabels.cellularData)
                     }
                     
                     if isAlert {
                         Image(systemName: MetricCardLabels.Icon.exclamationmark_triangle_fill)
                             .foregroundColor(.orange)
                             .font(.caption)
-                            .accessibilityLabel("Alert")
+                            .accessibilityLabel(AccessibilityLabels.alert)
                     }
                 }
             }
@@ -86,7 +86,9 @@ struct MetricCard: View {
                 ProgressView(value: min(max(percentage, 0), 100), total: 100)
                     .progressViewStyle(LinearProgressViewStyle(tint: color))
                     .scaleEffect(x: 1, y: 2, anchor: .center)
-                    .accessibilityLabel("Progress: \(Int(percentage ?? 0)) percent")
+                    .accessibilityLabel(
+                        "Progress: \(Int(percentage)) \(AccessibilityLabels.percent)"
+                    )
             }
         }
         .padding()
@@ -201,7 +203,7 @@ struct AlertCard: View {
                 .buttonStyle(.borderedProminent)
                 .controlSize(.small)
                 .accessibilityLabel(AlertCardLabels.resolve)
-                .accessibilityHint("Tap to activate")
+                .accessibilityHint(AccessibilityLabels.tapToActivate)
                 
                 Spacer()
                 
@@ -213,7 +215,7 @@ struct AlertCard: View {
                 .buttonStyle(.bordered)
                 .controlSize(.small)
                 .accessibilityLabel(AlertCardLabels.dismiss)
-                .accessibilityHint("Tap to activate")
+                .accessibilityHint(AccessibilityLabels.tapToActivate)
             }
         }
         .padding()
@@ -241,7 +243,7 @@ struct AlertCard: View {
         case .slowNetwork:
             return AlertCardLabels.Icon.wifi
         case .cellularDataUsage:
-            return "antenna.radiowaves.left.and.right.circle.fill"
+            return AlertCardLabels.Icon.antenna_radiowaves_left_and_right_circle_fill
         case .securityUpdate:
             return AlertCardLabels.Icon.shield
         }
@@ -282,7 +284,7 @@ struct RecommendationCard: View {
                     Image(systemName: RecommendationCardLabels.Icon.checkmark_circle_fill)
                         .foregroundColor(.green)
                         .font(.title3)
-                        .accessibilityLabel("Completed")
+                        .accessibilityLabel(AccessibilityLabels.completed)
                 }
             }
             .accessibilityElement(children: .combine)
@@ -305,7 +307,7 @@ struct RecommendationCard: View {
                     .buttonStyle(.borderedProminent)
                     .controlSize(.small)
                     .accessibilityLabel("\(recommendation.action)")
-                    .accessibilityHint("Tap to activate")
+                    .accessibilityHint(AccessibilityLabels.tapToActivate)
                 }
             }
         }

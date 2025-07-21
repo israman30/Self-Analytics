@@ -123,7 +123,7 @@ struct HistoryView: View {
                         AxisValueLabel()
                     }
                 }
-                .accessibilityLabel("Health Score Trend Chart")
+                .accessibilityLabel(AccessibilityLabels.healthScoreTrendChart)
             } else {
                 // Fallback for older iOS versions
                 Text(HistoryViewLabels.chartRequiresiOS16OrLater)

@@ -135,6 +135,9 @@ struct DashboardViewLabels {
         static let connected = "Connected"
         static let disconnected = "Disconnected"
         static let restored = "Connection Restored"
+        static let wifiConnected = "Wi-Fi Connected"
+        static let usingCellularData = "Using Cellular Data"
+        static let ethernetConnected = "Ethernet Connected"
     }
     
     struct Icon {
@@ -162,6 +165,7 @@ struct DashboardViewLabels {
         static let network_slash = "network.slash"
         static let exclamationmark_triangle = "exclamationmark.triangle"
         static let checkmark_circle = "checkmark.circle"
+        static let antenna_radiowaves_left_and_right_circle_fill = "antenna.radiowaves.left.and.right.circle.fill"
         
         static let iphone = "iphone"
     }
@@ -194,6 +198,7 @@ struct SpeedTestViewLabels {
     static let currentNetwork = "Current Network"
     static let speed = "Speed"
     static let testHistory = "Test History"
+    static let history = "History"
     
     struct Icon {
         static let checkmark_circle_fill = "checkmark.circle.fill"
@@ -231,6 +236,7 @@ struct AlertCardLabels {
         static let battery_100 = "battery.100"
         static let wifi = "wifi"
         static let shield = "shield"
+        static let antenna_radiowaves_left_and_right_circle_fill = "antenna.radiowaves.left.and.right.circle.fill"
     }
 }
 
@@ -302,4 +308,18 @@ struct ContactSupportLabel {
     static let alertTitle = "Copied!"
     static let alertMessage = "Support email copied to clipboard."
     static let ok = "OK"
+}
+
+struct AccessibilityLabels {
+    static let cellularData = "Cellular Data"
+    static let tapToActivate = "Tap to activate"
+    static let healthScoreTrendChart = "Health Score Trend Chart"
+    static let tapToViewOurPrivacyPolicy = "Tap to view our privacy policy."
+    static let tapToViewOurTermsOfService = "Tap to view our terms of service."
+    static let tapToContactOurSupportTeam = "Tap to contact our support team."
+    static let tapToExportYourData = "Tap to export your data."
+    static let tapToClearAllYourData_thisActionCannotBeUndone = "Tap to clear all your data. This action cannot be undone"
+    static let alert = "Alert"
+    static let percent = "percent"
+    static let completed = "Completed"
 }
