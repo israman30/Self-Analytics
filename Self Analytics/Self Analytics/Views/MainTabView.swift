@@ -16,7 +16,9 @@ struct MainTabView: View {
                     Text(MainTabViewLabels.dashboard)
                 }
                 .accessibilityLabel(MainTabViewLabels.dashboard)
-                .accessibilityHint("View device health metrics and current status")
+                .accessibilityHint(
+                    MainTabViewLabels.view_device_health_metrics_and_current_status
+                )
             
             HistoryView()
                 .tabItem {
@@ -24,7 +26,9 @@ struct MainTabView: View {
                     Text(MainTabViewLabels.history)
                 }
                 .accessibilityLabel(MainTabViewLabels.history)
-                .accessibilityHint("View historical device performance data and trends")
+                .accessibilityHint(
+                    MainTabViewLabels.view_historical_device_performance_data_and_trends
+                )
             
             SettingsView()
                 .tabItem {
@@ -32,11 +36,15 @@ struct MainTabView: View {
                     Text(MainTabViewLabels.settings)
                 }
                 .accessibilityLabel(MainTabViewLabels.settings)
-                .accessibilityHint("Configure app settings and preferences")
+                .accessibilityHint(
+                    MainTabViewLabels.configure_app_settings_and_preferences
+                )
         }
         .accessibilityElement(children: .contain)
-        .accessibilityLabel("Main Navigation")
-        .accessibilityHint("Navigate between dashboard, history, and settings")
+        .accessibilityLabel(MainTabViewLabels.mainNavigation)
+        .accessibilityHint(
+            MainTabViewLabels.navigate_between_dashboard_history_and_settings
+        )
     }
 }
 

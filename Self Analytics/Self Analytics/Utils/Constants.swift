@@ -78,6 +78,12 @@ struct MainTabViewLabels {
         static let chart_line_uptrend_xyaxis = "chart.line.uptrend.xyaxis"
         static let gear = "gear"
     }
+    
+    static let view_device_health_metrics_and_current_status = "View device health metrics and current status"
+    static let view_historical_device_performance_data_and_trends = "View historical device performance data and trends"
+    static let configure_app_settings_and_preferences = "Configure app settings and preferences"
+    static let mainNavigation = "Main Navigation"
+    static let navigate_between_dashboard_history_and_settings = "Navigate between dashboard, history, and settings"
 }
 
 struct HistoryViewLabels {

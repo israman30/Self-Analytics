@@ -51,7 +51,9 @@ struct HistoryView: View {
             .navigationBarTitleDisplayMode(.large)
             .accessibilityElement(children: .contain)
             .accessibilityLabel(AccessibilityLabels.deviceHistory)
-            .accessibilityHint(AccessibilityLabels.view_historical_device_performance_data_and_trends)
+            .accessibilityHint(
+                AccessibilityLabels.view_historical_device_performance_data_and_trends
+            )
             .onAppear {
                 generateHistoricalData()
             }
@@ -76,7 +78,9 @@ struct HistoryView: View {
             }
             .pickerStyle(SegmentedPickerStyle())
             .accessibilityLabel(HistoryViewLabels.timeRange)
-            .accessibilityHint(AccessibilityLabels.select_the_time_period_for_historical_data)
+            .accessibilityHint(
+                AccessibilityLabels.select_the_time_period_for_historical_data
+            )
         }
         .padding(.horizontal)
         .accessibilityElement(children: .combine)
@@ -189,7 +193,9 @@ struct HistoryView: View {
         .padding(.horizontal)
         .accessibilityElement(children: .contain)
         .accessibilityLabel(AccessibilityLabels.performanceMetricsCharts)
-        .accessibilityHint(AccessibilityLabels.detailed_charts_showing_memory_CPU_battery_and_storage_usage_over_time)
+        .accessibilityHint(
+            AccessibilityLabels.detailed_charts_showing_memory_CPU_battery_and_storage_usage_over_time
+        )
     }
     
     // MARK: - Performance Summary setup
@@ -239,7 +245,9 @@ struct HistoryView: View {
                 }
                 .accessibilityElement(children: .contain)
                 .accessibilityLabel(AccessibilityLabels.performanceSummary)
-                .accessibilityHint(AccessibilityLabels.summary_of_key_performance_metrics_including_average_health_score_peak_usage_and_data_points)
+                .accessibilityHint(
+                    AccessibilityLabels.summary_of_key_performance_metrics_including_average_health_score_peak_usage_and_data_points
+                )
             }
         }
         .padding()
