@@ -364,29 +364,40 @@ struct MetricChartView: View {
                     .frame(height: 150)
             }
             
-            // Summary stats
-            HStack {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(HistoryViewLabels.average)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    Text("\(String(format: "%.1f", averageValue))\(unit)")
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
+            // Enhanced Chart Footer Stats
+            VStack(spacing: 12) {
+                // Main stats row
+                HStack(spacing: 16) {
+                    // Average stat
+                    StatCard(
+                        icon: "chart.line.uptrend.xyaxis",
+                        label: "Average",
+                        value: "\(String(format: "%.1f", averageValue))\(unit)",
+                        color: color,
+                        trend: getTrendDirection(for: averageValue, comparedTo: peakValue)
+                    )
+                    
+                    // Peak stat
+                    StatCard(
+                        icon: "arrow.up.circle.fill",
+                        label: "Peak",
+                        value: "\(String(format: "%.1f", peakValue))\(unit)",
+                        color: color,
+                        trend: .up
+                    )
+                    
+                    // Current stat
+                    StatCard(
+                        icon: "clock.fill",
+                        label: "Current",
+                        value: "\(String(format: "%.1f", currentValue))\(unit)",
+                        color: color,
+                        trend: getTrendDirection(for: currentValue, comparedTo: averageValue)
+                    )
                 }
-                .accessibilityElement(children: .combine)
                 
-                Spacer()
-                
-                VStack(alignment: .trailing, spacing: 2) {
-                    Text(HistoryViewLabels.peak)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    Text("\(String(format: "%.1f", peakValue))\(unit)")
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                }
-                .accessibilityElement(children: .combine)
+                // Performance indicator
+                performanceIndicator
             }
         }
         .padding()
@@ -404,6 +415,141 @@ struct MetricChartView: View {
     private var peakValue: Double {
         guard !data.isEmpty else { return 0 }
         return data.map(valueKeyPath).max() ?? 0
+    }
+    
+    private var currentValue: Double {
+        guard !data.isEmpty else { return 0 }
+        return valueKeyPath(data.last!)
+    }
+    
+    private var performanceIndicator: some View {
+        HStack(spacing: 8) {
+            // Performance status icon
+            Image(systemName: performanceStatusIcon)
+                .foregroundColor(performanceStatusColor)
+                .font(.caption)
+            
+            // Performance status text
+            Text(performanceStatusText)
+                .font(.caption)
+                .fontWeight(.medium)
+                .foregroundColor(performanceStatusColor)
+            
+            Spacer()
+            
+            // Data points info
+            HStack(spacing: 4) {
+                Image(systemName: "chart.bar.doc.horizontal")
+                    .foregroundColor(.secondary)
+                    .font(.caption2)
+                
+                Text("\(data.count) points")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+            }
+        }
+        .padding(.horizontal, 8)
+        .padding(.vertical, 4)
+        .background(Color(.systemGray6))
+        .cornerRadius(6)
+    }
+    
+    private var performanceStatusIcon: String {
+        let current = currentValue
+        let avg = averageValue
+        
+        if current > avg * 1.2 { return "exclamationmark.triangle.fill" }
+        else if current < avg * 0.8 { return "checkmark.circle.fill" }
+        else { return "minus.circle.fill" }
+    }
+    
+    private var performanceStatusColor: Color {
+        let current = currentValue
+        let avg = averageValue
+        
+        if current > avg * 1.2 { return .orange }
+        else if current < avg * 0.8 { return .green }
+        else { return .blue }
+    }
+    
+    private var performanceStatusText: String {
+        let current = currentValue
+        let avg = averageValue
+        
+        if current > avg * 1.2 { return "Above average" }
+        else if current < avg * 0.8 { return "Below average" }
+        else { return "Normal range" }
+    }
+    
+    private func getTrendDirection(for value: Double, comparedTo reference: Double) -> StatCard.TrendDirection {
+        let threshold = 0.05 // 5% threshold for change
+        let difference = abs(value - reference) / reference
+        
+        if difference < threshold {
+            return .stable
+        } else if value > reference {
+            return .up
+        } else {
+            return .down
+        }
+    }
+}
+
+struct StatCard: View {
+    let icon: String
+    let label: String
+    let value: String
+    let color: Color
+    let trend: TrendDirection
+    
+    enum TrendDirection {
+        case up, down, stable
+        
+        var icon: String {
+            switch self {
+            case .up: return "arrow.up"
+            case .down: return "arrow.down"
+            case .stable: return "minus"
+            }
+        }
+        
+        var color: Color {
+            switch self {
+            case .up: return .red
+            case .down: return .green
+            case .stable: return .blue
+            }
+        }
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(spacing: 4) {
+                Image(systemName: icon)
+                    .foregroundColor(color)
+                    .font(.caption)
+                
+                Spacer()
+                
+                Image(systemName: trend.icon)
+                    .foregroundColor(trend.color)
+                    .font(.caption2)
+            }
+            
+            Text(value)
+                .font(.subheadline)
+                .fontWeight(.bold)
+                .foregroundColor(color)
+            
+            Text(label)
+                .font(.caption2)
+                .foregroundColor(.secondary)
+        }
+        .padding(8)
+        .background(Color(.systemGray6))
+        .cornerRadius(8)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(label): \(value)")
     }
 }
 
