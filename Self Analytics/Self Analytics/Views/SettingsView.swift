@@ -107,31 +107,27 @@ struct SettingsView: View {
                     Text(SettingViewLabels.about)
                         .accessibilityAddTraits(.isHeader)
                 }
-                // SUPPORT SECTION
+                
                 Section {
                     Button(SettingViewLabels.privacyPolicy) {
                         // Open privacy policy
                         activeSheet = .privacyPolicy
                     }
-                    .accessibilityHint(AccessibilityLabels.tapToViewOurPrivacyPolicy)
                     
                     Button(SettingViewLabels.termsOfService) {
                         // Open terms of service
                         activeSheet = .termsOfService
                     }
-                    .accessibilityHint(AccessibilityLabels.tapToViewOurTermsOfService)
                     
                     Button(SettingViewLabels.contactSupport) {
                         // Open support contact
                         activeSheet = .contactSupport
                     }
-                    .accessibilityHint(AccessibilityLabels.tapToContactOurSupportTeam)
                 } header: {
                     Text(SettingViewLabels.support)
                         .accessibilityAddTraits(.isHeader)
                 }
                 
-                // DATA SECTION
                 Section {
                     Button(SettingViewLabels.exportData) {
                         Task {
@@ -139,7 +135,6 @@ struct SettingsView: View {
                         }
                     }
                     .disabled(dataManagementService.isExporting)
-                    .accessibilityHint(AccessibilityLabels.tapToExportYourData)
                     
                     if dataManagementService.isExporting {
                         HStack {
@@ -148,14 +143,12 @@ struct SettingsView: View {
                             Text(SettingViewLabels.exportInProgress)
                                 .foregroundColor(.secondary)
                         }
-                        .accessibilityElement(children: .combine)
                     }
                     
                     Button(SettingViewLabels.clearAllData, role: .destructive) {
                         showingClearDataAlert = true
                     }
                     .disabled(dataManagementService.isClearing)
-                    .accessibilityHint(AccessibilityLabels.tapToClearAllYourData_thisActionCannotBeUndone)
                     
                     if dataManagementService.isClearing {
                         HStack {
@@ -164,7 +157,6 @@ struct SettingsView: View {
                             Text(SettingViewLabels.clearingData)
                                 .foregroundColor(.secondary)
                         }
-                        .accessibilityElement(children: .combine)
                     }
                 } header: {
                     Text(SettingViewLabels.data)
@@ -196,15 +188,14 @@ struct SettingsView: View {
             } message: {
                 Text(SettingViewLabels.clearDataMessage)
             }
-            .alert(SettingViewLabels.generalError, isPresented: $showingErrorAlert) {
-                Button(SettingViewLabels.ok, role: .cancel) { }
+            .alert("Error", isPresented: $showingErrorAlert) {
+                Button("OK", role: .cancel) { }
             } message: {
                 Text(errorMessage)
             }
             .navigationTitle(SettingViewLabels.settings)
             .navigationBarTitleDisplayMode(.large)
         }
-        .navigationViewStyle(.stack)
     }
 
     // MARK: - Helper Methods
