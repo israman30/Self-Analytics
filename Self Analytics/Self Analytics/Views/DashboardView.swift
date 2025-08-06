@@ -64,7 +64,7 @@ struct DashboardView: View {
                             recommendationsSection
                         }
                         
-                                            // Quick Actions
+                    // Quick Actions
                     quickActionsSection
                     
                     // Persistent Network Test Section

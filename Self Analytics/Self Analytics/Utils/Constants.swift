@@ -222,6 +222,11 @@ struct MetricCardLabels {
 struct HealthScoreCardLabels {
     static let score = "Score"
     static let deviceHealth = "Device Health"
+    static let overallSystemPerformance = "Overall system performance"
+    
+    struct Icon {
+        static let heart_fill = "heart.fill"
+    }
 }
 
 struct AlertCardLabels {

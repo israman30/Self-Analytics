@@ -107,19 +107,19 @@ struct HealthScoreCard: View {
         VStack(spacing: 20) {
             // Header with icon and title
             HStack {
-                Image(systemName: "heart.fill")
+                Image(systemName: HealthScoreCardLabels.Icon.heart_fill)
                     .font(.title2)
                     .foregroundColor(statusColor)
                     .accessibilityHidden(true)
                 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Device Health")
+                    Text(HealthScoreCardLabels.deviceHealth)
                         .font(.headline)
                         .fontWeight(.semibold)
                         .foregroundColor(.primary)
                         .accessibilityAddTraits(.isHeader)
                     
-                    Text("Overall system performance")
+                    Text(HealthScoreCardLabels.overallSystemPerformance)
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -177,7 +177,7 @@ struct HealthScoreCard: View {
                         .accessibilityLabel("Health Score: \(score)")
                         .accessibilityAddTraits(.isHeader)
                     
-                    Text("Score")
+                    Text(HealthScoreCardLabels.score)
                         .font(.caption)
                         .fontWeight(.medium)
                         .foregroundColor(.secondary)
