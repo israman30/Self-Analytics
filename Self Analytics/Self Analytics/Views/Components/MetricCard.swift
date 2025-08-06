@@ -210,7 +210,10 @@ struct HealthScoreCard: View {
                             .fill(index < performanceLevel ? statusColor : Color.gray.opacity(0.3))
                             .frame(width: 8, height: 8)
                             .scaleEffect(index < performanceLevel ? 1.2 : 1.0)
-                            .animation(.easeInOut(duration: 0.3).delay(Double(index) * 0.1), value: performanceLevel)
+                            .animation(
+                                .easeInOut(duration: 0.3).delay(Double(index) * 0.1),
+                                value: performanceLevel
+                            )
                             .accessibilityHidden(true)
                     }
                 }
@@ -261,10 +264,10 @@ struct HealthScoreCard: View {
     
     private var statusIcon: String {
         switch status {
-        case .excellent: return "star.fill"
-        case .good: return "checkmark.circle.fill"
-        case .fair: return "exclamationmark.triangle.fill"
-        case .poor: return "xmark.circle.fill"
+        case .excellent: return DashboardViewLabels.Icon.star_fill
+        case .good: return DashboardViewLabels.Icon.checkmark_circle_fill
+        case .fair: return DashboardViewLabels.Icon.exclamationmark_triangle_fill
+        case .poor: return DashboardViewLabels.Icon.xmark_circle_fill
         }
     }
     

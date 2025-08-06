@@ -186,6 +186,11 @@ struct DashboardViewLabels {
         static let antenna_radiowaves_left_and_right_circle_fill = "antenna.radiowaves.left.and.right.circle.fill"
         
         static let iphone = "iphone"
+        
+        static let star_fill = "star.fill"
+        static let checkmark_circle_fill = "checkmark.circle.fill"
+        static let exclamationmark_triangle_fill = "exclamationmark.triangle.fill"
+        static let xmark_circle_fill = "xmark.circle.fill"
     }
     
     static let speedTest = "Speed Test"
