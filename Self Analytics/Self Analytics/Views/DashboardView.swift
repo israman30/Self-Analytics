@@ -268,16 +268,29 @@ struct DashboardView: View {
     }
     
     private var quickActionsSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text(DashboardViewLabels.quickActions)
-                .font(.headline)
-                .foregroundColor(.primary)
-                .accessibilityAddTraits(.isHeader)
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Text(DashboardViewLabels.quickActions)
+                    .font(.headline)
+                    .foregroundColor(.primary)
+                    .accessibilityAddTraits(.isHeader)
+                
+                Spacer()
+                
+                Text("4")
+                    .font(.caption)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.blue.opacity(0.2))
+                    .foregroundColor(.blue)
+                    .cornerRadius(8)
+            }
+            .accessibilityElement(children: .combine)
             
             LazyVGrid(columns: [
-                GridItem(.flexible()),
-                GridItem(.flexible())
-            ], spacing: 12) {
+                GridItem(.flexible(), spacing: 16),
+                GridItem(.flexible(), spacing: 16)
+            ], spacing: 16) {
                 QuickActionButton(
                     title: DashboardViewLabels.speedTest,
                     icon: DashboardViewLabels.Icon.speedometer,
@@ -525,28 +538,60 @@ struct QuickActionButton: View {
     let icon: String
     let color: Color
     let action: () -> Void
+    @State private var isPressed = false
     
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 8) {
-                Image(systemName: icon)
-                    .font(.title2)
-                    .foregroundColor(color)
-                    .accessibilityHidden(true)
+            VStack(spacing: 12) {
+                // Icon with background circle
+                ZStack {
+                    Circle()
+                        .fill(color.opacity(0.15))
+                        .frame(width: 48, height: 48)
+                    
+                    Image(systemName: icon)
+                        .font(.title2)
+                        .foregroundColor(color)
+                        .accessibilityHidden(true)
+                }
                 
+                // Title with better typography
                 Text(title)
-                    .font(.caption)
+                    .font(.subheadline)
+                    .fontWeight(.medium)
                     .foregroundColor(.primary)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
             }
             .frame(maxWidth: .infinity)
-            .padding()
-            .background(Color(.systemBackground))
-            .cornerRadius(12)
-            .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+            .padding(.vertical, 16)
+            .padding(.horizontal, 12)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color(.systemBackground))
+                    .shadow(
+                        color: color.opacity(0.1),
+                        radius: isPressed ? 2 : 6,
+                        x: 0,
+                        y: isPressed ? 1 : 3
+                    )
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(color.opacity(0.2), lineWidth: 1)
+            )
+            .scaleEffect(isPressed ? 0.95 : 1.0)
+            .animation(.easeInOut(duration: 0.1), value: isPressed)
         }
         .buttonStyle(PlainButtonStyle())
+        .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
+            withAnimation(.easeInOut(duration: 0.1)) {
+                isPressed = pressing
+            }
+        }, perform: {})
         .accessibilityLabel(title)
         .accessibilityHint(AccessibilityLabels.tapToActivate)
+        .accessibilityAddTraits(.isButton)
     }
 }
 
