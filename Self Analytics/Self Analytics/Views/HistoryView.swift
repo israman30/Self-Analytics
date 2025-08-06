@@ -49,6 +49,9 @@ struct HistoryView: View {
             }
             .navigationTitle(HistoryViewLabels.history)
             .navigationBarTitleDisplayMode(.large)
+            .accessibilityElement(children: .contain)
+            .accessibilityLabel(AccessibilityLabels.deviceHistory)
+            .accessibilityHint(AccessibilityLabels.view_historical_device_performance_data_and_trends)
             .onAppear {
                 generateHistoricalData()
             }
@@ -72,6 +75,8 @@ struct HistoryView: View {
                 }
             }
             .pickerStyle(SegmentedPickerStyle())
+            .accessibilityLabel(HistoryViewLabels.timeRange)
+            .accessibilityHint(AccessibilityLabels.select_the_time_period_for_historical_data)
         }
         .padding(.horizontal)
         .accessibilityElement(children: .combine)
@@ -124,11 +129,14 @@ struct HistoryView: View {
                     }
                 }
                 .accessibilityLabel(AccessibilityLabels.healthScoreTrendChart)
+                .accessibilityHint(AccessibilityLabels.shows_health_score_trends_over_the_selected_time_period)
             } else {
                 // Fallback for older iOS versions
                 Text(HistoryViewLabels.chartRequiresiOS16OrLater)
                     .foregroundColor(.secondary)
                     .frame(height: 200)
+                    .accessibilityLabel(AccessibilityLabels.chartNotAvailable)
+                    .accessibilityHint(AccessibilityLabels.chartsRequireiOS16OrLater)
             }
         }
         .padding()
@@ -136,6 +144,7 @@ struct HistoryView: View {
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
         .padding(.horizontal)
+        .accessibilityElement(children: .contain)
     }
     
     // MARK: - Metrics Chart setup
@@ -178,6 +187,9 @@ struct HistoryView: View {
             )
         }
         .padding(.horizontal)
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(AccessibilityLabels.performanceMetricsCharts)
+        .accessibilityHint(AccessibilityLabels.detailed_charts_showing_memory_CPU_battery_and_storage_usage_over_time)
     }
     
     // MARK: - Performance Summary setup
@@ -225,6 +237,9 @@ struct HistoryView: View {
                         color: .blue
                     )
                 }
+                .accessibilityElement(children: .contain)
+                .accessibilityLabel(AccessibilityLabels.performanceSummary)
+                .accessibilityHint(AccessibilityLabels.summary_of_key_performance_metrics_including_average_health_score_peak_usage_and_data_points)
             }
         }
         .padding()
@@ -232,6 +247,7 @@ struct HistoryView: View {
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
         .padding(.horizontal)
+        .accessibilityElement(children: .contain)
     }
     
     // MARK: - Helper Methods
@@ -328,6 +344,7 @@ struct MetricChartView: View {
             Text(title)
                 .font(.headline)
                 .foregroundColor(.primary)
+                .accessibilityAddTraits(.isHeader)
             
             if #available(iOS 16.0, *) {
                 Chart(data) { health in
@@ -357,11 +374,15 @@ struct MetricChartView: View {
                         AxisValueLabel()
                     }
                 }
+                .accessibilityLabel("\(title) Chart")
+                .accessibilityHint("Shows \(title.lowercased()) trends over time")
             } else {
                 // Fallback for older iOS versions
                 Text(HistoryViewLabels.chartRequiresiOS16OrLater)
                     .foregroundColor(.secondary)
                     .frame(height: 150)
+                    .accessibilityLabel(AccessibilityLabels.chartNotAvailable)
+                    .accessibilityHint(AccessibilityLabels.chartsRequireiOS16OrLater)
             }
             
             // Enhanced Chart Footer Stats
@@ -404,6 +425,7 @@ struct MetricChartView: View {
         .background(Color(.systemBackground))
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+        .accessibilityElement(children: .contain)
     }
     
     private var averageValue: Double {
@@ -428,6 +450,7 @@ struct MetricChartView: View {
             Image(systemName: performanceStatusIcon)
                 .foregroundColor(performanceStatusColor)
                 .font(.caption)
+                .accessibilityHidden(true)
             
             // Performance status text
             Text(performanceStatusText)
@@ -442,6 +465,7 @@ struct MetricChartView: View {
                 Image(systemName: "chart.bar.doc.horizontal")
                     .foregroundColor(.secondary)
                     .font(.caption2)
+                    .accessibilityHidden(true)
                 
                 Text("\(data.count) points")
                     .font(.caption2)
@@ -452,6 +476,8 @@ struct MetricChartView: View {
         .padding(.vertical, 4)
         .background(Color(.systemGray6))
         .cornerRadius(6)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Performance Status: \(performanceStatusText), \(data.count) data points")
     }
     
     private var performanceStatusIcon: String {
@@ -528,12 +554,14 @@ struct StatCard: View {
                 Image(systemName: icon)
                     .foregroundColor(color)
                     .font(.caption)
+                    .accessibilityHidden(true)
                 
                 Spacer()
                 
                 Image(systemName: trend.icon)
                     .foregroundColor(trend.color)
                     .font(.caption2)
+                    .accessibilityHidden(true)
             }
             
             Text(value)
@@ -550,6 +578,7 @@ struct StatCard: View {
         .cornerRadius(8)
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(label): \(value)")
+        .accessibilityHint("Shows \(label.lowercased()) value with trend indicator")
     }
 }
 
@@ -572,6 +601,7 @@ struct SummaryRow: View {
                 .foregroundColor(color)
         }
         .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(title): \(value)")
     }
 }
 

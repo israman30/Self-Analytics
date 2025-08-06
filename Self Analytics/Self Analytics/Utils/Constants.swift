@@ -327,4 +327,58 @@ struct AccessibilityLabels {
     static let alert = "Alert"
     static let percent = "percent"
     static let completed = "Completed"
+    
+    // Widget Accessibility
+    static let deviceHealthWidget = "Device Health Widget"
+    static let healthScore = "Health Score"
+    static let batteryLevel = "Battery Level"
+    static let memoryUsage = "Memory Usage"
+    static let storageUsage = "Storage Usage"
+    static let networkStatus = "Network Status"
+    static let charging = "charging"
+    static let excellent = "Excellent"
+    static let good = "Good"
+    static let fair = "Fair"
+    static let poor = "Poor"
+    
+    // Chart Accessibility
+    static let chartNotAvailable = "Chart not available"
+    static let chartsRequireiOS16OrLater = "Charts require iOS 16 or later"
+    static let performanceMetrics = "Performance Metrics"
+    static let performanceSummary = "Performance Summary"
+    static let dataPoints = "data points"
+    static let aboveAverage = "Above average"
+    static let belowAverage = "Below average"
+    static let normalRange = "Normal range"
+    
+    // Navigation Accessibility
+    static let mainNavigation = "Main Navigation"
+    static let navigateBetweenSections = "Navigate between dashboard, history, and settings"
+    static let viewDeviceHealthMetrics = "View device health metrics and current status"
+    static let viewHistoricalData = "View historical device performance data and trends"
+    static let configureAppSettings = "Configure app preferences and manage data"
+    
+    // Settings Accessibility
+    static let enableNotificationsHint = "Enable or disable push notifications for device alerts"
+    static let showAlertsHint = "Show or hide alert notifications in the app"
+    static let autoRefreshIntervalHint = "Select how often the app should refresh device metrics"
+    static let deviceModel = "Device Model"
+    static let systemVersion = "System Version"
+    static let appVersion = "App Version"
+    static let buildNumber = "Build Number"
+    
+    // Progress Indicators
+    static let exportInProgress = "Export in progress"
+    static let clearingInProgress = "Clearing in progress"
+    static let exportingDataPleaseWait = "Exporting data, please wait"
+    static let clearingAllDataPleaseWait = "Clearing all data, please wait"
+    
+    // History View
+    static let deviceHistory = "Device History"
+    static let view_historical_device_performance_data_and_trends = "View historical device performance data and trends"
+    static let select_the_time_period_for_historical_data = "Select the time period for historical data"
+    static let shows_health_score_trends_over_the_selected_time_period = "Shows health score trends over the selected time period"
+    static let performanceMetricsCharts = "Performance Metrics Charts"
+    static let detailed_charts_showing_memory_CPU_battery_and_storage_usage_over_time = "Detailed charts showing memory, CPU, battery, and storage usage over time"
+    static let summary_of_key_performance_metrics_including_average_health_score_peak_usage_and_data_points = "Summary of key performance metrics including average health score, peak usage, and data points"
 }
