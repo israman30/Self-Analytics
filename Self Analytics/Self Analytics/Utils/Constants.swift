@@ -107,9 +107,27 @@ struct HistoryViewLabels {
         static let lowestBatteryLevel = "Lowest Battery Level"
         static let dataPoints = "Data Points"
     }
+    
+    struct Icon {
+        static let chart_line_uptrend_xyaxis = "chart.line.uptrend.xyaxis"
+        static let arrow_up_circle_fill = "arrow.up.circle.fill"
+        static let clock_fill = "clock.fill"
+        static let chart_bar_doc_horizontal = "chart.bar.doc.horizontal"
+        static let exclamationmark_triangle_fill = "exclamationmark.triangle.fill"
+        static let checkmark_circle_fill = "checkmark.circle.fill"
+        static let minus_circle_fill = "minus.circle.fill"
+        static let arrow_up = "arrow.up"
+        static let arrow_down = "arrow.down"
+        static let minus = "minus"
+    }
 
     static let average = "Average"
     static let peak = "Peak"
+    static let current = "Current"
+    
+    static let aboveAverage = "Above average"
+    static let belowAverage = "Below average"
+    static let normalRange = "Normal Range"
 }
 
 struct DashboardViewLabels {

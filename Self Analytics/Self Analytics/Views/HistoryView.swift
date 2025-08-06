@@ -391,8 +391,8 @@ struct MetricChartView: View {
                 HStack(spacing: 16) {
                     // Average stat
                     StatCard(
-                        icon: "chart.line.uptrend.xyaxis",
-                        label: "Average",
+                        icon: HistoryViewLabels.Icon.chart_line_uptrend_xyaxis,
+                        label: HistoryViewLabels.average,
                         value: "\(String(format: "%.1f", averageValue))\(unit)",
                         color: color,
                         trend: getTrendDirection(for: averageValue, comparedTo: peakValue)
@@ -400,8 +400,8 @@ struct MetricChartView: View {
                     
                     // Peak stat
                     StatCard(
-                        icon: "arrow.up.circle.fill",
-                        label: "Peak",
+                        icon: HistoryViewLabels.Icon.arrow_up_circle_fill,
+                        label: HistoryViewLabels.peak,
                         value: "\(String(format: "%.1f", peakValue))\(unit)",
                         color: color,
                         trend: .up
@@ -409,8 +409,8 @@ struct MetricChartView: View {
                     
                     // Current stat
                     StatCard(
-                        icon: "clock.fill",
-                        label: "Current",
+                        icon: HistoryViewLabels.Icon.clock_fill,
+                        label: HistoryViewLabels.current,
                         value: "\(String(format: "%.1f", currentValue))\(unit)",
                         color: color,
                         trend: getTrendDirection(for: currentValue, comparedTo: averageValue)
@@ -462,7 +462,7 @@ struct MetricChartView: View {
             
             // Data points info
             HStack(spacing: 4) {
-                Image(systemName: "chart.bar.doc.horizontal")
+                Image(systemName: HistoryViewLabels.Icon.chart_bar_doc_horizontal)
                     .foregroundColor(.secondary)
                     .font(.caption2)
                     .accessibilityHidden(true)
@@ -484,27 +484,39 @@ struct MetricChartView: View {
         let current = currentValue
         let avg = averageValue
         
-        if current > avg * 1.2 { return "exclamationmark.triangle.fill" }
-        else if current < avg * 0.8 { return "checkmark.circle.fill" }
-        else { return "minus.circle.fill" }
+        if current > avg * 1.2 {
+            return HistoryViewLabels.Icon.exclamationmark_triangle_fill
+        } else if current < avg * 0.8 {
+            return HistoryViewLabels.Icon.checkmark_circle_fill
+        } else {
+            return HistoryViewLabels.Icon.minus_circle_fill
+        }
     }
     
     private var performanceStatusColor: Color {
         let current = currentValue
         let avg = averageValue
         
-        if current > avg * 1.2 { return .orange }
-        else if current < avg * 0.8 { return .green }
-        else { return .blue }
+        if current > avg * 1.2 {
+            return .orange
+        } else if current < avg * 0.8 {
+            return .green
+        } else {
+            return .blue
+        }
     }
     
     private var performanceStatusText: String {
         let current = currentValue
         let avg = averageValue
         
-        if current > avg * 1.2 { return "Above average" }
-        else if current < avg * 0.8 { return "Below average" }
-        else { return "Normal range" }
+        if current > avg * 1.2 {
+            return HistoryViewLabels.aboveAverage
+        } else if current < avg * 0.8 {
+            return HistoryViewLabels.belowAverage
+        } else {
+            return HistoryViewLabels.normalRange
+        }
     }
     
     private func getTrendDirection(for value: Double, comparedTo reference: Double) -> StatCard.TrendDirection {
@@ -533,9 +545,9 @@ struct StatCard: View {
         
         var icon: String {
             switch self {
-            case .up: return "arrow.up"
-            case .down: return "arrow.down"
-            case .stable: return "minus"
+            case .up: return HistoryViewLabels.Icon.arrow_up
+            case .down: return HistoryViewLabels.Icon.arrow_down
+            case .stable: return HistoryViewLabels.Icon.minus
             }
         }
         
