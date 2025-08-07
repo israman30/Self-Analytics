@@ -78,6 +78,12 @@ struct MainTabViewLabels {
         static let chart_line_uptrend_xyaxis = "chart.line.uptrend.xyaxis"
         static let gear = "gear"
     }
+    
+    static let view_device_health_metrics_and_current_status = "View device health metrics and current status"
+    static let view_historical_device_performance_data_and_trends = "View historical device performance data and trends"
+    static let configure_app_settings_and_preferences = "Configure app settings and preferences"
+    static let mainNavigation = "Main Navigation"
+    static let navigate_between_dashboard_history_and_settings = "Navigate between dashboard, history, and settings"
 }
 
 struct HistoryViewLabels {
@@ -107,9 +113,27 @@ struct HistoryViewLabels {
         static let lowestBatteryLevel = "Lowest Battery Level"
         static let dataPoints = "Data Points"
     }
+    
+    struct Icon {
+        static let chart_line_uptrend_xyaxis = "chart.line.uptrend.xyaxis"
+        static let arrow_up_circle_fill = "arrow.up.circle.fill"
+        static let clock_fill = "clock.fill"
+        static let chart_bar_doc_horizontal = "chart.bar.doc.horizontal"
+        static let exclamationmark_triangle_fill = "exclamationmark.triangle.fill"
+        static let checkmark_circle_fill = "checkmark.circle.fill"
+        static let minus_circle_fill = "minus.circle.fill"
+        static let arrow_up = "arrow.up"
+        static let arrow_down = "arrow.down"
+        static let minus = "minus"
+    }
 
     static let average = "Average"
     static let peak = "Peak"
+    static let current = "Current"
+    
+    static let aboveAverage = "Above average"
+    static let belowAverage = "Below average"
+    static let normalRange = "Normal Range"
 }
 
 struct DashboardViewLabels {
@@ -168,6 +192,11 @@ struct DashboardViewLabels {
         static let antenna_radiowaves_left_and_right_circle_fill = "antenna.radiowaves.left.and.right.circle.fill"
         
         static let iphone = "iphone"
+        
+        static let star_fill = "star.fill"
+        static let checkmark_circle_fill = "checkmark.circle.fill"
+        static let exclamationmark_triangle_fill = "exclamationmark.triangle.fill"
+        static let xmark_circle_fill = "xmark.circle.fill"
     }
     
     static let speedTest = "Speed Test"
@@ -222,6 +251,11 @@ struct MetricCardLabels {
 struct HealthScoreCardLabels {
     static let score = "Score"
     static let deviceHealth = "Device Health"
+    static let overallSystemPerformance = "Overall system performance"
+    
+    struct Icon {
+        static let heart_fill = "heart.fill"
+    }
 }
 
 struct AlertCardLabels {
@@ -322,4 +356,58 @@ struct AccessibilityLabels {
     static let alert = "Alert"
     static let percent = "percent"
     static let completed = "Completed"
+    
+    // Widget Accessibility
+    static let deviceHealthWidget = "Device Health Widget"
+    static let healthScore = "Health Score"
+    static let batteryLevel = "Battery Level"
+    static let memoryUsage = "Memory Usage"
+    static let storageUsage = "Storage Usage"
+    static let networkStatus = "Network Status"
+    static let charging = "charging"
+    static let excellent = "Excellent"
+    static let good = "Good"
+    static let fair = "Fair"
+    static let poor = "Poor"
+    
+    // Chart Accessibility
+    static let chartNotAvailable = "Chart not available"
+    static let chartsRequireiOS16OrLater = "Charts require iOS 16 or later"
+    static let performanceMetrics = "Performance Metrics"
+    static let performanceSummary = "Performance Summary"
+    static let dataPoints = "data points"
+    static let aboveAverage = "Above average"
+    static let belowAverage = "Below average"
+    static let normalRange = "Normal range"
+    
+    // Navigation Accessibility
+    static let mainNavigation = "Main Navigation"
+    static let navigateBetweenSections = "Navigate between dashboard, history, and settings"
+    static let viewDeviceHealthMetrics = "View device health metrics and current status"
+    static let viewHistoricalData = "View historical device performance data and trends"
+    static let configureAppSettings = "Configure app preferences and manage data"
+    
+    // Settings Accessibility
+    static let enableNotificationsHint = "Enable or disable push notifications for device alerts"
+    static let showAlertsHint = "Show or hide alert notifications in the app"
+    static let autoRefreshIntervalHint = "Select how often the app should refresh device metrics"
+    static let deviceModel = "Device Model"
+    static let systemVersion = "System Version"
+    static let appVersion = "App Version"
+    static let buildNumber = "Build Number"
+    
+    // Progress Indicators
+    static let exportInProgress = "Export in progress"
+    static let clearingInProgress = "Clearing in progress"
+    static let exportingDataPleaseWait = "Exporting data, please wait"
+    static let clearingAllDataPleaseWait = "Clearing all data, please wait"
+    
+    // History View
+    static let deviceHistory = "Device History"
+    static let view_historical_device_performance_data_and_trends = "View historical device performance data and trends"
+    static let select_the_time_period_for_historical_data = "Select the time period for historical data"
+    static let shows_health_score_trends_over_the_selected_time_period = "Shows health score trends over the selected time period"
+    static let performanceMetricsCharts = "Performance Metrics Charts"
+    static let detailed_charts_showing_memory_CPU_battery_and_storage_usage_over_time = "Detailed charts showing memory, CPU, battery, and storage usage over time"
+    static let summary_of_key_performance_metrics_including_average_health_score_peak_usage_and_data_points = "Summary of key performance metrics including average health score, peak usage, and data points"
 }

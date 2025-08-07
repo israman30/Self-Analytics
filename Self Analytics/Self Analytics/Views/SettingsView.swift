@@ -45,6 +45,7 @@ struct SettingsView: View {
                             .foregroundStyle(.secondary)
                     }
                     .accessibilityElement(children: .combine)
+                    .accessibilityLabel("Device Model: \(deviceInformation.getDeviceName())")
                     
                     HStack {
                         Text(SettingViewLabels.systemVersion)
@@ -53,6 +54,7 @@ struct SettingsView: View {
                             .foregroundStyle(.secondary)
                     }
                     .accessibilityElement(children: .combine)
+                    .accessibilityLabel("System Version: \(deviceInformation.getDeviceModel())")
                     
                 } header: {
                     Text(SettingViewLabels.currentDevice)
@@ -61,9 +63,13 @@ struct SettingsView: View {
                 
                 Section {
                     Toggle(SettingViewLabels.enableNotifications, isOn: $notificationsEnabled)
+                        .accessibilityLabel(SettingViewLabels.enableNotifications)
+                        .accessibilityHint("Enable or disable push notifications for device alerts")
                     
                     if notificationsEnabled {
                         Toggle(SettingViewLabels.showAlerts, isOn: $showAlerts)
+                            .accessibilityLabel(SettingViewLabels.showAlerts)
+                            .accessibilityHint("Show or hide alert notifications in the app")
                     }
                 } header: {
                     Text(SettingViewLabels.notifications)
@@ -81,6 +87,8 @@ struct SettingsView: View {
                         Text(SettingViewLabels.TimeIntervar.thirty_seonconds)
                             .tag(30.0)
                     }
+                    .accessibilityLabel(SettingViewLabels.autorefreshInterval)
+                    .accessibilityHint("Select how often the app should refresh device metrics")
                     
                 } header: {
                     Text(SettingViewLabels.appSettings)
@@ -95,6 +103,7 @@ struct SettingsView: View {
                             .foregroundColor(.secondary)
                     }
                     .accessibilityElement(children: .combine)
+                    .accessibilityLabel("App Version: \(SettingViewLabels.version_number)")
                     
                     HStack {
                         Text(SettingViewLabels.build)
@@ -103,35 +112,41 @@ struct SettingsView: View {
                             .foregroundColor(.secondary)
                     }
                     .accessibilityElement(children: .combine)
+                    .accessibilityLabel("Build Number: \(SettingViewLabels.build_number)")
                 } header: {
                     Text(SettingViewLabels.about)
                         .accessibilityAddTraits(.isHeader)
                 }
-                // SUPPORT SECTION
+                
                 Section {
                     Button(SettingViewLabels.privacyPolicy) {
                         // Open privacy policy
                         activeSheet = .privacyPolicy
                     }
+                    .accessibilityLabel(SettingViewLabels.privacyPolicy)
                     .accessibilityHint(AccessibilityLabels.tapToViewOurPrivacyPolicy)
+                    .accessibilityAddTraits(.isButton)
                     
                     Button(SettingViewLabels.termsOfService) {
                         // Open terms of service
                         activeSheet = .termsOfService
                     }
+                    .accessibilityLabel(SettingViewLabels.termsOfService)
                     .accessibilityHint(AccessibilityLabels.tapToViewOurTermsOfService)
+                    .accessibilityAddTraits(.isButton)
                     
                     Button(SettingViewLabels.contactSupport) {
                         // Open support contact
                         activeSheet = .contactSupport
                     }
+                    .accessibilityLabel(SettingViewLabels.contactSupport)
                     .accessibilityHint(AccessibilityLabels.tapToContactOurSupportTeam)
+                    .accessibilityAddTraits(.isButton)
                 } header: {
                     Text(SettingViewLabels.support)
                         .accessibilityAddTraits(.isHeader)
                 }
                 
-                // DATA SECTION
                 Section {
                     Button(SettingViewLabels.exportData) {
                         Task {
@@ -139,38 +154,49 @@ struct SettingsView: View {
                         }
                     }
                     .disabled(dataManagementService.isExporting)
+                    .accessibilityLabel(SettingViewLabels.exportData)
                     .accessibilityHint(AccessibilityLabels.tapToExportYourData)
+                    .accessibilityAddTraits(.isButton)
                     
                     if dataManagementService.isExporting {
                         HStack {
                             ProgressView()
                                 .scaleEffect(0.8)
+                                .accessibilityLabel("Export in progress")
                             Text(SettingViewLabels.exportInProgress)
                                 .foregroundColor(.secondary)
                         }
                         .accessibilityElement(children: .combine)
+                        .accessibilityLabel("Exporting data, please wait")
                     }
                     
                     Button(SettingViewLabels.clearAllData, role: .destructive) {
                         showingClearDataAlert = true
                     }
                     .disabled(dataManagementService.isClearing)
+                    .accessibilityLabel(SettingViewLabels.clearAllData)
                     .accessibilityHint(AccessibilityLabels.tapToClearAllYourData_thisActionCannotBeUndone)
+                    .accessibilityAddTraits(.isButton)
                     
                     if dataManagementService.isClearing {
                         HStack {
                             ProgressView()
                                 .scaleEffect(0.8)
+                                .accessibilityLabel("Clearing in progress")
                             Text(SettingViewLabels.clearingData)
                                 .foregroundColor(.secondary)
                         }
                         .accessibilityElement(children: .combine)
+                        .accessibilityLabel("Clearing all data, please wait")
                     }
                 } header: {
                     Text(SettingViewLabels.data)
                         .accessibilityAddTraits(.isHeader)
                 }
             }
+            .accessibilityElement(children: .contain)
+            .accessibilityLabel("Settings")
+            .accessibilityHint("Configure app preferences and manage data")
             .sheet(item: $activeSheet) { sheet in
                 switch sheet {
                 case .privacyPolicy:
@@ -196,15 +222,14 @@ struct SettingsView: View {
             } message: {
                 Text(SettingViewLabels.clearDataMessage)
             }
-            .alert(SettingViewLabels.generalError, isPresented: $showingErrorAlert) {
-                Button(SettingViewLabels.ok, role: .cancel) { }
+            .alert("Error", isPresented: $showingErrorAlert) {
+                Button("OK", role: .cancel) { }
             } message: {
                 Text(errorMessage)
             }
             .navigationTitle(SettingViewLabels.settings)
             .navigationBarTitleDisplayMode(.large)
         }
-        .navigationViewStyle(.stack)
     }
 
     // MARK: - Helper Methods

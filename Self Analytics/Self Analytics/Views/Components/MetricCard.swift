@@ -104,50 +104,152 @@ struct HealthScoreCard: View {
     let status: HealthStatus
     
     var body: some View {
-        VStack(spacing: 16) {
-            ZStack {
-                Circle()
-                    .stroke(Color.gray.opacity(0.2), lineWidth: 8)
-                    .frame(width: 120, height: 120)
+        VStack(spacing: 20) {
+            // Header with icon and title
+            HStack {
+                Image(systemName: HealthScoreCardLabels.Icon.heart_fill)
+                    .font(.title2)
+                    .foregroundColor(statusColor)
                     .accessibilityHidden(true)
                 
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(HealthScoreCardLabels.deviceHealth)
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.primary)
+                        .accessibilityAddTraits(.isHeader)
+                    
+                    Text(HealthScoreCardLabels.overallSystemPerformance)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                
+                Spacer()
+                
+                // Status badge
+                Text(status.description)
+                    .font(.caption)
+                    .fontWeight(.medium)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(statusColor.opacity(0.15))
+                    .foregroundColor(statusColor)
+                    .cornerRadius(12)
+                    .accessibilityAddTraits(.isHeader)
+            }
+            
+            // Enhanced circular progress indicator
+            ZStack {
+                // Background circle with gradient
+                Circle()
+                    .stroke(
+                        LinearGradient(
+                            colors: [Color.gray.opacity(0.1), Color.gray.opacity(0.05)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        style: StrokeStyle(lineWidth: 12, lineCap: .round)
+                    )
+                    .frame(width: 140, height: 140)
+                    .accessibilityHidden(true)
+                
+                // Progress circle with gradient
                 Circle()
                     .trim(from: 0, to: CGFloat(score) / 100)
-                    .stroke(statusColor, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                    .frame(width: 120, height: 120)
+                    .stroke(
+                        LinearGradient(
+                            colors: [statusColor, statusColor.opacity(0.7)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        style: StrokeStyle(lineWidth: 12, lineCap: .round)
+                    )
+                    .frame(width: 140, height: 140)
                     .rotationEffect(.degrees(-90))
-                    .animation(.easeInOut(duration: 1), value: score)
+                    .animation(.easeInOut(duration: 1.5).delay(0.2), value: score)
                     .accessibilityHidden(true)
                 
-                VStack(spacing: 4) {
+                // Center content with enhanced styling
+                VStack(spacing: 8) {
                     Text("\(score)")
-                        .font(.title)
-                        .fontWeight(.bold)
+                        .font(.system(size: 36, weight: .bold, design: .rounded))
                         .foregroundColor(statusColor)
                         .accessibilityLabel("Health Score: \(score)")
                         .accessibilityAddTraits(.isHeader)
                     
                     Text(HealthScoreCardLabels.score)
                         .font(.caption)
+                        .fontWeight(.medium)
                         .foregroundColor(.secondary)
+                        .textCase(.uppercase)
+                        .tracking(1)
                 }
             }
             
-            VStack(spacing: 4) {
-                Text(status.description)
-                    .font(.headline)
-                    .foregroundColor(statusColor)
-                    .accessibilityAddTraits(.isHeader)
+            // Status details with enhanced visual
+            HStack(spacing: 16) {
+                VStack(spacing: 4) {
+                    Image(systemName: statusIcon)
+                        .font(.title3)
+                        .foregroundColor(statusColor)
+                        .accessibilityHidden(true)
+                    
+                    Text(status.description)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(statusColor)
+                        .accessibilityAddTraits(.isHeader)
+                }
                 
-                Text(HealthScoreCardLabels.deviceHealth)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                Spacer()
+                
+                // Performance indicator dots
+                HStack(spacing: 6) {
+                    ForEach(0..<4) { index in
+                        Circle()
+                            .fill(index < performanceLevel ? statusColor : Color.gray.opacity(0.3))
+                            .frame(width: 8, height: 8)
+                            .scaleEffect(index < performanceLevel ? 1.2 : 1.0)
+                            .animation(
+                                .easeInOut(duration: 0.3).delay(Double(index) * 0.1),
+                                value: performanceLevel
+                            )
+                            .accessibilityHidden(true)
+                    }
+                }
             }
         }
-        .padding()
-        .background(Color(.systemBackground))
-        .cornerRadius(16)
-        .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+        .padding(24)
+        .background(
+            RoundedRectangle(cornerRadius: 20)
+                .fill(
+                    LinearGradient(
+                        colors: [
+                            Color(.systemBackground),
+                            Color(.systemBackground).opacity(0.95)
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(
+                            LinearGradient(
+                                colors: [statusColor.opacity(0.2), statusColor.opacity(0.05)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            lineWidth: 1
+                        )
+                )
+        )
+        .shadow(
+            color: statusColor.opacity(0.1),
+            radius: 8,
+            x: 0,
+            y: 4
+        )
         .accessibilityElement(children: .combine)
     }
     
@@ -157,6 +259,24 @@ struct HealthScoreCard: View {
         case .good: return .blue
         case .fair: return .orange
         case .poor: return .red
+        }
+    }
+    
+    private var statusIcon: String {
+        switch status {
+        case .excellent: return DashboardViewLabels.Icon.star_fill
+        case .good: return DashboardViewLabels.Icon.checkmark_circle_fill
+        case .fair: return DashboardViewLabels.Icon.exclamationmark_triangle_fill
+        case .poor: return DashboardViewLabels.Icon.xmark_circle_fill
+        }
+    }
+    
+    private var performanceLevel: Int {
+        switch status {
+        case .excellent: return 4
+        case .good: return 3
+        case .fair: return 2
+        case .poor: return 1
         }
     }
 }

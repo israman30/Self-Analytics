@@ -49,6 +49,11 @@ struct HistoryView: View {
             }
             .navigationTitle(HistoryViewLabels.history)
             .navigationBarTitleDisplayMode(.large)
+            .accessibilityElement(children: .contain)
+            .accessibilityLabel(AccessibilityLabels.deviceHistory)
+            .accessibilityHint(
+                AccessibilityLabels.view_historical_device_performance_data_and_trends
+            )
             .onAppear {
                 generateHistoricalData()
             }
@@ -72,6 +77,10 @@ struct HistoryView: View {
                 }
             }
             .pickerStyle(SegmentedPickerStyle())
+            .accessibilityLabel(HistoryViewLabels.timeRange)
+            .accessibilityHint(
+                AccessibilityLabels.select_the_time_period_for_historical_data
+            )
         }
         .padding(.horizontal)
         .accessibilityElement(children: .combine)
@@ -124,11 +133,14 @@ struct HistoryView: View {
                     }
                 }
                 .accessibilityLabel(AccessibilityLabels.healthScoreTrendChart)
+                .accessibilityHint(AccessibilityLabels.shows_health_score_trends_over_the_selected_time_period)
             } else {
                 // Fallback for older iOS versions
                 Text(HistoryViewLabels.chartRequiresiOS16OrLater)
                     .foregroundColor(.secondary)
                     .frame(height: 200)
+                    .accessibilityLabel(AccessibilityLabels.chartNotAvailable)
+                    .accessibilityHint(AccessibilityLabels.chartsRequireiOS16OrLater)
             }
         }
         .padding()
@@ -136,6 +148,7 @@ struct HistoryView: View {
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
         .padding(.horizontal)
+        .accessibilityElement(children: .contain)
     }
     
     // MARK: - Metrics Chart setup
@@ -178,6 +191,11 @@ struct HistoryView: View {
             )
         }
         .padding(.horizontal)
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(AccessibilityLabels.performanceMetricsCharts)
+        .accessibilityHint(
+            AccessibilityLabels.detailed_charts_showing_memory_CPU_battery_and_storage_usage_over_time
+        )
     }
     
     // MARK: - Performance Summary setup
@@ -225,6 +243,11 @@ struct HistoryView: View {
                         color: .blue
                     )
                 }
+                .accessibilityElement(children: .contain)
+                .accessibilityLabel(AccessibilityLabels.performanceSummary)
+                .accessibilityHint(
+                    AccessibilityLabels.summary_of_key_performance_metrics_including_average_health_score_peak_usage_and_data_points
+                )
             }
         }
         .padding()
@@ -232,6 +255,7 @@ struct HistoryView: View {
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
         .padding(.horizontal)
+        .accessibilityElement(children: .contain)
     }
     
     // MARK: - Helper Methods
@@ -328,6 +352,7 @@ struct MetricChartView: View {
             Text(title)
                 .font(.headline)
                 .foregroundColor(.primary)
+                .accessibilityAddTraits(.isHeader)
             
             if #available(iOS 16.0, *) {
                 Chart(data) { health in
@@ -357,42 +382,58 @@ struct MetricChartView: View {
                         AxisValueLabel()
                     }
                 }
+                .accessibilityLabel("\(title) Chart")
+                .accessibilityHint("Shows \(title.lowercased()) trends over time")
             } else {
                 // Fallback for older iOS versions
                 Text(HistoryViewLabels.chartRequiresiOS16OrLater)
                     .foregroundColor(.secondary)
                     .frame(height: 150)
+                    .accessibilityLabel(AccessibilityLabels.chartNotAvailable)
+                    .accessibilityHint(AccessibilityLabels.chartsRequireiOS16OrLater)
             }
             
-            // Summary stats
-            HStack {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(HistoryViewLabels.average)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    Text("\(String(format: "%.1f", averageValue))\(unit)")
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
+            // Enhanced Chart Footer Stats
+            VStack(spacing: 12) {
+                // Main stats row
+                HStack(spacing: 16) {
+                    // Average stat
+                    StatCard(
+                        icon: HistoryViewLabels.Icon.chart_line_uptrend_xyaxis,
+                        label: HistoryViewLabels.average,
+                        value: "\(String(format: "%.1f", averageValue))\(unit)",
+                        color: color,
+                        trend: getTrendDirection(for: averageValue, comparedTo: peakValue)
+                    )
+                    
+                    // Peak stat
+                    StatCard(
+                        icon: HistoryViewLabels.Icon.arrow_up_circle_fill,
+                        label: HistoryViewLabels.peak,
+                        value: "\(String(format: "%.1f", peakValue))\(unit)",
+                        color: color,
+                        trend: .up
+                    )
+                    
+                    // Current stat
+                    StatCard(
+                        icon: HistoryViewLabels.Icon.clock_fill,
+                        label: HistoryViewLabels.current,
+                        value: "\(String(format: "%.1f", currentValue))\(unit)",
+                        color: color,
+                        trend: getTrendDirection(for: currentValue, comparedTo: averageValue)
+                    )
                 }
-                .accessibilityElement(children: .combine)
                 
-                Spacer()
-                
-                VStack(alignment: .trailing, spacing: 2) {
-                    Text(HistoryViewLabels.peak)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    Text("\(String(format: "%.1f", peakValue))\(unit)")
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                }
-                .accessibilityElement(children: .combine)
+                // Performance indicator
+                performanceIndicator
             }
         }
         .padding()
         .background(Color(.systemBackground))
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+        .accessibilityElement(children: .contain)
     }
     
     private var averageValue: Double {
@@ -404,6 +445,160 @@ struct MetricChartView: View {
     private var peakValue: Double {
         guard !data.isEmpty else { return 0 }
         return data.map(valueKeyPath).max() ?? 0
+    }
+    
+    private var currentValue: Double {
+        guard !data.isEmpty else { return 0 }
+        return valueKeyPath(data.last!)
+    }
+    
+    private var performanceIndicator: some View {
+        HStack(spacing: 8) {
+            // Performance status icon
+            Image(systemName: performanceStatusIcon)
+                .foregroundColor(performanceStatusColor)
+                .font(.caption)
+                .accessibilityHidden(true)
+            
+            // Performance status text
+            Text(performanceStatusText)
+                .font(.caption)
+                .fontWeight(.medium)
+                .foregroundColor(performanceStatusColor)
+            
+            Spacer()
+            
+            // Data points info
+            HStack(spacing: 4) {
+                Image(systemName: HistoryViewLabels.Icon.chart_bar_doc_horizontal)
+                    .foregroundColor(.secondary)
+                    .font(.caption2)
+                    .accessibilityHidden(true)
+                
+                Text("\(data.count) points")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+            }
+        }
+        .padding(.horizontal, 8)
+        .padding(.vertical, 4)
+        .background(Color(.systemGray6))
+        .cornerRadius(6)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Performance Status: \(performanceStatusText), \(data.count) data points")
+    }
+    
+    private var performanceStatusIcon: String {
+        let current = currentValue
+        let avg = averageValue
+        
+        if current > avg * 1.2 {
+            return HistoryViewLabels.Icon.exclamationmark_triangle_fill
+        } else if current < avg * 0.8 {
+            return HistoryViewLabels.Icon.checkmark_circle_fill
+        } else {
+            return HistoryViewLabels.Icon.minus_circle_fill
+        }
+    }
+    
+    private var performanceStatusColor: Color {
+        let current = currentValue
+        let avg = averageValue
+        
+        if current > avg * 1.2 {
+            return .orange
+        } else if current < avg * 0.8 {
+            return .green
+        } else {
+            return .blue
+        }
+    }
+    
+    private var performanceStatusText: String {
+        let current = currentValue
+        let avg = averageValue
+        
+        if current > avg * 1.2 {
+            return HistoryViewLabels.aboveAverage
+        } else if current < avg * 0.8 {
+            return HistoryViewLabels.belowAverage
+        } else {
+            return HistoryViewLabels.normalRange
+        }
+    }
+    
+    private func getTrendDirection(for value: Double, comparedTo reference: Double) -> StatCard.TrendDirection {
+        let threshold = 0.05 // 5% threshold for change
+        let difference = abs(value - reference) / reference
+        
+        if difference < threshold {
+            return .stable
+        } else if value > reference {
+            return .up
+        } else {
+            return .down
+        }
+    }
+}
+
+struct StatCard: View {
+    let icon: String
+    let label: String
+    let value: String
+    let color: Color
+    let trend: TrendDirection
+    
+    enum TrendDirection {
+        case up, down, stable
+        
+        var icon: String {
+            switch self {
+            case .up: return HistoryViewLabels.Icon.arrow_up
+            case .down: return HistoryViewLabels.Icon.arrow_down
+            case .stable: return HistoryViewLabels.Icon.minus
+            }
+        }
+        
+        var color: Color {
+            switch self {
+            case .up: return .red
+            case .down: return .green
+            case .stable: return .blue
+            }
+        }
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(spacing: 4) {
+                Image(systemName: icon)
+                    .foregroundColor(color)
+                    .font(.caption)
+                    .accessibilityHidden(true)
+                
+                Spacer()
+                
+                Image(systemName: trend.icon)
+                    .foregroundColor(trend.color)
+                    .font(.caption2)
+                    .accessibilityHidden(true)
+            }
+            
+            Text(value)
+                .font(.subheadline)
+                .fontWeight(.bold)
+                .foregroundColor(color)
+            
+            Text(label)
+                .font(.caption2)
+                .foregroundColor(.secondary)
+        }
+        .padding(8)
+        .background(Color(.systemGray6))
+        .cornerRadius(8)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(label): \(value)")
+        .accessibilityHint("Shows \(label.lowercased()) value with trend indicator")
     }
 }
 
@@ -426,6 +621,7 @@ struct SummaryRow: View {
                 .foregroundColor(color)
         }
         .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(title): \(value)")
     }
 }
 

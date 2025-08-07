@@ -103,63 +103,86 @@ struct SmallWidgetView: View {
                 Circle()
                     .stroke(Color.gray.opacity(0.2), lineWidth: 6)
                     .frame(width: 60, height: 60)
+                    .accessibilityHidden(true)
                 
                 Circle()
                     .trim(from: 0, to: CGFloat(entry.healthScore) / 100)
                     .stroke(healthScoreColor, style: StrokeStyle(lineWidth: 6, lineCap: .round))
                     .frame(width: 60, height: 60)
                     .rotationEffect(.degrees(-90))
+                    .accessibilityHidden(true)
                 
                 VStack(spacing: 2) {
                     Text("\(entry.healthScore)")
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(healthScoreColor)
+                        .accessibilityLabel("Health Score: \(entry.healthScore) out of 100")
+                        .accessibilityAddTraits(.isHeader)
                     
                     Text("Score")
                         .font(.caption2)
                         .foregroundColor(.secondary)
+                        .accessibilityHidden(true)
                 }
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("Device Health Score: \(entry.healthScore) out of 100, \(healthScoreDescription)")
+            .accessibilityHint("Shows overall device health performance")
             
             // Battery Status
             HStack(spacing: 4) {
                 Image(systemName: batteryIcon)
                     .foregroundColor(batteryColor)
                     .font(.caption)
+                    .accessibilityHidden(true)
                 
                 Text("\(Int(entry.batteryLevel))%")
                     .font(.caption)
                     .fontWeight(.semibold)
                     .foregroundColor(batteryColor)
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("Battery Level: \(Int(entry.batteryLevel)) percent\(entry.isCharging ? ", charging" : "")")
+            .accessibilityHint("Current battery status")
             
             // Memory Usage
             HStack(spacing: 4) {
                 Image(systemName: "memorychip")
                     .foregroundColor(memoryColor)
                     .font(.caption)
+                    .accessibilityHidden(true)
                 
                 Text("\(Int(entry.memoryUsage))%")
                     .font(.caption)
                     .fontWeight(.semibold)
                     .foregroundColor(memoryColor)
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("Memory Usage: \(Int(entry.memoryUsage)) percent")
+            .accessibilityHint("Current memory consumption")
             
             // Network Status
             HStack(spacing: 4) {
                 Image(systemName: entry.isUsingCellular ? "antenna.radiowaves.left.and.right.circle.fill" : "wifi")
                     .foregroundColor(entry.isUsingCellular ? .blue : .green)
                     .font(.caption)
+                    .accessibilityHidden(true)
                 
                 Text(entry.isUsingCellular ? "📱" : entry.networkType)
                     .font(.caption)
                     .fontWeight(.semibold)
                     .foregroundColor(entry.isUsingCellular ? .blue : .green)
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("Network: \(entry.isUsingCellular ? "Cellular Data" : entry.networkType)")
+            .accessibilityHint("Current network connection type")
         }
         .padding()
         .background(Color(.systemBackground))
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("Device Health Widget")
+        .accessibilityHint("Shows key device metrics including health score, battery, memory, and network status")
     }
     
     private var healthScoreColor: Color {
@@ -167,6 +190,13 @@ struct SmallWidgetView: View {
         else if entry.healthScore >= 60 { return .blue }
         else if entry.healthScore >= 40 { return .orange }
         else { return .red }
+    }
+    
+    private var healthScoreDescription: String {
+        if entry.healthScore >= 80 { return "Excellent" }
+        else if entry.healthScore >= 60 { return "Good" }
+        else if entry.healthScore >= 40 { return "Fair" }
+        else { return "Poor" }
     }
     
     private var batteryColor: Color {
@@ -201,28 +231,37 @@ struct MediumWidgetView: View {
                     Circle()
                         .stroke(Color.gray.opacity(0.2), lineWidth: 8)
                         .frame(width: 80, height: 80)
+                        .accessibilityHidden(true)
                     
                     Circle()
                         .trim(from: 0, to: CGFloat(entry.healthScore) / 100)
                         .stroke(healthScoreColor, style: StrokeStyle(lineWidth: 8, lineCap: .round))
                         .frame(width: 80, height: 80)
                         .rotationEffect(.degrees(-90))
+                        .accessibilityHidden(true)
                     
                     VStack(spacing: 2) {
                         Text("\(entry.healthScore)")
                             .font(.title)
                             .fontWeight(.bold)
                             .foregroundColor(healthScoreColor)
+                            .accessibilityLabel("Health Score: \(entry.healthScore) out of 100")
+                            .accessibilityAddTraits(.isHeader)
                         
                         Text("Score")
                             .font(.caption)
                             .foregroundColor(.secondary)
+                            .accessibilityHidden(true)
                     }
                 }
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel("Device Health Score: \(entry.healthScore) out of 100, \(healthScoreDescription)")
+                .accessibilityHint("Shows overall device health performance")
                 
                 Text("Device Health")
                     .font(.caption)
                     .foregroundColor(.secondary)
+                    .accessibilityHidden(true)
             }
             
             // Metrics
@@ -231,35 +270,49 @@ struct MediumWidgetView: View {
                     icon: batteryIcon,
                     title: "Battery",
                     value: "\(Int(entry.batteryLevel))%",
-                    color: batteryColor
+                    color: batteryColor,
+                    accessibilityLabel: "Battery Level: \(Int(entry.batteryLevel)) percent\(entry.isCharging ? ", charging" : "")",
+                    accessibilityHint: "Current battery status"
                 )
                 
                 MetricRow(
                     icon: "memorychip",
                     title: "Memory",
                     value: "\(Int(entry.memoryUsage))%",
-                    color: memoryColor
+                    color: memoryColor,
+                    accessibilityLabel: "Memory Usage: \(Int(entry.memoryUsage)) percent",
+                    accessibilityHint: "Current memory consumption"
                 )
                 
                 MetricRow(
                     icon: "externaldrive.fill",
                     title: "Storage",
                     value: "\(Int(entry.storageUsage))%",
-                    color: storageColor
+                    color: storageColor,
+                    accessibilityLabel: "Storage Usage: \(Int(entry.storageUsage)) percent",
+                    accessibilityHint: "Current storage consumption"
                 )
                 
                 MetricRow(
                     icon: entry.isUsingCellular ? "antenna.radiowaves.left.and.right.circle.fill" : "wifi",
                     title: "Network",
                     value: entry.isUsingCellular ? "📱 Cellular" : entry.networkType,
-                    color: entry.isUsingCellular ? .blue : .green
+                    color: entry.isUsingCellular ? .blue : .green,
+                    accessibilityLabel: "Network: \(entry.isUsingCellular ? "Cellular Data" : entry.networkType)",
+                    accessibilityHint: "Current network connection type"
                 )
             }
+            .accessibilityElement(children: .contain)
+            .accessibilityLabel("Device Metrics")
+            .accessibilityHint("Shows detailed device metrics including battery, memory, storage, and network")
             
             Spacer()
         }
         .padding()
         .background(Color(.systemBackground))
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("Device Health Widget")
+        .accessibilityHint("Comprehensive device health monitoring with detailed metrics")
     }
     
     private var healthScoreColor: Color {
@@ -267,6 +320,13 @@ struct MediumWidgetView: View {
         else if entry.healthScore >= 60 { return .blue }
         else if entry.healthScore >= 40 { return .orange }
         else { return .red }
+    }
+    
+    private var healthScoreDescription: String {
+        if entry.healthScore >= 80 { return "Excellent" }
+        else if entry.healthScore >= 60 { return "Good" }
+        else if entry.healthScore >= 40 { return "Fair" }
+        else { return "Poor" }
     }
     
     private var batteryColor: Color {
@@ -301,6 +361,8 @@ struct MetricRow: View {
     let title: String
     let value: String
     let color: Color
+    let accessibilityLabel: String
+    let accessibilityHint: String
     
     var body: some View {
         HStack(spacing: 8) {
@@ -308,11 +370,13 @@ struct MetricRow: View {
                 .foregroundColor(color)
                 .font(.caption)
                 .frame(width: 16)
+                .accessibilityHidden(true)
             
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .font(.caption2)
                     .foregroundColor(.secondary)
+                    .accessibilityHidden(true)
                 
                 Text(value)
                     .font(.caption)
@@ -322,6 +386,9 @@ struct MetricRow: View {
             
             Spacer()
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(accessibilityLabel)
+        .accessibilityHint(accessibilityHint)
     }
 }
 
