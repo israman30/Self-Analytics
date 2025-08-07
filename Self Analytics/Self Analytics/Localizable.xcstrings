@@ -5,10 +5,24 @@
 
     },
     "%@ Chart" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Chart"
+          }
+        }
+      }
     },
     "%@ Mbps" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Mbps"
+          }
+        }
+      }
     },
     "%@: %@" : {
       "localizations" : {
@@ -16,6 +30,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$@: %2$@"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: %@"
           }
         }
       }
@@ -27,7 +47,14 @@
 
     },
     "%lld points" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld puntos"
+          }
+        }
+      }
     },
     "%lld%%" : {
 
@@ -42,7 +69,14 @@
 
     },
     "App Version: %@" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versión de la aplicación: %@"
+          }
+        }
+      }
     },
     "Battery Level: %lld percent%@" : {
       "localizations" : {
@@ -51,35 +85,104 @@
             "state" : "new",
             "value" : "Battery Level: %1$lld percent%2$@"
           }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nivel de batería: %lld percent%@"
+          }
         }
       }
     },
     "Build Number: %@" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Número de compilación: %@"
+          }
+        }
+      }
     },
     "Clearing all data, please wait" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borrando todos los datos, por favor espere"
+          }
+        }
+      }
     },
     "Clearing in progress" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limpieza en curso"
+          }
+        }
+      }
     },
     "Comprehensive device health monitoring with detailed metrics" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monitoreo integral del estado del dispositivo con métricas detalladas"
+          }
+        }
+      }
     },
     "Configure app preferences and manage data" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurar las preferencias de la aplicación y administrar los datos"
+          }
+        }
+      }
     },
     "Current battery status" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estado actual de la batería"
+          }
+        }
+      }
     },
     "Current memory consumption" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consumo de memoria actual"
+          }
+        }
+      }
     },
     "Current network connection type" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tipo de conexión de red actual"
+          }
+        }
+      }
     },
     "Device Health" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estado del dispositivo"
+          }
+        }
+      }
     },
     "Device Health Score: %lld out of 100, %@" : {
       "localizations" : {
@@ -88,47 +191,144 @@
             "state" : "new",
             "value" : "Device Health Score: %1$lld out of 100, %2$@"
           }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puntuación de salud del dispositivo: %lld de 100, %@"
+          }
         }
       }
     },
     "Device Health Widget" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widget de salud del dispositivo"
+          }
+        }
+      }
     },
     "Device Metrics" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Métricas del dispositivo"
+          }
+        }
+      }
     },
     "Device Model: %@" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modelo del dispositivo: %@"
+          }
+        }
+      }
     },
     "Enable or disable push notifications for device alerts" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Habilitar o deshabilitar las notificaciones push para las alertas del dispositivo"
+          }
+        }
+      }
     },
     "Error" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
+          }
+        }
+      }
     },
     "Export in progress" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exportación en curso"
+          }
+        }
+      }
     },
     "Exporting data, please wait" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exportando datos, por favor espere"
+          }
+        }
+      }
     },
     "Health Score: %lld" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puntuación de salud: %lld"
+          }
+        }
+      }
     },
     "Health Score: %lld out of 100" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puntuación de salud: %lld sobre 100"
+          }
+        }
+      }
     },
     "Memory Usage: %lld percent" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uso de memoria: %lld por ciento"
+          }
+        }
+      }
     },
     "Monitor your device's health at a glance." : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supervise la salud de su dispositivo de un vistazo."
+          }
+        }
+      }
     },
     "Network: %@" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Red: %@"
+          }
+        }
+      }
     },
     "OK" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
     },
     "Performance Status: %@, %lld data points" : {
       "localizations" : {
@@ -136,6 +336,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Performance Status: %1$@, %2$lld data points"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estado de rendimiento: %@, %lld puntos de datos"
           }
         }
       }
@@ -147,41 +353,124 @@
             "state" : "new",
             "value" : "Progress: %1$lld %2$@"
           }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Progreso: %lld %@"
+          }
         }
       }
     },
     "Score" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puntaje"
+          }
+        }
+      }
     },
     "Select how often the app should refresh device metrics" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleccione la frecuencia con la que la aplicación debe actualizar las métricas del dispositivo"
+          }
+        }
+      }
     },
     "Settings" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajustes"
+          }
+        }
+      }
     },
     "Show or hide alert notifications in the app" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar u ocultar notificaciones de alerta en la aplicación"
+          }
+        }
+      }
     },
     "Shows %@ trends over time" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muestra tendencias %@ a lo largo del tiempo"
+          }
+        }
+      }
     },
     "Shows %@ value with trend indicator" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muestra el valor %@ con el indicador de tendencia"
+          }
+        }
+      }
     },
     "Shows detailed device metrics including battery, memory, storage, and network" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muestra métricas detalladas del dispositivo, incluida la batería, la memoria, el almacenamiento y la red."
+          }
+        }
+      }
     },
     "Shows key device metrics including health score, battery, memory, and network status" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muestra métricas clave del dispositivo, incluido el puntaje de salud, la batería, la memoria y el estado de la red."
+          }
+        }
+      }
     },
     "Shows overall device health performance" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muestra el rendimiento general de la salud del dispositivo"
+          }
+        }
+      }
     },
     "System Version: %@" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versión del sistema: %@"
+          }
+        }
+      }
     },
     "Test #%lld" : {
-
+      "localizations" : {
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prueba #%lld"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
