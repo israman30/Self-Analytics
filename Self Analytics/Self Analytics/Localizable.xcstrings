@@ -1,0 +1,188 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@" : {
+
+    },
+    "%@ Chart" : {
+
+    },
+    "%@ Mbps" : {
+
+    },
+    "%@: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@: %2$@"
+          }
+        }
+      }
+    },
+    "%@%%" : {
+
+    },
+    "%lld" : {
+
+    },
+    "%lld points" : {
+
+    },
+    "%lld%%" : {
+
+    },
+    "📱" : {
+
+    },
+    "📱 %@" : {
+
+    },
+    "4" : {
+
+    },
+    "App Version: %@" : {
+
+    },
+    "Battery Level: %lld percent%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Battery Level: %1$lld percent%2$@"
+          }
+        }
+      }
+    },
+    "Build Number: %@" : {
+
+    },
+    "Clearing all data, please wait" : {
+
+    },
+    "Clearing in progress" : {
+
+    },
+    "Comprehensive device health monitoring with detailed metrics" : {
+
+    },
+    "Configure app preferences and manage data" : {
+
+    },
+    "Current battery status" : {
+
+    },
+    "Current memory consumption" : {
+
+    },
+    "Current network connection type" : {
+
+    },
+    "Device Health" : {
+
+    },
+    "Device Health Score: %lld out of 100, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Device Health Score: %1$lld out of 100, %2$@"
+          }
+        }
+      }
+    },
+    "Device Health Widget" : {
+
+    },
+    "Device Metrics" : {
+
+    },
+    "Device Model: %@" : {
+
+    },
+    "Enable or disable push notifications for device alerts" : {
+
+    },
+    "Error" : {
+
+    },
+    "Export in progress" : {
+
+    },
+    "Exporting data, please wait" : {
+
+    },
+    "Health Score: %lld" : {
+
+    },
+    "Health Score: %lld out of 100" : {
+
+    },
+    "Memory Usage: %lld percent" : {
+
+    },
+    "Monitor your device's health at a glance." : {
+
+    },
+    "Network: %@" : {
+
+    },
+    "OK" : {
+
+    },
+    "Performance Status: %@, %lld data points" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Performance Status: %1$@, %2$lld data points"
+          }
+        }
+      }
+    },
+    "Progress: %lld %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Progress: %1$lld %2$@"
+          }
+        }
+      }
+    },
+    "Score" : {
+
+    },
+    "Select how often the app should refresh device metrics" : {
+
+    },
+    "Settings" : {
+
+    },
+    "Show or hide alert notifications in the app" : {
+
+    },
+    "Shows %@ trends over time" : {
+
+    },
+    "Shows %@ value with trend indicator" : {
+
+    },
+    "Shows detailed device metrics including battery, memory, storage, and network" : {
+
+    },
+    "Shows key device metrics including health score, battery, memory, and network status" : {
+
+    },
+    "Shows overall device health performance" : {
+
+    },
+    "System Version: %@" : {
+
+    },
+    "Test #%lld" : {
+
+    }
+  },
+  "version" : "1.0"
+}
