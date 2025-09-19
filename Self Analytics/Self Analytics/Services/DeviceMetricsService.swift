@@ -242,41 +242,47 @@ class DeviceMetricsService: ObservableObject {
     }
     
     private func getNetworkConnectionType() -> NetworkConnectionType {
-        // Use Network framework for better network detection
+        // Determine network connection type by observing a single NWPath update
         let monitor = NWPathMonitor()
         let queue = DispatchQueue(label: "NetworkTypeQueue")
-        
-        var connectionType: NetworkConnectionType = .none
-        var isDetermined = false
-        
+
+        // We'll capture the result in an atomic reference via a local constant assignment
+        // to avoid mutating a captured var inside a concurrently executing closure.
+        let semaphore = DispatchSemaphore(value: 0)
+
+        var result: NetworkConnectionType = .none
+
         monitor.pathUpdateHandler = { path in
+            // Compute the connection type from the path locally and assign to a local var
+            let computedType: NetworkConnectionType
             if path.status == .satisfied {
                 if path.usesInterfaceType(.wifi) {
-                    connectionType = .wifi
+                    computedType = .wifi
                 } else if path.usesInterfaceType(.cellular) {
-                    connectionType = .cellular
+                    computedType = .cellular
                 } else if path.usesInterfaceType(.wiredEthernet) {
-                    connectionType = .ethernet
+                    computedType = .ethernet
                 } else {
-                    connectionType = .wifi // Default to wifi if interface type is unknown but connected
+                    // Default to wifi if interface type is unknown but connected
+                    computedType = .wifi
                 }
             } else {
-                connectionType = .none
+                computedType = .none
             }
-            isDetermined = true
-        }
-        
-        monitor.start(queue: queue)
-        
-        // Wait for a short time to get the result
-        let semaphore = DispatchSemaphore(value: 0)
-        queue.asyncAfter(deadline: .now() + 0.1) {
+
+            // Assign to our outer scope var exactly once before signaling.
+            // This assignment happens on the monitor's serial queue before we cancel.
+            result = computedType
             semaphore.signal()
         }
+
+        monitor.start(queue: queue)
+
+        // Wait briefly for the first path update
         _ = semaphore.wait(timeout: .now() + 0.5)
-        
+
         monitor.cancel()
-        return connectionType
+        return result
     }
     
     private func checkNetworkAvailability() {
