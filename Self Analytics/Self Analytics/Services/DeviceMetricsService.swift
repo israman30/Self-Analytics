@@ -272,7 +272,9 @@ class DeviceMetricsService: ObservableObject {
 
             // Assign to our outer scope var exactly once before signaling.
             // This assignment happens on the monitor's serial queue before we cancel.
-            result = computedType
+            DispatchQueue.main.async {
+                result = computedType
+            }
             semaphore.signal()
         }
 
