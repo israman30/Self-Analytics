@@ -411,3 +411,10 @@ struct AccessibilityLabels {
     static let detailed_charts_showing_memory_CPU_battery_and_storage_usage_over_time = "Detailed charts showing memory, CPU, battery, and storage usage over time"
     static let summary_of_key_performance_metrics_including_average_health_score_peak_usage_and_data_points = "Summary of key performance metrics including average health score, peak usage, and data points"
 }
+
+struct AccessibilityHints {
+    static let enable_or_disable_push_notifications_for_device_alerts = "Enable or disable push notifications for device alerts"
+    static let show_or_hide_alert_notifications_in_the_app = "Show or hide alert notifications in the app"
+    static let select_how_often_the_app_should_refresh_device_metrics = "Select how often the app should refresh device metrics"
+    static let configure_app_preferences_and_manage_data = "Configure app preferences and manage data"
+}
