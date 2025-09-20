@@ -79,6 +79,7 @@ struct DataUsageView: View {
                 DataUsageStatisticsView(dataUsageService: dataUsageService, period: selectedPeriod)
             }
         }
+        .navigationViewStyle(.stack)
     }
     
     // MARK: - Period Selector
