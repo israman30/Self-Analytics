@@ -12,12 +12,14 @@ enum SettingsSheet: Identifiable {
     case privacyPolicy
     case termsOfService
     case contactSupport
+    case dataUsageSettings
 
     var id: Int {
         switch self {
         case .privacyPolicy: return 0
         case .termsOfService: return 1
         case .contactSupport: return 2
+        case .dataUsageSettings: return 3
         }
     }
 }
@@ -34,6 +36,7 @@ struct SettingsView: View {
     @State private var exportURL: URL?
     @State private var showingErrorAlert = false
     @State private var errorMessage = ""
+    @StateObject private var dataUsageService = DataUsageService()
     private var deviceInformation = DeviceInformation()
     
     var body: some View {
@@ -105,6 +108,39 @@ struct SettingsView: View {
                 } header: {
                     Text(SettingViewLabels.appSettings)
                         .accessibilityAddTraits(.isHeader)
+                }
+                
+                Section {
+                    Button("Data Usage Settings") {
+                        activeSheet = .dataUsageSettings
+                    }
+                    .accessibilityLabel("Data Usage Settings")
+                    .accessibilityHint("Configure data usage limits and alerts")
+                    .accessibilityAddTraits(.isButton)
+                    
+                    HStack {
+                        Text("Active Limits")
+                        Spacer()
+                        Text("\(dataUsageService.dataUsageLimits.filter { $0.isEnabled }.count)")
+                            .foregroundColor(.secondary)
+                    }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("Active data usage limits: \(dataUsageService.dataUsageLimits.filter { $0.isEnabled }.count)")
+                    
+                    HStack {
+                        Text("Active Alerts")
+                        Spacer()
+                        Text("\(dataUsageService.activeAlerts.filter { !$0.isRead }.count)")
+                            .foregroundColor(.secondary)
+                    }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("Active data usage alerts: \(dataUsageService.activeAlerts.filter { !$0.isRead }.count)")
+                    
+                } header: {
+                    Text("Data Usage")
+                        .accessibilityAddTraits(.isHeader)
+                } footer: {
+                    Text("Configure data usage limits and alerts to monitor your cellular and Wi-Fi data consumption.")
                 }
                 
                 Section {
@@ -217,6 +253,8 @@ struct SettingsView: View {
                     TermsOfServiceView()
                 case .contactSupport:
                     ContactSupport()
+                case .dataUsageSettings:
+                    DataLimitsSettingsView(dataUsageService: dataUsageService)
                 }
             }
             .sheet(isPresented: $showingExportSheet) {

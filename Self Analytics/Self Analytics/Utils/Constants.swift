@@ -70,20 +70,23 @@ struct SettingViewLabels {
 
 struct MainTabViewLabels {
     static let dashboard = "Dashboard"
+    static let dataUsage = "Data Usage"
     static let history = "History"
     static let settings = "Settings"
     
     struct Icon {
         static let gauge = "gauge"
+        static let network = "network"
         static let chart_line_uptrend_xyaxis = "chart.line.uptrend.xyaxis"
         static let gear = "gear"
     }
     
     static let view_device_health_metrics_and_current_status = "View device health metrics and current status"
+    static let view_data_usage_tracking_and_limits = "View data usage tracking and limits"
     static let view_historical_device_performance_data_and_trends = "View historical device performance data and trends"
     static let configure_app_settings_and_preferences = "Configure app settings and preferences"
     static let mainNavigation = "Main Navigation"
-    static let navigate_between_dashboard_history_and_settings = "Navigate between dashboard, history, and settings"
+    static let navigate_between_dashboard_data_usage_history_and_settings = "Navigate between dashboard, data usage, history, and settings"
 }
 
 struct HistoryViewLabels {

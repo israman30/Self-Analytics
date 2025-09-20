@@ -20,6 +20,16 @@ struct MainTabView: View {
                     MainTabViewLabels.view_device_health_metrics_and_current_status
                 )
             
+            DataUsageView()
+                .tabItem {
+                    Image(systemName: MainTabViewLabels.Icon.network)
+                    Text(MainTabViewLabels.dataUsage)
+                }
+                .accessibilityLabel(MainTabViewLabels.dataUsage)
+                .accessibilityHint(
+                    MainTabViewLabels.view_data_usage_tracking_and_limits
+                )
+            
             HistoryView()
                 .tabItem {
                     Image(systemName: MainTabViewLabels.Icon.chart_line_uptrend_xyaxis)
@@ -43,7 +53,7 @@ struct MainTabView: View {
         .accessibilityElement(children: .contain)
         .accessibilityLabel(MainTabViewLabels.mainNavigation)
         .accessibilityHint(
-            MainTabViewLabels.navigate_between_dashboard_history_and_settings
+            MainTabViewLabels.navigate_between_dashboard_data_usage_history_and_settings
         )
     }
 }
