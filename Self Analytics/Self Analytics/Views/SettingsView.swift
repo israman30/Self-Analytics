@@ -9,7 +9,9 @@ import SwiftUI
 import UIKit
 
 enum SettingsSheet: Identifiable {
-    case privacyPolicy, termsOfService, contactSupport
+    case privacyPolicy
+    case termsOfService
+    case contactSupport
 
     var id: Int {
         switch self {
@@ -45,7 +47,9 @@ struct SettingsView: View {
                             .foregroundStyle(.secondary)
                     }
                     .accessibilityElement(children: .combine)
-                    .accessibilityLabel("Device Model: \(deviceInformation.getDeviceName())")
+                    .accessibilityLabel(
+                        "Device Model: \(deviceInformation.getDeviceName())"
+                    )
                     
                     HStack {
                         Text(SettingViewLabels.systemVersion)
@@ -54,7 +58,9 @@ struct SettingsView: View {
                             .foregroundStyle(.secondary)
                     }
                     .accessibilityElement(children: .combine)
-                    .accessibilityLabel("System Version: \(deviceInformation.getDeviceModel())")
+                    .accessibilityLabel(
+                        "System Version: \(deviceInformation.getDeviceModel())"
+                    )
                     
                 } header: {
                     Text(SettingViewLabels.currentDevice)
@@ -64,12 +70,16 @@ struct SettingsView: View {
                 Section {
                     Toggle(SettingViewLabels.enableNotifications, isOn: $notificationsEnabled)
                         .accessibilityLabel(SettingViewLabels.enableNotifications)
-                        .accessibilityHint("Enable or disable push notifications for device alerts")
+                        .accessibilityHint(
+                            AccessibilityHints.enable_or_disable_push_notifications_for_device_alerts
+                        )
                     
                     if notificationsEnabled {
                         Toggle(SettingViewLabels.showAlerts, isOn: $showAlerts)
                             .accessibilityLabel(SettingViewLabels.showAlerts)
-                            .accessibilityHint("Show or hide alert notifications in the app")
+                            .accessibilityHint(
+                                AccessibilityHints.show_or_hide_alert_notifications_in_the_app
+                            )
                     }
                 } header: {
                     Text(SettingViewLabels.notifications)
@@ -88,7 +98,9 @@ struct SettingsView: View {
                             .tag(30.0)
                     }
                     .accessibilityLabel(SettingViewLabels.autorefreshInterval)
-                    .accessibilityHint("Select how often the app should refresh device metrics")
+                    .accessibilityHint(
+                        AccessibilityHints.select_how_often_the_app_should_refresh_device_metrics
+                    )
                     
                 } header: {
                     Text(SettingViewLabels.appSettings)
@@ -162,12 +174,12 @@ struct SettingsView: View {
                         HStack {
                             ProgressView()
                                 .scaleEffect(0.8)
-                                .accessibilityLabel("Export in progress")
+                                .accessibilityLabel(AccessibilityLabels.exportInProgress)
                             Text(SettingViewLabels.exportInProgress)
                                 .foregroundColor(.secondary)
                         }
                         .accessibilityElement(children: .combine)
-                        .accessibilityLabel("Exporting data, please wait")
+                        .accessibilityLabel(AccessibilityLabels.exportingDataPleaseWait)
                     }
                     
                     Button(SettingViewLabels.clearAllData, role: .destructive) {
@@ -182,12 +194,12 @@ struct SettingsView: View {
                         HStack {
                             ProgressView()
                                 .scaleEffect(0.8)
-                                .accessibilityLabel("Clearing in progress")
+                                .accessibilityLabel(AccessibilityLabels.clearingInProgress)
                             Text(SettingViewLabels.clearingData)
                                 .foregroundColor(.secondary)
                         }
                         .accessibilityElement(children: .combine)
-                        .accessibilityLabel("Clearing all data, please wait")
+                        .accessibilityLabel(AccessibilityLabels.clearingInProgress)
                     }
                 } header: {
                     Text(SettingViewLabels.data)
@@ -195,8 +207,8 @@ struct SettingsView: View {
                 }
             }
             .accessibilityElement(children: .contain)
-            .accessibilityLabel("Settings")
-            .accessibilityHint("Configure app preferences and manage data")
+            .accessibilityLabel(SettingViewLabels.settings)
+            .accessibilityHint(AccessibilityHints.configure_app_preferences_and_manage_data)
             .sheet(item: $activeSheet) { sheet in
                 switch sheet {
                 case .privacyPolicy:

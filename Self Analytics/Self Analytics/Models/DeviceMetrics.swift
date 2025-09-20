@@ -22,7 +22,7 @@ struct MemoryMetrics: Codable {
     }
     
     var isHighUsage: Bool {
-        return usagePercentage > 80
+        usagePercentage > 80
     }
 }
 
@@ -60,7 +60,7 @@ struct BatteryMetrics: Codable {
     let cycleCount: Int?
     
     var isLowBattery: Bool {
-        return level < 0.2
+        level < 0.2
     }
 }
 
@@ -101,19 +101,19 @@ struct StorageMetrics: Codable {
     }
     
     var isLowStorage: Bool {
-        return usagePercentage > 90
+        usagePercentage > 90
     }
     
     var formattedTotalSpace: String {
-        return ByteCountFormatter.string(fromByteCount: Int64(totalSpace), countStyle: .file)
+        ByteCountFormatter.string(fromByteCount: Int64(totalSpace), countStyle: .file)
     }
     
     var formattedUsedSpace: String {
-        return ByteCountFormatter.string(fromByteCount: Int64(usedSpace), countStyle: .file)
+        ByteCountFormatter.string(fromByteCount: Int64(usedSpace), countStyle: .file)
     }
     
     var formattedAvailableSpace: String {
-        return ByteCountFormatter.string(fromByteCount: Int64(availableSpace), countStyle: .file)
+        ByteCountFormatter.string(fromByteCount: Int64(availableSpace), countStyle: .file)
     }
 }
 
@@ -158,7 +158,7 @@ struct NetworkMetrics: Codable {
     let status: NetworkStatus
     
     var isSlowConnection: Bool {
-        return downloadSpeed < 5.0 || uploadSpeed < 1.0
+        downloadSpeed < 5.0 || uploadSpeed < 1.0
     }
 }
 
@@ -212,10 +212,14 @@ struct DeviceHealth: Identifiable, Codable {
     
     var healthStatus: HealthStatus {
         switch overallScore {
-        case 80...100: return .excellent
-        case 60..<80: return .good
-        case 40..<60: return .fair
-        default: return .poor
+        case 80...100:
+            return .excellent
+        case 60..<80:
+            return .good
+        case 40..<60:
+            return .fair
+        default:
+            return .poor
         }
     }
 }
@@ -251,7 +255,9 @@ struct MetricsHistory {
     let dateRange: DateInterval
     
     var averageScore: Double {
-        guard !deviceHealth.isEmpty else { return 0 }
+        guard !deviceHealth.isEmpty else {
+            return 0
+        }
         let total = deviceHealth.reduce(0) { $0 + $1.overallScore }
         return Double(total) / Double(deviceHealth.count)
     }

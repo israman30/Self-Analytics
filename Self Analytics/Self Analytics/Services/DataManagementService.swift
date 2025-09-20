@@ -18,6 +18,12 @@ class DataManagementService: ObservableObject {
     private let userDefaults = UserDefaults.standard
     private let fileManager = FileManager.default
     
+    private let CFBundleShortVersionString = "CFBundleShortVersionString"
+    private let appVersion = "1.0.1"
+    private let CFBundleVersion = "CFBundleVersion"
+    private let buildNumber = "1"
+    private let SelfAnalyticsExport = "SelfAnalyticsExport"
+    
     // MARK: - Data Export
     
     func exportData() async throws -> URL {
@@ -32,8 +38,8 @@ class DataManagementService: ObservableObject {
         // Create export data structure
         let exportData = ExportData(
             exportDate: Date(),
-            appVersion: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.1",
-            buildNumber: Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1",
+            appVersion: Bundle.main.infoDictionary?[CFBundleShortVersionString] as? String ?? appVersion,
+            buildNumber: Bundle.main.infoDictionary?[CFBundleVersion] as? String ?? buildNumber,
             deviceInfo: getDeviceInfo(),
             settings: getAppSettings(),
             historicalData: getHistoricalData(),
@@ -57,7 +63,7 @@ class DataManagementService: ObservableObject {
         
         // Save to temporary file
         let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let exportFolder = documentsPath.appendingPathComponent("SelfAnalyticsExport")
+        let exportFolder = documentsPath.appendingPathComponent(SelfAnalyticsExport)
         
         // Create export folder if it doesn't exist
         if !fileManager.fileExists(atPath: exportFolder.path) {
@@ -278,7 +284,7 @@ class DataManagementService: ObservableObject {
     
     private func clearStoredFiles() {
         let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let exportFolder = documentsPath.appendingPathComponent("SelfAnalyticsExport")
+        let exportFolder = documentsPath.appendingPathComponent(SelfAnalyticsExport)
         
         if fileManager.fileExists(atPath: exportFolder.path) {
             try? fileManager.removeItem(at: exportFolder)

@@ -85,7 +85,11 @@ struct MetricCard: View {
             if let percentage = percentage {
                 ProgressView(value: min(max(percentage, 0), 100), total: 100)
                     .progressViewStyle(LinearProgressViewStyle(tint: color))
-                    .scaleEffect(x: 1, y: 2, anchor: .center)
+                    .scaleEffect(
+                        x: 1,
+                        y: 2,
+                        anchor: .center
+                    )
                     .accessibilityLabel(
                         "Progress: \(Int(percentage)) \(AccessibilityLabels.percent)"
                     )
@@ -94,7 +98,12 @@ struct MetricCard: View {
         .padding()
         .background(Color(.systemBackground))
         .cornerRadius(12)
-        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+        .shadow(
+            color: .black.opacity(0.1),
+            radius: 2,
+            x: 0,
+            y: 1
+        )
         .accessibilityElement(children: .combine)
     }
 }
@@ -144,7 +153,10 @@ struct HealthScoreCard: View {
                 Circle()
                     .stroke(
                         LinearGradient(
-                            colors: [Color.gray.opacity(0.1), Color.gray.opacity(0.05)],
+                            colors: [
+                                .gray.opacity(0.1),
+                                .gray.opacity(0.05)
+                            ],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         ),
@@ -264,10 +276,14 @@ struct HealthScoreCard: View {
     
     private var statusIcon: String {
         switch status {
-        case .excellent: return DashboardViewLabels.Icon.star_fill
-        case .good: return DashboardViewLabels.Icon.checkmark_circle_fill
-        case .fair: return DashboardViewLabels.Icon.exclamationmark_triangle_fill
-        case .poor: return DashboardViewLabels.Icon.xmark_circle_fill
+        case .excellent:
+            return DashboardViewLabels.Icon.star_fill
+        case .good:
+            return DashboardViewLabels.Icon.checkmark_circle_fill
+        case .fair:
+            return DashboardViewLabels.Icon.exclamationmark_triangle_fill
+        case .poor:
+            return DashboardViewLabels.Icon.xmark_circle_fill
         }
     }
     
