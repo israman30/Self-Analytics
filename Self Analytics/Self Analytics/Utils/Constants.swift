@@ -374,6 +374,7 @@ struct DataUsageLabels {
     static let peakUsage = "Peak Usage"
     static let totalApps = "Total Apps"
     static let mostUsed = "Most Used"
+    static let total = "Total"
     
     struct Icon {
         static let exclamationmark_triangle = "exclamationmark.triangle"
@@ -390,6 +391,8 @@ struct DataUsageLabels {
         static let chart_line_uptrend_xyaxis = "chart.line.uptrend.xyaxis"
         static let arrow_up_circle_fill = "arrow.up.circle.fill"
         static let star_fill = "star.fill"
+        
+        static let antenna_radiowaves_left_and_right = "antenna.radiowaves.left.and.right"
     }
 }
 

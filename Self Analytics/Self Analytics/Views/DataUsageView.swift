@@ -471,7 +471,7 @@ struct AlertRow: View {
     
     var body: some View {
         HStack(spacing: 12) {
-            Image(systemName: alert.threshold.alertType == .critical ? "exclamationmark.triangle.fill" : "exclamationmark.triangle")
+            Image(systemName: alert.threshold.alertType == .critical ? DataUsageLabels.Icon.exclamationmark_triangle_fill : DataUsageLabels.Icon.exclamationmark_triangle)
                 .foregroundColor(alert.threshold.alertType == .critical ? .red : .orange)
                 .font(.title3)
             
@@ -533,7 +533,7 @@ struct AppUsageRow: View {
                 HStack(spacing: 8) {
                     if app.cellularBytes > 0 {
                         HStack(spacing: 4) {
-                            Image(systemName: "antenna.radiowaves.left.and.right")
+                            Image(systemName: DataUsageLabels.Icon.antenna_radiowaves_left_and_right)
                                 .foregroundColor(.red)
                                 .font(.caption)
                             Text(app.formattedCellularUsage)
@@ -544,7 +544,7 @@ struct AppUsageRow: View {
                     
                     if app.wifiBytes > 0 {
                         HStack(spacing: 4) {
-                            Image(systemName: "wifi")
+                            Image(systemName: DataUsageLabels.Icon.wifi)
                                 .foregroundColor(.green)
                                 .font(.caption)
                             Text(app.formattedWifiUsage)
@@ -563,7 +563,7 @@ struct AppUsageRow: View {
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
                 
-                Text("Total")
+                Text(DataUsageLabels.total)
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
