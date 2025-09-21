@@ -48,24 +48,24 @@ struct DataUsageView: View {
                 }
                 .padding()
             }
-            .navigationTitle("Data Usage")
+            .navigationTitle(DataUsageLabels.dataUsage)
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
-                        Button("Data Limits", systemImage: "exclamationmark.triangle") {
+                        Button(DataUsageLabels.dataLimits, systemImage: DataUsageLabels.Icon.exclamationmark_triangle) {
                             showingLimitsSettings = true
                         }
                         
-                        Button("Reset Data", systemImage: "arrow.clockwise") {
+                        Button(DataUsageLabels.resetData, systemImage: DataUsageLabels.Icon.arrow_clockwise) {
                             dataUsageService.resetDataUsage()
                         }
                         
-                        Button("Statistics", systemImage: "chart.bar.xaxis") {
+                        Button(DataUsageLabels.statistics, systemImage: DataUsageLabels.Icon.chart_bar_xaxis) {
                             showingStatistics = true
                         }
                     } label: {
-                        Image(systemName: "ellipsis.circle")
+                        Image(systemName: DataUsageLabels.Icon.ellipsis_circle)
                     }
                 }
             }
@@ -123,38 +123,38 @@ struct DataUsageView: View {
         ], spacing: 16) {
             // Total Usage Card
             SummaryCard(
-                title: "Total Usage",
+                title: DataUsageLabels.totalUsage,
                 value: summary.formattedTotalUsage,
-                subtitle: "All Networks",
+                subtitle: DataUsageLabels.allNetworks,
                 color: .blue,
-                icon: "network"
+                icon: DataUsageLabels.Icon.network
             )
             
             // Cellular Usage Card
             SummaryCard(
-                title: "Cellular",
+                title: DataUsageLabels.cellular,
                 value: summary.formattedTotalCellular,
                 subtitle: "\(String(format: "%.1f", summary.cellularPercentage))% of total",
                 color: .red,
-                icon: "antenna.radiowaves.left.and.right.circle.fill"
+                icon: DataUsageLabels.Icon.antenna_radiowaves_left_and_right_circle_fill
             )
             
             // Wi-Fi Usage Card
             SummaryCard(
-                title: "Wi-Fi",
+                title: DataUsageLabels.wifi,
                 value: summary.formattedTotalWifi,
                 subtitle: "\(String(format: "%.1f", summary.wifiPercentage))% of total",
                 color: .green,
-                icon: "wifi"
+                icon: DataUsageLabels.Icon.wifi
             )
             
             // Apps Count Card
             SummaryCard(
-                title: "Active Apps",
+                title: DataUsageLabels.activeApps,
                 value: "\(summary.appUsages.filter { $0.totalBytes > 0 }.count)",
-                subtitle: "Using Data",
+                subtitle: DataUsageLabels.usingData,
                 color: .orange,
-                icon: "apps.iphone"
+                icon: DataUsageLabels.Icon.apps_iphone
             )
         }
     }
@@ -164,7 +164,7 @@ struct DataUsageView: View {
     private var usageChart: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
-                Text("Usage Trend")
+                Text(DataUsageLabels.usageTrend)
                     .font(.headline)
                     .foregroundColor(.primary)
                 
@@ -175,7 +175,7 @@ struct DataUsageView: View {
                         showingAlerts = true
                     }) {
                         HStack(spacing: 4) {
-                            Image(systemName: "exclamationmark.triangle.fill")
+                            Image(systemName: DataUsageLabels.Icon.exclamationmark_triangle_fill)
                                 .foregroundColor(.red)
                                 .font(.caption)
                             
@@ -195,14 +195,14 @@ struct DataUsageView: View {
             if #available(iOS 16.0, *) {
                 Chart(dataUsageService.getChartData(for: selectedPeriod)) { data in
                     AreaMark(
-                        x: .value("Time", data.date),
-                        y: .value("Usage", data.totalBytes)
+                        x: .value(DataUsageLabels.time, data.date),
+                        y: .value(DataUsageLabels.usage, data.totalBytes)
                     )
                     .foregroundStyle(.blue.opacity(0.3))
                     
                     LineMark(
-                        x: .value("Time", data.date),
-                        y: .value("Usage", data.totalBytes)
+                        x: .value(DataUsageLabels.time, data.date),
+                        y: .value(DataUsageLabels.usage, data.totalBytes)
                     )
                     .foregroundStyle(.blue)
                     .lineStyle(StrokeStyle(lineWidth: 2))
@@ -233,7 +233,7 @@ struct DataUsageView: View {
             } else {
                 // Fallback for iOS < 16
                 VStack {
-                    Text("Charts require iOS 16 or later")
+                    Text(DataUsageLabels.chartsRequireiOS16orLater)
                         .font(.caption)
                         .foregroundColor(.secondary)
                     
@@ -241,7 +241,7 @@ struct DataUsageView: View {
                         .fill(Color.gray.opacity(0.2))
                         .frame(height: 200)
                         .overlay(
-                            Text("Chart Preview")
+                            Text(DataUsageLabels.chartPreview)
                                 .foregroundColor(.secondary)
                         )
                 }
@@ -258,13 +258,13 @@ struct DataUsageView: View {
     private var alertsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Data Usage Alerts")
+                Text(DataUsageLabels.dataUsageAlerts)
                     .font(.headline)
                     .foregroundColor(.primary)
                 
                 Spacer()
                 
-                Button("View All") {
+                Button(DataUsageLabels.viewAll) {
                     showingAlerts = true
                 }
                 .font(.subheadline)
@@ -287,7 +287,7 @@ struct DataUsageView: View {
     
     private func topAppsSection(summary: DataUsageSummary) -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Top Apps by Usage")
+            Text(DataUsageLabels.topAppsByUsage)
                 .font(.headline)
                 .foregroundColor(.primary)
             
@@ -296,7 +296,7 @@ struct DataUsageView: View {
             }
             
             if summary.appUsages.count > 5 {
-                Button("View All Apps") {
+                Button(DataUsageLabels.viewAllApps) {
                     // Navigate to full apps list
                 }
                 .font(.subheadline)
@@ -316,13 +316,13 @@ struct DataUsageView: View {
     private var dataLimitsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Data Limits")
+                Text(DataUsageLabels.dataLimits)
                     .font(.headline)
                     .foregroundColor(.primary)
                 
                 Spacer()
                 
-                Button("Manage") {
+                Button(DataUsageLabels.manage) {
                     showingLimitsSettings = true
                 }
                 .font(.subheadline)
@@ -334,7 +334,7 @@ struct DataUsageView: View {
             }
             
             if dataUsageService.dataUsageLimits.filter({ $0.isEnabled }).isEmpty {
-                Text("No data limits set")
+                Text(DataUsageLabels.noDataLimitsSet)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .frame(maxWidth: .infinity, alignment: .center)
@@ -352,13 +352,13 @@ struct DataUsageView: View {
     private var statisticsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Statistics")
+                Text(DataUsageLabels.statistics)
                     .font(.headline)
                     .foregroundColor(.primary)
                 
                 Spacer()
                 
-                Button("View Details") {
+                Button(DataUsageLabels.viewDetails) {
                     showingStatistics = true
                 }
                 .font(.subheadline)
@@ -375,30 +375,30 @@ struct DataUsageView: View {
                     GridItem(.flexible())
                 ], spacing: 12) {
                     StatisticCard(
-                        title: "Average Daily",
+                        title: DataUsageLabels.averageDaily,
                         value: statistics.formattedAverageDaily,
-                        icon: "chart.line.uptrend.xyaxis",
+                        icon: DataUsageLabels.Icon.chart_line_uptrend_xyaxis,
                         color: .blue
                     )
                     
                     StatisticCard(
-                        title: "Peak Usage",
+                        title: DataUsageLabels.peakUsage,
                         value: statistics.formattedPeakUsage,
-                        icon: "arrow.up.circle.fill",
+                        icon: DataUsageLabels.Icon.arrow_up_circle_fill,
                         color: .red
                     )
                     
                     StatisticCard(
-                        title: "Total Apps",
+                        title: DataUsageLabels.totalApps,
                         value: "\(statistics.totalApps)",
-                        icon: "apps.iphone",
+                        icon: DataUsageLabels.Icon.apps_iphone,
                         color: .green
                     )
                     
                     StatisticCard(
-                        title: "Most Used",
+                        title: DataUsageLabels.mostUsed,
                         value: statistics.mostUsedApp?.appName ?? "N/A",
-                        icon: "star.fill",
+                        icon: DataUsageLabels.Icon.star_fill,
                         color: .orange
                     )
                 }

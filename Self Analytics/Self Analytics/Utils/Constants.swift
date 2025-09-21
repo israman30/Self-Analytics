@@ -347,6 +347,52 @@ struct ContactSupportLabel {
     static let ok = "OK"
 }
 
+struct DataUsageLabels {
+    static let dataUsage = "Data Usage"
+    static let dataLimits = "Data Limits"
+    static let resetData = "Reset Data"
+    static let statistics = "Statistics"
+    static let cellular = "Cellular"
+    static let wifi = "Wi-Fi"
+    static let activeApps = "Active Apps"
+    static let usingData = "Using Data"
+    static let totalUsage = "Total Usage"
+    static let allNetworks = "All Networks"
+    static let usageTrend = "Usage Trend"
+    static let time = "Time"
+    static let usage = "Usage"
+    static let chartsRequireiOS16orLater = "Charts require iOS 16 or later"
+    static let chartPreview = "Chart Preview"
+    static let dataUsageAlerts = "Data Usage Alerts"
+    static let viewAll = "View All"
+    static let topAppsByUsage = "Top Apps by Usage"
+    static let viewAllApps = "View All Apps"
+    static let manage = "Manage"
+    static let noDataLimitsSet = "No data limits set"
+    static let viewDetails = "View Details"
+    static let averageDaily = "Average Daily"
+    static let peakUsage = "Peak Usage"
+    static let totalApps = "Total Apps"
+    static let mostUsed = "Most Used"
+    
+    struct Icon {
+        static let exclamationmark_triangle = "exclamationmark.triangle"
+        static let arrow_clockwise = "arrow.clockwise"
+        static let chart_bar_xaxis = "chart.bar.xaxis"
+        static let ellipsis_circle = "ellipsis.circle"
+        
+        static let network = "network"
+        static let antenna_radiowaves_left_and_right_circle_fill = "antenna.radiowaves.left.and.right.circle.fill"
+        static let wifi = "wifi"
+        static let apps_iphone = "apps.iphone"
+        
+        static let exclamationmark_triangle_fill = "exclamationmark.triangle.fill"
+        static let chart_line_uptrend_xyaxis = "chart.line.uptrend.xyaxis"
+        static let arrow_up_circle_fill = "arrow.up.circle.fill"
+        static let star_fill = "star.fill"
+    }
+}
+
 struct AccessibilityLabels {
     static let cellularData = "Cellular Data"
     static let tapToActivate = "Tap to activate"
