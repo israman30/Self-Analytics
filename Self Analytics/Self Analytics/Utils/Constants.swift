@@ -402,6 +402,31 @@ struct DataLimitsSettingsViewLabels {
     static let addNewLimit = "Add New Limit"
     static let dataLimits = "Data Limits"
     static let done = "Done"
+    
+    static let edit = "Edit"
+    
+    static let cellularData = "Cellular Data"
+    static let wiFiData = "Wi-Fi Data"
+    static let totalData = "Total Data"
+    static let daily = "Daily"
+    static let weekly = "Weekly"
+    static let monthly = "Monthly"
+    static let limitType = "Limit Type"
+    static let dataType = "Data Type"
+    static let chooseWhichTypeOfDataUsageToLimit = "Choose which type of data usage to limit."
+    static let limitAmount = "Limit Amount"
+    static let limitValue = "Limit Value"
+    static let setTheMaximumAmountOfDataUsageAllowed = "Set the maximum amount of data usage allowed."
+    static let resetPeriod = "Reset Period"
+    static let howOftenTheLimitResets = "How often the limit resets."
+    static let warningAlert = "Warning Alert"
+    static let at = "At"
+    static let criticalAlert = "Critical Alert"
+    static let alertThresholds = "Alert Thresholds"
+    static let setWhenToReceiveAlertsAboutApproachingYourDataLimit = "Set when to receive alerts about approaching your data limit."
+    static let addDataLimit = "Add Data Limit"
+    static let cancel = "Cancel"
+    static let save = "Save"
 }
 
 struct AccessibilityLabels {
