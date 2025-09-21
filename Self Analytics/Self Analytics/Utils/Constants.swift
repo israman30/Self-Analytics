@@ -427,6 +427,9 @@ struct DataLimitsSettingsViewLabels {
     static let addDataLimit = "Add Data Limit"
     static let cancel = "Cancel"
     static let save = "Save"
+    static let enableLimit = "Enable Limit"
+    static let status = "Status"
+    static let editAlertLimit = "Edit Alert Limit"
 }
 
 struct AccessibilityLabels {

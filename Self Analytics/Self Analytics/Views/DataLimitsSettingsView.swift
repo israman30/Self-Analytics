@@ -325,9 +325,9 @@ struct EditDataLimitView: View {
     }
     
     private let periodOptions: [(String, DataUsagePeriod.PeriodType)] = [
-        ("Daily", .today),
-        ("Weekly", .thisWeek),
-        ("Monthly", .thisMonth)
+        (DataLimitsSettingsViewLabels.daily, .today),
+        (DataLimitsSettingsViewLabels.weekly, .thisWeek),
+        (DataLimitsSettingsViewLabels.monthly, .thisMonth)
     ]
     
     var body: some View {
@@ -336,7 +336,7 @@ struct EditDataLimitView: View {
                 Section {
                     VStack(alignment: .leading, spacing: 8) {
                         HStack {
-                            Text("Limit Amount")
+                            Text(DataLimitsSettingsViewLabels.limitAmount)
                             Spacer()
                             Text("\(String(format: "%.1f", limitValue)) GB")
                                 .foregroundColor(.secondary)
@@ -346,23 +346,23 @@ struct EditDataLimitView: View {
                             .accentColor(.blue)
                     }
                 } header: {
-                    Text("Limit Value")
+                    Text(DataLimitsSettingsViewLabels.limitValue)
                 }
                 
                 Section {
-                    Picker("Reset Period", selection: $periodType) {
+                    Picker(DataLimitsSettingsViewLabels.resetPeriod, selection: $periodType) {
                         ForEach(periodOptions, id: \.1) { option in
                             Text(option.0).tag(option.1)
                         }
                     }
                 } header: {
-                    Text("Reset Period")
+                    Text(DataLimitsSettingsViewLabels.resetPeriod)
                 }
                 
                 Section {
-                    Toggle("Enable Limit", isOn: $isEnabled)
+                    Toggle(DataLimitsSettingsViewLabels.enableLimit, isOn: $isEnabled)
                 } header: {
-                    Text("Status")
+                    Text(DataLimitsSettingsViewLabels.status)
                 }
                 
                 Section {
@@ -370,13 +370,13 @@ struct EditDataLimitView: View {
                         // Warning Threshold
                         VStack(alignment: .leading, spacing: 8) {
                             HStack {
-                                Toggle("Warning Alert", isOn: $isWarningEnabled)
+                                Toggle(DataLimitsSettingsViewLabels.warningAlert, isOn: $isWarningEnabled)
                                     .foregroundColor(.orange)
                             }
                             
                             if isWarningEnabled {
                                 HStack {
-                                    Text("At")
+                                    Text(DataLimitsSettingsViewLabels.at)
                                     Spacer()
                                     Text("\(Int(warningThreshold))%")
                                         .foregroundColor(.secondary)
@@ -390,13 +390,13 @@ struct EditDataLimitView: View {
                         // Critical Threshold
                         VStack(alignment: .leading, spacing: 8) {
                             HStack {
-                                Toggle("Critical Alert", isOn: $isCriticalEnabled)
+                                Toggle(DataLimitsSettingsViewLabels.criticalAlert, isOn: $isCriticalEnabled)
                                     .foregroundColor(.red)
                             }
                             
                             if isCriticalEnabled {
                                 HStack {
-                                    Text("At")
+                                    Text(DataLimitsSettingsViewLabels.at)
                                     Spacer()
                                     Text("\(Int(criticalThreshold))%")
                                         .foregroundColor(.secondary)
@@ -408,20 +408,20 @@ struct EditDataLimitView: View {
                         }
                     }
                 } header: {
-                    Text("Alert Thresholds")
+                    Text(DataLimitsSettingsViewLabels.alertThresholds)
                 }
             }
-            .navigationTitle("Edit Data Limit")
+            .navigationTitle(DataLimitsSettingsViewLabels.editAlertLimit)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") {
+                    Button(DataLimitsSettingsViewLabels.cancel) {
                         dismiss()
                     }
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Save") {
+                    Button(DataLimitsSettingsViewLabels.save) {
                         saveChanges()
                     }
                     .fontWeight(.semibold)
