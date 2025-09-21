@@ -31,23 +31,23 @@ struct DataLimitsSettingsView: View {
                         }
                     }
                 } header: {
-                    Text("Data Usage Limits")
+                    Text(DataLimitsSettingsViewLabels.dataLimits)
                 } footer: {
-                    Text("Set data usage limits to receive alerts when you approach your monthly allowance.")
+                    Text(DataLimitsSettingsViewLabels.setDataUsageLimitsToReceiveAlertsWhenYouApproachYourMonthlyAllowance)
                 }
                 
                 Section {
-                    Button("Add New Limit") {
+                    Button(DataLimitsSettingsViewLabels.addNewLimit) {
                         showingAddLimit = true
                     }
                     .foregroundColor(.blue)
                 }
             }
-            .navigationTitle("Data Limits")
+            .navigationTitle(DataLimitsSettingsViewLabels.dataLimits)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Done") {
+                    Button(DataLimitsSettingsViewLabels.done) {
                         dismiss()
                     }
                 }

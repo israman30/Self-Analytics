@@ -396,6 +396,14 @@ struct DataUsageLabels {
     }
 }
 
+struct DataLimitsSettingsViewLabels {
+    static let dataUsageLimits = "Data Usage Limits"
+    static let setDataUsageLimitsToReceiveAlertsWhenYouApproachYourMonthlyAllowance = "Set data usage limits to receive alerts when you approach your monthly allowance."
+    static let addNewLimit = "Add New Limit"
+    static let dataLimits = "Data Limits"
+    static let done = "Done"
+}
+
 struct AccessibilityLabels {
     static let cellularData = "Cellular Data"
     static let tapToActivate = "Tap to activate"
