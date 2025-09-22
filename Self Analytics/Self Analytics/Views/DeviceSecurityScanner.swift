@@ -68,12 +68,13 @@ class DeviceSecurityScanner: ObservableObject {
         var isOpenNetwork = false
         group.enter()
         monitor.pathUpdateHandler = { path in
-            isConnectedToWiFi = path.status == .satisfied
-            isOpenNetwork = path.gateways.isEmpty // If no gateway, likely open/unprotected
+            DispatchQueue.main.async {
+                isConnectedToWiFi = path.status == .satisfied
+                isOpenNetwork = path.gateways.isEmpty // If no gateway, likely open/unprotected
+            }
             group.leave()
         }
         monitor.start(queue: DispatchQueue.global())
-        group.wait(timeout: .now() + 1.0)
         monitor.cancel()
         if !isConnectedToWiFi {
             return (nil, nil, 0) // Not using Wi-Fi, so can't evaluate encryption
