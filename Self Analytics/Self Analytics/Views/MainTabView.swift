@@ -15,40 +15,30 @@ struct MainTabView: View {
                     Image(systemName: MainTabViewLabels.Icon.gauge)
                     Text(MainTabViewLabels.dashboard)
                 }
-                .accessibilityLabel(MainTabViewLabels.dashboard)
-                .accessibilityHint(
-                    MainTabViewLabels.view_device_health_metrics_and_current_status
-                )
             
             DataUsageView()
                 .tabItem {
                     Image(systemName: MainTabViewLabels.Icon.network)
                     Text(MainTabViewLabels.dataUsage)
                 }
-                .accessibilityLabel(MainTabViewLabels.dataUsage)
-                .accessibilityHint(
-                    MainTabViewLabels.view_data_usage_tracking_and_limits
-                )
             
             HistoryView()
                 .tabItem {
                     Image(systemName: MainTabViewLabels.Icon.chart_line_uptrend_xyaxis)
                     Text(MainTabViewLabels.history)
                 }
-                .accessibilityLabel(MainTabViewLabels.history)
-                .accessibilityHint(
-                    MainTabViewLabels.view_historical_device_performance_data_and_trends
-                )
+            
+            SecurityScanView()
+                .tabItem {
+                    Image(systemName: MainTabViewLabels.Icon.shield_lefthalf_filled)
+                    Text(MainTabViewLabels.securityScan)
+                }
             
             SettingsView()
                 .tabItem {
                     Image(systemName: MainTabViewLabels.Icon.gear)
                     Text(MainTabViewLabels.settings)
                 }
-                .accessibilityLabel(MainTabViewLabels.settings)
-                .accessibilityHint(
-                    MainTabViewLabels.configure_app_settings_and_preferences
-                )
         }
         .accessibilityElement(children: .contain)
         .accessibilityLabel(MainTabViewLabels.mainNavigation)
@@ -60,4 +50,4 @@ struct MainTabView: View {
 
 #Preview {
     MainTabView()
-} 
+}

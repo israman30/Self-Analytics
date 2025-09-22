@@ -73,12 +73,14 @@ struct MainTabViewLabels {
     static let dataUsage = "Data Usage"
     static let history = "History"
     static let settings = "Settings"
+    static let securityScan = "Security Scan"
     
     struct Icon {
         static let gauge = "gauge"
         static let network = "network"
         static let chart_line_uptrend_xyaxis = "chart.line.uptrend.xyaxis"
         static let gear = "gear"
+        static let shield_lefthalf_filled = "shield.lefthalf.filled"
     }
     
     static let view_device_health_metrics_and_current_status = "View device health metrics and current status"
