@@ -438,7 +438,7 @@ struct DataLimitsSettingsViewLabels {
 
 struct SecurityLabels {
     static let connectedToAnOpenWiFiNetwork = "Connected to an Open Wi-Fi Network"
-    static let our_current_WiFi_network_appears_to_lack_encryption_this_puts_your_data_at_risk = "our current Wi-Fi network appears to lack encryption. This puts your data at risk."
+    static let your_current_WiFi_network_appears_to_lack_encryption_this_puts_your_data_at_risk = "Your current Wi-Fi network appears to lack encryption. This puts your data at risk."
     static let avoidOpenWiFiNetworks = "Avoid Open Wi-Fi Networks"
     static let switch_to_a_secure_WiFi_network_with_WPA2_WPA3_encryption_to_protectYour_data = "Switch to a secure Wi-Fi network with WPA2/WPA3 encryption to protect your data."
     static let noVPNConnectionDetected = "No VPN Connection Detected"

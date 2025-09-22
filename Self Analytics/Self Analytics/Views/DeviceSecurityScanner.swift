@@ -15,6 +15,14 @@ class DeviceSecurityScanner: ObservableObject {
     @Published var recommendations: [SecurityRecommendation] = []
     @Published var securityScore: Int = 100
     
+    private let SCOPED_KEY = "__SCOPED__"
+    private let tap = "tap"
+    private let tun = "tun"
+    private let ppp = "ppp"
+    private let applicationsPath = "/Applications/Cydia.app"
+    private let libraryPath = "/Library/MobileSubstrate/MobileSubstrate.dylib"
+    private let bin_bash = "/bin/bash"
+    
     func performSecurityScan() async {
         var findings: [SecurityFinding] = []
         var recs: [SecurityRecommendation] = []
@@ -82,15 +90,15 @@ class DeviceSecurityScanner: ObservableObject {
         if isOpenNetwork {
             return (
                 SecurityFinding(
-                    title: "Connected to an Open Wi-Fi Network",
-                    description: "Your current Wi-Fi network appears to lack encryption. This puts your data at risk.",
-                    iconName: "wifi.slash",
+                    title: SecurityLabels.connectedToAnOpenWiFiNetwork,
+                    description: SecurityLabels.your_current_WiFi_network_appears_to_lack_encryption_this_puts_your_data_at_risk,
+                    iconName: SecurityLabels.Icon.wifi_slash,
                     severityColor: .red
                 ),
                 SecurityRecommendation(
-                    title: "Avoid Open Wi-Fi Networks",
-                    description: "Switch to a secure Wi-Fi network with WPA2/WPA3 encryption to protect your data.",
-                    iconName: "lock.slash",
+                    title: SecurityLabels.avoidOpenWiFiNetworks,
+                    description: SecurityLabels.switch_to_a_secure_WiFi_network_with_WPA2_WPA3_encryption_to_protectYour_data,
+                    iconName: SecurityLabels.Icon.lock_slash,
                     impactColor: .red
                 ),
                 25
@@ -109,15 +117,15 @@ class DeviceSecurityScanner: ObservableObject {
         } else {
             return (
                 SecurityFinding(
-                    title: "No VPN Connection Detected",
-                    description: "Your device is not connected to a VPN. Public networks may expose your information.",
-                    iconName: "lock.shield",
+                    title: SecurityLabels.noVPNConnectionDetected,
+                    description: SecurityLabels.your_device_is_not_connected_to_a_VPN_public_networks_may_expose_your_information,
+                    iconName: SecurityLabels.Icon.lock_shield,
                     severityColor: .yellow
                 ),
                 SecurityRecommendation(
-                    title: "Enable a VPN Service",
-                    description: "Consider using a trusted VPN when on public or untrusted networks for enhanced privacy.",
-                    iconName: "network",
+                    title: SecurityLabels.enableAVPNService,
+                    description: SecurityLabels.consider_using_a_trusted_VPN_when_on_public_or_untrusted_networks_for_enhanced_privacy,
+                    iconName: SecurityLabels.Icon.network,
                     impactColor: .yellow
                 ),
                 10
@@ -134,15 +142,15 @@ class DeviceSecurityScanner: ObservableObject {
             FileManager.default.fileExists(atPath: "/bin/bash") {
             return (
                 SecurityFinding(
-                    title: "Device Appears Jailbroken",
-                    description: "This device seems to be jailbroken, which exposes it to security risks.",
-                    iconName: "exclamationmark.triangle.fill",
+                    title: SecurityLabels.deviceAppearsJailbroken,
+                    description: SecurityLabels.this_device_seems_to_be_jailbroken_which_exposes_it_to_security_risks,
+                    iconName: SecurityLabels.Icon.exclamationmark_triangle_fill,
                     severityColor: .orange
                 ),
                 SecurityRecommendation(
-                    title: "Avoid Jailbroken Devices",
-                    description: "Restore your device to factory settings to ensure maximum protection.",
-                    iconName: "arrow.uturn.backward",
+                    title: SecurityLabels.avoidJailbrokenDevices,
+                    description: SecurityLabels.restore_your_device_to_factory_settings_to_ensure_maximum_protection,
+                    iconName: SecurityLabels.Icon.arrow_uturn_backward,
                     impactColor: .orange
                 ),
                 30
@@ -159,15 +167,15 @@ class DeviceSecurityScanner: ObservableObject {
         if !hasPasscode {
             return (
                 SecurityFinding(
-                    title: "Device Passcode Not Set",
-                    description: "No passcode is set. Anyone with your device can access your data.",
-                    iconName: "lock.open",
+                    title: SecurityLabels.devicePasscodeNotSet,
+                    description: SecurityLabels.no_passcode_is_set_Anyone_with_your_device_can_access_your_data,
+                    iconName: SecurityLabels.Icon.lock_open,
                     severityColor: .red
                 ),
                 SecurityRecommendation(
-                    title: "Set a Passcode",
-                    description: "Enable a passcode to protect your device from unauthorized access.",
-                    iconName: "lock",
+                    title: SecurityLabels.setAPasscode,
+                    description: SecurityLabels.enable_a_passcode_to_protect_your_device_from_unauthorized_access,
+                    iconName: SecurityLabels.Icon.lock,
                     impactColor: .red
                 ),
                 20
@@ -183,15 +191,15 @@ class DeviceSecurityScanner: ObservableObject {
         if major < minimumSafeVersion {
             return (
                 SecurityFinding(
-                    title: "Outdated iOS Version",
-                    description: "Your device is running an older version of iOS. Newer versions fix known vulnerabilities.",
-                    iconName: "exclamationmark.circle.fill",
+                    title: SecurityLabels.outdatediOSVersion,
+                    description: SecurityLabels.your_device_is_running_an_older_version_of_iOS_Newer_versions_fix_known_vulnerabilities,
+                    iconName: SecurityLabels.Icon.exclamationmark_circle_fill,
                     severityColor: .yellow
                 ),
                 SecurityRecommendation(
-                    title: "Update iOS",
-                    description: "Update your device to the latest iOS version for maximum protection.",
-                    iconName: "arrow.down.circle.fill",
+                    title: SecurityLabels.updateiOS,
+                    description: SecurityLabels.update_your_device_to_the_latest_iOS_version_for_maximum_protection,
+                    iconName: SecurityLabels.Icon.arrow_down_circle_fill,
                     impactColor: .yellow
                 ),
                 15
