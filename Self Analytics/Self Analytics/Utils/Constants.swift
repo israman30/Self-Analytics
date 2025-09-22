@@ -351,6 +351,7 @@ struct ContactSupportLabel {
 }
 
 struct DataUsageLabels {
+    static let loading = "Loading..."
     static let dataUsage = "Data Usage"
     static let dataLimits = "Data Limits"
     static let resetData = "Reset Data"

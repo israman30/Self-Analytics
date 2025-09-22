@@ -27,7 +27,7 @@ struct DataUsageView: View {
                         summaryCards(summary: summary)
                     } else {
                         VStack {
-                            Text("Loading...")
+                            Text(DataUsageLabels.loading)
                             ProgressView()
                         }
                     }
