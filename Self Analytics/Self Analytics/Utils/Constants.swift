@@ -436,6 +436,42 @@ struct DataLimitsSettingsViewLabels {
     static let editAlertLimit = "Edit Alert Limit"
 }
 
+struct SecurityLabels {
+    static let connectedToAnOpenWiFiNetwork = "Connected to an Open Wi-Fi Network"
+    static let our_current_WiFi_network_appears_to_lack_encryption_this_puts_your_data_at_risk = "our current Wi-Fi network appears to lack encryption. This puts your data at risk."
+    static let avoidOpenWiFiNetworks = "Avoid Open Wi-Fi Networks"
+    static let switch_to_a_secure_WiFi_network_with_WPA2_WPA3_encryption_to_protectYour_data = "Switch to a secure Wi-Fi network with WPA2/WPA3 encryption to protect your data."
+    static let noVPNConnectionDetected = "No VPN Connection Detected"
+    static let your_device_is_not_connected_to_a_VPN_public_networks_may_expose_your_information = "Your device is not connected to a VPN. Public networks may expose your information."
+    static let enableAVPNService = "Enable a VPN Service"
+    static let consider_using_a_trusted_VPN_when_on_public_or_untrusted_networks_for_enhanced_privacy = "Consider using a trusted VPN when on public or untrusted networks for enhanced privacy."
+    static let deviceAppearsJailbroken = "Device Appears Jailbroken"
+    static let this_device_seems_to_be_jailbroken_which_exposes_it_to_security_risks = "This device seems to be jailbroken, which exposes it to security risks."
+    static let avoidJailbrokenDevices = "Avoid Jailbroken Devices"
+    static let restore_your_device_to_factory_settings_to_ensure_maximum_protection = "Restore your device to factory settings to ensure maximum protection."
+    static let devicePasscodeNotSet = "Device Passcode Not Set"
+    static let no_passcode_is_set_Anyone_with_your_device_can_access_your_data = "No passcode is set. Anyone with your device can access your data."
+    static let setAPasscode = "Set a Passcode"
+    static let enable_a_passcode_to_protect_your_device_from_unauthorized_access = "Enable a passcode to protect your device from unauthorized access."
+    static let outdatediOSVersion = "Outdated iOS Version"
+    static let your_device_is_running_an_older_version_of_iOS_Newer_versions_fix_known_vulnerabilities = "Your device is running an older version of iOS. Newer versions fix known vulnerabilities."
+    static let updateiOS = "Update iOS"
+    static let update_your_device_to_the_latest_iOS_version_for_maximum_protection = "Update your device to the latest iOS version for maximum protection."
+    
+    struct Icon {
+        static let wifi_slash = "wifi.slash"
+        static let lock_slash = "lock.slash"
+        static let lock_shield = "lock.shield"
+        static let network = "network"
+        static let exclamationmark_triangle_fill = "exclamationmark.triangle.fill"
+        static let arrow_uturn_backward = "arrow.uturn.backward"
+        static let lock_open = "lock.open"
+        static let lock = "lock"
+        static let exclamationmark_circle_fill = "exclamationmark.circle.fill"
+        static let arrow_down_circle_fill = "arrow.down.circle.fill"
+    }
+}
+
 struct AccessibilityLabels {
     static let cellularData = "Cellular Data"
     static let tapToActivate = "Tap to activate"
