@@ -26,7 +26,10 @@ struct DataUsageView: View {
                     if let summary = dataUsageService.currentSummary {
                         summaryCards(summary: summary)
                     } else {
-                        ProgressView()
+                        VStack {
+                            Text("Loading...")
+                            ProgressView()
+                        }
                     }
                     
                     // Usage Chart
