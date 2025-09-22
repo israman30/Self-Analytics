@@ -111,7 +111,8 @@ class DeviceSecurityScanner: ObservableObject {
     private func checkVPNStatus() -> (SecurityFinding?, SecurityRecommendation?, Int) {
         // Check if VPN is enabled
         let settings = CFNetworkCopySystemProxySettings()?.takeRetainedValue() as? [String: Any]
-        if let scopes = settings?["__SCOPED__"] as? [String: Any], scopes.keys.contains(where: { $0.contains("tap") || $0.contains("tun") || $0.contains("ppp") }) {
+        if let scopes = settings?[SCOPED_KEY] as? [String: Any],
+           scopes.keys.contains(where: { $0.contains(tap) || $0.contains(tun) || $0.contains(ppp) }) {
             // VPN is active
             return (nil, nil, 0)
         } else {
@@ -137,9 +138,9 @@ class DeviceSecurityScanner: ObservableObject {
         #if targetEnvironment(simulator)
         return (nil, nil, 0) // Can't check on simulator
         #else
-        if FileManager.default.fileExists(atPath: "/Applications/Cydia.app") ||
-            FileManager.default.fileExists(atPath: "/Library/MobileSubstrate/MobileSubstrate.dylib") ||
-            FileManager.default.fileExists(atPath: "/bin/bash") {
+        if FileManager.default.fileExists(atPath: applicationsPath) ||
+            FileManager.default.fileExists(atPath: libraryPath) ||
+            FileManager.default.fileExists(atPath: bin_bash) {
             return (
                 SecurityFinding(
                     title: SecurityLabels.deviceAppearsJailbroken,
