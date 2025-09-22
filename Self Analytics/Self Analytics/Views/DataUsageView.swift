@@ -25,6 +25,8 @@ struct DataUsageView: View {
                     // Data Usage Summary Cards
                     if let summary = dataUsageService.currentSummary {
                         summaryCards(summary: summary)
+                    } else {
+                        ProgressView()
                     }
                     
                     // Usage Chart
