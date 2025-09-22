@@ -121,7 +121,7 @@ class AlertService: ObservableObject {
                 if health.network.connectionType == .cellular {
                     let alert = DeviceAlert(
                         type: .cellularDataUsage,
-                        title: "📱 Using Cellular Data",
+                        title: AlertServiceLabels.usingCellularData,
                         message: "Your device is currently using cellular data instead of Wi-Fi. This may consume your data plan.",
                         severity: .medium,
                         timestamp: Date(),

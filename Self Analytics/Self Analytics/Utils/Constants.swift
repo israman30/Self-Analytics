@@ -284,6 +284,7 @@ struct RecommendationCardLabels {
 }
 
 struct AlertServiceLabels {
+    static let usingCellularData = "📱 Using Cellular Data"
     static let storageAlmostFull = "Storage Almost Full"
     static let highMemoryUsage = "High Memory Usage"
     static let highCPUUsage = "High CPU Usage"
