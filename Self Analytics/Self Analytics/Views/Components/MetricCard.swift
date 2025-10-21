@@ -112,14 +112,30 @@ struct HealthScoreCard: View {
     let score: Int
     let status: HealthStatus
     
+    @State private var isPressed = false
+    @State private var showDetails = false
+    @State private var pulseAnimation = false
+    
     var body: some View {
         VStack(spacing: 20) {
-            // Header with icon and title
+            // Enhanced header with interactive elements
             HStack {
-                Image(systemName: HealthScoreCardLabels.Icon.heart_fill)
-                    .font(.title2)
-                    .foregroundColor(statusColor)
-                    .accessibilityHidden(true)
+                // Animated health icon with pulse effect
+                ZStack {
+                    Circle()
+                        .fill(statusColor.opacity(0.1))
+                        .frame(width: 44, height: 44)
+                        .scaleEffect(pulseAnimation ? 1.1 : 1.0)
+                        .animation(.easeInOut(duration: 2).repeatForever(autoreverses: true), value: pulseAnimation)
+                    
+                    Image(systemName: HealthScoreCardLabels.Icon.heart_fill)
+                        .font(.title2)
+                        .foregroundColor(statusColor)
+                        .accessibilityHidden(true)
+                }
+                .onAppear {
+                    pulseAnimation = true
+                }
                 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(HealthScoreCardLabels.deviceHealth)
@@ -135,21 +151,35 @@ struct HealthScoreCard: View {
                 
                 Spacer()
                 
-                // Status badge
-                Text(status.description)
-                    .font(.caption)
-                    .fontWeight(.medium)
+                // Enhanced status badge with tap interaction
+                Button(action: {
+                    withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                        showDetails.toggle()
+                    }
+                }) {
+                    HStack(spacing: 4) {
+                        Text(status.description)
+                            .font(.caption)
+                            .fontWeight(.medium)
+                        
+                        Image(systemName: showDetails ? "chevron.up" : "chevron.down")
+                            .font(.caption2)
+                            .rotationEffect(.degrees(showDetails ? 180 : 0))
+                            .animation(.easeInOut(duration: 0.2), value: showDetails)
+                    }
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
                     .background(statusColor.opacity(0.15))
                     .foregroundColor(statusColor)
                     .cornerRadius(12)
-                    .accessibilityAddTraits(.isHeader)
+                }
+                .accessibilityLabel("Health status: \(status.description). Tap to \(showDetails ? "hide" : "show") details")
+                .accessibilityHint("Double tap to toggle detailed information")
             }
             
-            // Enhanced circular progress indicator
+            // Enhanced circular progress indicator with haptic feedback
             ZStack {
-                // Background circle with gradient
+                // Background circle with enhanced gradient
                 Circle()
                     .stroke(
                         LinearGradient(
@@ -165,7 +195,7 @@ struct HealthScoreCard: View {
                     .frame(width: 140, height: 140)
                     .accessibilityHidden(true)
                 
-                // Progress circle with gradient
+                // Progress circle with enhanced gradient and glow effect
                 Circle()
                     .trim(from: 0, to: CGFloat(score) / 100)
                     .stroke(
@@ -179,13 +209,16 @@ struct HealthScoreCard: View {
                     .frame(width: 140, height: 140)
                     .rotationEffect(.degrees(-90))
                     .animation(.easeInOut(duration: 1.5).delay(0.2), value: score)
+                    .shadow(color: statusColor.opacity(0.3), radius: 4, x: 0, y: 2)
                     .accessibilityHidden(true)
                 
-                // Center content with enhanced styling
+                // Center content with enhanced styling and animation
                 VStack(spacing: 8) {
                     Text("\(score)")
                         .font(.system(size: 36, weight: .bold, design: .rounded))
                         .foregroundColor(statusColor)
+                        .scaleEffect(isPressed ? 0.95 : 1.0)
+                        .animation(.easeInOut(duration: 0.1), value: isPressed)
                         .accessibilityLabel("Health Score: \(score)")
                         .accessibilityAddTraits(.isHeader)
                     
@@ -197,37 +230,135 @@ struct HealthScoreCard: View {
                         .tracking(1)
                 }
             }
+            .onTapGesture {
+                // Haptic feedback on tap
+                let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+                impactFeedback.impactOccurred()
+                
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                    showDetails.toggle()
+                }
+            }
+            .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    isPressed = pressing
+                }
+            }, perform: {})
             
-            // Status details with enhanced visual
-            HStack(spacing: 16) {
-                VStack(spacing: 4) {
-                    Image(systemName: statusIcon)
-                        .font(.title3)
-                        .foregroundColor(statusColor)
-                        .accessibilityHidden(true)
+            // Enhanced status details with expandable information
+            VStack(spacing: 12) {
+                HStack(spacing: 16) {
+                    VStack(spacing: 4) {
+                        Image(systemName: statusIcon)
+                            .font(.title3)
+                            .foregroundColor(statusColor)
+                            .accessibilityHidden(true)
+                        
+                        Text(status.description)
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(statusColor)
+                            .accessibilityAddTraits(.isHeader)
+                    }
                     
-                    Text(status.description)
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(statusColor)
-                        .accessibilityAddTraits(.isHeader)
+                    Spacer()
+                    
+                    // Enhanced performance indicator dots with animation
+                    HStack(spacing: 6) {
+                        ForEach(0..<4) { index in
+                            Circle()
+                                .fill(index < performanceLevel ? statusColor : Color.gray.opacity(0.3))
+                                .frame(width: 8, height: 8)
+                                .scaleEffect(index < performanceLevel ? 1.2 : 1.0)
+                                .animation(
+                                    .easeInOut(duration: 0.3).delay(Double(index) * 0.1),
+                                    value: performanceLevel
+                                )
+                                .accessibilityHidden(true)
+                        }
+                    }
                 }
                 
-                Spacer()
-                
-                // Performance indicator dots
-                HStack(spacing: 6) {
-                    ForEach(0..<4) { index in
-                        Circle()
-                            .fill(index < performanceLevel ? statusColor : Color.gray.opacity(0.3))
-                            .frame(width: 8, height: 8)
-                            .scaleEffect(index < performanceLevel ? 1.2 : 1.0)
-                            .animation(
-                                .easeInOut(duration: 0.3).delay(Double(index) * 0.1),
-                                value: performanceLevel
-                            )
-                            .accessibilityHidden(true)
+                // Expandable details section
+                if showDetails {
+                    VStack(spacing: 8) {
+                        Divider()
+                            .background(statusColor.opacity(0.3))
+                        
+                        HStack {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Performance Level")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                
+                                Text(performanceDescription)
+                                    .font(.subheadline)
+                                    .fontWeight(.medium)
+                                    .foregroundColor(.primary)
+                            }
+                            
+                            Spacer()
+                            
+                            VStack(alignment: .trailing, spacing: 4) {
+                                Text("Last Updated")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                
+                                Text(Date(), style: .time)
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        
+                        // Quick action buttons
+                        HStack(spacing: 12) {
+                            Button(action: {
+                                // Action for refresh
+                                let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                                impactFeedback.impactOccurred()
+                            }) {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "arrow.clockwise")
+                                        .font(.caption)
+                                    Text("Refresh")
+                                        .font(.caption)
+                                        .fontWeight(.medium)
+                                }
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(Color.blue.opacity(0.1))
+                                .foregroundColor(.blue)
+                                .cornerRadius(8)
+                            }
+                            .accessibilityLabel("Refresh health score")
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                // Action for more details
+                                let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                                impactFeedback.impactOccurred()
+                            }) {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "info.circle")
+                                        .font(.caption)
+                                    Text("Details")
+                                        .font(.caption)
+                                        .fontWeight(.medium)
+                                }
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(statusColor.opacity(0.1))
+                                .foregroundColor(statusColor)
+                                .cornerRadius(8)
+                            }
+                            .accessibilityLabel("View detailed health information")
+                        }
                     }
+                    .transition(.asymmetric(
+                        insertion: .opacity.combined(with: .move(edge: .top)),
+                        removal: .opacity.combined(with: .move(edge: .top))
+                    ))
                 }
             }
         }
@@ -262,7 +393,11 @@ struct HealthScoreCard: View {
             x: 0,
             y: 4
         )
+        .scaleEffect(isPressed ? 0.98 : 1.0)
+        .animation(.easeInOut(duration: 0.1), value: isPressed)
         .accessibilityElement(children: .combine)
+        .accessibilityAddTraits(.isButton)
+        .accessibilityHint("Double tap to toggle detailed information")
     }
     
     private var statusColor: Color {
@@ -293,6 +428,15 @@ struct HealthScoreCard: View {
         case .good: return 3
         case .fair: return 2
         case .poor: return 1
+        }
+    }
+    
+    private var performanceDescription: String {
+        switch status {
+        case .excellent: return "Optimal performance with all systems running smoothly"
+        case .good: return "Good performance with minor optimizations possible"
+        case .fair: return "Fair performance, some improvements recommended"
+        case .poor: return "Poor performance, immediate attention needed"
         }
     }
 }
