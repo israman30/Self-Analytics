@@ -85,28 +85,39 @@ struct DashboardView: View {
     }
     
     private var deviceNameHeader: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 4) {
+        HStack(alignment: .center, spacing: 12) {
+            // MARK: - Device Info
+            VStack(alignment: .leading, spacing: 6) {
+                // Device name
                 Text(deviceInformation.getDeviceName())
                     .font(.title2)
                     .fontWeight(.semibold)
-                    .foregroundColor(.primary)
+                    .foregroundStyle(.primary)
                     .accessibilityAddTraits(.isHeader)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.9)
                 
-                HStack(spacing: 4) {
+                // Device model + network type
+                HStack(spacing: 8) {
                     Text(deviceInformation.getDeviceModel())
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(.secondary)
+                        .lineLimit(1)
                     
-                    if let health = metricsService.currentHealth, health.network.connectionType == .cellular {
-                        Text("📱 \(DashboardViewLabels.cellularData)")
-                            .font(.caption)
-                            .foregroundColor(.blue)
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 2)
-                            .background(Color.blue.opacity(0.1))
-                            .cornerRadius(4)
-                            .accessibilityLabel(AccessibilityLabels.cellularData)
+                    if let health = metricsService.currentHealth,
+                       health.network.connectionType == .cellular {
+                        Label {
+                            Text(DashboardViewLabels.cellularData)
+                        } icon: {
+                            Image(systemName: "antenna.radiowaves.left.and.right")
+                        }
+                        .font(.caption2)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 3)
+                        .background(Color.blue.opacity(0.15))
+                        .foregroundColor(.blue)
+                        .cornerRadius(5)
+                        .accessibilityLabel(AccessibilityLabels.cellularData)
                     }
                 }
             }
@@ -114,17 +125,27 @@ struct DashboardView: View {
             
             Spacer()
             
-            Image(systemName: DashboardViewLabels.Icon.iphone)
-                .font(.title2)
-                .foregroundColor(.blue)
-                .accessibilityHidden(true)
+            // MARK: - Device Icon
+            ZStack {
+                Circle()
+                    .fill(Color.blue.opacity(0.1))
+                    .frame(width: 44, height: 44)
+                
+                Image(systemName: DashboardViewLabels.Icon.iphone)
+                    .font(.title2)
+                    .foregroundColor(.blue)
+            }
+            .accessibilityHidden(true)
         }
         .padding()
-        .background(Color(.systemGray6))
-        .cornerRadius(12)
+        .background(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(Color(.systemGray6))
+                .shadow(color: .black.opacity(0.05), radius: 3, x: 0, y: 2)
+        )
         .accessibilityElement(children: .combine)
     }
-    
+
     private var metricsGrid: some View {
         LazyVGrid(columns: [
             GridItem(.flexible()),
