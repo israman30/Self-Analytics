@@ -340,4 +340,4 @@ class AlertService: ObservableObject {
             }
         }
     }
-} 
+}

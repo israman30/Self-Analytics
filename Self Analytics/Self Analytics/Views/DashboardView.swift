@@ -32,7 +32,9 @@ struct DashboardView: View {
     
     init() {
         let metricsService = DeviceMetricsService()
-        self._alertService = StateObject(wrappedValue: AlertService(metricsService: metricsService))
+        self._alertService = StateObject(
+            wrappedValue: AlertService(metricsService: metricsService)
+        )
     }
     
     var body: some View {
@@ -109,7 +111,7 @@ struct DashboardView: View {
                         Label {
                             Text(DashboardViewLabels.cellularData)
                         } icon: {
-                            Image(systemName: "antenna.radiowaves.left.and.right")
+                            Image(systemName: DashboardViewLabels.Icon.antenna_radiowaves_left_and_right)
                         }
                         .font(.caption2)
                         .padding(.horizontal, 6)
@@ -266,7 +268,9 @@ struct DashboardView: View {
                 
                 Spacer()
                 
-                Text("\(alertService.recommendations.filter { !$0.isCompleted }.count)")
+                Text(
+                    "\(alertService.recommendations.filter { !$0.isCompleted }.count)"
+                )
                     .font(.caption)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
@@ -605,11 +609,15 @@ struct QuickActionButton: View {
             .animation(.easeInOut(duration: 0.1), value: isPressed)
         }
         .buttonStyle(PlainButtonStyle())
-        .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
-            withAnimation(.easeInOut(duration: 0.1)) {
-                isPressed = pressing
-            }
-        }, perform: {})
+        .onLongPressGesture(
+            minimumDuration: 0,
+            maximumDistance: .infinity,
+            pressing: { pressing in
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    isPressed = pressing
+                }
+            },
+            perform: {})
         .accessibilityLabel(title)
         .accessibilityHint(AccessibilityLabels.tapToActivate)
         .accessibilityAddTraits(.isButton)
