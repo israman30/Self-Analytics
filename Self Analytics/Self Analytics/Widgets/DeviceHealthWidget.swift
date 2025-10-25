@@ -24,7 +24,10 @@ struct DeviceHealthTimelineProvider: TimelineProvider {
             storageUsage: 70,
             isCharging: false,
             networkType: "Wi-Fi",
-            isUsingCellular: false
+            isUsingCellular: false,
+            cellularDataUsage: "1.2 GB",
+            wifiDataUsage: "8.5 GB",
+            totalDataUsage: "9.7 GB"
         )
     }
 
@@ -37,7 +40,10 @@ struct DeviceHealthTimelineProvider: TimelineProvider {
             storageUsage: 70,
             isCharging: false,
             networkType: "Wi-Fi",
-            isUsingCellular: false
+            isUsingCellular: false,
+            cellularDataUsage: "1.2 GB",
+            wifiDataUsage: "8.5 GB",
+            totalDataUsage: "9.7 GB"
         )
         completion(entry)
     }
@@ -58,7 +64,10 @@ struct DeviceHealthTimelineProvider: TimelineProvider {
             storageUsage: Double.random(in: 60...90),
             isCharging: Bool.random(),
             networkType: networkType,
-            isUsingCellular: isUsingCellular
+            isUsingCellular: isUsingCellular,
+            cellularDataUsage: String(format: "%.1f GB", Double.random(in: 0.5...3.0)),
+            wifiDataUsage: String(format: "%.1f GB", Double.random(in: 2.0...15.0)),
+            totalDataUsage: String(format: "%.1f GB", Double.random(in: 3.0...18.0))
         )
         
         let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
@@ -75,6 +84,9 @@ struct DeviceHealthEntry: TimelineEntry {
     let isCharging: Bool
     let networkType: String
     let isUsingCellular: Bool
+    let cellularDataUsage: String
+    let wifiDataUsage: String
+    let totalDataUsage: String
 }
 
 struct DeviceHealthWidgetEntryView: View {
@@ -301,6 +313,35 @@ struct MediumWidgetView: View {
                     accessibilityLabel: "Network: \(entry.isUsingCellular ? "Cellular Data" : entry.networkType)",
                     accessibilityHint: "Current network connection type"
                 )
+                
+                MetricRow(
+                    icon: "network",
+                    title: "Data Usage",
+                    value: entry.totalDataUsage,
+                    color: .blue,
+                    accessibilityLabel: "Total Data Usage: \(entry.totalDataUsage)",
+                    accessibilityHint: "Current total data usage"
+                )
+                
+                if entry.isUsingCellular {
+                    MetricRow(
+                        icon: "antenna.radiowaves.left.and.right",
+                        title: "Cellular",
+                        value: entry.cellularDataUsage,
+                        color: .red,
+                        accessibilityLabel: "Cellular Data Usage: \(entry.cellularDataUsage)",
+                        accessibilityHint: "Current cellular data usage"
+                    )
+                } else {
+                    MetricRow(
+                        icon: "wifi",
+                        title: "Wi-Fi",
+                        value: entry.wifiDataUsage,
+                        color: .green,
+                        accessibilityLabel: "Wi-Fi Data Usage: \(entry.wifiDataUsage)",
+                        accessibilityHint: "Current Wi-Fi data usage"
+                    )
+                }
             }
             .accessibilityElement(children: .contain)
             .accessibilityLabel("Device Metrics")
@@ -403,7 +444,10 @@ struct MetricRow: View {
         storageUsage: 70,
         isCharging: false,
         networkType: "Wi-Fi",
-        isUsingCellular: false
+        isUsingCellular: false,
+        cellularDataUsage: "1.2 GB",
+        wifiDataUsage: "8.5 GB",
+        totalDataUsage: "9.7 GB"
     )
 }
 
@@ -418,6 +462,9 @@ struct MetricRow: View {
         storageUsage: 70,
         isCharging: false,
         networkType: "Cellular",
-        isUsingCellular: true
+        isUsingCellular: true,
+        cellularDataUsage: "2.8 GB",
+        wifiDataUsage: "5.2 GB",
+        totalDataUsage: "8.0 GB"
     )
 } 

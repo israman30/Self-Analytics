@@ -70,20 +70,25 @@ struct SettingViewLabels {
 
 struct MainTabViewLabels {
     static let dashboard = "Dashboard"
+    static let dataUsage = "Data Usage"
     static let history = "History"
     static let settings = "Settings"
+    static let securityScan = "Security Scan"
     
     struct Icon {
         static let gauge = "gauge"
+        static let network = "network"
         static let chart_line_uptrend_xyaxis = "chart.line.uptrend.xyaxis"
         static let gear = "gear"
+        static let shield_lefthalf_filled = "shield.lefthalf.filled"
     }
     
     static let view_device_health_metrics_and_current_status = "View device health metrics and current status"
+    static let view_data_usage_tracking_and_limits = "View data usage tracking and limits"
     static let view_historical_device_performance_data_and_trends = "View historical device performance data and trends"
     static let configure_app_settings_and_preferences = "Configure app settings and preferences"
     static let mainNavigation = "Main Navigation"
-    static let navigate_between_dashboard_history_and_settings = "Navigate between dashboard, history, and settings"
+    static let navigate_between_dashboard_data_usage_history_and_settings = "Navigate between dashboard, data usage, history, and settings"
 }
 
 struct HistoryViewLabels {
@@ -281,6 +286,7 @@ struct RecommendationCardLabels {
 }
 
 struct AlertServiceLabels {
+    static let usingCellularData = "📱 Using Cellular Data"
     static let storageAlmostFull = "Storage Almost Full"
     static let highMemoryUsage = "High Memory Usage"
     static let highCPUUsage = "High CPU Usage"
@@ -342,6 +348,128 @@ struct ContactSupportLabel {
     static let alertTitle = "Copied!"
     static let alertMessage = "Support email copied to clipboard."
     static let ok = "OK"
+}
+
+struct DataUsageLabels {
+    static let loading = "Loading..."
+    static let dataUsage = "Data Usage"
+    static let dataLimits = "Data Limits"
+    static let resetData = "Reset Data"
+    static let statistics = "Statistics"
+    static let cellular = "Cellular"
+    static let wifi = "Wi-Fi"
+    static let activeApps = "Active Apps"
+    static let usingData = "Using Data"
+    static let totalUsage = "Total Usage"
+    static let allNetworks = "All Networks"
+    static let usageTrend = "Usage Trend"
+    static let time = "Time"
+    static let usage = "Usage"
+    static let chartsRequireiOS16orLater = "Charts require iOS 16 or later"
+    static let chartPreview = "Chart Preview"
+    static let dataUsageAlerts = "Data Usage Alerts"
+    static let viewAll = "View All"
+    static let topAppsByUsage = "Top Apps by Usage"
+    static let viewAllApps = "View All Apps"
+    static let manage = "Manage"
+    static let noDataLimitsSet = "No data limits set"
+    static let viewDetails = "View Details"
+    static let averageDaily = "Average Daily"
+    static let peakUsage = "Peak Usage"
+    static let totalApps = "Total Apps"
+    static let mostUsed = "Most Used"
+    static let total = "Total"
+    
+    struct Icon {
+        static let exclamationmark_triangle = "exclamationmark.triangle"
+        static let arrow_clockwise = "arrow.clockwise"
+        static let chart_bar_xaxis = "chart.bar.xaxis"
+        static let ellipsis_circle = "ellipsis.circle"
+        
+        static let network = "network"
+        static let antenna_radiowaves_left_and_right_circle_fill = "antenna.radiowaves.left.and.right.circle.fill"
+        static let wifi = "wifi"
+        static let apps_iphone = "apps.iphone"
+        
+        static let exclamationmark_triangle_fill = "exclamationmark.triangle.fill"
+        static let chart_line_uptrend_xyaxis = "chart.line.uptrend.xyaxis"
+        static let arrow_up_circle_fill = "arrow.up.circle.fill"
+        static let star_fill = "star.fill"
+        
+        static let antenna_radiowaves_left_and_right = "antenna.radiowaves.left.and.right"
+    }
+}
+
+struct DataLimitsSettingsViewLabels {
+    static let dataUsageLimits = "Data Usage Limits"
+    static let setDataUsageLimitsToReceiveAlertsWhenYouApproachYourMonthlyAllowance = "Set data usage limits to receive alerts when you approach your monthly allowance."
+    static let addNewLimit = "Add New Limit"
+    static let dataLimits = "Data Limits"
+    static let done = "Done"
+    
+    static let edit = "Edit"
+    
+    static let cellularData = "Cellular Data"
+    static let wiFiData = "Wi-Fi Data"
+    static let totalData = "Total Data"
+    static let daily = "Daily"
+    static let weekly = "Weekly"
+    static let monthly = "Monthly"
+    static let limitType = "Limit Type"
+    static let dataType = "Data Type"
+    static let chooseWhichTypeOfDataUsageToLimit = "Choose which type of data usage to limit."
+    static let limitAmount = "Limit Amount"
+    static let limitValue = "Limit Value"
+    static let setTheMaximumAmountOfDataUsageAllowed = "Set the maximum amount of data usage allowed."
+    static let resetPeriod = "Reset Period"
+    static let howOftenTheLimitResets = "How often the limit resets."
+    static let warningAlert = "Warning Alert"
+    static let at = "At"
+    static let criticalAlert = "Critical Alert"
+    static let alertThresholds = "Alert Thresholds"
+    static let setWhenToReceiveAlertsAboutApproachingYourDataLimit = "Set when to receive alerts about approaching your data limit."
+    static let addDataLimit = "Add Data Limit"
+    static let cancel = "Cancel"
+    static let save = "Save"
+    static let enableLimit = "Enable Limit"
+    static let status = "Status"
+    static let editAlertLimit = "Edit Alert Limit"
+}
+
+struct SecurityLabels {
+    static let connectedToAnOpenWiFiNetwork = "Connected to an Open Wi-Fi Network"
+    static let your_current_WiFi_network_appears_to_lack_encryption_this_puts_your_data_at_risk = "Your current Wi-Fi network appears to lack encryption. This puts your data at risk."
+    static let avoidOpenWiFiNetworks = "Avoid Open Wi-Fi Networks"
+    static let switch_to_a_secure_WiFi_network_with_WPA2_WPA3_encryption_to_protectYour_data = "Switch to a secure Wi-Fi network with WPA2/WPA3 encryption to protect your data."
+    static let noVPNConnectionDetected = "No VPN Connection Detected"
+    static let your_device_is_not_connected_to_a_VPN_public_networks_may_expose_your_information = "Your device is not connected to a VPN. Public networks may expose your information."
+    static let enableAVPNService = "Enable a VPN Service"
+    static let consider_using_a_trusted_VPN_when_on_public_or_untrusted_networks_for_enhanced_privacy = "Consider using a trusted VPN when on public or untrusted networks for enhanced privacy."
+    static let deviceAppearsJailbroken = "Device Appears Jailbroken"
+    static let this_device_seems_to_be_jailbroken_which_exposes_it_to_security_risks = "This device seems to be jailbroken, which exposes it to security risks."
+    static let avoidJailbrokenDevices = "Avoid Jailbroken Devices"
+    static let restore_your_device_to_factory_settings_to_ensure_maximum_protection = "Restore your device to factory settings to ensure maximum protection."
+    static let devicePasscodeNotSet = "Device Passcode Not Set"
+    static let no_passcode_is_set_Anyone_with_your_device_can_access_your_data = "No passcode is set. Anyone with your device can access your data."
+    static let setAPasscode = "Set a Passcode"
+    static let enable_a_passcode_to_protect_your_device_from_unauthorized_access = "Enable a passcode to protect your device from unauthorized access."
+    static let outdatediOSVersion = "Outdated iOS Version"
+    static let your_device_is_running_an_older_version_of_iOS_Newer_versions_fix_known_vulnerabilities = "Your device is running an older version of iOS. Newer versions fix known vulnerabilities."
+    static let updateiOS = "Update iOS"
+    static let update_your_device_to_the_latest_iOS_version_for_maximum_protection = "Update your device to the latest iOS version for maximum protection."
+    
+    struct Icon {
+        static let wifi_slash = "wifi.slash"
+        static let lock_slash = "lock.slash"
+        static let lock_shield = "lock.shield"
+        static let network = "network"
+        static let exclamationmark_triangle_fill = "exclamationmark.triangle.fill"
+        static let arrow_uturn_backward = "arrow.uturn.backward"
+        static let lock_open = "lock.open"
+        static let lock = "lock"
+        static let exclamationmark_circle_fill = "exclamationmark.circle.fill"
+        static let arrow_down_circle_fill = "arrow.down.circle.fill"
+    }
 }
 
 struct AccessibilityLabels {
