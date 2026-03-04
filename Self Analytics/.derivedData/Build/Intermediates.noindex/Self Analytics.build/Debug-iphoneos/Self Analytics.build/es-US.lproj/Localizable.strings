@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>%@ Chart</key>
+	<string>%@ Chart</string>
+	<key>%@ GB</key>
+	<string>%@ GB</string>
+	<key>%@ Mbps</key>
+	<string>%@ Mbps</string>
+	<key>%@%% of total</key>
+	<string>%@%% of total</string>
+	<key>%@: %@</key>
+	<string>%@: %@</string>
+	<key>%lld points</key>
+	<string>%lld puntos</string>
+	<key>%lld%%</key>
+	<string>%lld%%</string>
+	<key>4</key>
+	<string>4</string>
+	<key>Active Alerts</key>
+	<string>Alertas activas</string>
+	<key>Active Limits</key>
+	<string>Límites activos</string>
+	<key>Active data usage alerts: %lld</key>
+	<string>Alertas de uso de datos activos: %lld</string>
+	<key>Active data usage limits: %lld</key>
+	<string>Límites de uso de datos activos: %lld</string>
+	<key>Alert Thresholds</key>
+	<string>Umbrales de alerta</string>
+	<key>App</key>
+	<string>Aplicación</string>
+	<key>App Version: %@</key>
+	<string>Versión de la aplicación: %@</string>
+	<key>At</key>
+	<string>En</string>
+	<key>Battery Level: %lld percent%@</key>
+	<string>Nivel de batería: %lld percent%@</string>
+	<key>Build Number: %@</key>
+	<string>Número de compilación: %@</string>
+	<key>Cancel</key>
+	<string>Cancelar</string>
+	<key>Cellular</key>
+	<string>Celular</string>
+	<key>Cellular (%@%%)</key>
+	<string>Cellular (%@%%)</string>
+	<key>Chart Preview</key>
+	<string>Vista previa del gráfico</string>
+	<key>Charts require iOS 16 or later</key>
+	<string>Los gráficos requieren iOS 16 o posterior</string>
+	<key>Clear All</key>
+	<string>Borrar todo</string>
+	<key>Comprehensive device health monitoring with detailed metrics</key>
+	<string>Monitoreo integral del estado del dispositivo con métricas detalladas</string>
+	<key>Configure data usage limits and alerts</key>
+	<string>Configurar límites de uso de datos y alertas</string>
+	<key>Configure data usage limits and alerts to monitor your cellular and Wi-Fi data consumption.</key>
+	<string>Configure límites de uso de datos y alertas para monitorear su consumo de datos móviles y Wi-Fi.</string>
+	<key>Critical Alert</key>
+	<string>Alerta crítica</string>
+	<key>Current battery status</key>
+	<string>Estado actual de la batería</string>
+	<key>Current memory consumption</key>
+	<string>Consumo de memoria actual</string>
+	<key>Current network connection type</key>
+	<string>Tipo de conexión de red actual</string>
+	<key>Data Usage</key>
+	<string>Uso de datos</string>
+	<key>Data Usage Alerts</key>
+	<string>Alertas de uso de datos</string>
+	<key>Data Usage Settings</key>
+	<string>Configuración de uso de datos</string>
+	<key>Data Usage Statistics</key>
+	<string>Estadísticas de uso de datos</string>
+	<key>Detailed Breakdown</key>
+	<string>Desglose detallado</string>
+	<key>Device Health</key>
+	<string>Estado del dispositivo</string>
+	<key>Device Health Score: %lld out of 100, %@</key>
+	<string>Puntuación de salud del dispositivo: %lld de 100, %@</string>
+	<key>Device Health Widget</key>
+	<string>Widget de salud del dispositivo</string>
+	<key>Device Metrics</key>
+	<string>Métricas del dispositivo</string>
+	<key>Device Model: %@</key>
+	<string>Modelo del dispositivo: %@</string>
+	<key>Done</key>
+	<string>Hecho</string>
+	<key>Edit Data Limit</key>
+	<string>Editar límite de datos</string>
+	<key>Enable Limit</key>
+	<string>Habilitar límite</string>
+	<key>Error</key>
+	<string>Error</string>
+	<key>Health Score: %lld</key>
+	<string>Puntuación de salud: %lld</string>
+	<key>Health Score: %lld out of 100</key>
+	<string>Puntuación de salud: %lld sobre 100</string>
+	<key>Limit Amount</key>
+	<string>Monto límite</string>
+	<key>Limit Value</key>
+	<string>Valor límite</string>
+	<key>Limit: %@ • %@</key>
+	<string>límite de valor</string>
+	<key>Memory Usage: %lld percent</key>
+	<string>Uso de memoria: %lld por ciento</string>
+	<key>Monitor your device's health at a glance.</key>
+	<string>Supervise la salud de su dispositivo de un vistazo.</string>
+	<key>Network Type Breakdown</key>
+	<string>Desglose del tipo de red</string>
+	<key>Network: %@</key>
+	<string>Red: %@</string>
+	<key>No Data Usage Alerts</key>
+	<string>Alertas de falta de uso de datos</string>
+	<key>OK</key>
+	<string>OK</string>
+	<key>Performance Status: %@, %lld data points</key>
+	<string>Estado de rendimiento: %@, %lld puntos de datos</string>
+	<key>Progress: %lld %@</key>
+	<string>Progreso: %lld %@</string>
+	<key>Reset Period</key>
+	<string>Periodo de reinicio</string>
+	<key>Save</key>
+	<string>Salvar</string>
+	<key>Score</key>
+	<string>Puntaje</string>
+	<key>Shows %@ trends over time</key>
+	<string>Muestra tendencias %@ a lo largo del tiempo</string>
+	<key>Shows %@ value with trend indicator</key>
+	<string>Muestra el valor %@ con el indicador de tendencia</string>
+	<key>Shows detailed device metrics including battery, memory, storage, and network</key>
+	<string>Muestra métricas detalladas del dispositivo, incluida la batería, la memoria, el almacenamiento y la red.</string>
+	<key>Shows key device metrics including health score, battery, memory, and network status</key>
+	<string>Muestra métricas clave del dispositivo, incluido el puntaje de salud, la batería, la memoria y el estado de la red.</string>
+	<key>Shows overall device health performance</key>
+	<string>Muestra el rendimiento general de la salud del dispositivo</string>
+	<key>Status</key>
+	<string>Estado</string>
+	<key>Summary</key>
+	<string>Resumen</string>
+	<key>Swipe to dismiss alerts or tap to mark as read.</key>
+	<string>Desliza para descartar alertas o toca para marcar como leídas.</string>
+	<key>System Version: %@</key>
+	<string>Versión del sistema: %@</string>
+	<key>Test #%lld</key>
+	<string>Prueba #%lld</string>
+	<key>Time</key>
+	<string>Tiempo</string>
+	<key>Time Period</key>
+	<string>Período de tiempo</string>
+	<key>Time Range</key>
+	<string>Rango de tiempo</string>
+	<key>Top Apps by Usage</key>
+	<string>Las mejores aplicaciones por uso</string>
+	<key>Total</key>
+	<string>Total</string>
+	<key>Total Usage</key>
+	<string>Uso total</string>
+	<key>Usage</key>
+	<string>Uso</string>
+	<key>Usage Breakdown</key>
+	<string>Desglose de uso</string>
+	<key>Usage History</key>
+	<string>Historial de uso</string>
+	<key>Usage History Chart</key>
+	<string>Cuadro de historial de uso</string>
+	<key>Usage Over Time</key>
+	<string>Uso a lo largo del tiempo</string>
+	<key>Warning Alert</key>
+	<string>Alerta de advertencia</string>
+	<key>Wi-Fi</key>
+	<string>Wi-Fi</string>
+	<key>Wi-Fi (%@%%)</key>
+	<string>Wi-Fi (%@%%)</string>
+	<key>You're within your data usage limits. Great job!</key>
+	<string>Estás dentro de tus límites de uso de datos. ¡Excelente trabajo!</string>
+	<key>📱</key>
+	<string>📱</string>
+	<key>📱 %@</key>
+	<string>📱 %@</string>
+</dict>
+</plist>

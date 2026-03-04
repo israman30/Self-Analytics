@@ -1,0 +1,27 @@
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Models/DataUsageMetrics.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Models/DeviceMetrics.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Services/AlertService.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Services/DataManagementService.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Services/DataUsageService.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Services/DeviceMetricsService.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Utils/Constants.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Views/Components/MetricCard.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Views/AppDataUsageDetailView.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Views/ContactSupport.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Views/DashboardView.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Views/DataLimitsSettingsView.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Views/DataUsageAlertsView.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Views/DataUsageStatisticsView.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Views/DataUsageView.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Views/DeviceSecurityScanner.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Views/HistoryView.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Views/MainTabView.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Views/PrivacyPolicyView.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Views/SecurityScanView.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Views/SettingsView.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Views/TermsOfServiceView.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Widgets/DeviceHealthWidget.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/ContentView.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/Self\ Analytics/Self_AnalyticsApp.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/.derivedData/Build/Intermediates.noindex/Self\ Analytics.build/Debug-iphoneos/Self\ Analytics.build/DerivedSources/GeneratedAssetSymbols.swift
+/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self\ Analytics/.derivedData/Build/Intermediates.noindex/Self\ Analytics.build/Debug-iphoneos/Self\ Analytics.build/DerivedSources/GeneratedStringSymbols_Localizable.swift
