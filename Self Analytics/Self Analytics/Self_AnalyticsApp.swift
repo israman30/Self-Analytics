@@ -9,6 +9,10 @@ import SwiftUI
 
 @main
 struct Self_AnalyticsApp: App {
+    init() {
+        ProactiveNotificationService.shared.configure()
+    }
+    
     var body: some Scene {
         WindowGroup {
             MainTabView()

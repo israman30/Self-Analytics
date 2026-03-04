@@ -28,6 +28,7 @@ struct SettingsView: View {
     @AppStorage(StorageProperties.notificationsEnabled) private var notificationsEnabled = true
     @AppStorage(StorageProperties.autoRefreshInterval) private var autoRefreshInterval = 5.0
     @AppStorage(StorageProperties.showAlerts) private var showAlerts = true
+    @AppStorage(StorageProperties.weeklyHealthSummaryEnabled) private var weeklyHealthSummaryEnabled = true
     
     @State private var activeSheet: SettingsSheet?
     @StateObject private var dataManagementService = DataManagementService()
@@ -83,6 +84,13 @@ struct SettingsView: View {
                             .accessibilityHint(
                                 AccessibilityHints.show_or_hide_alert_notifications_in_the_app
                             )
+                        
+                        Toggle("Weekly Health Summary", isOn: $weeklyHealthSummaryEnabled)
+                            .onChange(of: weeklyHealthSummaryEnabled) { _, _ in
+                                ProactiveNotificationService.shared.scheduleWeeklyHealthSummaryIfNeeded()
+                            }
+                            .accessibilityLabel("Weekly Health Summary")
+                            .accessibilityHint("Sunday morning notification with your device health summary")
                     }
                 } header: {
                     Label(SettingViewLabels.notifications, systemImage: "bell.badge")

@@ -34,6 +34,7 @@ struct HistoryView: View {
             ScrollView {
                 LazyVStack(spacing: 20) {
                     timeRangeSelector
+                    batteryAgingChart
                     healthScoreChart
                     metricsCharts
                     performanceSummary
@@ -110,6 +111,72 @@ struct HistoryView: View {
         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
         .shadow(color: .black.opacity(0.06), radius: 3, x: 0, y: 2)
         .accessibilityElement(children: .combine)
+    }
+    
+    // MARK: - Battery Aging Chart (30 days)
+    private var batteryAgingSnapshots: [BatteryCapacitySnapshot] {
+        BatteryMetricsHistoryService.shared.snapshotsForLast30Days()
+    }
+    
+    private var batteryAgingChart: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text(HistoryViewLabels.MetricChart.batteryAging)
+                .font(.headline)
+                .foregroundColor(.primary)
+                .accessibilityAddTraits(.isHeader)
+            
+            if batteryAgingSnapshots.isEmpty {
+                HStack(spacing: 8) {
+                    Image(systemName: "battery.100")
+                        .foregroundStyle(.secondary)
+                    Text("Open the app daily to build your battery capacity trend.")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 24)
+                .accessibilityLabel("No battery aging data yet. Open the app daily to build your trend.")
+            } else if #available(iOS 16.0, *) {
+                Chart(batteryAgingSnapshots) { snapshot in
+                    LineMark(
+                        x: .value(HistoryViewLabels.time, snapshot.date),
+                        y: .value("Capacity %", snapshot.estimatedCapacity)
+                    )
+                    .foregroundStyle(.green)
+                    .lineStyle(StrokeStyle(lineWidth: 2))
+                    AreaMark(
+                        x: .value(HistoryViewLabels.time, snapshot.date),
+                        y: .value("Capacity %", snapshot.estimatedCapacity)
+                    )
+                    .foregroundStyle(.green.opacity(0.2))
+                }
+                .frame(height: 180)
+                .chartYScale(domain: 0...100)
+                .chartXAxis {
+                    AxisMarks(values: .automatic) { value in
+                        AxisGridLine()
+                        AxisValueLabel(format: .dateTime.month().day())
+                    }
+                }
+                .chartYAxis {
+                    AxisMarks(values: [0, 25, 50, 75, 100]) { value in
+                        AxisGridLine()
+                        AxisValueLabel()
+                    }
+                }
+                .accessibilityLabel("Battery maximum capacity trend over last 30 days")
+                .accessibilityHint("Shows how estimated battery capacity has changed over time")
+            } else {
+                Text(HistoryViewLabels.chartRequiresiOS16OrLater)
+                    .foregroundColor(.secondary)
+                    .frame(height: 180)
+            }
+        }
+        .padding()
+        .background(Color(.systemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .shadow(color: .black.opacity(0.06), radius: 3, x: 0, y: 2)
+        .accessibilityElement(children: .contain)
     }
     
     // MARK: - Health Score Chart setup
