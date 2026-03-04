@@ -38,6 +38,10 @@ A comprehensive iOS app for monitoring device health, performance metrics, and p
 - **Pull-to-Refresh**: Manual metric updates
 - **Swipe Actions**: Quick alert management
 
+<p align="center">
+<img src="/img/one.png" width="250"> <img src="/img/two.png" width="250"> <img src="/img/three.png" width="250">
+</p>
+
 ## Architecture
 
 ### Core Components
