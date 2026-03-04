@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Data Usage Models
 
-struct AppDataUsage: Identifiable, Codable {
+struct AppDataUsage: Identifiable, Codable, Hashable {
     let id: UUID
     let bundleIdentifier: String
     let appName: String

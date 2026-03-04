@@ -24,66 +24,97 @@ class DeviceInformation {
 }
 
 struct DashboardView: View {
-    @StateObject private var metricsService = DeviceMetricsService()
+    @StateObject private var metricsService: DeviceMetricsService
     @StateObject private var alertService: AlertService
-    private var deviceInformation = DeviceInformation()
-    @State private var showingSpeedTest = false
+    private let deviceInformation = DeviceInformation()
+    
+    @State private var activeSheet: ActiveSheet?
     @State private var speedTestResult: (download: Double, upload: Double)?
+    @State private var alertsExpanded = true
+    @State private var recommendationsExpanded = true
     
     init() {
         let metricsService = DeviceMetricsService()
+        self._metricsService = StateObject(wrappedValue: metricsService)
         self._alertService = StateObject(
             wrappedValue: AlertService(metricsService: metricsService)
         )
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
-                    // Device Name Header
                     deviceNameHeader
                         .padding(.horizontal)
                         .padding(.top, 8)
                     
                     LazyVStack(spacing: 20) {
-                        // Health Score Section
                         if let health = metricsService.currentHealth {
                             HealthScoreCard(score: health.overallScore, status: health.healthStatus)
                                 .padding(.horizontal)
+                        } else {
+                            dashboardLoadingState
+                                .padding(.horizontal)
                         }
                         
-                        // Metrics Grid
+                        metricsSectionHeader
                         metricsGrid
                         
-                        // Alerts Section
                         if !alertService.activeAlerts.isEmpty {
                             alertsSection
                         }
                         
-                        // Recommendations Section
                         if !alertService.recommendations.isEmpty {
                             recommendationsSection
                         }
                         
-                    // Quick Actions
-                    quickActionsSection
-                    
-                    // Persistent Network Test Section
-                    persistentNetworkTestSection
+                        quickActionsSection
+                        persistentNetworkTestSection
                     }
                     .padding(.vertical)
                 }
             }
+            .background(Color(.systemGroupedBackground))
             .navigationTitle(DashboardViewLabels.deviceHealth)
-            .refreshable {
-                metricsService.updateMetrics()
+            .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu {
+                        Button {
+                            metricsService.updateMetrics()
+                        } label: {
+                            Label(DashboardViewLabels.refresh, systemImage: DashboardViewLabels.Icon.arrow_clockwise)
+                        }
+                        
+                        Button {
+                            activeSheet = .speedTest
+                        } label: {
+                            Label(DashboardViewLabels.speedTest, systemImage: DashboardViewLabels.Icon.speedometer)
+                        }
+                        
+                        Button {
+                            alertService.clearSafariCache()
+                        } label: {
+                            Label(DashboardViewLabels.clearCache, systemImage: DashboardViewLabels.Icon.trash)
+                        }
+                        
+                        Button {
+                            alertService.openSettings()
+                        } label: {
+                            Label(DashboardViewLabels.setting, systemImage: DashboardViewLabels.Icon.gear)
+                        }
+                    } label: {
+                        Image(systemName: DashboardViewLabels.Icon.ellipsis_circle)
+                            .accessibilityLabel(AccessibilityLabels.moreActions)
+                    }
+                }
             }
-            .sheet(isPresented: $showingSpeedTest) {
-                SpeedTestView(result: $speedTestResult)
+            .refreshable { metricsService.updateMetrics() }
+            .sheet(item: $activeSheet) { sheet in
+                sheetView(for: sheet)
             }
         }
-        .navigationViewStyle(.stack)
     }
     
     private var deviceNameHeader: some View {
@@ -122,6 +153,18 @@ struct DashboardView: View {
                         .accessibilityLabel(AccessibilityLabels.cellularData)
                     }
                 }
+                
+                if let timestamp = metricsService.currentHealth?.timestamp {
+                    Label {
+                        Text("\(DashboardViewLabels.updated) \(timestamp, style: .relative)")
+                    } icon: {
+                        Image(systemName: DashboardViewLabels.Icon.clock)
+                            .accessibilityHidden(true)
+                    }
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .accessibilityLabel("\(DashboardViewLabels.updated) \(timestamp, style: .relative)")
+                }
             }
             .accessibilityElement(children: .combine)
             
@@ -148,6 +191,43 @@ struct DashboardView: View {
         .accessibilityElement(children: .combine)
     }
 
+    private var dashboardLoadingState: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                ProgressView()
+                Text(DashboardViewLabels.loadingMetrics)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                Spacer()
+            }
+            
+            Text(DashboardViewLabels.pullToRefreshHint)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+        .padding()
+        .background(Color(.systemBackground))
+        .cornerRadius(12)
+        .shadow(color: .black.opacity(0.08), radius: 2, x: 0, y: 1)
+        .accessibilityElement(children: .combine)
+    }
+    
+    private var metricsSectionHeader: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(DashboardViewLabels.metrics)
+                .font(.headline)
+                .foregroundColor(.primary)
+                .accessibilityAddTraits(.isHeader)
+            
+            Text(DashboardViewLabels.tapAMetricForDetails)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal)
+        .accessibilityElement(children: .combine)
+    }
+    
     private var metricsGrid: some View {
         LazyVGrid(columns: [
             GridItem(.flexible()),
@@ -155,69 +235,112 @@ struct DashboardView: View {
         ], spacing: 16) {
             if let health = metricsService.currentHealth {
                 // Memory Card
-                MetricCard(
-                    title: DashboardViewLabels.MetricCard.memory,
-                    value: ByteCountFormatter.string(fromByteCount: Int64(health.memory.usedMemory), countStyle: .memory),
-                    subtitle: "of \(ByteCountFormatter.string(fromByteCount: Int64(health.memory.totalMemory), countStyle: .memory))",
-                    percentage: health.memory.usagePercentage,
-                    color: health.memory.isHighUsage ? .orange : .blue,
-                    icon: DashboardViewLabels.Icon.memorychip,
-                    isAlert: health.memory.isHighUsage
-                )
+                Button {
+                    openMetric(.memory)
+                } label: {
+                    MetricCard(
+                        title: DashboardViewLabels.MetricCard.memory,
+                        value: ByteCountFormatter.string(fromByteCount: Int64(health.memory.usedMemory), countStyle: .memory),
+                        subtitle: "of \(ByteCountFormatter.string(fromByteCount: Int64(health.memory.totalMemory), countStyle: .memory))",
+                        percentage: health.memory.usagePercentage,
+                        color: health.memory.isHighUsage ? .orange : .blue,
+                        icon: DashboardViewLabels.Icon.memorychip,
+                        isAlert: health.memory.isHighUsage
+                    )
+                }
+                .buttonStyle(.plain)
                 
                 // CPU Card
-                MetricCard(
-                    title: DashboardViewLabels.MetricCard.cpu,
-                    value: "\(String(format: "%.1f", health.cpu.usagePercentage))%",
-                    subtitle: health.cpu.isHighUsage ? DashboardViewLabels.MetricCard.highUsage : DashboardViewLabels.MetricCard.normal,
-                    percentage: health.cpu.usagePercentage,
-                    color: health.cpu.isHighUsage ? .orange : .green,
-                    icon: DashboardViewLabels.Icon.cpu,
-                    isAlert: health.cpu.isHighUsage
-                )
+                Button {
+                    openMetric(.cpu)
+                } label: {
+                    MetricCard(
+                        title: DashboardViewLabels.MetricCard.cpu,
+                        value: "\(String(format: "%.1f", health.cpu.usagePercentage))%",
+                        subtitle: health.cpu.isHighUsage ? DashboardViewLabels.MetricCard.highUsage : DashboardViewLabels.MetricCard.normal,
+                        percentage: health.cpu.usagePercentage,
+                        color: health.cpu.isHighUsage ? .orange : .green,
+                        icon: DashboardViewLabels.Icon.cpu,
+                        isAlert: health.cpu.isHighUsage
+                    )
+                }
+                .buttonStyle(.plain)
                 
                 // Battery Card
-                MetricCard(
-                    title: DashboardViewLabels.MetricCard.battery,
-                    value: "\(String(format: "%.0f", health.battery.level * 100))%",
-                    subtitle: health.battery.isCharging ? DashboardViewLabels.MetricCard.charging : health.battery.isLowPowerMode ? DashboardViewLabels.MetricCard.lowPowerMode : health.battery.health.description,
-                    percentage: Double(health.battery.level) * 100,
-                    color: batteryColor(for: health.battery),
-                    icon: batteryIcon(for: health.battery),
-                    isAlert: health.battery.isLowBattery
-                )
+                Button {
+                    openMetric(.battery)
+                } label: {
+                    MetricCard(
+                        title: DashboardViewLabels.MetricCard.battery,
+                        value: "\(String(format: "%.0f", health.battery.level * 100))%",
+                        subtitle: health.battery.isCharging ? DashboardViewLabels.MetricCard.charging : health.battery.isLowPowerMode ? DashboardViewLabels.MetricCard.lowPowerMode : health.battery.health.description,
+                        percentage: Double(health.battery.level) * 100,
+                        color: batteryColor(for: health.battery),
+                        icon: batteryIcon(for: health.battery),
+                        isAlert: health.battery.isLowBattery
+                    )
+                }
+                .buttonStyle(.plain)
                 
                 // Storage Card
-                MetricCard(
-                    title: DashboardViewLabels.MetricCard.storage,
-                    value: health.storage.formattedUsedSpace,
-                    subtitle: "of \(health.storage.formattedTotalSpace)",
-                    percentage: health.storage.usagePercentage,
-                    color: health.storage.isLowStorage ? .red : .blue,
-                    icon: DashboardViewLabels.Icon.externaldrive_fill,
-                    isAlert: health.storage.isLowStorage
-                )
+                Button {
+                    openMetric(.storage)
+                } label: {
+                    MetricCard(
+                        title: DashboardViewLabels.MetricCard.storage,
+                        value: health.storage.formattedUsedSpace,
+                        subtitle: "of \(health.storage.formattedTotalSpace)",
+                        percentage: health.storage.usagePercentage,
+                        color: health.storage.isLowStorage ? .red : .blue,
+                        icon: DashboardViewLabels.Icon.externaldrive_fill,
+                        isAlert: health.storage.isLowStorage
+                    )
+                }
+                .buttonStyle(.plain)
                 
                 // Network Card
-                MetricCard(
-                    title: DashboardViewLabels.MetricCard.network,
-                    value: health.network.status.isConnected ? "\(String(format: "%.1f", health.network.downloadSpeed)) Mbps" : health.network.status.description,
-                    subtitle: getNetworkSubtitle(for: health.network),
-                    color: networkColor(for: health.network),
-                    icon: networkIcon(for: health.network),
-                    isAlert: !health.network.status.isConnected || health.network.isSlowConnection,
-                    showCellularIndicator: health.network.connectionType == .cellular
-                )
+                Button {
+                    openMetric(.network)
+                } label: {
+                    MetricCard(
+                        title: DashboardViewLabels.MetricCard.network,
+                        value: health.network.status.isConnected ? "\(String(format: "%.1f", health.network.downloadSpeed)) Mbps" : health.network.status.description,
+                        subtitle: getNetworkSubtitle(for: health.network),
+                        color: networkColor(for: health.network),
+                        icon: networkIcon(for: health.network),
+                        isAlert: !health.network.status.isConnected || health.network.isSlowConnection,
+                        showCellularIndicator: health.network.connectionType == .cellular
+                    )
+                }
+                .buttonStyle(.plain)
                 
                 // Available Storage Card
-                MetricCard(
-                    title: DashboardViewLabels.MetricCard.available,
-                    value: health.storage.formattedAvailableSpace,
-                    subtitle: DashboardViewLabels.MetricCard.freeSpace,
-                    color: health.storage.availableSpace < 5 * 1024 * 1024 * 1024 ? .red : .green,
-                    icon: DashboardViewLabels.Icon.externaldrive,
-                    isAlert: health.storage.availableSpace < 5 * 1024 * 1024 * 1024
-                )
+                Button {
+                    openMetric(.available)
+                } label: {
+                    MetricCard(
+                        title: DashboardViewLabels.MetricCard.available,
+                        value: health.storage.formattedAvailableSpace,
+                        subtitle: DashboardViewLabels.MetricCard.freeSpace,
+                        color: health.storage.availableSpace < 5 * 1024 * 1024 * 1024 ? .red : .green,
+                        icon: DashboardViewLabels.Icon.externaldrive,
+                        isAlert: health.storage.availableSpace < 5 * 1024 * 1024 * 1024
+                    )
+                }
+                .buttonStyle(.plain)
+            } else {
+                ForEach(0..<6, id: \.self) { _ in
+                    MetricCard(
+                        title: DashboardViewLabels.loading,
+                        value: "—",
+                        subtitle: nil,
+                        percentage: nil,
+                        color: .blue,
+                        icon: DashboardViewLabels.Icon.circle_dotted,
+                        isAlert: false
+                    )
+                    .redacted(reason: .placeholder)
+                }
             }
         }
         .padding(.horizontal)
@@ -240,10 +363,27 @@ struct DashboardView: View {
                     .background(Color.red.opacity(0.2))
                     .foregroundColor(.red)
                     .cornerRadius(8)
+                
+                Button {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        alertsExpanded.toggle()
+                    }
+                } label: {
+                    Image(systemName: alertsExpanded ? DashboardViewLabels.Icon.chevron_up : DashboardViewLabels.Icon.chevron_down)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .padding(6)
+                        .background(Color(.systemGray6))
+                        .clipShape(Circle())
+                }
+                .accessibilityLabel(alertsExpanded ? AccessibilityLabels.collapseAlerts : AccessibilityLabels.expandAlerts)
             }
             .accessibilityElement(children: .combine)
             
-            ForEach(alertService.activeAlerts, id: \.id) { alert in
+            ForEach(
+                alertsExpanded ? alertService.activeAlerts : Array(alertService.activeAlerts.prefix(2)),
+                id: \.id
+            ) { alert in
                 AlertCard(
                     alert: alert,
                     onResolve: {
@@ -253,6 +393,13 @@ struct DashboardView: View {
                         alertService.dismissAlert(alert)
                     }
                 )
+            }
+            
+            if !alertsExpanded, alertService.activeAlerts.count > 2 {
+                Text(DashboardViewLabels.moreAlerts(alertService.activeAlerts.count - 2))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .padding(.top, 2)
             }
         }
         .padding(.horizontal)
@@ -277,16 +424,40 @@ struct DashboardView: View {
                     .background(Color.blue.opacity(0.2))
                     .foregroundColor(.blue)
                     .cornerRadius(8)
+                
+                Button {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        recommendationsExpanded.toggle()
+                    }
+                } label: {
+                    Image(systemName: recommendationsExpanded ? DashboardViewLabels.Icon.chevron_up : DashboardViewLabels.Icon.chevron_down)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .padding(6)
+                        .background(Color(.systemGray6))
+                        .clipShape(Circle())
+                }
+                .accessibilityLabel(recommendationsExpanded ? AccessibilityLabels.collapseRecommendations : AccessibilityLabels.expandRecommendations)
             }
             .accessibilityElement(children: .combine)
             
-            ForEach(alertService.recommendations, id: \.id) { recommendation in
+            ForEach(
+                recommendationsExpanded ? alertService.recommendations : Array(alertService.recommendations.prefix(3)),
+                id: \.id
+            ) { recommendation in
                 RecommendationCard(
                     recommendation: recommendation,
                     onComplete: {
                         handleRecommendationAction(recommendation)
                     }
                 )
+            }
+            
+            if !recommendationsExpanded, alertService.recommendations.count > 3 {
+                Text(DashboardViewLabels.moreRecommendations(alertService.recommendations.count - 3))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .padding(.top, 2)
             }
         }
         .padding(.horizontal)
@@ -321,7 +492,7 @@ struct DashboardView: View {
                     icon: DashboardViewLabels.Icon.speedometer,
                     color: .blue
                 ) {
-                    showingSpeedTest = true
+                    activeSheet = .speedTest
                 }
                 
                 QuickActionButton(
@@ -387,7 +558,7 @@ struct DashboardView: View {
                     Spacer()
                     
                     Button(action: {
-                        showingSpeedTest = true
+                        activeSheet = .speedTest
                     }) {
                         HStack(spacing: 6) {
                             Image(systemName: DashboardViewLabels.Icon.speedometer)
@@ -552,7 +723,263 @@ struct DashboardView: View {
         case .checkPermissions:
             alertService.openSettings()
         case .runSpeedTest:
-            showingSpeedTest = true
+            activeSheet = .speedTest
+        }
+    }
+    
+    private enum ActiveSheet: Identifiable, Equatable {
+        case speedTest
+        case metric(MetricKind)
+        
+        var id: String {
+            switch self {
+            case .speedTest:
+                return "speedTest"
+            case .metric(let kind):
+                return "metric-\(kind.id)"
+            }
+        }
+    }
+    
+    private enum MetricKind: String, Identifiable, CaseIterable {
+        case memory
+        case cpu
+        case battery
+        case storage
+        case network
+        case available
+        
+        var id: String { rawValue }
+        
+        var title: String {
+            switch self {
+            case .memory: return DashboardViewLabels.MetricCard.memory
+            case .cpu: return DashboardViewLabels.MetricCard.cpu
+            case .battery: return DashboardViewLabels.MetricCard.battery
+            case .storage: return DashboardViewLabels.MetricCard.storage
+            case .network: return DashboardViewLabels.MetricCard.network
+            case .available: return DashboardViewLabels.MetricCard.available
+            }
+        }
+        
+        var systemImage: String {
+            switch self {
+            case .memory: return DashboardViewLabels.Icon.memorychip
+            case .cpu: return DashboardViewLabels.Icon.cpu
+            case .battery: return DashboardViewLabels.Icon.battery_100
+            case .storage: return DashboardViewLabels.Icon.externaldrive_fill
+            case .network: return DashboardViewLabels.Icon.wifi_fill
+            case .available: return DashboardViewLabels.Icon.externaldrive
+            }
+        }
+    }
+    
+    private func openMetric(_ kind: MetricKind) {
+        let impact = UIImpactFeedbackGenerator(style: .light)
+        impact.impactOccurred()
+        activeSheet = .metric(kind)
+    }
+    
+    @ViewBuilder
+    private func sheetView(for sheet: ActiveSheet) -> some View {
+        switch sheet {
+        case .speedTest:
+            SpeedTestView(result: $speedTestResult)
+        case .metric(let kind):
+            metricDetailView(kind: kind)
+        }
+    }
+    
+    private func metricDetailView(kind: MetricKind) -> some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    if let health = metricsService.currentHealth {
+                        MetricCard(
+                            title: kind.title,
+                            value: metricPrimaryValue(kind: kind, health: health),
+                            subtitle: metricSubtitle(kind: kind, health: health),
+                            percentage: metricPercentage(kind: kind, health: health),
+                            color: metricTint(kind: kind, health: health),
+                            icon: kind.systemImage,
+                            isAlert: metricIsAlert(kind: kind, health: health),
+                            showCellularIndicator: kind == .network && health.network.connectionType == .cellular
+                        )
+                        .padding(.horizontal)
+                        
+                        metricDetailRows(kind: kind, health: health)
+                            .padding(.horizontal)
+                    } else {
+                        dashboardLoadingState
+                            .padding(.horizontal)
+                    }
+                }
+                .padding(.vertical)
+            }
+            .background(Color(.systemGroupedBackground))
+            .navigationTitle(kind.title)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(SpeedTestViewLabels.done) {
+                        activeSheet = nil
+                    }
+                }
+            }
+            .presentationDetents([.medium, .large])
+        }
+    }
+    
+    @ViewBuilder
+    private func metricDetailRows(kind: MetricKind, health: DeviceHealth) -> some View {
+        VStack(spacing: 12) {
+            GroupBox {
+                VStack(alignment: .leading, spacing: 10) {
+                    Label {
+                        Text("\(DashboardViewLabels.updated) \(health.timestamp, style: .relative)")
+                    } icon: {
+                        Image(systemName: DashboardViewLabels.Icon.clock)
+                            .accessibilityHidden(true)
+                    }
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    
+                    Divider()
+                    
+                    switch kind {
+                    case .memory:
+                        metricRow(DashboardViewLabels.MetricDetail.used, ByteCountFormatter.string(fromByteCount: Int64(health.memory.usedMemory), countStyle: .memory))
+                        metricRow(DashboardViewLabels.MetricDetail.available, ByteCountFormatter.string(fromByteCount: Int64(health.memory.availableMemory), countStyle: .memory))
+                        metricRow(DashboardViewLabels.MetricDetail.pressure, memoryPressureText(health.memory.memoryPressure))
+                    case .cpu:
+                        metricRow(DashboardViewLabels.MetricDetail.usage, "\(String(format: "%.1f", health.cpu.usagePercentage))%")
+                        metricRow(DashboardViewLabels.MetricDetail.status, health.cpu.isHighUsage ? DashboardViewLabels.MetricCard.highUsage : DashboardViewLabels.MetricCard.normal)
+                    case .battery:
+                        metricRow(DashboardViewLabels.MetricDetail.level, "\(String(format: "%.0f", health.battery.level * 100))%")
+                        metricRow(DashboardViewLabels.MetricDetail.charging, health.battery.isCharging ? DashboardViewLabels.yes : DashboardViewLabels.no)
+                        metricRow(DashboardViewLabels.MetricDetail.lowPowerMode, health.battery.isLowPowerMode ? DashboardViewLabels.yes : DashboardViewLabels.no)
+                        metricRow(DashboardViewLabels.MetricDetail.health, health.battery.health.description)
+                    case .storage:
+                        metricRow(DashboardViewLabels.MetricDetail.used, health.storage.formattedUsedSpace)
+                        metricRow(DashboardViewLabels.MetricDetail.available, health.storage.formattedAvailableSpace)
+                        metricRow(DashboardViewLabels.MetricDetail.total, health.storage.formattedTotalSpace)
+                    case .network:
+                        metricRow(DashboardViewLabels.MetricDetail.status, health.network.status.description)
+                        metricRow(DashboardViewLabels.MetricDetail.connection, health.network.connectionType.description)
+                        metricRow(DashboardViewLabels.MetricDetail.download, "\(String(format: "%.1f", health.network.downloadSpeed)) Mbps")
+                        metricRow(DashboardViewLabels.MetricDetail.upload, "\(String(format: "%.1f", health.network.uploadSpeed)) Mbps")
+                    case .available:
+                        metricRow(DashboardViewLabels.MetricDetail.freeSpace, health.storage.formattedAvailableSpace)
+                        metricRow(DashboardViewLabels.MetricDetail.total, health.storage.formattedTotalSpace)
+                    }
+                }
+            }
+        }
+        .accessibilityElement(children: .contain)
+    }
+
+    private func memoryPressureText(_ pressure: MemoryPressure) -> String {
+        switch pressure {
+        case .normal: return "Normal"
+        case .warning: return "Warning"
+        case .critical: return "Critical"
+        }
+    }
+    
+    private func metricRow(_ title: String, _ value: String) -> some View {
+        HStack(alignment: .firstTextBaseline) {
+            Text(title)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+            Spacer()
+            Text(value)
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .foregroundStyle(.primary)
+        }
+        .accessibilityElement(children: .combine)
+    }
+    
+    private func metricPrimaryValue(kind: MetricKind, health: DeviceHealth) -> String {
+        switch kind {
+        case .memory:
+            return ByteCountFormatter.string(fromByteCount: Int64(health.memory.usedMemory), countStyle: .memory)
+        case .cpu:
+            return "\(String(format: "%.1f", health.cpu.usagePercentage))%"
+        case .battery:
+            return "\(String(format: "%.0f", health.battery.level * 100))%"
+        case .storage:
+            return health.storage.formattedUsedSpace
+        case .network:
+            return health.network.status.isConnected ? "\(String(format: "%.1f", health.network.downloadSpeed)) Mbps" : health.network.status.description
+        case .available:
+            return health.storage.formattedAvailableSpace
+        }
+    }
+    
+    private func metricSubtitle(kind: MetricKind, health: DeviceHealth) -> String? {
+        switch kind {
+        case .memory:
+            return "of \(ByteCountFormatter.string(fromByteCount: Int64(health.memory.totalMemory), countStyle: .memory))"
+        case .cpu:
+            return health.cpu.isHighUsage ? DashboardViewLabels.MetricCard.highUsage : DashboardViewLabels.MetricCard.normal
+        case .battery:
+            return health.battery.isCharging ? DashboardViewLabels.MetricCard.charging : health.battery.isLowPowerMode ? DashboardViewLabels.MetricCard.lowPowerMode : health.battery.health.description
+        case .storage:
+            return "of \(health.storage.formattedTotalSpace)"
+        case .network:
+            return getNetworkSubtitle(for: health.network)
+        case .available:
+            return DashboardViewLabels.MetricCard.freeSpace
+        }
+    }
+    
+    private func metricPercentage(kind: MetricKind, health: DeviceHealth) -> Double? {
+        switch kind {
+        case .memory:
+            return health.memory.usagePercentage
+        case .cpu:
+            return health.cpu.usagePercentage
+        case .battery:
+            return Double(health.battery.level) * 100
+        case .storage:
+            return health.storage.usagePercentage
+        case .network, .available:
+            return nil
+        }
+    }
+    
+    private func metricTint(kind: MetricKind, health: DeviceHealth) -> Color {
+        switch kind {
+        case .memory:
+            return health.memory.isHighUsage ? .orange : .blue
+        case .cpu:
+            return health.cpu.isHighUsage ? .orange : .green
+        case .battery:
+            return batteryColor(for: health.battery)
+        case .storage:
+            return health.storage.isLowStorage ? .red : .blue
+        case .network:
+            return networkColor(for: health.network)
+        case .available:
+            return health.storage.availableSpace < 5 * 1024 * 1024 * 1024 ? .red : .green
+        }
+    }
+    
+    private func metricIsAlert(kind: MetricKind, health: DeviceHealth) -> Bool {
+        switch kind {
+        case .memory:
+            return health.memory.isHighUsage
+        case .cpu:
+            return health.cpu.isHighUsage
+        case .battery:
+            return health.battery.isLowBattery
+        case .storage:
+            return health.storage.isLowStorage
+        case .network:
+            return !health.network.status.isConnected || health.network.isSlowConnection
+        case .available:
+            return health.storage.availableSpace < 5 * 1024 * 1024 * 1024
         }
     }
 }

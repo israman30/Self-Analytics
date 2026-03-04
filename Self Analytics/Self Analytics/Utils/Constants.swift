@@ -147,6 +147,44 @@ struct DashboardViewLabels {
     static let recommendations = "Recommendations"
     static let quickActions = "Quick Actions"
     static let cellularData = "Cellular Data"
+    static let refresh = "Refresh"
+    static let updated = "Updated"
+    static let metrics = "Metrics"
+    static let tapAMetricForDetails = "Tap a metric for details"
+    static let loadingMetrics = "Loading metrics…"
+    static let pullToRefreshHint = "Pull to refresh if it takes too long."
+    static let loading = "Loading"
+    static let yes = "Yes"
+    static let no = "No"
+    
+    static func moreAlerts(_ count: Int) -> String {
+        "+\(count) more alerts"
+    }
+    
+    static func moreRecommendations(_ count: Int) -> String {
+        "+\(count) more recommendations"
+    }
+    
+    struct MetricDetail {
+        static let used = "Used"
+        static let available = "Available"
+        static let total = "Total"
+        static let pressure = "Pressure"
+        
+        static let usage = "Usage"
+        static let status = "Status"
+        
+        static let level = "Level"
+        static let charging = "Charging"
+        static let lowPowerMode = "Low Power Mode"
+        static let health = "Health"
+        
+        static let connection = "Connection"
+        static let download = "Download"
+        static let upload = "Upload"
+        
+        static let freeSpace = "Free Space"
+    }
     
     struct MetricCard {
         static let memory = "Memory"
@@ -174,6 +212,13 @@ struct DashboardViewLabels {
         static let cpu = "cpu"
         static let externaldrive_fill = "externaldrive.fill"
         static let externaldrive = "externaldrive"
+        static let arrow_clockwise = "arrow.clockwise"
+        static let ellipsis_circle = "ellipsis.circle"
+        static let clock = "clock"
+        static let chevron_up = "chevron.up"
+        static let chevron_down = "chevron.down"
+        static let circle_dotted = "circle.dotted"
+        static let battery_100 = "battery.100"
         
         static let speedometer = "speedometer"
         static let trash = "trash"
@@ -484,6 +529,11 @@ struct AccessibilityLabels {
     static let alert = "Alert"
     static let percent = "percent"
     static let completed = "Completed"
+    static let moreActions = "More actions"
+    static let expandAlerts = "Expand alerts"
+    static let collapseAlerts = "Collapse alerts"
+    static let expandRecommendations = "Expand recommendations"
+    static let collapseRecommendations = "Collapse recommendations"
     
     // Widget Accessibility
     static let deviceHealthWidget = "Device Health Widget"

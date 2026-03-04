@@ -30,38 +30,40 @@ struct HistoryView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 LazyVStack(spacing: 20) {
-                    // Time Range Selector
                     timeRangeSelector
-                    
-                    // Health Score Chart
                     healthScoreChart
-                    
-                    // Metrics Charts
                     metricsCharts
-                    
-                    // Performance Summary
                     performanceSummary
                 }
-                .padding(.vertical)
+                .padding()
             }
+            .background(Color(.systemGroupedBackground))
+            .refreshable { refreshHistory() }
             .navigationTitle(HistoryViewLabels.history)
             .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        refreshHistory()
+                    } label: {
+                        Image(systemName: DashboardViewLabels.Icon.arrow_clockwise)
+                            .accessibilityLabel(DashboardViewLabels.refresh)
+                    }
+                }
+            }
             .accessibilityElement(children: .contain)
             .accessibilityLabel(AccessibilityLabels.deviceHistory)
             .accessibilityHint(
                 AccessibilityLabels.view_historical_device_performance_data_and_trends
             )
-            .onAppear {
-                generateHistoricalData()
-            }
+            .onAppear { generateHistoricalData() }
             .onChange(of: selectedTimeRange) { _, _ in
-                generateHistoricalData()
+                withAnimation(.easeInOut(duration: 0.25)) { generateHistoricalData() }
             }
         }
-        .navigationViewStyle(.stack)
     }
     
     private var timeRangeSelector: some View {
@@ -71,18 +73,42 @@ struct HistoryView: View {
                 .foregroundColor(.primary)
                 .accessibilityAddTraits(.isHeader)
             
-            Picker(HistoryViewLabels.timeRange, selection: $selectedTimeRange) {
-                ForEach(TimeRange.allCases, id: \.self) { range in
-                    Text(range.rawValue).tag(range)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 10) {
+                    ForEach(TimeRange.allCases, id: \.self) { range in
+                        Button {
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                selectedTimeRange = range
+                            }
+                        } label: {
+                            Text(range.rawValue)
+                                .font(.subheadline)
+                                .fontWeight(.medium)
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 10)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                                        .fill(selectedTimeRange == range ? Color.accentColor : Color(.systemGray6))
+                                )
+                                .foregroundColor(selectedTimeRange == range ? .white : .primary)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel(range.rawValue)
+                        .accessibilityAddTraits(selectedTimeRange == range ? [.isButton, .isSelected] : .isButton)
+                    }
                 }
+                .padding(.horizontal, 4)
             }
-            .pickerStyle(SegmentedPickerStyle())
+            .accessibilityElement(children: .contain)
             .accessibilityLabel(HistoryViewLabels.timeRange)
             .accessibilityHint(
                 AccessibilityLabels.select_the_time_period_for_historical_data
             )
         }
-        .padding(.horizontal)
+        .padding()
+        .background(Color(.systemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .shadow(color: .black.opacity(0.06), radius: 3, x: 0, y: 2)
         .accessibilityElement(children: .combine)
     }
     
@@ -145,9 +171,8 @@ struct HistoryView: View {
         }
         .padding()
         .background(Color(.systemBackground))
-        .cornerRadius(12)
-        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
-        .padding(.horizontal)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .shadow(color: .black.opacity(0.06), radius: 3, x: 0, y: 2)
         .accessibilityElement(children: .contain)
     }
     
@@ -190,7 +215,6 @@ struct HistoryView: View {
                 unit: "%"
             )
         }
-        .padding(.horizontal)
         .accessibilityElement(children: .contain)
         .accessibilityLabel(AccessibilityLabels.performanceMetricsCharts)
         .accessibilityHint(
@@ -206,7 +230,17 @@ struct HistoryView: View {
                 .foregroundColor(.primary)
                 .accessibilityAddTraits(.isHeader)
             
-            if let summary = calculatePerformanceSummary() {
+            if historicalData.isEmpty {
+                HStack(spacing: 8) {
+                    Image(systemName: "chart.bar.doc.horizontal")
+                        .foregroundStyle(.secondary)
+                    Text(DashboardViewLabels.loadingMetrics)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 20)
+            } else if let summary = calculatePerformanceSummary() {
                 VStack(spacing: 12) {
                     SummaryRow(
                         title: HistoryViewLabels.SummaryRow.averageHealthScore,
@@ -252,13 +286,16 @@ struct HistoryView: View {
         }
         .padding()
         .background(Color(.systemBackground))
-        .cornerRadius(12)
-        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
-        .padding(.horizontal)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .shadow(color: .black.opacity(0.06), radius: 3, x: 0, y: 2)
         .accessibilityElement(children: .contain)
     }
     
     // MARK: - Helper Methods
+    private func refreshHistory() {
+        generateHistoricalData()
+    }
+    
     private func generateHistoricalData() {
         historicalData = []
         let now = Date()
@@ -431,8 +468,8 @@ struct MetricChartView: View {
         }
         .padding()
         .background(Color(.systemBackground))
-        .cornerRadius(12)
-        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .shadow(color: .black.opacity(0.06), radius: 3, x: 0, y: 2)
         .accessibilityElement(children: .contain)
     }
     
