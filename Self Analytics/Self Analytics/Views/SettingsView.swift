@@ -40,7 +40,7 @@ struct SettingsView: View {
     private var deviceInformation = DeviceInformation()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Form {
                 Section {
                     HStack {
@@ -66,7 +66,7 @@ struct SettingsView: View {
                     )
                     
                 } header: {
-                    Text(SettingViewLabels.currentDevice)
+                    Label(SettingViewLabels.currentDevice, systemImage: "iphone")
                         .accessibilityAddTraits(.isHeader)
                 }
                 
@@ -85,13 +85,13 @@ struct SettingsView: View {
                             )
                     }
                 } header: {
-                    Text(SettingViewLabels.notifications)
+                    Label(SettingViewLabels.notifications, systemImage: "bell.badge")
                         .accessibilityAddTraits(.isHeader)
                 }
                 
                 Section {
                     Picker(SettingViewLabels.autorefreshInterval, selection: $autoRefreshInterval) {
-                        Text(SettingViewLabels.TimeIntervar.ten_seconds)
+                        Text(SettingViewLabels.TimeIntervar.two_seconds)
                             .tag(2.0)
                         Text(SettingViewLabels.TimeIntervar.five_seconds)
                             .tag(5.0)
@@ -106,14 +106,23 @@ struct SettingsView: View {
                     )
                     
                 } header: {
-                    Text(SettingViewLabels.appSettings)
+                    Label(SettingViewLabels.appSettings, systemImage: "slider.horizontal.3")
                         .accessibilityAddTraits(.isHeader)
                 }
                 
                 Section {
-                    Button("Data Usage Settings") {
+                    Button {
                         activeSheet = .dataUsageSettings
+                    } label: {
+                        HStack {
+                            Label("Data Usage Settings", systemImage: "antenna.radiowaves.left.and.right")
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.caption.weight(.semibold))
+                                .foregroundStyle(.tertiary)
+                        }
                     }
+                    .buttonStyle(.plain)
                     .accessibilityLabel("Data Usage Settings")
                     .accessibilityHint("Configure data usage limits and alerts")
                     .accessibilityAddTraits(.isButton)
@@ -137,7 +146,7 @@ struct SettingsView: View {
                     .accessibilityLabel("Active data usage alerts: \(dataUsageService.activeAlerts.filter { !$0.isRead }.count)")
                     
                 } header: {
-                    Text("Data Usage")
+                    Label("Data Usage", systemImage: "chart.bar.doc.horizontal")
                         .accessibilityAddTraits(.isHeader)
                 } footer: {
                     Text("Configure data usage limits and alerts to monitor your cellular and Wi-Fi data consumption.")
@@ -162,44 +171,68 @@ struct SettingsView: View {
                     .accessibilityElement(children: .combine)
                     .accessibilityLabel("Build Number: \(SettingViewLabels.build_number)")
                 } header: {
-                    Text(SettingViewLabels.about)
+                    Label(SettingViewLabels.about, systemImage: "info.circle")
                         .accessibilityAddTraits(.isHeader)
                 }
                 
                 Section {
-                    Button(SettingViewLabels.privacyPolicy) {
-                        // Open privacy policy
+                    Button {
                         activeSheet = .privacyPolicy
+                    } label: {
+                        HStack {
+                            Label(SettingViewLabels.privacyPolicy, systemImage: "hand.raised")
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.caption.weight(.semibold))
+                                .foregroundStyle(.tertiary)
+                        }
                     }
+                    .buttonStyle(.plain)
                     .accessibilityLabel(SettingViewLabels.privacyPolicy)
                     .accessibilityHint(AccessibilityLabels.tapToViewOurPrivacyPolicy)
                     .accessibilityAddTraits(.isButton)
                     
-                    Button(SettingViewLabels.termsOfService) {
-                        // Open terms of service
+                    Button {
                         activeSheet = .termsOfService
+                    } label: {
+                        HStack {
+                            Label(SettingViewLabels.termsOfService, systemImage: "doc.text")
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.caption.weight(.semibold))
+                                .foregroundStyle(.tertiary)
+                        }
                     }
+                    .buttonStyle(.plain)
                     .accessibilityLabel(SettingViewLabels.termsOfService)
                     .accessibilityHint(AccessibilityLabels.tapToViewOurTermsOfService)
                     .accessibilityAddTraits(.isButton)
                     
-                    Button(SettingViewLabels.contactSupport) {
-                        // Open support contact
+                    Button {
                         activeSheet = .contactSupport
+                    } label: {
+                        HStack {
+                            Label(SettingViewLabels.contactSupport, systemImage: "envelope")
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.caption.weight(.semibold))
+                                .foregroundStyle(.tertiary)
+                        }
                     }
+                    .buttonStyle(.plain)
                     .accessibilityLabel(SettingViewLabels.contactSupport)
                     .accessibilityHint(AccessibilityLabels.tapToContactOurSupportTeam)
                     .accessibilityAddTraits(.isButton)
                 } header: {
-                    Text(SettingViewLabels.support)
+                    Label(SettingViewLabels.support, systemImage: "questionmark.circle")
                         .accessibilityAddTraits(.isHeader)
                 }
                 
                 Section {
-                    Button(SettingViewLabels.exportData) {
-                        Task {
-                            await exportData()
-                        }
+                    Button {
+                        Task { await exportData() }
+                    } label: {
+                        Label(SettingViewLabels.exportData, systemImage: "square.and.arrow.up")
                     }
                     .disabled(dataManagementService.isExporting)
                     .accessibilityLabel(SettingViewLabels.exportData)
@@ -238,10 +271,13 @@ struct SettingsView: View {
                         .accessibilityLabel(AccessibilityLabels.clearingInProgress)
                     }
                 } header: {
-                    Text(SettingViewLabels.data)
+                    Label(SettingViewLabels.data, systemImage: "externaldrive")
                         .accessibilityAddTraits(.isHeader)
                 }
             }
+            .listStyle(.insetGrouped)
+            .scrollContentBackground(.hidden)
+            .background(Color(.systemGroupedBackground))
             .accessibilityElement(children: .contain)
             .accessibilityLabel(SettingViewLabels.settings)
             .accessibilityHint(AccessibilityHints.configure_app_preferences_and_manage_data)
