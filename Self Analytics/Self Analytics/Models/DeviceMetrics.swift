@@ -70,6 +70,17 @@ enum BatteryHealth: Codable {
     case fair
     case poor
     
+    /// Estimated maximum capacity as percentage (100 = new battery).
+    /// Used for Battery Aging trend charts since iOS doesn't expose actual capacity.
+    var estimatedMaximumCapacity: Double {
+        switch self {
+        case .excellent: return 100
+        case .good: return 85
+        case .fair: return 70
+        case .poor: return 55
+        }
+    }
+    
     var description: String {
         switch self {
         case .excellent: return "Excellent"

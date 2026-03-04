@@ -12,6 +12,7 @@ struct StorageProperties {
     static let autoRefreshInterval = "autoRefreshInterval"
     static let showAlerts = "showAlerts"
     static let darkModeEnabled = "darkModeEnabled"
+    static let weeklyHealthSummaryEnabled = "weeklyHealthSummaryEnabled"
 }
 
 struct SettingViewLabels {
@@ -107,6 +108,7 @@ struct HistoryViewLabels {
         static let cpuUsage = "CPU Usage"
         static let batteryLevel = "Battery Level"
         static let storageUsage = "Storage Usage"
+        static let batteryAging = "Battery Maximum Capacity (30 Days)"
     }
     
     static let performanceSummary = "Performance Summary"

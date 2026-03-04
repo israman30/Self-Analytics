@@ -60,7 +60,9 @@ class DeviceMetricsService: ObservableObject {
         let storage = getStorageMetrics()
         let network = getNetworkMetrics()
         
-        currentHealth = DeviceHealth(
+        recordBatterySnapshotIfNeeded(battery)
+        
+        let health = DeviceHealth(
             memory: memory,
             cpu: cpu,
             battery: battery,
@@ -68,6 +70,8 @@ class DeviceMetricsService: ObservableObject {
             network: network,
             timestamp: Date()
         )
+        recordWeeklyMetricsIfNeeded(health)
+        currentHealth = health
     }
     
     // MARK: - Memory Metrics
@@ -186,6 +190,40 @@ class DeviceMetricsService: ObservableObject {
             return .poor
         }
     }
+    
+    /// Records a battery capacity snapshot once per calendar day for the aging chart.
+    private func recordBatterySnapshotIfNeeded(_ battery: BatteryMetrics) {
+        let key = "battery_history_last_recorded_date"
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let lastRecorded = userDefaults.object(forKey: key) as? Date ?? .distantPast
+        let lastRecordedDay = calendar.startOfDay(for: lastRecorded)
+        
+        guard today > lastRecordedDay else { return }
+        
+        BatteryMetricsHistoryService.shared.recordSnapshot(health: battery.health)
+        userDefaults.set(Date(), forKey: key)
+    }
+    
+    /// Records daily metrics for the Weekly Health Summary. Called once per day.
+    private func recordWeeklyMetricsIfNeeded(_ health: DeviceHealth) {
+        let key = "weekly_metrics_last_recorded_date"
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let lastRecorded = userDefaults.object(forKey: key) as? Date ?? .distantPast
+        let lastRecordedDay = calendar.startOfDay(for: lastRecorded)
+        
+        guard today > lastRecordedDay else { return }
+        
+        WeeklyMetricsStorage.shared.recordSnapshot(
+            memoryPercent: health.memory.usagePercentage,
+            cpuPercent: health.cpu.usagePercentage,
+            storagePercent: health.storage.usagePercentage
+        )
+        userDefaults.set(Date(), forKey: key)
+    }
+    
+    private var userDefaults: UserDefaults { UserDefaults.standard }
     
     // MARK: - Storage Metrics
     private func getStorageMetrics() -> StorageMetrics {

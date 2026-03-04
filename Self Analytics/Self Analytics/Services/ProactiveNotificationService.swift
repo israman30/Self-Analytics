@@ -48,6 +48,7 @@ final class ProactiveNotificationService {
         requestNotificationPermission()
         registerBackgroundTasks()
         scheduleNextBackgroundRefresh()
+        scheduleWeeklyHealthSummaryIfNeeded()
     }
     
     /// Call when app enters foreground to check metrics and potentially send notifications.
@@ -249,6 +250,70 @@ final class ProactiveNotificationService {
         
         let request = UNNotificationRequest(identifier: "\(identifier)-\(UUID().uuidString)", content: content, trigger: nil)
         notificationCenter.add(request)
+    }
+    
+    // MARK: - Weekly Health Summary (Sunday 9 AM)
+    
+    private static let weeklySummaryIdentifier = "com.selfanalytics.weeklyHealthSummary"
+    
+    func scheduleWeeklyHealthSummaryIfNeeded() {
+        guard UserDefaults.standard.bool(forKey: StorageProperties.weeklyHealthSummaryEnabled) else {
+            notificationCenter.removePendingNotificationRequests(withIdentifiers: [Self.weeklySummaryIdentifier])
+            return
+        }
+        
+        notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, _ in
+            guard granted, let self else { return }
+            self.scheduleWeeklySummaryNotification()
+        }
+    }
+    
+    private func scheduleWeeklySummaryNotification() {
+        let (title, body) = generateWeeklySummaryContent()
+        
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.sound = .default
+        
+        var dateComponents = DateComponents()
+        dateComponents.weekday = 1  // Sunday
+        dateComponents.hour = 9
+        dateComponents.minute = 0
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        
+        let request = UNNotificationRequest(identifier: Self.weeklySummaryIdentifier, content: content, trigger: trigger)
+        notificationCenter.add(request)
+    }
+    
+    private func generateWeeklySummaryContent() -> (title: String, body: String) {
+        let title = "Health Summary"
+        
+        guard let comparison = WeeklyMetricsStorage.shared.weeklyComparison() else {
+            return (title, "Keep using Self Analytics to get your weekly device health insights!")
+        }
+        
+        let (thisMem, thisCpu, _) = comparison.thisWeek
+        let (lastMem, lastCpu, _) = comparison.lastWeek
+        
+        // Prefer the most positive change for the message
+        let cpuChange = lastCpu > 0 ? (lastCpu - thisCpu) / lastCpu * 100 : 0
+        let memChange = lastMem > 0 ? (lastMem - thisMem) / lastMem * 100 : 0
+        
+        if cpuChange >= 10 {
+            return (title, String(format: "Your device ran %.0f%% cooler this week!", cpuChange))
+        }
+        if memChange >= 10 {
+            return (title, String(format: "Memory usage dropped %.0f%% this week!", memChange))
+        }
+        if cpuChange >= 5 || memChange >= 5 {
+            return (title, "Your device performed better this week. Keep it up!")
+        }
+        if thisCpu > lastCpu + 15 || thisMem > lastMem + 15 {
+            return (title, "Your device worked harder this week. Consider closing unused apps.")
+        }
+        
+        return (title, "Your device health stayed consistent this week.")
     }
 }
 
