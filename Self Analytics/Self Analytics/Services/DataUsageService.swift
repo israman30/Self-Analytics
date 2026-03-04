@@ -136,6 +136,10 @@ class DataUsageService: ObservableObject {
         stopNetworkMonitoring()
     }
     
+    func refreshData() {
+        updateDataUsage()
+    }
+    
     private func updateDataUsage() {
         Task {
             await generateMockDataUsage()

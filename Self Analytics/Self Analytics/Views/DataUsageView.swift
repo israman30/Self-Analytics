@@ -14,9 +14,10 @@ struct DataUsageView: View {
     @State private var showingLimitsSettings = false
     @State private var showingAlerts = false
     @State private var showingStatistics = false
+    @State private var showingAllApps = false
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
                     // Period Selector
@@ -26,10 +27,16 @@ struct DataUsageView: View {
                     if let summary = dataUsageService.currentSummary {
                         summaryCards(summary: summary)
                     } else {
-                        VStack {
-                            Text(DataUsageLabels.loading)
+                        VStack(spacing: 12) {
                             ProgressView()
+                            Text(DataUsageLabels.loading)
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
                         }
+                        .frame(maxWidth: .infinity)
+                        .padding(32)
+                        .background(Color(.systemBackground))
+                        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                     }
                     
                     // Usage Chart
@@ -53,8 +60,13 @@ struct DataUsageView: View {
                 }
                 .padding()
             }
+            .background(Color(.systemGroupedBackground))
+            .refreshable { dataUsageService.refreshData() }
             .navigationTitle(DataUsageLabels.dataUsage)
             .navigationBarTitleDisplayMode(.large)
+            .navigationDestination(for: AppDataUsage.self) { app in
+                AppDataUsageDetailView(app: app)
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
@@ -83,8 +95,12 @@ struct DataUsageView: View {
             .sheet(isPresented: $showingStatistics) {
                 DataUsageStatisticsView(dataUsageService: dataUsageService, period: selectedPeriod)
             }
+            .sheet(isPresented: $showingAllApps) {
+                if let summary = dataUsageService.currentSummary {
+                    AllAppsListSheet(apps: summary.appUsages.filter { $0.totalBytes > 0 })
+                }
+            }
         }
-        .navigationViewStyle(.stack)
     }
     
     // MARK: - Period Selector
@@ -96,25 +112,28 @@ struct DataUsageView: View {
                 .foregroundColor(.primary)
             
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
+                HStack(spacing: 10) {
                     ForEach(DataUsagePeriod.PeriodType.allCases, id: \.self) { period in
-                        Button(action: {
-                            selectedPeriod = period
-                        }) {
+                        Button {
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                selectedPeriod = period
+                            }
+                        } label: {
                             Text(period.description)
                                 .font(.subheadline)
                                 .fontWeight(.medium)
                                 .padding(.horizontal, 16)
-                                .padding(.vertical, 8)
+                                .padding(.vertical, 10)
                                 .background(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .fill(selectedPeriod == period ? Color.blue : Color(.systemGray6))
+                                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                                        .fill(selectedPeriod == period ? Color.accentColor : Color(.systemGray6))
                                 )
                                 .foregroundColor(selectedPeriod == period ? .white : .primary)
                         }
+                        .buttonStyle(.plain)
                     }
                 }
-                .padding(.horizontal)
+                .padding(.horizontal, 4)
             }
         }
     }
@@ -254,8 +273,8 @@ struct DataUsageView: View {
         }
         .padding()
         .background(Color(.systemBackground))
-        .cornerRadius(12)
-        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .shadow(color: .black.opacity(0.06), radius: 4, x: 0, y: 2)
     }
     
     // MARK: - Alerts Section
@@ -269,11 +288,17 @@ struct DataUsageView: View {
                 
                 Spacer()
                 
-                Button(DataUsageLabels.viewAll) {
+                Button {
                     showingAlerts = true
+                } label: {
+                    HStack(spacing: 4) {
+                        Text(DataUsageLabels.viewAll)
+                        Image(systemName: "chevron.right")
+                            .font(.caption2)
+                    }
+                    .font(.subheadline)
+                    .foregroundColor(.blue)
                 }
-                .font(.subheadline)
-                .foregroundColor(.blue)
             }
             
             ForEach(dataUsageService.activeAlerts.prefix(3)) { alert in
@@ -284,8 +309,8 @@ struct DataUsageView: View {
         }
         .padding()
         .background(Color(.systemBackground))
-        .cornerRadius(12)
-        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .shadow(color: .black.opacity(0.06), radius: 4, x: 0, y: 2)
     }
     
     // MARK: - Top Apps Section
@@ -297,14 +322,18 @@ struct DataUsageView: View {
                 .foregroundColor(.primary)
             
             ForEach(summary.topApps.prefix(5)) { app in
-                AppUsageRow(app: app)
+                NavigationLink(value: app) {
+                    AppUsageRow(app: app)
+                }
+                .buttonStyle(.plain)
             }
             
-            if summary.appUsages.count > 5 {
+            if summary.appUsages.filter({ $0.totalBytes > 0 }).count > 5 {
                 Button(DataUsageLabels.viewAllApps) {
-                    // Navigate to full apps list
+                    showingAllApps = true
                 }
                 .font(.subheadline)
+                .fontWeight(.medium)
                 .foregroundColor(.blue)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.top, 8)
@@ -312,8 +341,8 @@ struct DataUsageView: View {
         }
         .padding()
         .background(Color(.systemBackground))
-        .cornerRadius(12)
-        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .shadow(color: .black.opacity(0.06), radius: 4, x: 0, y: 2)
     }
     
     // MARK: - Data Limits Section
@@ -327,11 +356,17 @@ struct DataUsageView: View {
                 
                 Spacer()
                 
-                Button(DataUsageLabels.manage) {
+                Button {
                     showingLimitsSettings = true
+                } label: {
+                    HStack(spacing: 4) {
+                        Text(DataUsageLabels.manage)
+                        Image(systemName: "chevron.right")
+                            .font(.caption2)
+                    }
+                    .font(.subheadline)
+                    .foregroundColor(.blue)
                 }
-                .font(.subheadline)
-                .foregroundColor(.blue)
             }
             
             ForEach(dataUsageService.dataUsageLimits.filter { $0.isEnabled }) { limit in
@@ -348,8 +383,8 @@ struct DataUsageView: View {
         }
         .padding()
         .background(Color(.systemBackground))
-        .cornerRadius(12)
-        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .shadow(color: .black.opacity(0.06), radius: 4, x: 0, y: 2)
     }
     
     // MARK: - Statistics Section
@@ -363,11 +398,17 @@ struct DataUsageView: View {
                 
                 Spacer()
                 
-                Button(DataUsageLabels.viewDetails) {
+                Button {
                     showingStatistics = true
+                } label: {
+                    HStack(spacing: 4) {
+                        Text(DataUsageLabels.viewDetails)
+                        Image(systemName: "chevron.right")
+                            .font(.caption2)
+                    }
+                    .font(.subheadline)
+                    .foregroundColor(.blue)
                 }
-                .font(.subheadline)
-                .foregroundColor(.blue)
             }
             
             if let statistics = dataUsageService.getStatistics(for: DataUsagePeriod(
@@ -411,8 +452,8 @@ struct DataUsageView: View {
         }
         .padding()
         .background(Color(.systemBackground))
-        .cornerRadius(12)
-        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .shadow(color: .black.opacity(0.06), radius: 4, x: 0, y: 2)
     }
     
     // MARK: - Helper Methods
@@ -465,8 +506,8 @@ struct SummaryCard: View {
         }
         .padding()
         .background(Color(.systemBackground))
-        .cornerRadius(12)
-        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .shadow(color: .black.opacity(0.06), radius: 4, x: 0, y: 2)
     }
 }
 
@@ -667,8 +708,40 @@ struct StatisticCard: View {
         }
         .padding()
         .background(Color(.systemBackground))
-        .cornerRadius(8)
-        .shadow(color: .black.opacity(0.05), radius: 1, x: 0, y: 1)
+        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .shadow(color: .black.opacity(0.06), radius: 2, x: 0, y: 1)
+    }
+}
+
+// MARK: - All Apps List Sheet
+
+private struct AllAppsListSheet: View {
+    let apps: [AppDataUsage]
+    @Environment(\.dismiss) private var dismiss
+    
+    var body: some View {
+        NavigationStack {
+            List(apps.sorted { $0.totalBytes > $1.totalBytes }) { app in
+                NavigationLink(value: app) {
+                    AppUsageRow(app: app)
+                }
+                .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+            }
+            .listStyle(.plain)
+            .navigationTitle(DataUsageLabels.topAppsByUsage)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(DataLimitsSettingsViewLabels.done) {
+                        dismiss()
+                    }
+                }
+            }
+            .navigationDestination(for: AppDataUsage.self) { app in
+                AppDataUsageDetailView(app: app)
+            }
+        }
+        .presentationDetents([.medium, .large])
     }
 }
 
