@@ -108,6 +108,8 @@
 				"es-419",
 				fr,
 				ja,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = 4D3ECD262E1F43160047604D;
 			minimizedProjectReferenceProxies = 1;

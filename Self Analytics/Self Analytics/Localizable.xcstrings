@@ -38,6 +38,18 @@
             "state": "translated",
             "value": "%1$@ %2$@"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ %2$@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ %2$@"
+          }
         }
       }
     },
@@ -74,6 +86,18 @@
             "state": "translated",
             "value": "%1$@ %2$@ パーセント完了"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ %2$@ 完成百分比"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ %2$@ 完成百分比"
+          }
         }
       }
     },
@@ -101,6 +125,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@チャート"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 图表"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 圖表"
           }
         }
       }
@@ -132,6 +168,18 @@
             "state": "translated",
             "value": "%@ GB"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ GB"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ GB"
+          }
         }
       }
     },
@@ -156,6 +204,18 @@
           }
         },
         "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ Mbps"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ Mbps"
+          }
+        },
+        "zh-Hant": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ Mbps"
@@ -213,6 +273,18 @@
             "state": "translated",
             "value": "%1$@：%2$@ Mbps、%3$@"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@：%2$@ Mbps，%3$@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@：%2$@ Mbps，%3$@"
+          }
         }
       }
     },
@@ -245,6 +317,18 @@
           }
         },
         "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@. %2$@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@. %2$@"
+          }
+        },
+        "zh-Hant": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@. %2$@"
@@ -285,6 +369,18 @@
             "state": "translated",
             "value": "%1$@. ダウンロード：%2$@ Mbps. アップロード：%3$@ Mbps"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@. 下载：%2$@ Mbps. 上传：%3$@ Mbps"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@. 下載：%2$@ Mbps. 上傳：%3$@ Mbps"
+          }
         }
       }
     },
@@ -317,6 +413,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "合計の%@%%"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "占总量 %@%%"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "佔總量 %@%%"
           }
         }
       }
@@ -351,6 +459,18 @@
             "state": "translated",
             "value": "%lld / 100"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld / 100"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld / 100"
+          }
         }
       }
     },
@@ -379,6 +499,18 @@
             "state": "translated",
             "value": "%lldポイント"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld 分"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld 分"
+          }
         }
       }
     },
@@ -403,6 +535,18 @@
           }
         },
         "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld%%"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld%%"
+          }
+        },
+        "zh-Hant": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld%%"
@@ -435,6 +579,18 @@
             "state": "translated",
             "value": "📱"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "📱"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "📱"
+          }
         }
       }
     },
@@ -459,6 +615,18 @@
           }
         },
         "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "4"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "4"
+          }
+        },
+        "zh-Hant": {
           "stringUnit": {
             "state": "translated",
             "value": "4"
@@ -493,6 +661,18 @@
             "state": "translated",
             "value": "アクティブなアラート"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "活动提醒"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "活動提醒"
+          }
         }
       }
     },
@@ -520,6 +700,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "アクティブなデータ使用アラート：%lld"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "活动数据使用提醒：%lld"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "活動資料使用提醒：%lld"
           }
         }
       }
@@ -549,6 +741,18 @@
             "state": "translated",
             "value": "アクティブなデータ使用制限：%lld"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "活动数据使用限制：%lld"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "活動資料使用限制：%lld"
+          }
         }
       }
     },
@@ -576,6 +780,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "アクティブな制限"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "活动限制"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "活動限制"
           }
         }
       }
@@ -607,6 +823,18 @@
             "state": "translated",
             "value": "問題なし"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一切正常"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一切正常"
+          }
         }
       }
     },
@@ -637,6 +865,18 @@
             "state": "translated",
             "value": "アプリ"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "应用"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App"
+          }
         }
       }
     },
@@ -664,6 +904,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "アプリバージョン：%@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "应用版本：%@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App 版本：%@"
           }
         }
       }
@@ -699,6 +951,18 @@
             "state": "translated",
             "value": "バッテリーレベル：%lldパーセント%@"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "电池电量：%lld%%%@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "電池電量：%lld%%%@"
+          }
         }
       }
     },
@@ -729,6 +993,18 @@
             "state": "translated",
             "value": "過去30日間のバッテリー最大容量の推移"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "过去30天电池最大容量趋势"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "過去30天電池最大容量趨勢"
+          }
         }
       }
     },
@@ -756,6 +1032,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "ビルド番号：%@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "构建号：%@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建置編號：%@"
           }
         }
       }
@@ -787,6 +1075,18 @@
             "state": "translated",
             "value": "容量%"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "容量 %"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "容量 %"
+          }
         }
       }
     },
@@ -816,6 +1116,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "モバイルデータ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "蜂窝网络"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "流動網路"
           }
         }
       }
@@ -847,6 +1159,18 @@
             "state": "translated",
             "value": "モバイルデータ（%@%%）"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "蜂窝网络（%@%%）"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "流動網路（%@%%）"
+          }
         }
       }
     },
@@ -876,6 +1200,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "チャートプレビュー"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "图表预览"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "圖表預覽"
           }
         }
       }
@@ -907,6 +1243,18 @@
             "state": "translated",
             "value": "チャートはiOS 16以降が必要です"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "图表需要 iOS 16 或更高版本"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "圖表需要 iOS 16 或更新版本"
+          }
         }
       }
     },
@@ -936,6 +1284,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "すべてクリア"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全部清除"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全部清除"
           }
         }
       }
@@ -967,6 +1327,18 @@
             "state": "translated",
             "value": "速度テストのビューを閉じる"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关闭速度测试视图"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "關閉速度測試檢視"
+          }
         }
       }
     },
@@ -994,6 +1366,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "詳細なメトリクスによるデバイスヘルスの包括的な監視"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "带详细指标的综合设备健康监测"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "含詳細指標的完整裝置健康監測"
           }
         }
       }
@@ -1023,6 +1407,18 @@
             "state": "translated",
             "value": "データ使用の制限とアラートを設定"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "配置数据使用限制和提醒"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定資料使用限制與提醒"
+          }
         }
       }
     },
@@ -1050,6 +1446,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "セルラーとWi-Fiのデータ使用量を監視するため、データ使用の制限とアラートを設定します。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "配置数据使用限制和提醒以监控您的蜂窝和 Wi‑Fi 数据使用量。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定資料使用限制與提醒以監控您的流動網路和 Wi‑Fi 資料用量。"
           }
         }
       }
@@ -1079,6 +1487,18 @@
             "state": "translated",
             "value": "現在のバッテリー状態"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "当前电池状态"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目前電池狀態"
+          }
         }
       }
     },
@@ -1107,6 +1527,18 @@
             "state": "translated",
             "value": "現在のメモリ使用量"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "当前内存消耗"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目前記憶體消耗"
+          }
         }
       }
     },
@@ -1134,6 +1566,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "現在のネットワーク接続タイプ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "当前网络连接类型"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目前網路連線類型"
           }
         }
       }
@@ -1165,6 +1609,18 @@
             "state": "translated",
             "value": "データ使用量"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "数据使用"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "資料使用"
+          }
         }
       }
     },
@@ -1195,6 +1651,18 @@
             "state": "translated",
             "value": "データ使用アラート"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "数据使用提醒"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "資料使用提醒"
+          }
         }
       }
     },
@@ -1222,6 +1690,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "データ使用設定"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "数据使用设置"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "資料使用設定"
           }
         }
       }
@@ -1253,6 +1733,18 @@
             "state": "translated",
             "value": "データ使用統計"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "数据使用统计"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "資料使用統計"
+          }
         }
       }
     },
@@ -1283,6 +1775,18 @@
             "state": "translated",
             "value": "詳細内訳"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "详细分解"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "詳細分解"
+          }
         }
       }
     },
@@ -1311,6 +1815,18 @@
             "state": "translated",
             "value": "詳細"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "详情"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "詳情"
+          }
         }
       }
     },
@@ -1338,6 +1854,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "デバイスの状態"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "设备健康"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "裝置健康"
           }
         }
       }
@@ -1373,6 +1901,18 @@
             "state": "translated",
             "value": "デバイスヘルススコア：100点満点中%lld、%@"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "设备健康评分：100分中 %lld 分，%@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "裝置健康評分：100 分中 %lld 分，%@"
+          }
         }
       }
     },
@@ -1400,6 +1940,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "デバイスヘルスウィジェット"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "设备健康小组件"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "裝置健康小工具"
           }
         }
       }
@@ -1429,6 +1981,18 @@
             "state": "translated",
             "value": "デバイスメトリクス"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "设备指标"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "裝置指標"
+          }
         }
       }
     },
@@ -1456,6 +2020,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "デバイスモデル：%@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "设备型号：%@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "裝置型號：%@"
           }
         }
       }
@@ -1487,6 +2063,18 @@
             "state": "translated",
             "value": "完了"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "完成"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "完成"
+          }
         }
       }
     },
@@ -1515,6 +2103,18 @@
             "state": "translated",
             "value": "詳細情報の表示を切り替えるにはダブルタップ"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "双击切换详细信息"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "點兩下切換詳細資訊"
+          }
         }
       }
     },
@@ -1542,6 +2142,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "エラー"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "错误"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "錯誤"
           }
         }
       }
@@ -1573,6 +2185,18 @@
             "state": "translated",
             "value": "検出結果"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "检查结果"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "檢查結果"
+          }
         }
       }
     },
@@ -1601,6 +2225,18 @@
             "state": "translated",
             "value": "ヘルススコア：%lld"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "健康评分：%lld"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "健康評分：%lld"
+          }
         }
       }
     },
@@ -1628,6 +2264,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "ヘルススコア：100点満点中%lld"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "健康评分：100分中 %lld 分"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "健康評分：100 分中 %lld 分"
           }
         }
       }
@@ -1663,6 +2311,18 @@
             "state": "translated",
             "value": "ヘルス状態：%1$@。%2$@の詳細を表示するにはタップ"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "健康状态：%1$@。点击查看 %2$@ 详情"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "健康狀態：%1$@。點一下查看 %2$@ 詳情"
+          }
         }
       }
     },
@@ -1690,6 +2350,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "最終更新"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最后更新"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最後更新"
           }
         }
       }
@@ -1727,6 +2399,18 @@
             "state": "translated",
             "value": "制限：%1$@ • %2$@"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "限制：%1$@ • %2$@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "限制：%1$@ • %2$@"
+          }
         }
       }
     },
@@ -1755,6 +2439,18 @@
             "state": "translated",
             "value": "メモリ使用量：%lldパーセント"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "内存使用：%lld%%"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "記憶體使用：%lld%%"
+          }
         }
       }
     },
@@ -1782,6 +2478,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "デバイスの状態を一目で確認できます。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一目了然监控设备健康。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一目了然監控裝置健康。"
           }
         }
       }
@@ -1813,6 +2521,18 @@
             "state": "translated",
             "value": "ネットワークタイプ別内訳"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "网络类型分解"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "網路類型分解"
+          }
         }
       }
     },
@@ -1840,6 +2560,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "ネットワーク：%@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "网络：%@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "網路：%@"
           }
         }
       }
@@ -1871,6 +2603,18 @@
             "state": "translated",
             "value": "バッテリー経年劣化データはまだありません。毎日アプリを開いて推移データを作成してください。"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚无电池老化数据。请每日打开应用以建立趋势。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚無電池老化資料。請每日開啟 App 以建立趨勢。"
+          }
         }
       }
     },
@@ -1900,6 +2644,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "データ使用アラートなし"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无数据使用提醒"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無資料使用提醒"
           }
         }
       }
@@ -1931,6 +2687,18 @@
             "state": "translated",
             "value": "セキュリティリスクは検出されませんでした。デバイスとネットワークは安全です。"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未检测到安全风险。您的设备和网络处于安全状态。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未偵測到安全風險。您的裝置和網路處於安全狀態。"
+          }
         }
       }
     },
@@ -1961,6 +2729,18 @@
             "state": "translated",
             "value": "テスト履歴がありません"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无可用测试记录"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無可用測試記錄"
+          }
         }
       }
     },
@@ -1988,6 +2768,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "OK"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "好"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "好"
           }
         }
       }
@@ -2019,6 +2811,18 @@
             "state": "translated",
             "value": "毎日アプリを開いてバッテリー容量の推移データを作成してください。"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请每日打开应用以建立电池容量趋势。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "請每日開啟 App 以建立電池容量趨勢。"
+          }
         }
       }
     },
@@ -2046,6 +2850,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "パフォーマンスレベル"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "性能等级"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "效能等級"
           }
         }
       }
@@ -2081,6 +2897,18 @@
             "state": "translated",
             "value": "パフォーマンス状態：%@、%lldデータポイント"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "性能状态：%@，%lld 个数据点"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "效能狀態：%@，%lld 個資料點"
+          }
         }
       }
     },
@@ -2115,6 +2943,18 @@
             "state": "translated",
             "value": "進捗：%lld %@"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "进度：%lld %@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "進度：%lld %@"
+          }
         }
       }
     },
@@ -2145,6 +2985,18 @@
             "state": "translated",
             "value": "推奨事項"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建议"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建議"
+          }
         }
       }
     },
@@ -2173,6 +3025,18 @@
             "state": "translated",
             "value": "更新"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "刷新"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新整理"
+          }
         }
       }
     },
@@ -2200,6 +3064,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "ヘルススコアを更新"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "刷新健康评分"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新整理健康評分"
           }
         }
       }
@@ -2231,6 +3107,18 @@
             "state": "translated",
             "value": "今すぐスキャン"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "立即扫描"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "立即掃描"
+          }
         }
       }
     },
@@ -2261,6 +3149,18 @@
             "state": "translated",
             "value": "スキャン中..."
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在扫描..."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在掃描..."
+          }
         }
       }
     },
@@ -2288,6 +3188,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "スコア"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "评分"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "評分"
           }
         }
       }
@@ -2319,6 +3231,18 @@
             "state": "translated",
             "value": "セキュリティスキャン"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "安全扫描"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "安全掃描"
+          }
         }
       }
     },
@@ -2348,6 +3272,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "セキュリティスコア"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "安全评分"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "安全評分"
           }
         }
       }
@@ -2379,6 +3315,18 @@
             "state": "translated",
             "value": "セキュリティスコア100点満点中%lld"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "安全评分 100 分中 %lld 分"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "安全評分 100 分中 %lld 分"
+          }
         }
       }
     },
@@ -2406,6 +3354,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@の時間経過による傾向を表示"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示 %@ 随时间的趋势"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示 %@ 隨時間的趨勢"
           }
         }
       }
@@ -2435,6 +3395,18 @@
             "state": "translated",
             "value": "%@の値と傾向インジケーターを表示"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示带趋势指标的 %@ 值"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示帶趨勢指標的 %@ 值"
+          }
         }
       }
     },
@@ -2462,6 +3434,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "バッテリー、メモリ、ストレージ、ネットワークを含む詳細なデバイスメトリクスを表示"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示详细设备指标，包括电池、内存、存储和网络"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示詳細裝置指標，包括電池、記憶體、儲存空間和網路"
           }
         }
       }
@@ -2493,6 +3477,18 @@
             "state": "translated",
             "value": "推定バッテリー容量が時間とともにどのように変化したかを表示"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示预估电池容量随时间的变化"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示預估電池容量隨時間的變化"
+          }
         }
       }
     },
@@ -2521,6 +3517,18 @@
             "state": "translated",
             "value": "ヘルススコア、バッテリー、メモリ、ネットワーク状態を含む主要なデバイスメトリクスを表示"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示关键设备指标，包括健康评分、电池、内存和网络状态"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示關鍵裝置指標，包括健康評分、電池、記憶體和網路狀態"
+          }
         }
       }
     },
@@ -2548,6 +3556,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "デバイスヘルスの全体的なパフォーマンスを表示"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示整体设备健康表现"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示整體裝置健康表現"
           }
         }
       }
@@ -2579,6 +3599,18 @@
             "state": "translated",
             "value": "ネットワーク速度テストを開始"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开始网络速度测试"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開始網路速度測試"
+          }
         }
       }
     },
@@ -2609,6 +3641,18 @@
             "state": "translated",
             "value": "概要"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "摘要"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "摘要"
+          }
         }
       }
     },
@@ -2636,6 +3680,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "日曜朝のデバイスヘルスサマリー通知"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "周日上午设备健康摘要通知"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "週日上午裝置健康摘要通知"
           }
         }
       }
@@ -2667,6 +3723,18 @@
             "state": "translated",
             "value": "アラートを閉じるにはスワイプ、既読にするにはタップ。"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "滑动删除提醒或点击标为已读。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "滑動刪除提醒或點一下標示為已讀。"
+          }
         }
       }
     },
@@ -2695,6 +3763,18 @@
             "state": "translated",
             "value": "システムバージョン：%@"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "系统版本：%@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "系統版本：%@"
+          }
         }
       }
     },
@@ -2722,6 +3802,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "テスト #%lld"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "测试 #%lld"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "測試 #%lld"
           }
         }
       }
@@ -2759,6 +3851,18 @@
             "state": "translated",
             "value": "テスト%1$lld：ダウンロード %2$@ Mbps、アップロード %3$@ Mbps"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "测试 %1$lld：下载 %2$@ Mbps，上传 %3$@ Mbps"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "測試 %1$lld：下載 %2$@ Mbps，上傳 %3$@ Mbps"
+          }
         }
       }
     },
@@ -2785,6 +3889,18 @@
           }
         },
         "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "時間"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "时间"
+          }
+        },
+        "zh-Hant": {
           "stringUnit": {
             "state": "translated",
             "value": "時間"
@@ -2819,6 +3935,18 @@
             "state": "translated",
             "value": "期間"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "时间段"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "時間段"
+          }
         }
       }
     },
@@ -2848,6 +3976,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "時間範囲"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "时间范围"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "時間範圍"
           }
         }
       }
@@ -2879,6 +4019,18 @@
             "state": "translated",
             "value": "使用量の多いアプリ"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "按使用量排序的热门应用"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "依使用量排序的熱門 App"
+          }
         }
       }
     },
@@ -2908,6 +4060,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "合計"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "总计"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "總計"
           }
         }
       }
@@ -2939,6 +4103,18 @@
             "state": "translated",
             "value": "合計使用量"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "总使用量"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "總使用量"
+          }
         }
       }
     },
@@ -2963,6 +4139,18 @@
           }
         },
         "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用量"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用量"
+          }
+        },
+        "zh-Hant": {
           "stringUnit": {
             "state": "translated",
             "value": "使用量"
@@ -2997,6 +4185,18 @@
             "state": "translated",
             "value": "使用量内訳"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用量分解"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用量分解"
+          }
         }
       }
     },
@@ -3026,6 +4226,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "使用履歴"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用历史"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用記錄"
           }
         }
       }
@@ -3057,6 +4269,18 @@
             "state": "translated",
             "value": "使用履歴チャート"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用历史图表"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用記錄圖表"
+          }
         }
       }
     },
@@ -3087,6 +4311,18 @@
             "state": "translated",
             "value": "時間経過による使用量"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "随时间的使用量"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隨時間的使用量"
+          }
         }
       }
     },
@@ -3114,6 +4350,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "詳細なヘルス情報を表示"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看详细健康信息"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看詳細健康資訊"
           }
         }
       }
@@ -3145,6 +4393,18 @@
             "state": "translated",
             "value": "過去の速度テスト結果を表示"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看以往速度测试结果"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看以往速度測試結果"
+          }
         }
       }
     },
@@ -3172,6 +4432,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "週次ヘルスサマリー"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每周健康摘要"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每週健康摘要"
           }
         }
       }
@@ -3203,6 +4475,18 @@
             "state": "translated",
             "value": "Wi-Fi"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wi‑Fi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wi‑Fi"
+          }
         }
       }
     },
@@ -3233,6 +4517,18 @@
             "state": "translated",
             "value": "Wi-Fi（%@%%）"
           }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wi‑Fi（%@%%）"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wi‑Fi（%@%%）"
+          }
         }
       }
     },
@@ -3262,6 +4558,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "データ使用制限の範囲内です。よくできました！"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "您在使用限制范围内。做得很好！"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "您在使用限制範圍內。做得很好！"
           }
         }
       }
