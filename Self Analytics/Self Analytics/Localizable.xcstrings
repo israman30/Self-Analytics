@@ -231,10 +231,40 @@
             "value": "%1$@: %2$@"
           }
         },
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@"
+          }
+        },
         "es-US": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@: %@"
+            "value": "%1$@: %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ : %2$@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@：%2$@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@：%2$@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@：%2$@"
           }
         }
       },
@@ -394,13 +424,13 @@
         "es-419": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@%% of total"
+            "value": "%@%% del total"
           }
         },
         "es-US": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@%% of total"
+            "value": "%@%% del total"
           }
         },
         "fr": {
@@ -931,13 +961,13 @@
         "es-419": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nivel de batería: %lld percent%@"
+            "value": "Nivel de batería: %lld por ciento%@"
           }
         },
         "es-US": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nivel de batería: %lld percent%@"
+            "value": "Nivel de batería: %lld por ciento%@"
           }
         },
         "fr": {
