@@ -50,6 +50,12 @@
             "state": "translated",
             "value": "%1$@ %2$@"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ %2$@"
+          }
         }
       }
     },
@@ -98,6 +104,12 @@
             "state": "translated",
             "value": "%1$@ %2$@ 完成百分比"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ %2$@ بالمئة مكتمل"
+          }
         }
       }
     },
@@ -137,6 +149,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ 圖表"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رسم بياني %@"
           }
         }
       }
@@ -180,6 +198,12 @@
             "state": "translated",
             "value": "%@ GB"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ جيجابايت"
+          }
         }
       }
     },
@@ -219,6 +243,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ Mbps"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ميجابت/ث"
           }
         }
       }
@@ -315,6 +345,12 @@
             "state": "translated",
             "value": "%1$@：%2$@ Mbps，%3$@"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ ميجابت/ث، %3$@"
+          }
         }
       }
     },
@@ -359,6 +395,12 @@
           }
         },
         "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@. %2$@"
+          }
+        },
+        "ar": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@. %2$@"
@@ -411,6 +453,12 @@
             "state": "translated",
             "value": "%1$@. 下載：%2$@ Mbps. 上傳：%3$@ Mbps"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@. التنزيل: %2$@ ميجابت/ث. الرفع: %3$@ ميجابت/ث"
+          }
         }
       }
     },
@@ -455,6 +503,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "佔總量 %@%%"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@%% من الإجمالي"
           }
         }
       }
@@ -501,6 +555,12 @@
             "state": "translated",
             "value": "%lld / 100"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld / 100"
+          }
         }
       }
     },
@@ -541,6 +601,12 @@
             "state": "translated",
             "value": "%lld 分"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld نقطة"
+          }
         }
       }
     },
@@ -577,6 +643,12 @@
           }
         },
         "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld%%"
+          }
+        },
+        "ar": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld%%"
@@ -621,6 +693,12 @@
             "state": "translated",
             "value": "📱"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "📱"
+          }
         }
       }
     },
@@ -657,6 +735,12 @@
           }
         },
         "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "4"
+          }
+        },
+        "ar": {
           "stringUnit": {
             "state": "translated",
             "value": "4"
@@ -703,6 +787,12 @@
             "state": "translated",
             "value": "活動提醒"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التنبيهات النشطة"
+          }
         }
       }
     },
@@ -742,6 +832,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "活動資料使用提醒：%lld"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تنبيهات استخدام البيانات النشطة: %lld"
           }
         }
       }
@@ -783,6 +879,12 @@
             "state": "translated",
             "value": "活動資料使用限制：%lld"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حدود استخدام البيانات النشطة: %lld"
+          }
         }
       }
     },
@@ -822,6 +924,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "活動限制"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الحدود النشطة"
           }
         }
       }
@@ -865,6 +973,12 @@
             "state": "translated",
             "value": "一切正常"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "كل شيء على ما يرام"
+          }
         }
       }
     },
@@ -907,6 +1021,12 @@
             "state": "translated",
             "value": "App"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التطبيق"
+          }
         }
       }
     },
@@ -946,6 +1066,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "App 版本：%@"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إصدار التطبيق: %@"
           }
         }
       }
@@ -993,6 +1119,12 @@
             "state": "translated",
             "value": "電池電量：%lld%%%@"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مستوى البطارية: %lld%%%@"
+          }
         }
       }
     },
@@ -1035,6 +1167,12 @@
             "state": "translated",
             "value": "過去30天電池最大容量趨勢"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اتجاه السعة القصوى للبطارية خلال آخر 30 يوماً"
+          }
         }
       }
     },
@@ -1074,6 +1212,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "建置編號：%@"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رقم الإصدار: %@"
           }
         }
       }
@@ -1117,6 +1261,12 @@
             "state": "translated",
             "value": "容量 %"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "السعة %"
+          }
         }
       }
     },
@@ -1158,6 +1308,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "流動網路"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الخلوي"
           }
         }
       }
@@ -1201,6 +1357,12 @@
             "state": "translated",
             "value": "流動網路（%@%%）"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الخلوي (%@%%)"
+          }
         }
       }
     },
@@ -1242,6 +1404,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "圖表預覽"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "معاينة الرسم البياني"
           }
         }
       }
@@ -1285,6 +1453,12 @@
             "state": "translated",
             "value": "圖表需要 iOS 16 或更新版本"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تتطلب الرسوم البيانية iOS 16 أو أحدث"
+          }
         }
       }
     },
@@ -1326,6 +1500,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "全部清除"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مسح الكل"
           }
         }
       }
@@ -1369,6 +1549,12 @@
             "state": "translated",
             "value": "關閉速度測試檢視"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إغلاق عرض اختبار السرعة"
+          }
         }
       }
     },
@@ -1408,6 +1594,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "含詳細指標的完整裝置健康監測"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مراقبة شاملة لصحة الجهاز مع مقاييس تفصيلية"
           }
         }
       }
@@ -1449,6 +1641,12 @@
             "state": "translated",
             "value": "設定資料使用限制與提醒"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تكوين حدود وتنبيهات استخدام البيانات"
+          }
         }
       }
     },
@@ -1488,6 +1686,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "設定資料使用限制與提醒以監控您的流動網路和 Wi‑Fi 資料用量。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قم بتكوين حدود وتنبيهات استخدام البيانات لمراقبة استهلاك بيانات الخلوي وWi-Fi."
           }
         }
       }
@@ -1529,6 +1733,12 @@
             "state": "translated",
             "value": "目前電池狀態"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حالة البطارية الحالية"
+          }
         }
       }
     },
@@ -1569,6 +1779,12 @@
             "state": "translated",
             "value": "目前記憶體消耗"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استهلاك الذاكرة الحالي"
+          }
         }
       }
     },
@@ -1608,6 +1824,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "目前網路連線類型"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نوع اتصال الشبكة الحالي"
           }
         }
       }
@@ -1651,6 +1873,12 @@
             "state": "translated",
             "value": "資料使用"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استخدام البيانات"
+          }
         }
       }
     },
@@ -1693,6 +1921,12 @@
             "state": "translated",
             "value": "資料使用提醒"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تنبيهات استخدام البيانات"
+          }
         }
       }
     },
@@ -1732,6 +1966,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "資料使用設定"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إعدادات استخدام البيانات"
           }
         }
       }
@@ -1775,6 +2015,12 @@
             "state": "translated",
             "value": "資料使用統計"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إحصائيات استخدام البيانات"
+          }
         }
       }
     },
@@ -1817,6 +2063,12 @@
             "state": "translated",
             "value": "詳細分解"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تفصيل مفصل"
+          }
         }
       }
     },
@@ -1857,6 +2109,12 @@
             "state": "translated",
             "value": "詳情"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التفاصيل"
+          }
         }
       }
     },
@@ -1896,6 +2154,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "裝置健康"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "صحة الجهاز"
           }
         }
       }
@@ -1943,6 +2207,12 @@
             "state": "translated",
             "value": "裝置健康評分：100 分中 %lld 分，%@"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "درجة صحة الجهاز: %lld من 100، %@"
+          }
         }
       }
     },
@@ -1982,6 +2252,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "裝置健康小工具"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عنصر صحة الجهاز"
           }
         }
       }
@@ -2023,6 +2299,12 @@
             "state": "translated",
             "value": "裝置指標"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مقاييس الجهاز"
+          }
         }
       }
     },
@@ -2062,6 +2344,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "裝置型號：%@"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "موديل الجهاز: %@"
           }
         }
       }
@@ -2105,6 +2393,12 @@
             "state": "translated",
             "value": "完成"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم"
+          }
         }
       }
     },
@@ -2145,6 +2439,12 @@
             "state": "translated",
             "value": "點兩下切換詳細資訊"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انقر نقراً مزدوجاً للتبديل بين المعلومات التفصيلية"
+          }
         }
       }
     },
@@ -2184,6 +2484,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "錯誤"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خطأ"
           }
         }
       }
@@ -2227,6 +2533,12 @@
             "state": "translated",
             "value": "檢查結果"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "النتائج"
+          }
         }
       }
     },
@@ -2267,6 +2579,12 @@
             "state": "translated",
             "value": "健康評分：%lld"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "درجة الصحة: %lld"
+          }
         }
       }
     },
@@ -2306,6 +2624,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "健康評分：100 分中 %lld 分"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "درجة الصحة: %lld من 100"
           }
         }
       }
@@ -2353,6 +2677,12 @@
             "state": "translated",
             "value": "健康狀態：%1$@。點一下查看 %2$@ 詳情"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حالة الصحة: %1$@. انقر لعرض تفاصيل %2$@"
+          }
         }
       }
     },
@@ -2392,6 +2722,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "最後更新"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آخر تحديث"
           }
         }
       }
@@ -2441,6 +2777,12 @@
             "state": "translated",
             "value": "限制：%1$@ • %2$@"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الحد: %1$@ • %2$@"
+          }
         }
       }
     },
@@ -2481,6 +2823,12 @@
             "state": "translated",
             "value": "記憶體使用：%lld%%"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استخدام الذاكرة: %lld%%"
+          }
         }
       }
     },
@@ -2520,6 +2868,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "一目了然監控裝置健康。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "راقب صحة جهازك بنظرة واحدة."
           }
         }
       }
@@ -2563,6 +2917,12 @@
             "state": "translated",
             "value": "網路類型分解"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تفصيل نوع الشبكة"
+          }
         }
       }
     },
@@ -2602,6 +2962,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "網路：%@"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الشبكة: %@"
           }
         }
       }
@@ -2645,6 +3011,12 @@
             "state": "translated",
             "value": "尚無電池老化資料。請每日開啟 App 以建立趨勢。"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا توجد بيانات شيخوخة البطارية بعد. افتح التطبيق يومياً لبناء اتجاهك."
+          }
         }
       }
     },
@@ -2686,6 +3058,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "無資料使用提醒"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا توجد تنبيهات استخدام البيانات"
           }
         }
       }
@@ -2729,6 +3107,12 @@
             "state": "translated",
             "value": "未偵測到安全風險。您的裝置和網路處於安全狀態。"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لم يتم اكتشاف مخاطر أمنية. جهازك وشبكتك آمنان."
+          }
         }
       }
     },
@@ -2771,6 +3155,12 @@
             "state": "translated",
             "value": "無可用測試記錄"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا يوجد سجل اختبارات متاح"
+          }
         }
       }
     },
@@ -2810,6 +3200,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "好"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "موافق"
           }
         }
       }
@@ -2853,6 +3249,12 @@
             "state": "translated",
             "value": "請每日開啟 App 以建立電池容量趨勢。"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "افتح التطبيق يومياً لبناء اتجاه سعة البطارية."
+          }
         }
       }
     },
@@ -2892,6 +3294,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "效能等級"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مستوى الأداء"
           }
         }
       }
@@ -2939,6 +3347,12 @@
             "state": "translated",
             "value": "效能狀態：%@，%lld 個資料點"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حالة الأداء: %@، %lld نقطة بيانات"
+          }
         }
       }
     },
@@ -2985,6 +3399,12 @@
             "state": "translated",
             "value": "進度：%lld %@"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التقدم: %lld %@"
+          }
         }
       }
     },
@@ -3027,6 +3447,12 @@
             "state": "translated",
             "value": "建議"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التوصيات"
+          }
         }
       }
     },
@@ -3067,6 +3493,12 @@
             "state": "translated",
             "value": "重新整理"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تحديث"
+          }
         }
       }
     },
@@ -3106,6 +3538,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "重新整理健康評分"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تحديث درجة الصحة"
           }
         }
       }
@@ -3149,6 +3587,12 @@
             "state": "translated",
             "value": "立即掃描"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فحص الآن"
+          }
         }
       }
     },
@@ -3191,6 +3635,12 @@
             "state": "translated",
             "value": "正在掃描..."
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جاري الفحص..."
+          }
         }
       }
     },
@@ -3230,6 +3680,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "評分"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الدرجة"
           }
         }
       }
@@ -3273,6 +3729,12 @@
             "state": "translated",
             "value": "安全掃描"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فحص الأمان"
+          }
         }
       }
     },
@@ -3314,6 +3776,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "安全評分"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "درجة الأمان"
           }
         }
       }
@@ -3357,6 +3825,12 @@
             "state": "translated",
             "value": "安全評分 100 分中 %lld 分"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "درجة الأمان %lld من 100"
+          }
         }
       }
     },
@@ -3396,6 +3870,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "顯示 %@ 隨時間的趨勢"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يعرض اتجاهات %@ بمرور الوقت"
           }
         }
       }
@@ -3437,6 +3917,12 @@
             "state": "translated",
             "value": "顯示帶趨勢指標的 %@ 值"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يعرض قيمة %@ مع مؤشر الاتجاه"
+          }
         }
       }
     },
@@ -3476,6 +3962,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "顯示詳細裝置指標，包括電池、記憶體、儲存空間和網路"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يعرض مقاييس الجهاز التفصيلية بما في ذلك البطارية والذاكرة والتخزين والشبكة"
           }
         }
       }
@@ -3519,6 +4011,12 @@
             "state": "translated",
             "value": "顯示預估電池容量隨時間的變化"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يعرض كيف تغيرت السعة التقديرية للبطارية بمرور الوقت"
+          }
         }
       }
     },
@@ -3559,6 +4057,12 @@
             "state": "translated",
             "value": "顯示關鍵裝置指標，包括健康評分、電池、記憶體和網路狀態"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يعرض مقاييس الجهاز الرئيسية بما في ذلك درجة الصحة والبطارية والذاكرة وحالة الشبكة"
+          }
         }
       }
     },
@@ -3598,6 +4102,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "顯示整體裝置健康表現"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يعرض أداء صحة الجهاز الإجمالي"
           }
         }
       }
@@ -3641,6 +4151,12 @@
             "state": "translated",
             "value": "開始網路速度測試"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بدء اختبار سرعة الشبكة"
+          }
         }
       }
     },
@@ -3683,6 +4199,12 @@
             "state": "translated",
             "value": "摘要"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الملخص"
+          }
         }
       }
     },
@@ -3722,6 +4244,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "週日上午裝置健康摘要通知"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إشعار صباح الأحد مع ملخص صحة جهازك"
           }
         }
       }
@@ -3765,6 +4293,12 @@
             "state": "translated",
             "value": "滑動刪除提醒或點一下標示為已讀。"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسحب لإلغاء التنبيهات أو انقر لتحديد كمقروء."
+          }
         }
       }
     },
@@ -3805,6 +4339,12 @@
             "state": "translated",
             "value": "系統版本：%@"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إصدار النظام: %@"
+          }
         }
       }
     },
@@ -3844,6 +4384,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "測試 #%lld"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اختبار #%lld"
           }
         }
       }
@@ -3893,6 +4439,12 @@
             "state": "translated",
             "value": "測試 %1$lld：下載 %2$@ Mbps，上傳 %3$@ Mbps"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اختبار %1$lld: التنزيل %2$@ ميجابت/ث، الرفع %3$@ ميجابت/ث"
+          }
         }
       }
     },
@@ -3934,6 +4486,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "時間"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الوقت"
           }
         }
       }
@@ -3977,6 +4535,12 @@
             "state": "translated",
             "value": "時間段"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الفترة الزمنية"
+          }
         }
       }
     },
@@ -4018,6 +4582,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "時間範圍"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "النطاق الزمني"
           }
         }
       }
@@ -4061,6 +4631,12 @@
             "state": "translated",
             "value": "依使用量排序的熱門 App"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أفضل التطبيقات حسب الاستخدام"
+          }
         }
       }
     },
@@ -4102,6 +4678,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "總計"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الإجمالي"
           }
         }
       }
@@ -4145,6 +4727,12 @@
             "state": "translated",
             "value": "總使用量"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إجمالي الاستخدام"
+          }
         }
       }
     },
@@ -4184,6 +4772,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "使用量"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الاستخدام"
           }
         }
       }
@@ -4227,6 +4821,12 @@
             "state": "translated",
             "value": "使用量分解"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تفصيل الاستخدام"
+          }
         }
       }
     },
@@ -4268,6 +4868,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "使用記錄"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سجل الاستخدام"
           }
         }
       }
@@ -4311,6 +4917,12 @@
             "state": "translated",
             "value": "使用記錄圖表"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رسم بياني لسجل الاستخدام"
+          }
         }
       }
     },
@@ -4353,6 +4965,12 @@
             "state": "translated",
             "value": "隨時間的使用量"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الاستخدام بمرور الوقت"
+          }
         }
       }
     },
@@ -4392,6 +5010,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "查看詳細健康資訊"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عرض معلومات الصحة التفصيلية"
           }
         }
       }
@@ -4435,6 +5059,12 @@
             "state": "translated",
             "value": "查看以往速度測試結果"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عرض نتائج اختبارات السرعة السابقة"
+          }
         }
       }
     },
@@ -4474,6 +5104,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "每週健康摘要"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ملخص الصحة الأسبوعي"
           }
         }
       }
@@ -4517,6 +5153,12 @@
             "state": "translated",
             "value": "Wi‑Fi"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wi-Fi"
+          }
         }
       }
     },
@@ -4559,6 +5201,12 @@
             "state": "translated",
             "value": "Wi‑Fi（%@%%）"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wi-Fi (%@%%)"
+          }
         }
       }
     },
@@ -4600,6 +5248,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "您在使用限制範圍內。做得很好！"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أنت ضمن حدود استخدام بياناتك. أحسنت!"
           }
         }
       }
