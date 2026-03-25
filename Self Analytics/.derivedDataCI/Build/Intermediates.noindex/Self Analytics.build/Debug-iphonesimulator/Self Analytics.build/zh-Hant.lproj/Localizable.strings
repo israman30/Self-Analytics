@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>%@ %@</key>
+	<string>%1$@ %2$@</string>
+	<key>%@ %@ percent complete</key>
+	<string>%1$@ %2$@ 完成百分比</string>
+	<key>%@ Chart</key>
+	<string>%@ 圖表</string>
+	<key>%@ GB</key>
+	<string>%@ GB</string>
+	<key>%@ Mbps</key>
+	<string>%@ Mbps</string>
+	<key>%@%% of total</key>
+	<string>佔總量 %@%%</string>
+	<key>%@. %@</key>
+	<string>%1$@. %2$@</string>
+	<key>%@. Download: %@ Mbps. Upload: %@ Mbps</key>
+	<string>%1$@. 下載：%2$@ Mbps. 上傳：%3$@ Mbps</string>
+	<key>%@: %@</key>
+	<string>%1$@：%2$@</string>
+	<key>%@: %@ Mbps, %@</key>
+	<string>%1$@：%2$@ Mbps，%3$@</string>
+	<key>%lld / 100</key>
+	<string>%lld / 100</string>
+	<key>%lld points</key>
+	<string>%lld 分</string>
+	<key>%lld%%</key>
+	<string>%lld%%</string>
+	<key>4</key>
+	<string>4</string>
+	<key>Active Alerts</key>
+	<string>活動提醒</string>
+	<key>Active Limits</key>
+	<string>活動限制</string>
+	<key>Active data usage alerts: %lld</key>
+	<string>活動資料使用提醒：%lld</string>
+	<key>Active data usage limits: %lld</key>
+	<string>活動資料使用限制：%lld</string>
+	<key>All Clear</key>
+	<string>一切正常</string>
+	<key>App</key>
+	<string>App</string>
+	<key>App Version: %@</key>
+	<string>App 版本：%@</string>
+	<key>Battery Level: %lld percent%@</key>
+	<string>電池電量：%lld%%%@</string>
+	<key>Battery maximum capacity trend over last 30 days</key>
+	<string>過去30天電池最大容量趨勢</string>
+	<key>Build Number: %@</key>
+	<string>建置編號：%@</string>
+	<key>Capacity %</key>
+	<string>容量 %</string>
+	<key>Cellular</key>
+	<string>流動網路</string>
+	<key>Cellular (%@%%)</key>
+	<string>流動網路（%@%%）</string>
+	<key>Chart Preview</key>
+	<string>圖表預覽</string>
+	<key>Charts require iOS 16 or later</key>
+	<string>圖表需要 iOS 16 或更新版本</string>
+	<key>Clear All</key>
+	<string>全部清除</string>
+	<key>Closes the speed test view</key>
+	<string>關閉速度測試檢視</string>
+	<key>Comprehensive device health monitoring with detailed metrics</key>
+	<string>含詳細指標的完整裝置健康監測</string>
+	<key>Configure data usage limits and alerts</key>
+	<string>設定資料使用限制與提醒</string>
+	<key>Configure data usage limits and alerts to monitor your cellular and Wi-Fi data consumption.</key>
+	<string>設定資料使用限制與提醒以監控您的流動網路和 Wi‑Fi 資料用量。</string>
+	<key>Current battery status</key>
+	<string>目前電池狀態</string>
+	<key>Current memory consumption</key>
+	<string>目前記憶體消耗</string>
+	<key>Current network connection type</key>
+	<string>目前網路連線類型</string>
+	<key>Data Usage</key>
+	<string>資料使用</string>
+	<key>Data Usage Alerts</key>
+	<string>資料使用提醒</string>
+	<key>Data Usage Settings</key>
+	<string>資料使用設定</string>
+	<key>Data Usage Statistics</key>
+	<string>資料使用統計</string>
+	<key>Detailed Breakdown</key>
+	<string>詳細分解</string>
+	<key>Details</key>
+	<string>詳情</string>
+	<key>Device Health</key>
+	<string>裝置健康</string>
+	<key>Device Health Score: %lld out of 100, %@</key>
+	<string>裝置健康評分：100 分中 %lld 分，%@</string>
+	<key>Device Health Widget</key>
+	<string>裝置健康小工具</string>
+	<key>Device Metrics</key>
+	<string>裝置指標</string>
+	<key>Device Model: %@</key>
+	<string>裝置型號：%@</string>
+	<key>Done</key>
+	<string>完成</string>
+	<key>Double tap to toggle detailed information</key>
+	<string>點兩下切換詳細資訊</string>
+	<key>Error</key>
+	<string>錯誤</string>
+	<key>Findings</key>
+	<string>檢查結果</string>
+	<key>Health Score: %lld</key>
+	<string>健康評分：%lld</string>
+	<key>Health Score: %lld out of 100</key>
+	<string>健康評分：100 分中 %lld 分</string>
+	<key>Health status: %@. Tap to %@ details</key>
+	<string>健康狀態：%1$@。點一下查看 %2$@ 詳情</string>
+	<key>Last Updated</key>
+	<string>最後更新</string>
+	<key>Limit: %@ • %@</key>
+	<string>限制：%1$@ • %2$@</string>
+	<key>Memory Usage: %lld percent</key>
+	<string>記憶體使用：%lld%%</string>
+	<key>Monitor your device's health at a glance.</key>
+	<string>一目了然監控裝置健康。</string>
+	<key>Network Type Breakdown</key>
+	<string>網路類型分解</string>
+	<key>Network: %@</key>
+	<string>網路：%@</string>
+	<key>No Data Usage Alerts</key>
+	<string>無資料使用提醒</string>
+	<key>No battery aging data yet. Open the app daily to build your trend.</key>
+	<string>尚無電池老化資料。請每日開啟 App 以建立趨勢。</string>
+	<key>No security risks detected. Your device and network are safe.</key>
+	<string>未偵測到安全風險。您的裝置和網路處於安全狀態。</string>
+	<key>No test history available</key>
+	<string>無可用測試記錄</string>
+	<key>OK</key>
+	<string>好</string>
+	<key>Open the app daily to build your battery capacity trend.</key>
+	<string>請每日開啟 App 以建立電池容量趨勢。</string>
+	<key>Performance Level</key>
+	<string>效能等級</string>
+	<key>Performance Status: %@, %lld data points</key>
+	<string>效能狀態：%@，%lld 個資料點</string>
+	<key>Progress: %lld %@</key>
+	<string>進度：%lld %@</string>
+	<key>Recommendations</key>
+	<string>建議</string>
+	<key>Refresh</key>
+	<string>重新整理</string>
+	<key>Refresh health score</key>
+	<string>重新整理健康評分</string>
+	<key>Scan Now</key>
+	<string>立即掃描</string>
+	<key>Scanning...</key>
+	<string>正在掃描...</string>
+	<key>Score</key>
+	<string>評分</string>
+	<key>Security Scan</key>
+	<string>安全掃描</string>
+	<key>Security Score</key>
+	<string>安全評分</string>
+	<key>Security score %lld out of 100</key>
+	<string>安全評分 100 分中 %lld 分</string>
+	<key>Shows %@ trends over time</key>
+	<string>顯示 %@ 隨時間的趨勢</string>
+	<key>Shows %@ value with trend indicator</key>
+	<string>顯示帶趨勢指標的 %@ 值</string>
+	<key>Shows detailed device metrics including battery, memory, storage, and network</key>
+	<string>顯示詳細裝置指標，包括電池、記憶體、儲存空間和網路</string>
+	<key>Shows how estimated battery capacity has changed over time</key>
+	<string>顯示預估電池容量隨時間的變化</string>
+	<key>Shows key device metrics including health score, battery, memory, and network status</key>
+	<string>顯示關鍵裝置指標，包括健康評分、電池、記憶體和網路狀態</string>
+	<key>Shows overall device health performance</key>
+	<string>顯示整體裝置健康表現</string>
+	<key>Starts the network speed test</key>
+	<string>開始網路速度測試</string>
+	<key>Summary</key>
+	<string>摘要</string>
+	<key>Sunday morning notification with your device health summary</key>
+	<string>週日上午裝置健康摘要通知</string>
+	<key>Swipe to dismiss alerts or tap to mark as read.</key>
+	<string>滑動刪除提醒或點一下標示為已讀。</string>
+	<key>System Version: %@</key>
+	<string>系統版本：%@</string>
+	<key>Test #%lld</key>
+	<string>測試 #%lld</string>
+	<key>Test %lld: Download %@ Mbps, Upload %@ Mbps</key>
+	<string>測試 %1$lld：下載 %2$@ Mbps，上傳 %3$@ Mbps</string>
+	<key>Time</key>
+	<string>時間</string>
+	<key>Time Period</key>
+	<string>時間段</string>
+	<key>Time Range</key>
+	<string>時間範圍</string>
+	<key>Top Apps by Usage</key>
+	<string>依使用量排序的熱門 App</string>
+	<key>Total</key>
+	<string>總計</string>
+	<key>Total Usage</key>
+	<string>總使用量</string>
+	<key>Usage</key>
+	<string>使用量</string>
+	<key>Usage Breakdown</key>
+	<string>使用量分解</string>
+	<key>Usage History</key>
+	<string>使用記錄</string>
+	<key>Usage History Chart</key>
+	<string>使用記錄圖表</string>
+	<key>Usage Over Time</key>
+	<string>隨時間的使用量</string>
+	<key>View detailed health information</key>
+	<string>查看詳細健康資訊</string>
+	<key>View past speed test results</key>
+	<string>查看以往速度測試結果</string>
+	<key>Weekly Health Summary</key>
+	<string>每週健康摘要</string>
+	<key>Wi-Fi</key>
+	<string>Wi‑Fi</string>
+	<key>Wi-Fi (%@%%)</key>
+	<string>Wi‑Fi（%@%%）</string>
+	<key>You're within your data usage limits. Great job!</key>
+	<string>您在使用限制範圍內。做得很好！</string>
+	<key>📱</key>
+	<string>📱</string>
+</dict>
+</plist>

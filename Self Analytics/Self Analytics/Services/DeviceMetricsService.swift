@@ -6,9 +6,10 @@
 //
 
 import Foundation
-import UIKit
-import SystemConfiguration
 import Network
+import SystemConfiguration
+import UIKit
+import WidgetKit
 
 @MainActor
 class DeviceMetricsService: ObservableObject {
@@ -72,6 +73,9 @@ class DeviceMetricsService: ObservableObject {
         )
         recordWeeklyMetricsIfNeeded(health)
         currentHealth = health
+        let widgetPayload = health.makeWidgetPayload()
+        WidgetSnapshotStore.save(widgetPayload)
+        WidgetCenter.shared.reloadTimelines(ofKind: "DevicePerformanceWidget")
     }
     
     // MARK: - Memory Metrics

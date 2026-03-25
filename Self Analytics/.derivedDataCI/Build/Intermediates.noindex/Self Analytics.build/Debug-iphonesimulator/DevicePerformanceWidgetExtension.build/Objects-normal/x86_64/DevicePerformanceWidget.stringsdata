@@ -1,0 +1,24 @@
+{
+  "source": "/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self Analytics/DevicePerformanceWidget/DevicePerformanceWidget.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Device Performance",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 17
+        }
+      },
+      {
+        "comment": "",
+        "key": "Health score, memory, CPU, storage, and battery at a glance.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 18
+        }
+      }
+    ]
+  },
+  "version": 1
+}

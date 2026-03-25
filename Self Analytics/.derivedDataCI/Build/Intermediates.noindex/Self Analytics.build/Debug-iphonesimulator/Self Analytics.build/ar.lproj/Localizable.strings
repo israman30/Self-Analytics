@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>%@ %@</key>
+	<string>%1$@ %2$@</string>
+	<key>%@ %@ percent complete</key>
+	<string>%1$@ %2$@ بالمئة مكتمل</string>
+	<key>%@ Chart</key>
+	<string>رسم بياني %@</string>
+	<key>%@ GB</key>
+	<string>%@ جيجابايت</string>
+	<key>%@ Mbps</key>
+	<string>%@ ميجابت/ث</string>
+	<key>%@%% of total</key>
+	<string>%@%% من الإجمالي</string>
+	<key>%@. %@</key>
+	<string>%1$@. %2$@</string>
+	<key>%@. Download: %@ Mbps. Upload: %@ Mbps</key>
+	<string>%1$@. التنزيل: %2$@ ميجابت/ث. الرفع: %3$@ ميجابت/ث</string>
+	<key>%@: %@ Mbps, %@</key>
+	<string>%1$@: %2$@ ميجابت/ث، %3$@</string>
+	<key>%lld / 100</key>
+	<string>%lld / 100</string>
+	<key>%lld points</key>
+	<string>%lld نقطة</string>
+	<key>%lld%%</key>
+	<string>%lld%%</string>
+	<key>4</key>
+	<string>4</string>
+	<key>Active Alerts</key>
+	<string>التنبيهات النشطة</string>
+	<key>Active Limits</key>
+	<string>الحدود النشطة</string>
+	<key>Active data usage alerts: %lld</key>
+	<string>تنبيهات استخدام البيانات النشطة: %lld</string>
+	<key>Active data usage limits: %lld</key>
+	<string>حدود استخدام البيانات النشطة: %lld</string>
+	<key>All Clear</key>
+	<string>كل شيء على ما يرام</string>
+	<key>App</key>
+	<string>التطبيق</string>
+	<key>App Version: %@</key>
+	<string>إصدار التطبيق: %@</string>
+	<key>Battery Level: %lld percent%@</key>
+	<string>مستوى البطارية: %lld%%%@</string>
+	<key>Battery maximum capacity trend over last 30 days</key>
+	<string>اتجاه السعة القصوى للبطارية خلال آخر 30 يوماً</string>
+	<key>Build Number: %@</key>
+	<string>رقم الإصدار: %@</string>
+	<key>Capacity %</key>
+	<string>السعة %</string>
+	<key>Cellular</key>
+	<string>الخلوي</string>
+	<key>Cellular (%@%%)</key>
+	<string>الخلوي (%@%%)</string>
+	<key>Chart Preview</key>
+	<string>معاينة الرسم البياني</string>
+	<key>Charts require iOS 16 or later</key>
+	<string>تتطلب الرسوم البيانية iOS 16 أو أحدث</string>
+	<key>Clear All</key>
+	<string>مسح الكل</string>
+	<key>Closes the speed test view</key>
+	<string>إغلاق عرض اختبار السرعة</string>
+	<key>Comprehensive device health monitoring with detailed metrics</key>
+	<string>مراقبة شاملة لصحة الجهاز مع مقاييس تفصيلية</string>
+	<key>Configure data usage limits and alerts</key>
+	<string>تكوين حدود وتنبيهات استخدام البيانات</string>
+	<key>Configure data usage limits and alerts to monitor your cellular and Wi-Fi data consumption.</key>
+	<string>قم بتكوين حدود وتنبيهات استخدام البيانات لمراقبة استهلاك بيانات الخلوي وWi-Fi.</string>
+	<key>Current battery status</key>
+	<string>حالة البطارية الحالية</string>
+	<key>Current memory consumption</key>
+	<string>استهلاك الذاكرة الحالي</string>
+	<key>Current network connection type</key>
+	<string>نوع اتصال الشبكة الحالي</string>
+	<key>Data Usage</key>
+	<string>استخدام البيانات</string>
+	<key>Data Usage Alerts</key>
+	<string>تنبيهات استخدام البيانات</string>
+	<key>Data Usage Settings</key>
+	<string>إعدادات استخدام البيانات</string>
+	<key>Data Usage Statistics</key>
+	<string>إحصائيات استخدام البيانات</string>
+	<key>Detailed Breakdown</key>
+	<string>تفصيل مفصل</string>
+	<key>Details</key>
+	<string>التفاصيل</string>
+	<key>Device Health</key>
+	<string>صحة الجهاز</string>
+	<key>Device Health Score: %lld out of 100, %@</key>
+	<string>درجة صحة الجهاز: %lld من 100، %@</string>
+	<key>Device Health Widget</key>
+	<string>عنصر صحة الجهاز</string>
+	<key>Device Metrics</key>
+	<string>مقاييس الجهاز</string>
+	<key>Device Model: %@</key>
+	<string>موديل الجهاز: %@</string>
+	<key>Done</key>
+	<string>تم</string>
+	<key>Double tap to toggle detailed information</key>
+	<string>انقر نقراً مزدوجاً للتبديل بين المعلومات التفصيلية</string>
+	<key>Error</key>
+	<string>خطأ</string>
+	<key>Findings</key>
+	<string>النتائج</string>
+	<key>Health Score: %lld</key>
+	<string>درجة الصحة: %lld</string>
+	<key>Health Score: %lld out of 100</key>
+	<string>درجة الصحة: %lld من 100</string>
+	<key>Health status: %@. Tap to %@ details</key>
+	<string>حالة الصحة: %1$@. انقر لعرض تفاصيل %2$@</string>
+	<key>Last Updated</key>
+	<string>آخر تحديث</string>
+	<key>Limit: %@ • %@</key>
+	<string>الحد: %1$@ • %2$@</string>
+	<key>Memory Usage: %lld percent</key>
+	<string>استخدام الذاكرة: %lld%%</string>
+	<key>Monitor your device's health at a glance.</key>
+	<string>راقب صحة جهازك بنظرة واحدة.</string>
+	<key>Network Type Breakdown</key>
+	<string>تفصيل نوع الشبكة</string>
+	<key>Network: %@</key>
+	<string>الشبكة: %@</string>
+	<key>No Data Usage Alerts</key>
+	<string>لا توجد تنبيهات استخدام البيانات</string>
+	<key>No battery aging data yet. Open the app daily to build your trend.</key>
+	<string>لا توجد بيانات شيخوخة البطارية بعد. افتح التطبيق يومياً لبناء اتجاهك.</string>
+	<key>No security risks detected. Your device and network are safe.</key>
+	<string>لم يتم اكتشاف مخاطر أمنية. جهازك وشبكتك آمنان.</string>
+	<key>No test history available</key>
+	<string>لا يوجد سجل اختبارات متاح</string>
+	<key>OK</key>
+	<string>موافق</string>
+	<key>Open the app daily to build your battery capacity trend.</key>
+	<string>افتح التطبيق يومياً لبناء اتجاه سعة البطارية.</string>
+	<key>Performance Level</key>
+	<string>مستوى الأداء</string>
+	<key>Performance Status: %@, %lld data points</key>
+	<string>حالة الأداء: %@، %lld نقطة بيانات</string>
+	<key>Progress: %lld %@</key>
+	<string>التقدم: %lld %@</string>
+	<key>Recommendations</key>
+	<string>التوصيات</string>
+	<key>Refresh</key>
+	<string>تحديث</string>
+	<key>Refresh health score</key>
+	<string>تحديث درجة الصحة</string>
+	<key>Scan Now</key>
+	<string>فحص الآن</string>
+	<key>Scanning...</key>
+	<string>جاري الفحص...</string>
+	<key>Score</key>
+	<string>الدرجة</string>
+	<key>Security Scan</key>
+	<string>فحص الأمان</string>
+	<key>Security Score</key>
+	<string>درجة الأمان</string>
+	<key>Security score %lld out of 100</key>
+	<string>درجة الأمان %lld من 100</string>
+	<key>Shows %@ trends over time</key>
+	<string>يعرض اتجاهات %@ بمرور الوقت</string>
+	<key>Shows %@ value with trend indicator</key>
+	<string>يعرض قيمة %@ مع مؤشر الاتجاه</string>
+	<key>Shows detailed device metrics including battery, memory, storage, and network</key>
+	<string>يعرض مقاييس الجهاز التفصيلية بما في ذلك البطارية والذاكرة والتخزين والشبكة</string>
+	<key>Shows how estimated battery capacity has changed over time</key>
+	<string>يعرض كيف تغيرت السعة التقديرية للبطارية بمرور الوقت</string>
+	<key>Shows key device metrics including health score, battery, memory, and network status</key>
+	<string>يعرض مقاييس الجهاز الرئيسية بما في ذلك درجة الصحة والبطارية والذاكرة وحالة الشبكة</string>
+	<key>Shows overall device health performance</key>
+	<string>يعرض أداء صحة الجهاز الإجمالي</string>
+	<key>Starts the network speed test</key>
+	<string>بدء اختبار سرعة الشبكة</string>
+	<key>Summary</key>
+	<string>الملخص</string>
+	<key>Sunday morning notification with your device health summary</key>
+	<string>إشعار صباح الأحد مع ملخص صحة جهازك</string>
+	<key>Swipe to dismiss alerts or tap to mark as read.</key>
+	<string>اسحب لإلغاء التنبيهات أو انقر لتحديد كمقروء.</string>
+	<key>System Version: %@</key>
+	<string>إصدار النظام: %@</string>
+	<key>Test #%lld</key>
+	<string>اختبار #%lld</string>
+	<key>Test %lld: Download %@ Mbps, Upload %@ Mbps</key>
+	<string>اختبار %1$lld: التنزيل %2$@ ميجابت/ث، الرفع %3$@ ميجابت/ث</string>
+	<key>Time</key>
+	<string>الوقت</string>
+	<key>Time Period</key>
+	<string>الفترة الزمنية</string>
+	<key>Time Range</key>
+	<string>النطاق الزمني</string>
+	<key>Top Apps by Usage</key>
+	<string>أفضل التطبيقات حسب الاستخدام</string>
+	<key>Total</key>
+	<string>الإجمالي</string>
+	<key>Total Usage</key>
+	<string>إجمالي الاستخدام</string>
+	<key>Usage</key>
+	<string>الاستخدام</string>
+	<key>Usage Breakdown</key>
+	<string>تفصيل الاستخدام</string>
+	<key>Usage History</key>
+	<string>سجل الاستخدام</string>
+	<key>Usage History Chart</key>
+	<string>رسم بياني لسجل الاستخدام</string>
+	<key>Usage Over Time</key>
+	<string>الاستخدام بمرور الوقت</string>
+	<key>View detailed health information</key>
+	<string>عرض معلومات الصحة التفصيلية</string>
+	<key>View past speed test results</key>
+	<string>عرض نتائج اختبارات السرعة السابقة</string>
+	<key>Weekly Health Summary</key>
+	<string>ملخص الصحة الأسبوعي</string>
+	<key>Wi-Fi</key>
+	<string>Wi-Fi</string>
+	<key>Wi-Fi (%@%%)</key>
+	<string>Wi-Fi (%@%%)</string>
+	<key>You're within your data usage limits. Great job!</key>
+	<string>أنت ضمن حدود استخدام بياناتك. أحسنت!</string>
+	<key>📱</key>
+	<string>📱</string>
+</dict>
+</plist>

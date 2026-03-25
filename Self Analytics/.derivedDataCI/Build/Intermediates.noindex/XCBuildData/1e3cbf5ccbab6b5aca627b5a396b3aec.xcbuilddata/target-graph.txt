@@ -1,0 +1,4 @@
+Target dependency graph (2 targets)
+Target 'Self Analytics' in project 'Self Analytics'
+➜ Explicit dependency on target 'DevicePerformanceWidgetExtension' in project 'Self Analytics'
+Target 'DevicePerformanceWidgetExtension' in project 'Self Analytics' (no dependencies)
