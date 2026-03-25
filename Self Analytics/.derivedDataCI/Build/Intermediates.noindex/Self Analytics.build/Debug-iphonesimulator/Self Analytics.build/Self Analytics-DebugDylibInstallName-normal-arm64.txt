@@ -1,0 +1,1 @@
+@rpath/Self Analytics.debug.dylib
