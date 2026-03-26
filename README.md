@@ -35,6 +35,7 @@ A comprehensive iOS app for monitoring device health, performance metrics, cellu
 - **Trend analysis**: Historical performance including battery capacity over time
 - **Color-coded indicators**: Quick visual status
 - **Live updates**: Periodic refresh on the dashboard
+- **Data storage sheet**: From the dashboard overflow menu (`⋯`), open a dedicated **Data Storage** view with storage and free-space cards plus detail (medium/large sheet)
 
 ### Localization
 - **String Catalog** (`Localizable.xcstrings`): English (base), Spanish (US and Latin America), French, Japanese, Chinese (Simplified and Traditional), and Arabic
@@ -50,7 +51,7 @@ A comprehensive iOS app for monitoring device health, performance metrics, cellu
 ## Architecture
 
 ### App structure
-- **Tabs** (`MainTabView.swift`): Dashboard, Data Usage, History, Security Scan, Settings
+- **Tabs** (`MainTabView.swift`): Dashboard, **Data & History** (single tab with a segmented control: Data Usage ↔ Device History), Security Scan, Settings
 
 ### Models
 - `DeviceMetrics.swift` — core health models (`DeviceHealth`, memory, CPU, battery, storage, network, alerts, recommendations)
@@ -67,8 +68,10 @@ A comprehensive iOS app for monitoring device health, performance metrics, cellu
 - `DataManagementService` — data export and maintenance hooks
 
 ### Views (`Views/`)
-- `DashboardView`, `HistoryView`, `SettingsView`
-- `DataUsageView`, `AppDataUsageDetailView`, `DataUsageStatisticsView`, `DataUsageAlertsView`, `DataLimitsSettingsView`
+- `DashboardView`, `SettingsView`
+- `UsageAndHistoryView` — wraps `DataUsageMainContent` and `HistoryMainContent` with a segmented picker (`DataUsageView`, `HistoryView`)
+- `DataStorageView` — storage breakdown sheet presented from the dashboard menu
+- `AppDataUsageDetailView`, `DataUsageStatisticsView`, `DataUsageAlertsView`, `DataLimitsSettingsView`
 - `SecurityScanView` + `DeviceSecurityScanner`
 - `ContactSupport`, `PrivacyPolicyView`, `TermsOfServiceView`
 
@@ -114,13 +117,13 @@ A comprehensive iOS app for monitoring device health, performance metrics, cellu
 ## Usage Guide
 
 ### Dashboard
-Health score, metric cards, alerts, recommendations, and quick actions.
+Health score, metric cards, alerts, recommendations, and quick actions. Use the trailing **⋯** menu for refresh, speed test, **Data Storage** (detail sheet), cache clearing, and jumping to system Settings.
 
-### Data Usage
-Review totals, per-app-style breakdown (illustrative), statistics, limits, and alerts.
+### Data & History (one tab)
+Use the segmented control at the top to switch between **Data Usage** and **History**.
 
-### History
-Time ranges, trend charts, and summaries (including battery aging where data exists).
+- **Data Usage**: Totals, per-app-style breakdown (illustrative), statistics, limits, and alerts.
+- **History**: Time ranges, trend charts, and summaries (including battery aging where data exists).
 
 ### Security Scan
 Run a scan, review score and findings, pull to refresh.
@@ -158,7 +161,7 @@ Notifications, refresh behavior, data management, legal and support links.
 
 - Prefer **SwiftUI** patterns consistent with the existing codebase.
 - Keep **accessibility** in mind (VoiceOver, Dynamic Type).
-- Add or update **String Catalog** entries for user-facing text when you change copy.
+- Add or update **String Catalog** (`Localizable.xcstrings`) entries for localized UI copy; many tab labels and keys also live in `Utils/Constants.swift`—keep naming and usage aligned when you change navigation or feature titles.
 
 ## Support & Feedback
 
