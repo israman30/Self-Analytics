@@ -1,42 +1,47 @@
 # Self Analytics - iOS Device Health Monitor
 
-Copyright © 2025 Self Analytics. All rights reserved.
+Copyright © 2025–2026 Self Analytics. All rights reserved.
 
-A comprehensive iOS app for monitoring device health, performance metrics, and providing smart recommendations to optimize your device.
+A comprehensive iOS app for monitoring device health, performance metrics, cellular and Wi‑Fi data usage patterns, and security-oriented checks—with smart alerts, optional proactive notifications, and home screen widgets.
+
+**Current release (app target):** 1.2
 
 ## Features
 
-### 📊 Real-Time Device Metrics
-- **Memory Usage**: Monitor RAM usage with pressure indicators
-- **CPU Usage**: Track processor utilization and performance
-- **Storage Analytics**: Detailed storage breakdown with available space monitoring
-- **Battery Health**: Battery level, charging status, and health assessment
-- **Network Performance**: Connection type detection and speed testing
+### Real-Time Device Metrics
+- **Memory usage**: RAM usage with pressure indicators
+- **CPU usage**: Processor utilization and performance
+- **Storage analytics**: Breakdown with available space monitoring
+- **Battery health**: Level, charging status, and aging trend (historical capacity snapshots)
+- **Network**: Connection type and speed testing
 
-### 🚨 Smart Alerts & Recommendations
-- **Proactive Alerts**: Get notified when device health issues arise
-- **Storage Warnings**: Alerts when storage is running low
-- **Performance Issues**: Notifications for high memory/CPU usage
-- **Battery Optimization**: Tips for extending battery life
-- **Security Updates**: Reminders for iOS updates
+### Data Usage
+- **Usage overview**: Cellular vs Wi‑Fi summaries and trends
+- **Per-app style breakdown**: Usage by app (illustrative data; iOS does not expose per-app bytes to third-party apps without restricted entitlements)
+- **Limits and alerts**: Configurable thresholds and in-app alerts
+- **Statistics**: Aggregated views for understanding patterns over time
 
-### 📈 Dashboard & Visualization
-- **Health Score System**: Gamified device health scoring (0-100)
-- **Trend Analysis**: Historical performance tracking
-- **Color-Coded Indicators**: Visual health status representation
-- **Real-Time Updates**: Live metric monitoring every 5 seconds
+### Smart Alerts & Recommendations
+- **In-app alerts**: Storage, performance, and battery-related notices
+- **Proactive notifications**: Optional local notifications for low storage, memory pressure, rapid battery drain, and weekly health summaries (background tasks and notification permissions)
+- **Recommendations**: Storage cleanup, performance, battery, and security-oriented tips
 
-### 🎯 Smart Recommendations
-- **Storage Cleanup**: Identify large files and cache data
-- **Performance Optimization**: Suggestions for better device performance
-- **Battery Tips**: Actionable advice for battery optimization
-- **Security Recommendations**: Permission reviews and update reminders
+### Security Scan
+- **Device security scanner**: On-demand scan with a security score and findings
+- **Pull to refresh**: Rescan from the Security Scan tab
 
-### 📱 Widgets & Quick Actions
-- **Home Screen Widget**: Device health at a glance
-- **Quick Actions**: Speed tests, cache clearing, settings access
-- **Pull-to-Refresh**: Manual metric updates
-- **Swipe Actions**: Quick alert management
+### Dashboard & Visualization
+- **Health score**: Overall device health (0–100)
+- **Trend analysis**: Historical performance including battery capacity over time
+- **Color-coded indicators**: Quick visual status
+- **Live updates**: Periodic refresh on the dashboard
+
+### Localization
+- **String Catalog** (`Localizable.xcstrings`): English (base), Spanish (US and Latin America), French, Japanese, Chinese (Simplified and Traditional), and Arabic
+
+### Widgets
+- **Device Performance** (app extension): Home screen widget (small and medium) showing health score, memory, CPU, storage, and battery from the latest snapshot written when you use the app
+- Shared payload types live under `WidgetShared/` (e.g. `WidgetSnapshotStore`, `DevicePerformanceWidgetPayload`)
 
 <p align="center">
 <img src="/img/one.png" width="250"> <img src="/img/two.png" width="250"> <img src="/img/three.png" width="250">
@@ -44,188 +49,130 @@ A comprehensive iOS app for monitoring device health, performance metrics, and p
 
 ## Architecture
 
-### Core Components
+### App structure
+- **Tabs** (`MainTabView.swift`): Dashboard, Data Usage, History, Security Scan, Settings
 
-#### Models (`Models/DeviceMetrics.swift`)
-- `DeviceHealth`: Main data structure containing all metrics
-- `MemoryMetrics`: RAM usage and pressure monitoring
-- `CPUMetrics`: Processor utilization tracking
-- `BatteryMetrics`: Battery status and health assessment
-- `StorageMetrics`: Storage space analysis
-- `NetworkMetrics`: Connection and speed monitoring
-- `DeviceAlert`: Alert system for issues
-- `DeviceRecommendation`: Smart suggestions
+### Models
+- `DeviceMetrics.swift` — core health models (`DeviceHealth`, memory, CPU, battery, storage, network, alerts, recommendations)
+- `DataUsageMetrics.swift` — data usage summaries, limits, and alerts
+- `DeviceHealth+WidgetPayload.swift` — maps `DeviceHealth` to widget snapshot payload
 
-#### Services (`Services/`)
-- `DeviceMetricsService`: Core metrics collection using iOS APIs
-- `AlertService`: Alert generation and recommendation engine
+### Services (`Services/`)
+- `DeviceMetricsService` — collects device metrics via iOS APIs
+- `AlertService` — alerts and recommendations
+- `DataUsageService` — data usage monitoring and mock/illustrative app usage
+- `ProactiveNotificationService` — background checks and local notifications
+- `BatteryMetricsHistoryService` — persists battery capacity history for charts
+- `WeeklyMetricsStorage` — daily snapshots for weekly comparison summaries
+- `DataManagementService` — data export and maintenance hooks
 
-#### Views (`Views/`)
-- `DashboardView`: Main metrics dashboard
-- `HistoryView`: Historical data and charts
-- `MainTabView`: Navigation structure
-- `SettingsView`: App configuration
+### Views (`Views/`)
+- `DashboardView`, `HistoryView`, `SettingsView`
+- `DataUsageView`, `AppDataUsageDetailView`, `DataUsageStatisticsView`, `DataUsageAlertsView`, `DataLimitsSettingsView`
+- `SecurityScanView` + `DeviceSecurityScanner`
+- `ContactSupport`, `PrivacyPolicyView`, `TermsOfServiceView`
 
-#### Components (`Views/Components/`)
-- `MetricCard`: Reusable metric display component
-- `HealthScoreCard`: Gamified health scoring
-- `AlertCard`: Alert presentation
-- `RecommendationCard`: Smart suggestions
+### Components (`Views/Components/`)
+- `MetricCard`, health and alert/recommendation cards as used by the dashboard
 
-#### Widgets (`Widgets/`)
-- `DeviceHealthWidget`: Home screen widget with health overview
+### Widget extension (`DevicePerformanceWidget/`)
+- `DevicePerformanceWidget` / `DevicePerformanceWidgetBundle` — WidgetKit extension target embedded in the main app
 
 ## Technical Implementation
 
-### iOS APIs Used
-- **ProcessInfo**: Memory and system information
-- **UIDevice**: Battery and device status
-- **FileManager**: Storage space analysis
-- **SystemConfiguration**: Network connectivity
-- **Network**: Advanced networking features
-- **Charts**: Historical data visualization (iOS 16+)
+### iOS APIs and frameworks
+- `ProcessInfo`, `UIDevice`, `FileManager`, `SystemConfiguration`, `Network`
+- `Charts` for history and trends
+- `UserNotifications` and `BackgroundTasks` for proactive notifications (when enabled)
+- `WidgetKit` for the Device Performance extension
 
-### Key Features
-- **Real-time Monitoring**: 5-second update intervals
-- **Background Processing**: Continuous metric collection
-- **Data Persistence**: Historical data storage
-- **Widget Support**: Home screen integration
-- **Accessibility**: VoiceOver and Dynamic Type support
+### Behaviors
+- Dashboard-oriented refresh intervals for live metrics
+- Local persistence for history, battery samples, and weekly aggregates
+- Widget reads the latest shared snapshot so opening the app keeps the widget meaningful
 
 ## Installation & Setup
 
 ### Requirements
-- iOS 15.0+
-- Xcode 14.0+
-- Swift 5.7+
+- iOS **17.0**+
+- **Xcode 16**+ (project created with Xcode 16.4)
+- Swift toolchain bundled with Xcode 16
 
-### Setup Instructions
-1. Clone the repository
-2. Open `Self Analytics.xcodeproj` in Xcode
-3. Select your development team
-4. Build and run on device or simulator
+### Setup
+1. Clone the repository.
+2. Open `Self Analytics/Self Analytics.xcodeproj` in Xcode.
+3. Select your development team for the **Self Analytics** app and the **DevicePerformanceWidgetExtension** target (App Group / signing as configured in your Apple Developer setup).
+4. Build and run on a device or simulator.
 
-### Permissions Required
-- **Battery Monitoring**: For battery health tracking
-- **Network Access**: For speed testing and connectivity
-- **Storage Access**: For storage analysis
+### Permissions and capabilities
+- **Battery monitoring** — battery metrics
+- **Network access** — connectivity and speed tests
+- **File system** — storage free space (sandbox-allowed APIs)
+- **Notifications** — optional proactive alerts and weekly summary
+- **Background App Refresh** — supports scheduled background metric checks when the user allows it
 
 ## Usage Guide
 
 ### Dashboard
-- **Health Score**: Overall device health (0-100)
-- **Metric Cards**: Individual component status
-- **Alerts**: Active issues requiring attention
-- **Recommendations**: Smart optimization suggestions
-- **Quick Actions**: Fast access to common tasks
+Health score, metric cards, alerts, recommendations, and quick actions.
+
+### Data Usage
+Review totals, per-app-style breakdown (illustrative), statistics, limits, and alerts.
 
 ### History
-- **Time Range Selection**: 1 hour to 30 days
-- **Trend Charts**: Performance over time
-- **Performance Summary**: Statistical overview
-- **Export Data**: Share historical data
+Time ranges, trend charts, and summaries (including battery aging where data exists).
+
+### Security Scan
+Run a scan, review score and findings, pull to refresh.
 
 ### Settings
-- **Notifications**: Configure alert preferences
-- **Auto Refresh**: Adjust update intervals
-- **Data Management**: Export and clear data
-- **App Configuration**: Customize behavior
+Notifications, refresh behavior, data management, legal and support links.
 
-## Widget Usage
-
-### Adding Widgets
-1. Long press on home screen
-2. Tap "+" button
-3. Search for "Self Analytics"
-4. Choose widget size (Small/Medium)
-5. Add to home screen
-
-### Widget Features
-- **Small Widget**: Health score and key metrics
-- **Medium Widget**: Detailed metrics overview
-- **Auto Updates**: Refreshes every 5 minutes
-- **Tap to Open**: Quick access to full app
+### Widgets
+1. Long-press the Home Screen → tap **+**
+2. Search for **Self Analytics** / **Device Performance**
+3. Choose small or medium and add the widget
+4. Open the app periodically so the extension can read an up-to-date snapshot
 
 ## Privacy & Security
 
-### Data Collection
-- **Local Only**: All data stored on device
-- **No Cloud Sync**: Privacy-focused design
-- **Minimal Permissions**: Only essential access
-- **Transparent**: Clear data usage explanation
+- **On-device**: Health and history data are stored locally; there is no required cloud sync for core features.
+- **Minimal permissions**: Only what the feature set needs (see above).
+- **Sandbox**: Subject to iOS privacy and sandbox limits (e.g. no unrestricted system telemetry).
 
-### Security Features
-- **Sandbox Compliance**: iOS security standards
-- **No External APIs**: Self-contained functionality
-- **Secure Storage**: Encrypted local data
-- **Permission Review**: Regular security checks
+## Limitations
 
-## Performance Considerations
-
-### Optimization
-- **Efficient Monitoring**: Minimal battery impact
-- **Smart Updates**: Conditional metric collection
-- **Memory Management**: Proper resource handling
-- **Background Limits**: Respect iOS background restrictions
-
-### Limitations
-- **iOS Sandboxing**: Limited system access
-- **Battery Monitoring**: iOS-imposed restrictions
-- **CPU Metrics**: Estimated values (no direct API)
-- **Network Speed**: Simulated testing
+- **iOS sandbox**: No root-level or private system APIs.
+- **CPU metrics**: Approximate where the platform does not expose a direct per-process API for third parties.
+- **Network speed tests**: Depend on implementation details (may be simulated or simplified in places).
+- **Per-app data usage**: True per-app cellular/Wi‑Fi totals are not available to typical App Store apps; the Data Usage experience may use representative or mock values for demonstration.
 
 ## Future Enhancements
 
-### Planned Features
-- **Screen Time Integration**: App usage analytics
-- **Siri Shortcuts**: Voice command support
-- **Cloud Backup**: Optional iCloud sync
-- **Advanced Charts**: More detailed visualizations
-- **Pro Features**: Advanced analytics and insights
-
-### Potential Integrations
-- **HealthKit**: Health data correlation
-- **Shortcuts**: Automation workflows
-- **Focus Mode**: Productivity insights
-- **Family Sharing**: Multi-device monitoring
+- Deeper OS integrations where Apple exposes safe public APIs (e.g. Screen Time–style analytics if ever available to partners)
+- Siri Shortcuts and richer automations
+- Optional iCloud backup for user-owned exports
+- Additional languages and accessibility polish
 
 ## Contributing
 
-### Development Guidelines
-- Follow SwiftUI best practices
-- Maintain accessibility standards
-- Add comprehensive documentation
-- Include unit tests for new features
-
-### Code Structure
-- **MVVM Architecture**: Clean separation of concerns
-- **Protocol-Oriented**: Swift best practices
-- **Reactive Programming**: Combine framework usage
-- **Modular Design**: Reusable components
+- Prefer **SwiftUI** patterns consistent with the existing codebase.
+- Keep **accessibility** in mind (VoiceOver, Dynamic Type).
+- Add or update **String Catalog** entries for user-facing text when you change copy.
 
 ## Support & Feedback
 
-### Getting Help
-- Check the Settings > Support section
-- Review common issues in documentation
-- Contact support through the app
-
-### Feature Requests
-- Submit through app feedback
-- Include detailed use cases
-- Consider iOS platform limitations
+- Use **Settings →** support / contact flows in the app where available.
+- For platform limits, see Apple’s developer documentation for the APIs in use.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT License.
 
 ## Acknowledgments
 
-- iOS Development Community
-- SwiftUI Framework
-- Apple Developer Documentation
-- Open Source Contributors
+- iOS development community, SwiftUI, Apple Developer Documentation, and open source contributors.
 
 ---
 
-**Self Analytics** - Keep your device healthy and optimized! 📱✨ 
+**Self Analytics** — keep your device informed, on your terms.
