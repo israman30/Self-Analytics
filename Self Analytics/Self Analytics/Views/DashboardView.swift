@@ -94,6 +94,12 @@ struct DashboardView: View {
                         }
                         
                         Button {
+                            activeSheet = .dataStorage
+                        } label: {
+                            Label(DashboardViewLabels.dataStorage, systemImage: DashboardViewLabels.Icon.externaldrive_fill)
+                        }
+                        
+                        Button {
                             alertService.clearSafariCache()
                         } label: {
                             Label(DashboardViewLabels.clearCache, systemImage: DashboardViewLabels.Icon.trash)
@@ -729,12 +735,15 @@ struct DashboardView: View {
     
     private enum ActiveSheet: Identifiable, Equatable {
         case speedTest
+        case dataStorage
         case metric(MetricKind)
         
         var id: String {
             switch self {
             case .speedTest:
                 return "speedTest"
+            case .dataStorage:
+                return "dataStorage"
             case .metric(let kind):
                 return "metric-\(kind.id)"
             }
@@ -785,6 +794,8 @@ struct DashboardView: View {
         switch sheet {
         case .speedTest:
             SpeedTestView(result: $speedTestResult)
+        case .dataStorage:
+            DataStorageView(metricsService: metricsService)
         case .metric(let kind):
             metricDetailView(kind: kind)
         }

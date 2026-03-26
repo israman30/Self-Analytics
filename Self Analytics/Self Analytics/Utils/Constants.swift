@@ -255,6 +255,7 @@ struct DashboardViewLabels {
     static let clearCache = "Clear Cache"
     static let setting = "Settings"
     static let appStore = "App Store"
+    static let dataStorage = "Data Storage"
 }
 
 struct SpeedTestViewLabels {
