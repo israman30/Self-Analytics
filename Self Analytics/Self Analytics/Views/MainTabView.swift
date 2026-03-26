@@ -16,16 +16,10 @@ struct MainTabView: View {
                     Text(MainTabViewLabels.dashboard)
                 }
             
-            DataUsageView()
+            UsageAndHistoryView()
                 .tabItem {
-                    Image(systemName: MainTabViewLabels.Icon.network)
-                    Text(MainTabViewLabels.dataUsage)
-                }
-            
-            HistoryView()
-                .tabItem {
-                    Image(systemName: MainTabViewLabels.Icon.chart_line_uptrend_xyaxis)
-                    Text(MainTabViewLabels.history)
+                    Image(systemName: MainTabViewLabels.Icon.usage_and_history)
+                    Text(MainTabViewLabels.usageHistory)
                 }
             
             SecurityScanView()
@@ -43,7 +37,7 @@ struct MainTabView: View {
         .accessibilityElement(children: .contain)
         .accessibilityLabel(MainTabViewLabels.mainNavigation)
         .accessibilityHint(
-            MainTabViewLabels.navigate_between_dashboard_data_usage_history_and_settings
+            MainTabViewLabels.navigate_between_dashboard_usage_history_and_settings
         )
     }
 }
