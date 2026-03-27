@@ -2,75 +2,62 @@
 //  UsageAndHistoryView.swift
 //  Self Analytics
 //
-//  Unified data usage and device history in one tab with a segmented control.
+//  Data Usage tab root; device history opens in a full-screen cover.
 //
 
 import SwiftUI
 
 struct UsageAndHistoryView: View {
-    private enum Segment: Hashable {
-        case dataUsage
-        case deviceHistory
-    }
-
-    @State private var segment: Segment = .dataUsage
+    @State private var showDeviceHistory = false
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                Picker("", selection: $segment) {
-                    Text(MainTabViewLabels.dataUsage).tag(Segment.dataUsage)
-                    Text(MainTabViewLabels.history).tag(Segment.deviceHistory)
-                }
-                .pickerStyle(.segmented)
-                .padding(.horizontal)
-                .padding(.vertical, 10)
-                .accessibilityLabel(MainTabViewLabels.usageHistorySegmentAccessibility)
-
-                Group {
-                    switch segment {
-                    case .dataUsage:
-                        DataUsageMainContent()
-                    case .deviceHistory:
-                        HistoryMainContent()
+            DataUsageMainContent()
+                .navigationTitle(DataUsageLabels.dataUsage)
+                .navigationBarTitleDisplayMode(.large)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            showDeviceHistory = true
+                        } label: {
+                            Label(
+                                HistoryViewLabels.history,
+                                systemImage: MainTabViewLabels.Icon.chart_line_uptrend_xyaxis
+                            )
+                        }
+                        .accessibilityHint(
+                            MainTabViewLabels.view_historical_device_performance_data_and_trends
+                        )
                     }
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .animation(.easeInOut(duration: 0.2), value: segment)
-            }
-            .background(Color(.systemGroupedBackground))
-            .navigationTitle(navigationTitle)
-            .navigationBarTitleDisplayMode(.large)
+        }
+        .fullScreenCover(isPresented: $showDeviceHistory) {
+            DeviceHistoryFullScreenView()
         }
         .accessibilityElement(children: .contain)
-        .accessibilityLabel(accessibilityLabel)
-        .accessibilityHint(accessibilityHint)
+        .accessibilityLabel(MainTabViewLabels.view_data_usage_tracking_and_limits)
+        .accessibilityHint(MainTabViewLabels.view_data_usage_tracking_and_limits)
     }
+}
 
-    private var navigationTitle: String {
-        switch segment {
-        case .dataUsage:
-            return DataUsageLabels.dataUsage
-        case .deviceHistory:
-            return HistoryViewLabels.history
-        }
-    }
+// MARK: - Full-screen history
 
-    private var accessibilityLabel: String {
-        switch segment {
-        case .dataUsage:
-            return MainTabViewLabels.view_data_usage_tracking_and_limits
-        case .deviceHistory:
-            return AccessibilityLabels.deviceHistory
-        }
-    }
+private struct DeviceHistoryFullScreenView: View {
+    @Environment(\.dismiss) private var dismiss
 
-    private var accessibilityHint: String {
-        switch segment {
-        case .dataUsage:
-            return MainTabViewLabels.view_data_usage_tracking_and_limits
-        case .deviceHistory:
-            return AccessibilityLabels.view_historical_device_performance_data_and_trends
+    var body: some View {
+        NavigationStack {
+            HistoryMainContent()
+                .navigationTitle(HistoryViewLabels.history)
+                .navigationBarTitleDisplayMode(.large)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button(SpeedTestViewLabels.done) {
+                            dismiss()
+                        }
+                        .accessibilityLabel(SpeedTestViewLabels.done)
+                    }
+                }
         }
     }
 }

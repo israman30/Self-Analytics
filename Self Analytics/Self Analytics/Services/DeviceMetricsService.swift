@@ -24,9 +24,11 @@ class DeviceMetricsService: ObservableObject {
     }
     
     deinit {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [unowned self] in
-            self.stopMonitoring()
-        }
+        // Full-screen history dismissal tears down `HistoryMainContent`'s `@StateObject`
+        // service instance. Never capture `self` asynchronously here — `[unowned self]` after
+        // deallocation crashes ~1s later. Tear down timer + monitor by value instead.
+        timer?.invalidate()
+        networkMonitor?.cancel()
     }
     
     func startMonitoring() {
@@ -443,3 +445,4 @@ class DeviceMetricsService: ObservableObject {
         return (download: downloadSpeed, upload: uploadSpeed)
     }
 } 
+

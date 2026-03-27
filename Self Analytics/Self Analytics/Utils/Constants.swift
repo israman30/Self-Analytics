@@ -73,9 +73,6 @@ struct MainTabViewLabels {
     static let dashboard = "Dashboard"
     static let dataUsage = "Data Usage"
     static let history = "History"
-    /// Tab label for the combined data usage + device history screen.
-    static let usageHistory = "Data & History"
-    static let usageHistorySegmentAccessibility = "Data usage or device history"
     static let settings = "Settings"
     static let securityScan = "Security Scan"
     
@@ -83,7 +80,6 @@ struct MainTabViewLabels {
         static let gauge = "gauge"
         static let network = "network"
         static let chart_line_uptrend_xyaxis = "chart.line.uptrend.xyaxis"
-        static let usage_and_history = "rectangle.split.2x1"
         static let gear = "gear"
         static let shield_lefthalf_filled = "shield.lefthalf.filled"
     }
@@ -93,7 +89,7 @@ struct MainTabViewLabels {
     static let view_historical_device_performance_data_and_trends = "View historical device performance data and trends"
     static let configure_app_settings_and_preferences = "Configure app settings and preferences"
     static let mainNavigation = "Main Navigation"
-    static let navigate_between_dashboard_usage_history_and_settings = "Navigate between dashboard, data and device history, security scan, and settings"
+    static let navigate_between_dashboard_usage_history_and_settings = "Navigate between dashboard, data usage, security scan, and settings. Open device history from the data usage screen."
 }
 
 struct HistoryViewLabels {

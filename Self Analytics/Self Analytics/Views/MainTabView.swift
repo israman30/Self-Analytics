@@ -18,8 +18,8 @@ struct MainTabView: View {
             
             UsageAndHistoryView()
                 .tabItem {
-                    Image(systemName: MainTabViewLabels.Icon.usage_and_history)
-                    Text(MainTabViewLabels.usageHistory)
+                    Image(systemName: MainTabViewLabels.Icon.network)
+                    Text(MainTabViewLabels.dataUsage)
                 }
             
             SecurityScanView()
