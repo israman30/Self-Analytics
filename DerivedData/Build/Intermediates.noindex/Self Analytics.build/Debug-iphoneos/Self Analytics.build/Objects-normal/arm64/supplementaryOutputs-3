@@ -1,0 +1,30 @@
+{
+  "/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self Analytics/Self Analytics/Services/ProactiveNotificationService.swift" : {
+    "const-values" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/ProactiveNotificationService.swiftconstvalues",
+    "dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/ProactiveNotificationService.d",
+    "diagnostics" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/ProactiveNotificationService.dia",
+    "object" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/ProactiveNotificationService.o",
+    "swift-dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/ProactiveNotificationService.swiftdeps"
+  },
+  "/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self Analytics/Self Analytics/Services/WeeklyMetricsStorage.swift" : {
+    "const-values" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/WeeklyMetricsStorage.swiftconstvalues",
+    "dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/WeeklyMetricsStorage.d",
+    "diagnostics" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/WeeklyMetricsStorage.dia",
+    "object" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/WeeklyMetricsStorage.o",
+    "swift-dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/WeeklyMetricsStorage.swiftdeps"
+  },
+  "/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self Analytics/Self Analytics/Utils/Constants.swift" : {
+    "const-values" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/Constants.swiftconstvalues",
+    "dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/Constants.d",
+    "diagnostics" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/Constants.dia",
+    "object" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/Constants.o",
+    "swift-dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/Constants.swiftdeps"
+  },
+  "/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self Analytics/Self Analytics/Views/Components/MetricCard.swift" : {
+    "const-values" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/MetricCard.swiftconstvalues",
+    "dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/MetricCard.d",
+    "diagnostics" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/MetricCard.dia",
+    "object" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/MetricCard.o",
+    "swift-dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/MetricCard.swiftdeps"
+  }
+}

@@ -50,7 +50,6 @@
 		F2B000032E2543160047604E /* Exceptions for "DevicePerformanceWidget" folder in "DevicePerformanceWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				DevicePerformanceWidget.entitlements,
 				Info.plist,
 			);
 			target = F1A100032E2543160047604E /* DevicePerformanceWidgetExtension */;

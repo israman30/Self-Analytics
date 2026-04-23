@@ -69,42 +69,43 @@ class DeviceSecurityScanner: ObservableObject {
 
     // MARK: - Security Checks
     private func checkWiFiEncryption() async -> (SecurityFinding?, SecurityRecommendation?, Int) {
-        // iOS doesn't give direct Wi-Fi encryption info to apps, but we can infer open network by lack of Wi-Fi interface or known SSID
+        // iOS doesn't expose Wi‑Fi encryption details to third‑party apps. We only detect whether
+        // the device is currently on Wi‑Fi, and avoid shared mutable state in callbacks.
         let monitor = NWPathMonitor(requiredInterfaceType: .wifi)
-        let group = DispatchGroup()
-        var isConnectedToWiFi = false
-        var isOpenNetwork = false
-        group.enter()
-        monitor.pathUpdateHandler = { path in
-            DispatchQueue.main.async {
-                isConnectedToWiFi = path.status == .satisfied
-                isOpenNetwork = path.gateways.isEmpty // If no gateway, likely open/unprotected
+        let queue = DispatchQueue(label: "DeviceSecurityScanner.WiFiMonitor")
+
+        let stream = AsyncStream<NWPath> { continuation in
+            continuation.onTermination = { _ in
+                monitor.cancel()
             }
-            group.leave()
+
+            monitor.pathUpdateHandler = { path in
+                continuation.yield(path)
+                continuation.finish()
+            }
+
+            monitor.start(queue: queue)
         }
-        monitor.start(queue: DispatchQueue.global())
-        monitor.cancel()
-        if !isConnectedToWiFi {
-            return (nil, nil, 0) // Not using Wi-Fi, so can't evaluate encryption
+
+        let path: NWPath? = await withTaskGroup(of: NWPath?.self) { group in
+            group.addTask {
+                var iterator = stream.makeAsyncIterator()
+                return await iterator.next()
+            }
+
+            group.addTask {
+                try? await Task.sleep(nanoseconds: 1_000_000_000)
+                return nil
+            }
+
+            let first = await group.next() ?? nil
+            group.cancelAll()
+            return first
         }
-        if isOpenNetwork {
-            return (
-                SecurityFinding(
-                    title: SecurityLabels.connectedToAnOpenWiFiNetwork,
-                    description: SecurityLabels.your_current_WiFi_network_appears_to_lack_encryption_this_puts_your_data_at_risk,
-                    iconName: SecurityLabels.Icon.wifi_slash,
-                    severityColor: .red
-                ),
-                SecurityRecommendation(
-                    title: SecurityLabels.avoidOpenWiFiNetworks,
-                    description: SecurityLabels.switch_to_a_secure_WiFi_network_with_WPA2_WPA3_encryption_to_protectYour_data,
-                    iconName: SecurityLabels.Icon.lock_slash,
-                    impactColor: .red
-                ),
-                25
-            )
-        }
-        // We can't check WPA type, but if not open, assume secure
+
+        guard let path else { return (nil, nil, 0) }
+        guard path.status == .satisfied else { return (nil, nil, 0) }
+
         return (nil, nil, 0)
     }
     

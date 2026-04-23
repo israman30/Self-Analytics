@@ -8,7 +8,8 @@
 import SwiftUI
 import Charts
 
-struct DataUsageView: View {
+/// Scrollable data usage UI; embed inside a `NavigationStack` (see `DataUsageView` or `UsageAndHistoryView`).
+struct DataUsageMainContent: View {
     @StateObject private var dataUsageService = DataUsageService()
     @State private var selectedPeriod: DataUsagePeriod.PeriodType = .today
     @State private var showingLimitsSettings = false
@@ -17,88 +18,84 @@ struct DataUsageView: View {
     @State private var showingAllApps = false
     
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 20) {
-                    // Period Selector
-                    periodSelector
-                    
-                    // Data Usage Summary Cards
-                    if let summary = dataUsageService.currentSummary {
-                        summaryCards(summary: summary)
-                    } else {
-                        VStack(spacing: 12) {
-                            ProgressView()
-                            Text(DataUsageLabels.loading)
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(32)
-                        .background(Color(.systemBackground))
-                        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                    }
-                    
-                    // Usage Chart
-                    usageChart
-                    
-                    // Alerts Section
-                    if !dataUsageService.activeAlerts.isEmpty {
-                        alertsSection
-                    }
-                    
-                    // Top Apps Section
-                    if let summary = dataUsageService.currentSummary {
-                        topAppsSection(summary: summary)
-                    }
-                    
-                    // Data Limits Section
-                    dataLimitsSection
-                    
-                    // Statistics Section
-                    statisticsSection
-                }
-                .padding()
-            }
-            .background(Color(.systemGroupedBackground))
-            .refreshable { dataUsageService.refreshData() }
-            .navigationTitle(DataUsageLabels.dataUsage)
-            .navigationBarTitleDisplayMode(.large)
-            .navigationDestination(for: AppDataUsage.self) { app in
-                AppDataUsageDetailView(app: app)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu {
-                        Button(DataUsageLabels.dataLimits, systemImage: DataUsageLabels.Icon.exclamationmark_triangle) {
-                            showingLimitsSettings = true
-                        }
-                        
-                        Button(DataUsageLabels.resetData, systemImage: DataUsageLabels.Icon.arrow_clockwise) {
-                            dataUsageService.resetDataUsage()
-                        }
-                        
-                        Button(DataUsageLabels.statistics, systemImage: DataUsageLabels.Icon.chart_bar_xaxis) {
-                            showingStatistics = true
-                        }
-                    } label: {
-                        Image(systemName: DataUsageLabels.Icon.ellipsis_circle)
-                    }
-                }
-            }
-            .sheet(isPresented: $showingLimitsSettings) {
-                DataLimitsSettingsView(dataUsageService: dataUsageService)
-            }
-            .sheet(isPresented: $showingAlerts) {
-                DataUsageAlertsView(dataUsageService: dataUsageService)
-            }
-            .sheet(isPresented: $showingStatistics) {
-                DataUsageStatisticsView(dataUsageService: dataUsageService, period: selectedPeriod)
-            }
-            .sheet(isPresented: $showingAllApps) {
+        ScrollView {
+            VStack(spacing: 20) {
+                // Period Selector
+                periodSelector
+                
+                // Data Usage Summary Cards
                 if let summary = dataUsageService.currentSummary {
-                    AllAppsListSheet(apps: summary.appUsages.filter { $0.totalBytes > 0 })
+                    summaryCards(summary: summary)
+                } else {
+                    VStack(spacing: 12) {
+                        ProgressView()
+                        Text(DataUsageLabels.loading)
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(32)
+                    .background(Color(.systemBackground))
+                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                 }
+                
+                // Usage Chart
+                usageChart
+                
+                // Alerts Section
+                if !dataUsageService.activeAlerts.isEmpty {
+                    alertsSection
+                }
+                
+                // Top Apps Section
+                if let summary = dataUsageService.currentSummary {
+                    topAppsSection(summary: summary)
+                }
+                
+                // Data Limits Section
+                dataLimitsSection
+                
+                // Statistics Section
+                statisticsSection
+            }
+            .padding()
+        }
+        .background(Color(.systemGroupedBackground))
+        .refreshable { dataUsageService.refreshData() }
+        .navigationDestination(for: AppDataUsage.self) { app in
+            AppDataUsageDetailView(app: app)
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Menu {
+                    Button(DataUsageLabels.dataLimits, systemImage: DataUsageLabels.Icon.exclamationmark_triangle) {
+                        showingLimitsSettings = true
+                    }
+                    
+                    Button(DataUsageLabels.resetData, systemImage: DataUsageLabels.Icon.arrow_clockwise) {
+                        dataUsageService.resetDataUsage()
+                    }
+                    
+                    Button(DataUsageLabels.statistics, systemImage: DataUsageLabels.Icon.chart_bar_xaxis) {
+                        showingStatistics = true
+                    }
+                } label: {
+                    Image(systemName: DataUsageLabels.Icon.ellipsis_circle)
+                }
+            }
+        }
+        .sheet(isPresented: $showingLimitsSettings) {
+            DataLimitsSettingsView(dataUsageService: dataUsageService)
+        }
+        .sheet(isPresented: $showingAlerts) {
+            DataUsageAlertsView(dataUsageService: dataUsageService)
+        }
+        .sheet(isPresented: $showingStatistics) {
+            DataUsageStatisticsView(dataUsageService: dataUsageService, period: selectedPeriod)
+        }
+        .sheet(isPresented: $showingAllApps) {
+            if let summary = dataUsageService.currentSummary {
+                AllAppsListSheet(apps: summary.appUsages.filter { $0.totalBytes > 0 })
             }
         }
     }
@@ -742,6 +739,16 @@ private struct AllAppsListSheet: View {
             }
         }
         .presentationDetents([.medium, .large])
+    }
+}
+
+struct DataUsageView: View {
+    var body: some View {
+        NavigationStack {
+            DataUsageMainContent()
+                .navigationTitle(DataUsageLabels.dataUsage)
+                .navigationBarTitleDisplayMode(.large)
+        }
     }
 }
 

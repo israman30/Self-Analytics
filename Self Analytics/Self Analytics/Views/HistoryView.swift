@@ -8,7 +8,8 @@
 import SwiftUI
 import Charts
 
-struct HistoryView: View {
+/// Device metrics history UI; embed inside a `NavigationStack` (see `HistoryView` or `UsageAndHistoryView`).
+struct HistoryMainContent: View {
     @StateObject private var metricsService = DeviceMetricsService()
     @State private var selectedTimeRange: TimeRange = .day
     @State private var historicalData: [DeviceHealth] = []
@@ -30,40 +31,36 @@ struct HistoryView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                LazyVStack(spacing: 20) {
-                    timeRangeSelector
-                    batteryAgingChart
-                    healthScoreChart
-                    metricsCharts
-                    performanceSummary
-                }
-                .padding()
+        ScrollView {
+            LazyVStack(spacing: 20) {
+                timeRangeSelector
+                batteryAgingChart
+                healthScoreChart
+                metricsCharts
+                performanceSummary
             }
-            .background(Color(.systemGroupedBackground))
-            .refreshable { refreshHistory() }
-            .navigationTitle(HistoryViewLabels.history)
-            .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        refreshHistory()
-                    } label: {
-                        Image(systemName: DashboardViewLabels.Icon.arrow_clockwise)
-                            .accessibilityLabel(DashboardViewLabels.refresh)
-                    }
+            .padding()
+        }
+        .background(Color(.systemGroupedBackground))
+        .refreshable { refreshHistory() }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    refreshHistory()
+                } label: {
+                    Image(systemName: DashboardViewLabels.Icon.arrow_clockwise)
+                        .accessibilityLabel(DashboardViewLabels.refresh)
                 }
             }
-            .accessibilityElement(children: .contain)
-            .accessibilityLabel(AccessibilityLabels.deviceHistory)
-            .accessibilityHint(
-                AccessibilityLabels.view_historical_device_performance_data_and_trends
-            )
-            .onAppear { generateHistoricalData() }
-            .onChange(of: selectedTimeRange) { _, _ in
-                withAnimation(.easeInOut(duration: 0.25)) { generateHistoricalData() }
-            }
+        }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(AccessibilityLabels.deviceHistory)
+        .accessibilityHint(
+            AccessibilityLabels.view_historical_device_performance_data_and_trends
+        )
+        .onAppear { generateHistoricalData() }
+        .onChange(of: selectedTimeRange) { _, _ in
+            withAnimation(.easeInOut(duration: 0.25)) { generateHistoricalData() }
         }
     }
     
@@ -737,6 +734,17 @@ struct PerformanceSummary {
     let dataPoints: Int
 }
 
+struct HistoryView: View {
+    var body: some View {
+        NavigationStack {
+            HistoryMainContent()
+                .navigationTitle(HistoryViewLabels.history)
+                .navigationBarTitleDisplayMode(.large)
+        }
+    }
+}
+
 #Preview {
     HistoryView()
-} 
+}
+

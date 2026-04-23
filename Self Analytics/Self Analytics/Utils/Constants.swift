@@ -89,7 +89,7 @@ struct MainTabViewLabels {
     static let view_historical_device_performance_data_and_trends = "View historical device performance data and trends"
     static let configure_app_settings_and_preferences = "Configure app settings and preferences"
     static let mainNavigation = "Main Navigation"
-    static let navigate_between_dashboard_data_usage_history_and_settings = "Navigate between dashboard, data usage, history, and settings"
+    static let navigate_between_dashboard_usage_history_and_settings = "Navigate between dashboard, data usage, security scan, and settings. Open device history from the data usage screen."
 }
 
 struct HistoryViewLabels {
@@ -255,6 +255,7 @@ struct DashboardViewLabels {
     static let clearCache = "Clear Cache"
     static let setting = "Settings"
     static let appStore = "App Store"
+    static let dataStorage = "Data Storage"
 }
 
 struct SpeedTestViewLabels {
