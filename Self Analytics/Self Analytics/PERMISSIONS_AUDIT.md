@@ -14,92 +14,23 @@ This document provides a comprehensive audit of all system permissions used by t
 ### 2. Network Access
 - **Usage**: Network connectivity checks and speed testing
 - **API**: `Network`, `SystemConfiguration`
-- **Permission**: `NSLocalNetworkUsageDescription`
+- **Permission**: No explicit permission required for reachability / status APIs
 - **Location**: `Services/DeviceMetricsService.swift` - `getNetworkMetrics()`
 
 ### 3. File System Access
-- **Usage**: Data export and file management
+- **Usage**: User-initiated export (Share Sheet)
 - **API**: `FileManager`
-- **Permission**: `NSDocumentsFolderUsageDescription`
+- **Permission**: No explicit permission required (app sandbox)
 - **Location**: `Services/DataManagementService.swift` - `exportData()`
 
-### 4. Notifications
+### 4. Notifications (Local Notifications)
 - **Usage**: Alert users about device health issues
 - **API**: UserNotifications framework
 - **Permission**: `NSUserNotificationsUsageDescription`
 - **Location**: `Services/AlertService.swift` - Alert generation
 
 ## Declared Permissions (Not Currently Used)
-
-### 1. Camera Access
-- **Permission**: `NSCameraUsageDescription`
-- **Status**: Declared but not used
-- **Description**: "This app does not use the camera."
-
-### 2. Microphone Access
-- **Permission**: `NSMicrophoneUsageDescription`
-- **Status**: Declared but not used
-- **Description**: "This app does not use the microphone."
-
-### 3. Location Services
-- **Permission**: `NSLocationWhenInUseUsageDescription`
-- **Status**: Declared but not used
-- **Description**: "This app does not use location services."
-
-### 4. Photo Library Access
-- **Permission**: `NSPhotoLibraryUsageDescription`
-- **Status**: Declared but not used
-- **Description**: "This app does not access your photo library."
-
-### 5. Contacts Access
-- **Permission**: `NSContactsUsageDescription`
-- **Status**: Declared but not used
-- **Description**: "This app does not access your contacts."
-
-### 6. Health Data Access
-- **Permission**: `NSHealthShareUsageDescription`
-- **Status**: Declared but not used
-- **Description**: "This app does not access health data."
-
-### 7. Health Data Updates
-- **Permission**: `NSHealthUpdateUsageDescription`
-- **Status**: Declared but not used
-- **Description**: "This app does not update some health data."
-
-### 8. Motion & Fitness
-- **Permission**: `NSMotionUsageDescription`
-- **Status**: Declared but not used
-- **Description**: "This app does not use motion and fitness data."
-
-### 9. Bluetooth Access
-- **Permission**: `NSBluetoothAlwaysUsageDescription`
-- **Status**: Declared but not used
-- **Description**: "This app does not use Bluetooth."
-
-### 10. Bluetooth Peripherals
-- **Permission**: `NSBluetoothPeripheralUsageDescription`
-- **Status**: Declared but not used
-- **Description**: "This app does not use Bluetooth peripherals."
-
-### 11. Face ID
-- **Permission**: `NSFaceIDUsageDescription`
-- **Status**: Declared but not used
-- **Description**: "This app does not use Face ID."
-
-### 12. Calendar Access
-- **Permission**: `NSCalendarsUsageDescription`
-- **Status**: Declared but not used
-- **Description**: "This app does not access your calendar."
-
-### 13. Reminders Access
-- **Permission**: `NSRemindersUsageDescription`
-- **Status**: Declared but not used
-- **Description**: "This app does not access your reminders."
-
-### 14. Speech Recognition
-- **Permission**: `NSSpeechRecognitionUsageDescription`
-- **Status**: Declared but not used
-- **Description**: "This app does not use speech recognition."
+The app’s `Info.plist` has been trimmed to only declare permissions that are actually used today.
 
 ## System-Level Permissions
 

@@ -34,7 +34,7 @@ struct SettingsView: View {
     @StateObject private var dataManagementService = DataManagementService()
     @State private var showingClearDataAlert = false
     @State private var showingExportSheet = false
-    @State private var exportURL: URL?
+    @State private var exportURLs: [URL] = []
     @State private var showingErrorAlert = false
     @State private var errorMessage = ""
     @StateObject private var dataUsageService = DataUsageService()
@@ -77,6 +77,13 @@ struct SettingsView: View {
                         .accessibilityHint(
                             AccessibilityHints.enable_or_disable_push_notifications_for_device_alerts
                         )
+                        .onChange(of: notificationsEnabled) { _, newValue in
+                            if newValue {
+                                Task { _ = await ProactiveNotificationService.shared.handleUserEnabledNotifications() }
+                            } else {
+                                ProactiveNotificationService.shared.handleUserDisabledNotifications()
+                            }
+                        }
                     
                     if notificationsEnabled {
                         Toggle(SettingViewLabels.showAlerts, isOn: $showAlerts)
@@ -87,7 +94,7 @@ struct SettingsView: View {
                         
                         Toggle("Weekly Health Summary", isOn: $weeklyHealthSummaryEnabled)
                             .onChange(of: weeklyHealthSummaryEnabled) { _, _ in
-                                ProactiveNotificationService.shared.scheduleWeeklyHealthSummaryIfNeeded()
+                                Task { await ProactiveNotificationService.shared.refreshScheduling() }
                             }
                             .accessibilityLabel("Weekly Health Summary")
                             .accessibilityHint("Sunday morning notification with your device health summary")
@@ -302,8 +309,8 @@ struct SettingsView: View {
                 }
             }
             .sheet(isPresented: $showingExportSheet) {
-                if let url = exportURL {
-                    ShareSheet(activityItems: [url])
+                if !exportURLs.isEmpty {
+                    ShareSheet(activityItems: exportURLs)
                 }
             }
             .alert(SettingViewLabels.clearDataTitle, isPresented: $showingClearDataAlert) {
@@ -330,8 +337,8 @@ struct SettingsView: View {
     
     private func exportData() async {
         do {
-            let url = try await dataManagementService.exportData()
-            exportURL = url
+            let urls = try await dataManagementService.exportData()
+            exportURLs = urls
             showingExportSheet = true
         } catch {
             errorMessage = "Failed to export data: \(error.localizedDescription)"

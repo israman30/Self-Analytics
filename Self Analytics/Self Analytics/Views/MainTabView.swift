@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct MainTabView: View {
+    @AppStorage(StorageProperties.notificationsEnabled) private var notificationsEnabled = true
+    @AppStorage("didShowNotificationsPermissionPrompt") private var didShowNotificationsPermissionPrompt = false
+    @State private var showNotificationsPermissionPrompt = false
+    
     var body: some View {
         TabView {
             DashboardView()
@@ -39,6 +44,30 @@ struct MainTabView: View {
         .accessibilityHint(
             MainTabViewLabels.navigate_between_dashboard_usage_history_and_settings
         )
+        .sheet(isPresented: $showNotificationsPermissionPrompt) {
+            NotificationPermissionPromptView(
+                isPresented: $showNotificationsPermissionPrompt,
+                notificationsEnabled: $notificationsEnabled
+            )
+        }
+        .task {
+            await maybeShowNotificationsPermissionPromptIfNeeded()
+        }
+    }
+    
+    private func maybeShowNotificationsPermissionPromptIfNeeded() async {
+        guard !didShowNotificationsPermissionPrompt else { return }
+        defer { didShowNotificationsPermissionPrompt = true }
+        
+        let settings = await withCheckedContinuation { continuation in
+            UNUserNotificationCenter.current().getNotificationSettings { settings in
+                continuation.resume(returning: settings)
+            }
+        }
+        
+        guard settings.authorizationStatus == .notDetermined else { return }
+        guard notificationsEnabled else { return }
+        showNotificationsPermissionPrompt = true
     }
 }
 

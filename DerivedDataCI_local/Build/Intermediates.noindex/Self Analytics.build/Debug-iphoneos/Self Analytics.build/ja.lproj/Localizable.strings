@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>%@ %@</key>
+	<string>%1$@ %2$@</string>
+	<key>%@ %@ percent complete</key>
+	<string>%1$@ %2$@ パーセント完了</string>
+	<key>%@ Chart</key>
+	<string>%@チャート</string>
+	<key>%@ GB</key>
+	<string>%@ GB</string>
+	<key>%@ Mbps</key>
+	<string>%@ Mbps</string>
+	<key>%@%% of total</key>
+	<string>合計の%@%%</string>
+	<key>%@. %@</key>
+	<string>%1$@. %2$@</string>
+	<key>%@. Download: %@ Mbps. Upload: %@ Mbps</key>
+	<string>%1$@. ダウンロード：%2$@ Mbps. アップロード：%3$@ Mbps</string>
+	<key>%@: %@</key>
+	<string>%1$@：%2$@</string>
+	<key>%@: %@ Mbps, %@</key>
+	<string>%1$@：%2$@ Mbps、%3$@</string>
+	<key>%lld / 100</key>
+	<string>%lld / 100</string>
+	<key>%lld points</key>
+	<string>%lldポイント</string>
+	<key>%lld%%</key>
+	<string>%lld%%</string>
+	<key>4</key>
+	<string>4</string>
+	<key>Active Alerts</key>
+	<string>アクティブなアラート</string>
+	<key>Active Limits</key>
+	<string>アクティブな制限</string>
+	<key>Active data usage alerts: %lld</key>
+	<string>アクティブなデータ使用アラート：%lld</string>
+	<key>Active data usage limits: %lld</key>
+	<string>アクティブなデータ使用制限：%lld</string>
+	<key>All Clear</key>
+	<string>問題なし</string>
+	<key>App</key>
+	<string>アプリ</string>
+	<key>App Version: %@</key>
+	<string>アプリバージョン：%@</string>
+	<key>Battery Level: %lld percent%@</key>
+	<string>バッテリーレベル：%lldパーセント%@</string>
+	<key>Battery maximum capacity trend over last 30 days</key>
+	<string>過去30日間のバッテリー最大容量の推移</string>
+	<key>Build Number: %@</key>
+	<string>ビルド番号：%@</string>
+	<key>Capacity %</key>
+	<string>容量%</string>
+	<key>Cellular</key>
+	<string>モバイルデータ</string>
+	<key>Cellular (%@%%)</key>
+	<string>モバイルデータ（%@%%）</string>
+	<key>Chart Preview</key>
+	<string>チャートプレビュー</string>
+	<key>Charts require iOS 16 or later</key>
+	<string>チャートはiOS 16以降が必要です</string>
+	<key>Clear All</key>
+	<string>すべてクリア</string>
+	<key>Closes the speed test view</key>
+	<string>速度テストのビューを閉じる</string>
+	<key>Comprehensive device health monitoring with detailed metrics</key>
+	<string>詳細なメトリクスによるデバイスヘルスの包括的な監視</string>
+	<key>Configure data usage limits and alerts</key>
+	<string>データ使用の制限とアラートを設定</string>
+	<key>Configure data usage limits and alerts to monitor your cellular and Wi-Fi data consumption.</key>
+	<string>セルラーとWi-Fiのデータ使用量を監視するため、データ使用の制限とアラートを設定します。</string>
+	<key>Current battery status</key>
+	<string>現在のバッテリー状態</string>
+	<key>Current memory consumption</key>
+	<string>現在のメモリ使用量</string>
+	<key>Current network connection type</key>
+	<string>現在のネットワーク接続タイプ</string>
+	<key>Data &amp; History</key>
+	<string>データと履歴</string>
+	<key>Data Storage</key>
+	<string>データストレージ</string>
+	<key>Data Usage</key>
+	<string>データ使用量</string>
+	<key>Data Usage Alerts</key>
+	<string>データ使用アラート</string>
+	<key>Data Usage Settings</key>
+	<string>データ使用設定</string>
+	<key>Data Usage Statistics</key>
+	<string>データ使用統計</string>
+	<key>Detailed Breakdown</key>
+	<string>詳細内訳</string>
+	<key>Details</key>
+	<string>詳細</string>
+	<key>Device Health</key>
+	<string>デバイスの状態</string>
+	<key>Device Health Score: %lld out of 100, %@</key>
+	<string>デバイスヘルススコア：100点満点中%lld、%@</string>
+	<key>Device Health Widget</key>
+	<string>デバイスヘルスウィジェット</string>
+	<key>Device Metrics</key>
+	<string>デバイスメトリクス</string>
+	<key>Device Model: %@</key>
+	<string>デバイスモデル：%@</string>
+	<key>Done</key>
+	<string>完了</string>
+	<key>Double tap to toggle detailed information</key>
+	<string>詳細情報の表示を切り替えるにはダブルタップ</string>
+	<key>Error</key>
+	<string>エラー</string>
+	<key>Findings</key>
+	<string>検出結果</string>
+	<key>Health Score: %lld</key>
+	<string>ヘルススコア：%lld</string>
+	<key>Health Score: %lld out of 100</key>
+	<string>ヘルススコア：100点満点中%lld</string>
+	<key>Health status: %@. Tap to %@ details</key>
+	<string>ヘルス状態：%1$@。%2$@の詳細を表示するにはタップ</string>
+	<key>Last Updated</key>
+	<string>最終更新</string>
+	<key>Limit: %@ • %@</key>
+	<string>制限：%1$@ • %2$@</string>
+	<key>Memory Usage: %lld percent</key>
+	<string>メモリ使用量：%lldパーセント</string>
+	<key>Monitor your device's health at a glance.</key>
+	<string>デバイスの状態を一目で確認できます。</string>
+	<key>Network Type Breakdown</key>
+	<string>ネットワークタイプ別内訳</string>
+	<key>Network: %@</key>
+	<string>ネットワーク：%@</string>
+	<key>No Data Usage Alerts</key>
+	<string>データ使用アラートなし</string>
+	<key>No battery aging data yet. Open the app daily to build your trend.</key>
+	<string>バッテリー経年劣化データはまだありません。毎日アプリを開いて推移データを作成してください。</string>
+	<key>No security risks detected. Your device and network are safe.</key>
+	<string>セキュリティリスクは検出されませんでした。デバイスとネットワークは安全です。</string>
+	<key>No test history available</key>
+	<string>テスト履歴がありません</string>
+	<key>OK</key>
+	<string>OK</string>
+	<key>Open the app daily to build your battery capacity trend.</key>
+	<string>毎日アプリを開いてバッテリー容量の推移データを作成してください。</string>
+	<key>Performance Level</key>
+	<string>パフォーマンスレベル</string>
+	<key>Performance Status: %@, %lld data points</key>
+	<string>パフォーマンス状態：%@、%lldデータポイント</string>
+	<key>Progress: %lld %@</key>
+	<string>進捗：%lld %@</string>
+	<key>Recommendations</key>
+	<string>推奨事項</string>
+	<key>Refresh</key>
+	<string>更新</string>
+	<key>Refresh health score</key>
+	<string>ヘルススコアを更新</string>
+	<key>Scan Now</key>
+	<string>今すぐスキャン</string>
+	<key>Scanning...</key>
+	<string>スキャン中...</string>
+	<key>Score</key>
+	<string>スコア</string>
+	<key>Security Scan</key>
+	<string>セキュリティスキャン</string>
+	<key>Security Score</key>
+	<string>セキュリティスコア</string>
+	<key>Security score %lld out of 100</key>
+	<string>セキュリティスコア100点満点中%lld</string>
+	<key>Shows %@ trends over time</key>
+	<string>%@の時間経過による傾向を表示</string>
+	<key>Shows %@ value with trend indicator</key>
+	<string>%@の値と傾向インジケーターを表示</string>
+	<key>Shows detailed device metrics including battery, memory, storage, and network</key>
+	<string>バッテリー、メモリ、ストレージ、ネットワークを含む詳細なデバイスメトリクスを表示</string>
+	<key>Shows how estimated battery capacity has changed over time</key>
+	<string>推定バッテリー容量が時間とともにどのように変化したかを表示</string>
+	<key>Shows key device metrics including health score, battery, memory, and network status</key>
+	<string>ヘルススコア、バッテリー、メモリ、ネットワーク状態を含む主要なデバイスメトリクスを表示</string>
+	<key>Shows overall device health performance</key>
+	<string>デバイスヘルスの全体的なパフォーマンスを表示</string>
+	<key>Starts the network speed test</key>
+	<string>ネットワーク速度テストを開始</string>
+	<key>Summary</key>
+	<string>概要</string>
+	<key>Sunday morning notification with your device health summary</key>
+	<string>日曜朝のデバイスヘルスサマリー通知</string>
+	<key>Swipe to dismiss alerts or tap to mark as read.</key>
+	<string>アラートを閉じるにはスワイプ、既読にするにはタップ。</string>
+	<key>System Version: %@</key>
+	<string>システムバージョン：%@</string>
+	<key>Test #%lld</key>
+	<string>テスト #%lld</string>
+	<key>Test %lld: Download %@ Mbps, Upload %@ Mbps</key>
+	<string>テスト%1$lld：ダウンロード %2$@ Mbps、アップロード %3$@ Mbps</string>
+	<key>Time</key>
+	<string>時間</string>
+	<key>Time Period</key>
+	<string>期間</string>
+	<key>Time Range</key>
+	<string>時間範囲</string>
+	<key>Top Apps by Usage</key>
+	<string>使用量の多いアプリ</string>
+	<key>Total</key>
+	<string>合計</string>
+	<key>Total Usage</key>
+	<string>合計使用量</string>
+	<key>Usage</key>
+	<string>使用量</string>
+	<key>Usage Breakdown</key>
+	<string>使用量内訳</string>
+	<key>Usage History</key>
+	<string>使用履歴</string>
+	<key>Usage History Chart</key>
+	<string>使用履歴チャート</string>
+	<key>Usage Over Time</key>
+	<string>時間経過による使用量</string>
+	<key>View detailed health information</key>
+	<string>詳細なヘルス情報を表示</string>
+	<key>View past speed test results</key>
+	<string>過去の速度テスト結果を表示</string>
+	<key>Weekly Health Summary</key>
+	<string>週次ヘルスサマリー</string>
+	<key>Wi-Fi</key>
+	<string>Wi-Fi</string>
+	<key>Wi-Fi (%@%%)</key>
+	<string>Wi-Fi（%@%%）</string>
+	<key>You're within your data usage limits. Great job!</key>
+	<string>データ使用制限の範囲内です。よくできました！</string>
+	<key>📱</key>
+	<string>📱</string>
+</dict>
+</plist>

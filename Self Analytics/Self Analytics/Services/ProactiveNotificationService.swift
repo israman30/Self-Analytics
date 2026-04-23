@@ -43,12 +43,10 @@ final class ProactiveNotificationService {
     
     // MARK: - Setup
     
-    /// Call at app launch to request permissions and schedule background tasks.
+    /// Call at app launch to register background tasks and restore scheduling.
     func configure() {
-        requestNotificationPermission()
         registerBackgroundTasks()
-        scheduleNextBackgroundRefresh()
-        scheduleWeeklyHealthSummaryIfNeeded()
+        Task { await refreshScheduling() }
     }
     
     /// Call when app enters foreground to check metrics and potentially send notifications.
@@ -64,11 +62,63 @@ final class ProactiveNotificationService {
     }
     
     // MARK: - Permission & Background Tasks
-    
-    private func requestNotificationPermission() {
-        notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
-            if granted {
-                self.scheduleNextBackgroundRefresh()
+
+    /// Requests notification authorization as a direct result of a user action (e.g. onboarding / toggle).
+    /// Returns `true` if the system granted authorization.
+    @MainActor
+    func requestAuthorizationFromUser() async -> Bool {
+        await withCheckedContinuation { continuation in
+            notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+                continuation.resume(returning: granted)
+            }
+        }
+    }
+
+    @MainActor
+    func refreshScheduling() async {
+        let settings = await getNotificationSettings()
+        let authorized = settings.authorizationStatus == .authorized
+            || settings.authorizationStatus == .provisional
+            || settings.authorizationStatus == .ephemeral
+
+        let notificationsEnabled = userDefaults.bool(forKey: StorageProperties.notificationsEnabled)
+        let weeklyEnabled = userDefaults.bool(forKey: StorageProperties.weeklyHealthSummaryEnabled)
+
+        if authorized && notificationsEnabled {
+            scheduleNextBackgroundRefresh()
+        } else {
+            BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: "com.selfanalytics.metrics.refresh")
+        }
+
+        if authorized && notificationsEnabled && weeklyEnabled {
+            scheduleWeeklySummaryNotification()
+        } else {
+            notificationCenter.removePendingNotificationRequests(withIdentifiers: [Self.weeklySummaryIdentifier])
+        }
+    }
+
+    @MainActor
+    func handleUserEnabledNotifications() async -> Bool {
+        let settings = await getNotificationSettings()
+        if settings.authorizationStatus == .notDetermined {
+            _ = await requestAuthorizationFromUser()
+        }
+        await refreshScheduling()
+        let updated = await getNotificationSettings()
+        return updated.authorizationStatus == .authorized
+            || updated.authorizationStatus == .provisional
+            || updated.authorizationStatus == .ephemeral
+    }
+
+    func handleUserDisabledNotifications() {
+        BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: "com.selfanalytics.metrics.refresh")
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: [Self.weeklySummaryIdentifier])
+    }
+
+    private func getNotificationSettings() async -> UNNotificationSettings {
+        await withCheckedContinuation { continuation in
+            notificationCenter.getNotificationSettings { settings in
+                continuation.resume(returning: settings)
             }
         }
     }
@@ -255,18 +305,6 @@ final class ProactiveNotificationService {
     // MARK: - Weekly Health Summary (Sunday 9 AM)
     
     private static let weeklySummaryIdentifier = "com.selfanalytics.weeklyHealthSummary"
-    
-    func scheduleWeeklyHealthSummaryIfNeeded() {
-        guard UserDefaults.standard.bool(forKey: StorageProperties.weeklyHealthSummaryEnabled) else {
-            notificationCenter.removePendingNotificationRequests(withIdentifiers: [Self.weeklySummaryIdentifier])
-            return
-        }
-        
-        notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, _ in
-            guard granted, let self else { return }
-            self.scheduleWeeklySummaryNotification()
-        }
-    }
     
     private func scheduleWeeklySummaryNotification() {
         let (title, body) = generateWeeklySummaryContent()

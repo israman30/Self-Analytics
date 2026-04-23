@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>%@ %@</key>
+	<string>%1$@ %2$@</string>
+	<key>%@ %@ percent complete</key>
+	<string>%1$@ %2$@ por ciento completado</string>
+	<key>%@ Chart</key>
+	<string>%@ Cuadro</string>
+	<key>%@ GB</key>
+	<string>%@ GB</string>
+	<key>%@ Mbps</key>
+	<string>%@ Mbps</string>
+	<key>%@%% of total</key>
+	<string>%@%% del total</string>
+	<key>%@. %@</key>
+	<string>%1$@. %2$@</string>
+	<key>%@. Download: %@ Mbps. Upload: %@ Mbps</key>
+	<string>%1$@. Descarga: %2$@ Mbps. Subida: %3$@ Mbps</string>
+	<key>%@: %@</key>
+	<string>%1$@: %2$@</string>
+	<key>%@: %@ Mbps, %@</key>
+	<string>%1$@: %2$@ Mbps, %3$@</string>
+	<key>%lld / 100</key>
+	<string>%lld / 100</string>
+	<key>%lld points</key>
+	<string>%lld puntos</string>
+	<key>%lld%%</key>
+	<string>%lld%%</string>
+	<key>4</key>
+	<string>4</string>
+	<key>Active Alerts</key>
+	<string>Alertas activas</string>
+	<key>Active Limits</key>
+	<string>Límites activos</string>
+	<key>Active data usage alerts: %lld</key>
+	<string>Alertas de uso de datos activos: %lld</string>
+	<key>Active data usage limits: %lld</key>
+	<string>Límites de uso de datos activos: %lld</string>
+	<key>All Clear</key>
+	<string>Todo en orden</string>
+	<key>App</key>
+	<string>Aplicación</string>
+	<key>App Version: %@</key>
+	<string>Versión de la aplicación: %@</string>
+	<key>Battery Level: %lld percent%@</key>
+	<string>Nivel de batería: %lld por ciento%@</string>
+	<key>Battery maximum capacity trend over last 30 days</key>
+	<string>Tendencia de capacidad máxima de batería en los últimos 30 días</string>
+	<key>Build Number: %@</key>
+	<string>Número de compilación: %@</string>
+	<key>Capacity %</key>
+	<string>Capacidad %</string>
+	<key>Cellular</key>
+	<string>Celular</string>
+	<key>Cellular (%@%%)</key>
+	<string>Celular (%@%%)</string>
+	<key>Chart Preview</key>
+	<string>Vista previa del gráfico</string>
+	<key>Charts require iOS 16 or later</key>
+	<string>Los gráficos requieren iOS 16 o posterior</string>
+	<key>Clear All</key>
+	<string>Borrar todo</string>
+	<key>Closes the speed test view</key>
+	<string>Cierra la vista de prueba de velocidad</string>
+	<key>Comprehensive device health monitoring with detailed metrics</key>
+	<string>Monitoreo integral del estado del dispositivo con métricas detalladas</string>
+	<key>Configure data usage limits and alerts</key>
+	<string>Configurar límites de uso de datos y alertas</string>
+	<key>Configure data usage limits and alerts to monitor your cellular and Wi-Fi data consumption.</key>
+	<string>Configure límites de uso de datos y alertas para monitorear su consumo de datos móviles y Wi-Fi.</string>
+	<key>Current battery status</key>
+	<string>Estado actual de la batería</string>
+	<key>Current memory consumption</key>
+	<string>Consumo de memoria actual</string>
+	<key>Current network connection type</key>
+	<string>Tipo de conexión de red actual</string>
+	<key>Data &amp; History</key>
+	<string>Datos e historial</string>
+	<key>Data Storage</key>
+	<string>Almacenamiento de datos</string>
+	<key>Data Usage</key>
+	<string>Uso de datos</string>
+	<key>Data Usage Alerts</key>
+	<string>Alertas de uso de datos</string>
+	<key>Data Usage Settings</key>
+	<string>Configuración de uso de datos</string>
+	<key>Data Usage Statistics</key>
+	<string>Estadísticas de uso de datos</string>
+	<key>Detailed Breakdown</key>
+	<string>Desglose detallado</string>
+	<key>Details</key>
+	<string>Detalles</string>
+	<key>Device Health</key>
+	<string>Estado del dispositivo</string>
+	<key>Device Health Score: %lld out of 100, %@</key>
+	<string>Puntuación de salud del dispositivo: %lld de 100, %@</string>
+	<key>Device Health Widget</key>
+	<string>Widget de salud del dispositivo</string>
+	<key>Device Metrics</key>
+	<string>Métricas del dispositivo</string>
+	<key>Device Model: %@</key>
+	<string>Modelo del dispositivo: %@</string>
+	<key>Done</key>
+	<string>Hecho</string>
+	<key>Double tap to toggle detailed information</key>
+	<string>Toca dos veces para mostrar u ocultar información detallada</string>
+	<key>Error</key>
+	<string>Error</string>
+	<key>Findings</key>
+	<string>Hallazgos</string>
+	<key>Health Score: %lld</key>
+	<string>Puntuación de salud: %lld</string>
+	<key>Health Score: %lld out of 100</key>
+	<string>Puntuación de salud: %lld sobre 100</string>
+	<key>Health status: %@. Tap to %@ details</key>
+	<string>Estado de salud: %1$@. Toca para %2$@ detalles</string>
+	<key>Last Updated</key>
+	<string>Última actualización</string>
+	<key>Limit: %@ • %@</key>
+	<string>Límite: %1$@ • %2$@</string>
+	<key>Memory Usage: %lld percent</key>
+	<string>Uso de memoria: %lld por ciento</string>
+	<key>Monitor your device's health at a glance.</key>
+	<string>Supervise la salud de su dispositivo de un vistazo.</string>
+	<key>Network Type Breakdown</key>
+	<string>Desglose del tipo de red</string>
+	<key>Network: %@</key>
+	<string>Red: %@</string>
+	<key>No Data Usage Alerts</key>
+	<string>Sin alertas de uso de datos</string>
+	<key>No battery aging data yet. Open the app daily to build your trend.</key>
+	<string>Aún no hay datos de envejecimiento de batería. Abre la app diariamente para construir tu tendencia.</string>
+	<key>No security risks detected. Your device and network are safe.</key>
+	<string>No se detectaron riesgos de seguridad. Tu dispositivo y red están seguros.</string>
+	<key>No test history available</key>
+	<string>No hay historial de pruebas disponible</string>
+	<key>OK</key>
+	<string>OK</string>
+	<key>Open the app daily to build your battery capacity trend.</key>
+	<string>Abre la app diariamente para construir tu tendencia de capacidad de batería.</string>
+	<key>Performance Level</key>
+	<string>Nivel de rendimiento</string>
+	<key>Performance Status: %@, %lld data points</key>
+	<string>Estado de rendimiento: %@, %lld puntos de datos</string>
+	<key>Progress: %lld %@</key>
+	<string>Progreso: %lld %@</string>
+	<key>Recommendations</key>
+	<string>Recomendaciones</string>
+	<key>Refresh</key>
+	<string>Actualizar</string>
+	<key>Refresh health score</key>
+	<string>Actualizar puntaje de salud</string>
+	<key>Scan Now</key>
+	<string>Escanear ahora</string>
+	<key>Scanning...</key>
+	<string>Escaneando...</string>
+	<key>Score</key>
+	<string>Puntaje</string>
+	<key>Security Scan</key>
+	<string>Escaneo de seguridad</string>
+	<key>Security Score</key>
+	<string>Puntaje de seguridad</string>
+	<key>Security score %lld out of 100</key>
+	<string>Puntaje de seguridad %lld de 100</string>
+	<key>Shows %@ trends over time</key>
+	<string>Muestra tendencias %@ a lo largo del tiempo</string>
+	<key>Shows %@ value with trend indicator</key>
+	<string>Muestra el valor %@ con el indicador de tendencia</string>
+	<key>Shows detailed device metrics including battery, memory, storage, and network</key>
+	<string>Muestra métricas detalladas del dispositivo, incluida la batería, la memoria, el almacenamiento y la red.</string>
+	<key>Shows how estimated battery capacity has changed over time</key>
+	<string>Muestra cómo ha cambiado la capacidad estimada de la batería con el tiempo</string>
+	<key>Shows key device metrics including health score, battery, memory, and network status</key>
+	<string>Muestra métricas clave del dispositivo, incluido el puntaje de salud, la batería, la memoria y el estado de la red.</string>
+	<key>Shows overall device health performance</key>
+	<string>Muestra el rendimiento general de la salud del dispositivo</string>
+	<key>Starts the network speed test</key>
+	<string>Inicia la prueba de velocidad de red</string>
+	<key>Summary</key>
+	<string>Resumen</string>
+	<key>Sunday morning notification with your device health summary</key>
+	<string>Notificación del domingo por la mañana con el resumen de salud de tu dispositivo</string>
+	<key>Swipe to dismiss alerts or tap to mark as read.</key>
+	<string>Desliza para descartar alertas o toca para marcar como leídas.</string>
+	<key>System Version: %@</key>
+	<string>Versión del sistema: %@</string>
+	<key>Test #%lld</key>
+	<string>Prueba #%lld</string>
+	<key>Test %lld: Download %@ Mbps, Upload %@ Mbps</key>
+	<string>Prueba %1$lld: Descarga %2$@ Mbps, Carga %3$@ Mbps</string>
+	<key>Time</key>
+	<string>Tiempo</string>
+	<key>Time Period</key>
+	<string>Período de tiempo</string>
+	<key>Time Range</key>
+	<string>Rango de tiempo</string>
+	<key>Top Apps by Usage</key>
+	<string>Las mejores aplicaciones por uso</string>
+	<key>Total</key>
+	<string>Total</string>
+	<key>Total Usage</key>
+	<string>Uso total</string>
+	<key>Usage</key>
+	<string>Uso</string>
+	<key>Usage Breakdown</key>
+	<string>Desglose de uso</string>
+	<key>Usage History</key>
+	<string>Historial de uso</string>
+	<key>Usage History Chart</key>
+	<string>Cuadro de historial de uso</string>
+	<key>Usage Over Time</key>
+	<string>Uso a lo largo del tiempo</string>
+	<key>View detailed health information</key>
+	<string>Ver información detallada de salud</string>
+	<key>View past speed test results</key>
+	<string>Ver resultados de pruebas de velocidad anteriores</string>
+	<key>Weekly Health Summary</key>
+	<string>Resumen semanal de salud</string>
+	<key>Wi-Fi</key>
+	<string>Wi-Fi</string>
+	<key>Wi-Fi (%@%%)</key>
+	<string>Wi-Fi (%@%%)</string>
+	<key>You're within your data usage limits. Great job!</key>
+	<string>Estás dentro de tus límites de uso de datos. ¡Excelente trabajo!</string>
+	<key>📱</key>
+	<string>📱</string>
+</dict>
+</plist>
