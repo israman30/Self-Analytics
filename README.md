@@ -51,7 +51,8 @@ A comprehensive iOS app for monitoring device health, performance metrics, cellu
 ## Architecture
 
 ### App structure
-- **Tabs** (`MainTabView.swift`): Dashboard, **Data & History** (single tab with a segmented control: Data Usage ↔ Device History), Security Scan, Settings
+- **Tabs** (`MainTabView.swift`): Dashboard, **Data Usage**, Security Scan, Settings
+- **History access**: From the Data Usage screen, tap **History** in the navigation bar to open Device History full-screen.
 
 ### Models
 - `DeviceMetrics.swift` — core health models (`DeviceHealth`, memory, CPU, battery, storage, network, alerts, recommendations)
@@ -69,7 +70,7 @@ A comprehensive iOS app for monitoring device health, performance metrics, cellu
 
 ### Views (`Views/`)
 - `DashboardView`, `SettingsView`
-- `UsageAndHistoryView` — wraps `DataUsageMainContent` and `HistoryMainContent` with a segmented picker (`DataUsageView`, `HistoryView`)
+- `UsageAndHistoryView` — Data Usage tab root; shows `DataUsageMainContent` and opens `HistoryMainContent` in a full-screen cover via a toolbar button
 - `DataStorageView` — storage breakdown sheet presented from the dashboard menu
 - `AppDataUsageDetailView`, `DataUsageStatisticsView`, `DataUsageAlertsView`, `DataLimitsSettingsView`
 - `SecurityScanView` + `DeviceSecurityScanner`
@@ -119,11 +120,9 @@ A comprehensive iOS app for monitoring device health, performance metrics, cellu
 ### Dashboard
 Health score, metric cards, alerts, recommendations, and quick actions. Use the trailing **⋯** menu for refresh, speed test, **Data Storage** (detail sheet), cache clearing, and jumping to system Settings.
 
-### Data & History (one tab)
-Use the segmented control at the top to switch between **Data Usage** and **History**.
-
-- **Data Usage**: Totals, per-app-style breakdown (illustrative), statistics, limits, and alerts.
-- **History**: Time ranges, trend charts, and summaries (including battery aging where data exists).
+### Data Usage + History
+- **Data Usage tab**: Totals, per-app-style breakdown (illustrative), statistics, limits, and alerts.
+- **History**: From the Data Usage screen, tap **History** (top-right) to open full-screen history with time ranges, trend charts, and summaries (including battery aging where data exists).
 
 ### Security Scan
 Run a scan, review score and findings, pull to refresh.
