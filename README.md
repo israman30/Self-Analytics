@@ -4,7 +4,9 @@ Copyright © 2025–2026 Self Analytics. All rights reserved.
 
 A comprehensive iOS app for monitoring device health, performance metrics, cellular and Wi‑Fi data usage patterns, and security-oriented checks—with smart alerts, optional proactive notifications, and home screen widgets.
 
-**Current release (app target):** 1.2
+**Current release (app target):** 1.3
+
+> Note: In Xcode the app’s display name is set to **“Device Health”** (repo/project name: **Self Analytics**).
 
 ## Features
 
@@ -25,6 +27,10 @@ A comprehensive iOS app for monitoring device health, performance metrics, cellu
 - **In-app alerts**: Storage, performance, and battery-related notices
 - **Proactive notifications**: Optional local notifications for low storage, memory pressure, rapid battery drain, and weekly health summaries (background tasks and notification permissions)
 - **Recommendations**: Storage cleanup, performance, battery, and security-oriented tips
+
+### Welcome & Onboarding
+- **Welcome screen**: Shown on first launch
+- **Notifications opt-in**: After onboarding, the app can prompt to enable notifications (if the in-app setting is enabled)
 
 ### Security Scan
 - **Device security scanner**: On-demand scan with a security score and findings
@@ -114,8 +120,12 @@ A comprehensive iOS app for monitoring device health, performance metrics, cellu
 - **File system** — storage free space (sandbox-allowed APIs)
 - **Notifications** — optional proactive alerts and weekly summary
 - **Background App Refresh** — supports scheduled background metric checks when the user allows it
+- **More detail**: See [`PERMISSIONS_AUDIT.md`](Self%20Analytics/Self%20Analytics/PERMISSIONS_AUDIT.md)
 
 ## Usage Guide
+
+### First launch
+On first launch you’ll see a Welcome screen. After you tap **Get Started**, the app may offer to enable notifications (optional) so it can send proactive health alerts and weekly summaries.
 
 ### Dashboard
 Health score, metric cards, alerts, recommendations, and quick actions. Use the trailing **⋯** menu for refresh, speed test, **Data Storage** (detail sheet), cache clearing, and jumping to system Settings.
