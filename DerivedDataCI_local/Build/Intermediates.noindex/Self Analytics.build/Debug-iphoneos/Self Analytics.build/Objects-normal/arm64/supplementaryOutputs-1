@@ -1,0 +1,30 @@
+{
+  "/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self Analytics/Self Analytics/Models/DataUsageMetrics.swift" : {
+    "const-values" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/DataUsageMetrics.swiftconstvalues",
+    "dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/DataUsageMetrics.d",
+    "diagnostics" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/DataUsageMetrics.dia",
+    "object" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/DataUsageMetrics.o",
+    "swift-dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/DataUsageMetrics.swiftdeps"
+  },
+  "/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self Analytics/Self Analytics/Models/DeviceHealth+WidgetPayload.swift" : {
+    "const-values" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/DeviceHealth+WidgetPayload.swiftconstvalues",
+    "dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/DeviceHealth+WidgetPayload.d",
+    "diagnostics" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/DeviceHealth+WidgetPayload.dia",
+    "object" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/DeviceHealth+WidgetPayload.o",
+    "swift-dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/DeviceHealth+WidgetPayload.swiftdeps"
+  },
+  "/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self Analytics/WidgetShared/DevicePerformanceWidgetPayload.swift" : {
+    "const-values" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/DevicePerformanceWidgetPayload.swiftconstvalues",
+    "dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/DevicePerformanceWidgetPayload.d",
+    "diagnostics" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/DevicePerformanceWidgetPayload.dia",
+    "object" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/DevicePerformanceWidgetPayload.o",
+    "swift-dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/DevicePerformanceWidgetPayload.swiftdeps"
+  },
+  "/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self Analytics/WidgetShared/WidgetSnapshotStore.swift" : {
+    "const-values" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/WidgetSnapshotStore.swiftconstvalues",
+    "dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/WidgetSnapshotStore.d",
+    "diagnostics" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/WidgetSnapshotStore.dia",
+    "object" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/WidgetSnapshotStore.o",
+    "swift-dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedDataCI_local/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/WidgetSnapshotStore.swiftdeps"
+  }
+}

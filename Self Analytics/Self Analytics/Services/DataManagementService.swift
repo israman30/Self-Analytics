@@ -26,7 +26,7 @@ class DataManagementService: ObservableObject {
     
     // MARK: - Data Export
     
-    func exportData() async throws -> URL {
+    func exportData() async throws -> [URL] {
         isExporting = true
         exportProgress = 0.0
         
@@ -61,9 +61,9 @@ class DataManagementService: ObservableObject {
         let csvData = createCSVExport(from: exportData)
         exportProgress = 0.8
         
-        // Save to temporary file
-        let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let exportFolder = documentsPath.appendingPathComponent(SelfAnalyticsExport)
+        // Save to a protected temporary location (export is user-initiated via Share Sheet).
+        let exportRoot = fileManager.temporaryDirectory.appendingPathComponent(SelfAnalyticsExport, isDirectory: true)
+        let exportFolder = exportRoot.appendingPathComponent(UUID().uuidString, isDirectory: true)
         
         // Create export folder if it doesn't exist
         if !fileManager.fileExists(atPath: exportFolder.path) {
@@ -74,19 +74,13 @@ class DataManagementService: ObservableObject {
         let jsonURL = exportFolder.appendingPathComponent("self_analytics_export_\(timestamp).json")
         let csvURL = exportFolder.appendingPathComponent("self_analytics_export_\(timestamp).csv")
         
-        try jsonData.write(to: jsonURL)
-        try csvData.write(to: csvURL)
+        try jsonData.write(to: jsonURL, options: [.atomic, .completeFileProtection])
+        try csvData.write(to: csvURL, options: [.atomic, .completeFileProtection])
         
         exportProgress = 1.0
-        
-        // Create zip file containing both formats
-        let zipURL = try createZipArchive(jsonURL: jsonURL, csvURL: csvURL, timestamp: timestamp)
-        
-        // Clean up individual files
-        try? fileManager.removeItem(at: jsonURL)
-        try? fileManager.removeItem(at: csvURL)
-        
-        return zipURL
+
+        // Return both files so the Share Sheet can export them together.
+        return [jsonURL, csvURL]
     }
     
     // MARK: - Data Clearing
@@ -116,8 +110,7 @@ class DataManagementService: ObservableObject {
             name: device.name,
             model: device.model,
             systemName: device.systemName,
-            systemVersion: device.systemVersion,
-            identifierForVendor: device.identifierForVendor?.uuidString ?? "Unknown"
+            systemVersion: device.systemVersion
         )
     }
     
@@ -265,17 +258,6 @@ class DataManagementService: ObservableObject {
         return csvString.data(using: .utf8) ?? Data()
     }
     
-    private func createZipArchive(jsonURL: URL, csvURL: URL, timestamp: String) throws -> URL {
-        let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let zipURL = documentsPath.appendingPathComponent("SelfAnalytics_Export_\(timestamp).zip")
-        
-        // In a real implementation, you would use a zip library like SSZipArchive
-        // For now, we'll just return the JSON file as the "archive"
-        try fileManager.copyItem(at: jsonURL, to: zipURL)
-        
-        return zipURL
-    }
-    
     private func clearUserDefaults() {
         let domain = Bundle.main.bundleIdentifier!
         userDefaults.removePersistentDomain(forName: domain)
@@ -284,10 +266,14 @@ class DataManagementService: ObservableObject {
     
     private func clearStoredFiles() {
         let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let exportFolder = documentsPath.appendingPathComponent(SelfAnalyticsExport)
+        let legacyExportFolder = documentsPath.appendingPathComponent(SelfAnalyticsExport)
+        let tempExportFolder = fileManager.temporaryDirectory.appendingPathComponent(SelfAnalyticsExport, isDirectory: true)
         
-        if fileManager.fileExists(atPath: exportFolder.path) {
-            try? fileManager.removeItem(at: exportFolder)
+        if fileManager.fileExists(atPath: legacyExportFolder.path) {
+            try? fileManager.removeItem(at: legacyExportFolder)
+        }
+        if fileManager.fileExists(atPath: tempExportFolder.path) {
+            try? fileManager.removeItem(at: tempExportFolder)
         }
     }
     
@@ -315,7 +301,6 @@ struct DeviceInfo: Codable {
     let model: String
     let systemName: String
     let systemVersion: String
-    let identifierForVendor: String
 }
 
 struct AppSettings: Codable {
@@ -324,3 +309,4 @@ struct AppSettings: Codable {
     let showAlerts: Bool
     let darkModeEnabled: Bool
 } 
+

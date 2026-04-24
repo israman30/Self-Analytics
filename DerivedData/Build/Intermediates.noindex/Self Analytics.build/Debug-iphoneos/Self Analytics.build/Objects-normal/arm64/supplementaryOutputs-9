@@ -6,12 +6,12 @@
     "object" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/ContentView.o",
     "swift-dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/ContentView.swiftdeps"
   },
-  "/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self Analytics/Self Analytics/Views/UsageAndHistoryView.swift" : {
-    "const-values" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/UsageAndHistoryView.swiftconstvalues",
-    "dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/UsageAndHistoryView.d",
-    "diagnostics" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/UsageAndHistoryView.dia",
-    "object" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/UsageAndHistoryView.o",
-    "swift-dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/UsageAndHistoryView.swiftdeps"
+  "/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self Analytics/Self Analytics/Views/WelcomeView.swift" : {
+    "const-values" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/WelcomeView.swiftconstvalues",
+    "dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/WelcomeView.d",
+    "diagnostics" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/WelcomeView.dia",
+    "object" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/WelcomeView.o",
+    "swift-dependencies" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/WelcomeView.swiftdeps"
   },
   "/Users/israelmanzo/Documents/GitHub/Self-Analytics/Self Analytics/Self Analytics/Widgets/DeviceHealthWidget.swift" : {
     "const-values" : "/Users/israelmanzo/Documents/GitHub/Self-Analytics/DerivedData/Build/Intermediates.noindex/Self Analytics.build/Debug-iphoneos/Self Analytics.build/Objects-normal/arm64/DeviceHealthWidget.swiftconstvalues",

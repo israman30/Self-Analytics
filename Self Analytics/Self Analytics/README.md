@@ -7,6 +7,7 @@ For the full feature list, architecture notes, and setup instructions, see the r
 ## Navigation (current)
 - **Tabs**: Dashboard, Data Usage, Security Scan, Settings
 - **History**: Open from the Data Usage screen via the top-right **History** button (full-screen)
+- **Onboarding**: A Welcome screen is shown on first launch; after that the app may prompt for optional notification permissions
 
 ## Requirements
 - iOS **17.0**+
