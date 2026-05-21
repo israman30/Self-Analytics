@@ -32,6 +32,7 @@ final class ProactiveNotificationService {
         static let lastWiFiLossNotification = "proactive_lastWiFiLossNotification"
         static let lastNetworkDisconnectedNotification = "proactive_lastNetworkDisconnectedNotification"
         static let lastLowHealthScoreNotification = "proactive_lastLowHealthScoreNotification"
+        static let lastIOSUpdateNotification = "proactive_lastIOSUpdateNotification"
         static let lastBatteryLevel = "proactive_lastBatteryLevel"
         static let lastBatteryCheckTime = "proactive_lastBatteryCheckTime"
         static let lastObservedHealthScore = "proactive_lastObservedHealthScore"
@@ -45,9 +46,11 @@ final class ProactiveNotificationService {
     private let memoryPressureCriticalThreshold: Double = 85.0
     private let cpuHighUsageThreshold: Double = 85.0
     private let lowHealthScoreThreshold: Int = 60
+    private let minimumSafeIOSMajorVersion: Int = 18
     private let batteryDrainThresholdPerHour: Double = 15.0 // % drop per hour
     private let notificationCooldown: TimeInterval = 3600 // 1 hour between same-type notifications
     private let networkNotificationCooldown: TimeInterval = 10 * 60 // 10 minutes
+    private let iOSUpdateNotificationCooldown: TimeInterval = 24 * 3600 // 24 hours
     
     private init() {}
     
@@ -69,6 +72,7 @@ final class ProactiveNotificationService {
         checkRAMPressure(metrics: metrics)
         checkHighCPU(metrics: metrics)
         checkNetworkConnectivity(metrics: metrics)
+        checkIOSUpdateRecommendation()
         checkBatteryDrain(metrics: metrics)
     }
     
@@ -76,6 +80,9 @@ final class ProactiveNotificationService {
     /// Uses the same notification preferences + cooldown behavior as background checks.
     func handleForegroundHealthUpdate(_ health: DeviceHealth) {
         guard areAlertsEnabled else { return }
+        
+        // iOS update recommendation (checked at most once/day; avoid doing it on every tick).
+        checkIOSUpdateRecommendation()
         
         // CPU
         if health.cpu.usagePercentage >= cpuHighUsageThreshold,
@@ -383,6 +390,19 @@ final class ProactiveNotificationService {
         userDefaults.set(Date(), forKey: StorageKeys.lastHighCPUNotification)
     }
     
+    private func checkIOSUpdateRecommendation() {
+        let version = ProcessInfo.processInfo.operatingSystemVersion
+        guard version.majorVersion < minimumSafeIOSMajorVersion else { return }
+        guard shouldSendNotification(key: StorageKeys.lastIOSUpdateNotification, cooldown: iOSUpdateNotificationCooldown) else { return }
+        
+        sendNotification(
+            identifier: "ios-update",
+            title: ProactiveNotificationLabels.iOSUpdateTitle,
+            body: String(format: ProactiveNotificationLabels.iOSUpdateBody, version.majorVersion, minimumSafeIOSMajorVersion)
+        )
+        userDefaults.set(Date(), forKey: StorageKeys.lastIOSUpdateNotification)
+    }
+    
     private func checkNetworkConnectivity(metrics: QuickMetrics) {
         // Track connection type changes across background refreshes.
         let previousRaw = userDefaults.object(forKey: StorageKeys.lastObservedConnectionType) as? String
@@ -578,6 +598,9 @@ private enum ProactiveNotificationLabels {
     
     static let lowHealthScoreTitle = "Device Health Alert"
     static let lowHealthScoreBody = "Your device health score is %d/100 (%@). Review CPU, memory, and storage to improve it."
+    
+    static let iOSUpdateTitle = "iOS Update Recommended"
+    static let iOSUpdateBody = "You’re on iOS %d. Updating to iOS %d or later is recommended for security fixes."
 }
 
 private extension NetworkConnectionType {
