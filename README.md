@@ -25,12 +25,12 @@ A comprehensive iOS app for monitoring device health, performance metrics, cellu
 
 ### Smart Alerts & Recommendations
 - **In-app alerts**: Storage, performance, and battery-related notices
-- **Proactive notifications**: Optional local notifications for low storage, memory pressure, rapid battery drain, and weekly health summaries (background tasks and notification permissions)
+- **Proactive notifications**: Optional local notifications (with cooldowns + background refresh scheduling) for low storage, RAM pressure, high CPU, rapid battery drain, network changes (Wi‑Fi loss / disconnect), low health score drops, iOS update recommendations, and weekly health summaries (requires notification permission and Background App Refresh)
 - **Recommendations**: Storage cleanup, performance, battery, and security-oriented tips
 
 ### Welcome & Onboarding
 - **Welcome screen**: Shown on first launch
-- **Notifications opt-in**: After onboarding, the app can prompt to enable notifications (if the in-app setting is enabled)
+- **Notifications opt-in**: After onboarding, the app can prompt to enable notifications (if the in-app setting is enabled) and guides the user to iOS Settings if authorization is denied
 
 ### Security Scan
 - **Device security scanner**: On-demand scan with a security score and findings
@@ -70,6 +70,7 @@ A comprehensive iOS app for monitoring device health, performance metrics, cellu
 - `AlertService` — alerts and recommendations
 - `DataUsageService` — data usage monitoring and mock/illustrative app usage
 - `ProactiveNotificationService` — background checks and local notifications
+- `NotificationCenterDelegate` — presents notifications while the app is in the foreground
 - `BatteryMetricsHistoryService` — persists battery capacity history for charts
 - `WeeklyMetricsStorage` — daily snapshots for weekly comparison summaries
 - `DataManagementService` — data export and maintenance hooks
@@ -78,6 +79,7 @@ A comprehensive iOS app for monitoring device health, performance metrics, cellu
 - `DashboardView`, `SettingsView`
 - `UsageAndHistoryView` — Data Usage tab root; shows `DataUsageMainContent` and opens `HistoryMainContent` in a full-screen cover via a toolbar button
 - `DataStorageView` — storage breakdown sheet presented from the dashboard menu
+- `NotificationPermissionPromptView` — optional in-app screen to request notification permission and provide “Open iOS Settings” recovery when denied
 - `AppDataUsageDetailView`, `DataUsageStatisticsView`, `DataUsageAlertsView`, `DataLimitsSettingsView`
 - `SecurityScanView` + `DeviceSecurityScanner`
 - `ContactSupport`, `PrivacyPolicyView`, `TermsOfServiceView`
@@ -120,12 +122,13 @@ A comprehensive iOS app for monitoring device health, performance metrics, cellu
 - **File system** — storage free space (sandbox-allowed APIs)
 - **Notifications** — optional proactive alerts and weekly summary
 - **Background App Refresh** — supports scheduled background metric checks when the user allows it
+- **Background tasks** — uses `BGTaskScheduler` with identifier `com.selfanalytics.metrics.refresh` (listed in `Info.plist`) to periodically evaluate thresholds when notifications are enabled
 - **More detail**: See [`PERMISSIONS_AUDIT.md`](Self%20Analytics/Self%20Analytics/PERMISSIONS_AUDIT.md)
 
 ## Usage Guide
 
 ### First launch
-On first launch you’ll see a Welcome screen. After you tap **Get Started**, the app may offer to enable notifications (optional) so it can send proactive health alerts and weekly summaries.
+On first launch you’ll see a Welcome screen. After you tap **Get Started**, the app may offer to enable notifications (optional) so it can send proactive health alerts (including network change and iOS update recommendations) and weekly summaries.
 
 ### Dashboard
 Health score, metric cards, alerts, recommendations, and quick actions. Use the trailing **⋯** menu for refresh, speed test, **Data Storage** (detail sheet), cache clearing, and jumping to system Settings.
