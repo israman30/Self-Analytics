@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import UserNotifications
 import BackgroundTasks
+import Network
 import Darwin
 @preconcurrency import Darwin
 
@@ -27,8 +28,14 @@ final class ProactiveNotificationService {
         static let lastLowStorageNotification = "proactive_lastLowStorageNotification"
         static let lastRAMPressureNotification = "proactive_lastRAMPressureNotification"
         static let lastBatteryDrainNotification = "proactive_lastBatteryDrainNotification"
+        static let lastHighCPUNotification = "proactive_lastHighCPUNotification"
+        static let lastWiFiLossNotification = "proactive_lastWiFiLossNotification"
+        static let lastNetworkDisconnectedNotification = "proactive_lastNetworkDisconnectedNotification"
+        static let lastLowHealthScoreNotification = "proactive_lastLowHealthScoreNotification"
         static let lastBatteryLevel = "proactive_lastBatteryLevel"
         static let lastBatteryCheckTime = "proactive_lastBatteryCheckTime"
+        static let lastObservedHealthScore = "proactive_lastObservedHealthScore"
+        static let lastObservedConnectionType = "proactive_lastObservedConnectionType"
     }
     
     // MARK: - Thresholds
@@ -36,8 +43,11 @@ final class ProactiveNotificationService {
     private let storageWarningThreshold: Double = 90.0
     private let memoryPressureWarningThreshold: Double = 70.0
     private let memoryPressureCriticalThreshold: Double = 85.0
+    private let cpuHighUsageThreshold: Double = 85.0
+    private let lowHealthScoreThreshold: Int = 60
     private let batteryDrainThresholdPerHour: Double = 15.0 // % drop per hour
     private let notificationCooldown: TimeInterval = 3600 // 1 hour between same-type notifications
+    private let networkNotificationCooldown: TimeInterval = 10 * 60 // 10 minutes
     
     private init() {}
     
@@ -51,14 +61,90 @@ final class ProactiveNotificationService {
     
     /// Call when app enters foreground to check metrics and potentially send notifications.
     func checkMetricsAndNotifyIfNeeded() {
-        guard UserDefaults.standard.bool(forKey: StorageProperties.notificationsEnabled) else { return }
-        guard UserDefaults.standard.bool(forKey: StorageProperties.showAlerts) else { return }
+        guard areAlertsEnabled else { return }
         
         let metrics = gatherMetrics()
         
         checkLowStorage(metrics: metrics)
         checkRAMPressure(metrics: metrics)
+        checkHighCPU(metrics: metrics)
+        checkNetworkConnectivity(metrics: metrics)
         checkBatteryDrain(metrics: metrics)
+    }
+    
+    /// Called from in-app foreground monitoring when a fresh `DeviceHealth` snapshot is available.
+    /// Uses the same notification preferences + cooldown behavior as background checks.
+    func handleForegroundHealthUpdate(_ health: DeviceHealth) {
+        guard areAlertsEnabled else { return }
+        
+        // CPU
+        if health.cpu.usagePercentage >= cpuHighUsageThreshold,
+           shouldSendNotification(key: StorageKeys.lastHighCPUNotification) {
+            sendNotification(
+                identifier: "high-cpu",
+                title: ProactiveNotificationLabels.highCpuTitle,
+                body: String(format: ProactiveNotificationLabels.highCpuBody, Int(health.cpu.usagePercentage.rounded()))
+            )
+            userDefaults.set(Date(), forKey: StorageKeys.lastHighCPUNotification)
+        }
+        
+        // Health score (only computed reliably from `DeviceHealth`)
+        let score = health.overallScore
+        let lastScore = userDefaults.object(forKey: StorageKeys.lastObservedHealthScore) as? Int ?? score
+        userDefaults.set(score, forKey: StorageKeys.lastObservedHealthScore)
+        
+        let drop = lastScore - score
+        let shouldWarnScore = score <= lowHealthScoreThreshold || (drop >= 20 && score < 80)
+        if shouldWarnScore,
+           shouldSendNotification(key: StorageKeys.lastLowHealthScoreNotification) {
+            sendNotification(
+                identifier: "low-health-score",
+                title: ProactiveNotificationLabels.lowHealthScoreTitle,
+                body: String(format: ProactiveNotificationLabels.lowHealthScoreBody, score, health.healthStatus.description)
+            )
+            userDefaults.set(Date(), forKey: StorageKeys.lastLowHealthScoreNotification)
+        }
+    }
+    
+    /// Called from network monitoring when the network status changes.
+    func handleNetworkStatusTransition(previous: NetworkStatus, current: NetworkStatus) {
+        guard areAlertsEnabled else { return }
+        guard previous != current else { return }
+        
+        var didNotifyWiFiLoss = false
+        
+        // Losing Wi‑Fi specifically (Wi‑Fi -> anything else)
+        if previous == .wifiConnected, current != .wifiConnected,
+           shouldSendNotification(key: StorageKeys.lastWiFiLossNotification, cooldown: networkNotificationCooldown) {
+            let body: String
+            switch current {
+            case .cellularConnected:
+                body = ProactiveNotificationLabels.wifiLostToCellularBody
+            case .ethernetConnected, .connected:
+                body = ProactiveNotificationLabels.wifiLostSwitchedBody
+            default:
+                body = ProactiveNotificationLabels.wifiLostDisconnectedBody
+            }
+            
+            sendNotification(
+                identifier: "wifi-lost",
+                title: ProactiveNotificationLabels.wifiLostTitle,
+                body: body
+            )
+            userDefaults.set(Date(), forKey: StorageKeys.lastWiFiLossNotification)
+            didNotifyWiFiLoss = true
+        }
+        
+        // Full network disconnect
+        if !didNotifyWiFiLoss, previous.isConnected, !current.isConnected,
+           shouldSendNotification(key: StorageKeys.lastNetworkDisconnectedNotification, cooldown: networkNotificationCooldown) {
+            sendNotification(
+                identifier: "network-disconnected",
+                title: ProactiveNotificationLabels.networkDisconnectedTitle,
+                body: ProactiveNotificationLabels.networkDisconnectedBody
+            )
+            userDefaults.set(Date(), forKey: StorageKeys.lastNetworkDisconnectedNotification)
+        }
     }
     
     // MARK: - Permission & Background Tasks
@@ -160,6 +246,9 @@ final class ProactiveNotificationService {
         let storageUsagePercent: Double
         let memoryUsagePercent: Double
         let memoryPressure: MemoryPressure
+        let cpuUsagePercent: Double
+        let networkStatus: NetworkStatus
+        let connectionType: NetworkConnectionType
         let batteryLevel: Double
         let isCharging: Bool
     }
@@ -167,12 +256,17 @@ final class ProactiveNotificationService {
     private func gatherMetrics() -> QuickMetrics {
         let storageUsage = getStorageUsagePercent()
         let (memoryUsage, memoryPressure) = getMemoryMetrics()
+        let cpuUsage = getEstimatedCPUUsage()
+        let (networkStatus, connectionType) = getNetworkSnapshot()
         let (batteryLevel, isCharging) = getBatteryMetrics()
         
         return QuickMetrics(
             storageUsagePercent: storageUsage,
             memoryUsagePercent: memoryUsage,
             memoryPressure: memoryPressure,
+            cpuUsagePercent: cpuUsage,
+            networkStatus: networkStatus,
+            connectionType: connectionType,
             batteryLevel: batteryLevel,
             isCharging: isCharging
         )
@@ -205,6 +299,22 @@ final class ProactiveNotificationService {
         default: pressure = .critical
         }
         return (usagePercent, pressure)
+    }
+    
+    private func getEstimatedCPUUsage() -> Double {
+        // Same heuristic as `DeviceMetricsService` (iOS doesn't provide direct CPU usage APIs).
+        let processInfo = ProcessInfo.processInfo
+        let systemUptime = processInfo.systemUptime
+        
+        let totalMemory = processInfo.physicalMemory
+        let usedMemory = getUsedMemory()
+        let availableFraction = totalMemory > 0 ? Double(totalMemory - usedMemory) / Double(totalMemory) : 0
+        
+        let baseUsage = 20.0
+        let memoryFactor = (1.0 - availableFraction) * 30.0
+        let timeFactor = sin(systemUptime / 60.0) * 10.0
+        
+        return min(100.0, max(0.0, baseUsage + memoryFactor + timeFactor))
     }
     
     var matchTaskSelf: mach_port_t {
@@ -252,9 +362,54 @@ final class ProactiveNotificationService {
         guard shouldSendNotification(key: StorageKeys.lastRAMPressureNotification) else { return }
         
         let title = ProactiveNotificationLabels.ramPressureTitle
-        let body = ProactiveNotificationLabels.ramPressureBody
+        let body = String(
+            format: ProactiveNotificationLabels.ramPressureBody,
+            Int(metrics.memoryUsagePercent.rounded()),
+            metrics.memoryPressure == .critical ? "critical" : "high"
+        )
         sendNotification(identifier: "ram-pressure", title: title, body: body)
         userDefaults.set(Date(), forKey: StorageKeys.lastRAMPressureNotification)
+    }
+    
+    private func checkHighCPU(metrics: QuickMetrics) {
+        guard metrics.cpuUsagePercent >= cpuHighUsageThreshold else { return }
+        guard shouldSendNotification(key: StorageKeys.lastHighCPUNotification) else { return }
+        
+        sendNotification(
+            identifier: "high-cpu",
+            title: ProactiveNotificationLabels.highCpuTitle,
+            body: String(format: ProactiveNotificationLabels.highCpuBody, Int(metrics.cpuUsagePercent.rounded()))
+        )
+        userDefaults.set(Date(), forKey: StorageKeys.lastHighCPUNotification)
+    }
+    
+    private func checkNetworkConnectivity(metrics: QuickMetrics) {
+        // Track connection type changes across background refreshes.
+        let previousRaw = userDefaults.object(forKey: StorageKeys.lastObservedConnectionType) as? String
+        let previousType = previousRaw.flatMap { NetworkConnectionType.fromPersistedString($0) }
+        userDefaults.set(metrics.connectionType.persistedString, forKey: StorageKeys.lastObservedConnectionType)
+        
+        var didNotifyWiFiLoss = false
+        if previousType == .wifi, metrics.connectionType != .wifi,
+           shouldSendNotification(key: StorageKeys.lastWiFiLossNotification, cooldown: networkNotificationCooldown) {
+            let body = metrics.connectionType == .cellular
+                ? ProactiveNotificationLabels.wifiLostToCellularBody
+                : ProactiveNotificationLabels.wifiLostDisconnectedBody
+            
+            sendNotification(identifier: "wifi-lost", title: ProactiveNotificationLabels.wifiLostTitle, body: body)
+            userDefaults.set(Date(), forKey: StorageKeys.lastWiFiLossNotification)
+            didNotifyWiFiLoss = true
+        }
+        
+        if !didNotifyWiFiLoss, (metrics.networkStatus == .disconnected || metrics.networkStatus == .notFound),
+           shouldSendNotification(key: StorageKeys.lastNetworkDisconnectedNotification, cooldown: networkNotificationCooldown) {
+            sendNotification(
+                identifier: "network-disconnected",
+                title: ProactiveNotificationLabels.networkDisconnectedTitle,
+                body: ProactiveNotificationLabels.networkDisconnectedBody
+            )
+            userDefaults.set(Date(), forKey: StorageKeys.lastNetworkDisconnectedNotification)
+        }
     }
     
     private func checkBatteryDrain(metrics: QuickMetrics) {
@@ -287,9 +442,9 @@ final class ProactiveNotificationService {
         userDefaults.set(Date(), forKey: StorageKeys.lastBatteryDrainNotification)
     }
     
-    private func shouldSendNotification(key: String) -> Bool {
+    private func shouldSendNotification(key: String, cooldown: TimeInterval? = nil) -> Bool {
         guard let lastSent = userDefaults.object(forKey: key) as? Date else { return true }
-        return Date().timeIntervalSince(lastSent) >= notificationCooldown
+        return Date().timeIntervalSince(lastSent) >= (cooldown ?? notificationCooldown)
     }
     
     private func sendNotification(identifier: String, title: String, body: String) {
@@ -300,6 +455,51 @@ final class ProactiveNotificationService {
         
         let request = UNNotificationRequest(identifier: "\(identifier)-\(UUID().uuidString)", content: content, trigger: nil)
         notificationCenter.add(request)
+    }
+    
+    private var areAlertsEnabled: Bool {
+        UserDefaults.standard.bool(forKey: StorageProperties.notificationsEnabled)
+            && UserDefaults.standard.bool(forKey: StorageProperties.showAlerts)
+    }
+    
+    private func getNetworkSnapshot() -> (status: NetworkStatus, connectionType: NetworkConnectionType) {
+        let monitor = NWPathMonitor()
+        let queue = DispatchQueue(label: "ProactiveNotificationService.NetworkSnapshot")
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        var status: NetworkStatus = .unknown
+        var type: NetworkConnectionType = .none
+        
+        monitor.pathUpdateHandler = { path in
+            if path.status == .satisfied {
+                if path.usesInterfaceType(.wifi) {
+                    status = .wifiConnected
+                    type = .wifi
+                } else if path.usesInterfaceType(.cellular) {
+                    status = .cellularConnected
+                    type = .cellular
+                } else if path.usesInterfaceType(.wiredEthernet) {
+                    status = .ethernetConnected
+                    type = .ethernet
+                } else {
+                    status = .connected
+                    type = .wifi
+                }
+            } else {
+                if path.availableInterfaces.isEmpty {
+                    status = .notFound
+                } else {
+                    status = .disconnected
+                }
+                type = .none
+            }
+            semaphore.signal()
+        }
+        
+        monitor.start(queue: queue)
+        _ = semaphore.wait(timeout: .now() + 0.6)
+        monitor.cancel()
+        return (status, type)
     }
     
     // MARK: - Weekly Health Summary (Sunday 9 AM)
@@ -361,8 +561,43 @@ private enum ProactiveNotificationLabels {
     static let lowStorageTitle = "Low Storage Warning"
     static let lowStorageBody = "Your storage is %d%% full. Tap for Quick Clean suggestions."
     static let ramPressureTitle = "High Memory Pressure"
-    static let ramPressureBody = "Your device is under memory pressure. Restart for optimal performance."
+    static let ramPressureBody = "Memory usage is %d%% (%@). Close unused apps to improve performance."
     static let batteryDrainTitle = "High Battery Drain Detected"
     static let batteryDrainBody = "Battery drained faster than usual in the last hour. A background process may be the cause."
+    
+    static let highCpuTitle = "High CPU Usage"
+    static let highCpuBody = "CPU usage is around %d%%. Closing heavy apps can help."
+    
+    static let wifiLostTitle = "Wi‑Fi Connection Changed"
+    static let wifiLostDisconnectedBody = "Wi‑Fi is no longer connected. Check your router or network settings."
+    static let wifiLostToCellularBody = "Wi‑Fi dropped and you’re now on cellular data."
+    static let wifiLostSwitchedBody = "Wi‑Fi is no longer active. Your device switched networks."
+    
+    static let networkDisconnectedTitle = "Network Disconnected"
+    static let networkDisconnectedBody = "No internet connection detected."
+    
+    static let lowHealthScoreTitle = "Device Health Alert"
+    static let lowHealthScoreBody = "Your device health score is %d/100 (%@). Review CPU, memory, and storage to improve it."
+}
+
+private extension NetworkConnectionType {
+    var persistedString: String {
+        switch self {
+        case .wifi: return "wifi"
+        case .cellular: return "cellular"
+        case .ethernet: return "ethernet"
+        case .none: return "none"
+        }
+    }
+    
+    static func fromPersistedString(_ value: String) -> NetworkConnectionType? {
+        switch value {
+        case "wifi": return .wifi
+        case "cellular": return .cellular
+        case "ethernet": return .ethernet
+        case "none": return .some(.none)
+        default: return nil
+        }
+    }
 }
 

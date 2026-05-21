@@ -75,6 +75,10 @@ class DeviceMetricsService: ObservableObject {
         )
         recordWeeklyMetricsIfNeeded(health)
         currentHealth = health
+        
+        // Foreground proactive notifications (cooldown-protected).
+        ProactiveNotificationService.shared.handleForegroundHealthUpdate(health)
+        
         let widgetPayload = health.makeWidgetPayload()
         WidgetSnapshotStore.save(widgetPayload)
         WidgetCenter.shared.reloadTimelines(ofKind: "DevicePerformanceWidget")
@@ -266,9 +270,10 @@ class DeviceMetricsService: ObservableObject {
     private var networkMonitor: NWPathMonitor?
     private var networkQueue = DispatchQueue(label: "NetworkMonitor")
     @Published var networkStatus: NetworkStatus = .unknown
+    private var currentConnectionType: NetworkConnectionType = .none
     
     private func getNetworkMetrics() -> NetworkMetrics {
-        let connectionType = getNetworkConnectionType()
+        let connectionType = currentConnectionType
         let isConnected = connectionType != .none
         
         // Note: iOS doesn't provide direct speed measurement APIs
@@ -285,52 +290,6 @@ class DeviceMetricsService: ObservableObject {
         )
     }
     
-    private func getNetworkConnectionType() -> NetworkConnectionType {
-        // Determine network connection type by observing a single NWPath update
-        let monitor = NWPathMonitor()
-        let queue = DispatchQueue(label: "NetworkTypeQueue")
-
-        // We'll capture the result in an atomic reference via a local constant assignment
-        // to avoid mutating a captured var inside a concurrently executing closure.
-        let semaphore = DispatchSemaphore(value: 0)
-
-        var result: NetworkConnectionType = .none
-
-        monitor.pathUpdateHandler = { path in
-            // Compute the connection type from the path locally and assign to a local var
-            let computedType: NetworkConnectionType
-            if path.status == .satisfied {
-                if path.usesInterfaceType(.wifi) {
-                    computedType = .wifi
-                } else if path.usesInterfaceType(.cellular) {
-                    computedType = .cellular
-                } else if path.usesInterfaceType(.wiredEthernet) {
-                    computedType = .ethernet
-                } else {
-                    // Default to wifi if interface type is unknown but connected
-                    computedType = .wifi
-                }
-            } else {
-                computedType = .none
-            }
-
-            // Assign to our outer scope var exactly once before signaling.
-            // This assignment happens on the monitor's serial queue before we cancel.
-            DispatchQueue.main.async {
-                result = computedType
-            }
-            semaphore.signal()
-        }
-
-        monitor.start(queue: queue)
-
-        // Wait briefly for the first path update
-        _ = semaphore.wait(timeout: .now() + 0.5)
-
-        monitor.cancel()
-        return result
-    }
-    
     private func checkNetworkAvailability() {
         // Check if any network interfaces are available
         let monitor = NWPathMonitor()
@@ -340,6 +299,7 @@ class DeviceMetricsService: ObservableObject {
             DispatchQueue.main.async {
                 if path.status == .unsatisfied && path.availableInterfaces.isEmpty {
                     self?.networkStatus = .notFound
+                    self?.currentConnectionType = .none
                     self?.updateMetrics()
                 }
             }
@@ -369,21 +329,31 @@ class DeviceMetricsService: ObservableObject {
     private var previousNetworkStatus: NetworkStatus = .unknown
     
     private func updateNetworkStatus(path: NWPath) {
+        let previous = previousNetworkStatus
         let newStatus: NetworkStatus
+        let newConnectionType: NetworkConnectionType
         
         if path.status == .satisfied {
             if path.usesInterfaceType(.wifi) {
                 newStatus = .wifiConnected
+                newConnectionType = .wifi
             } else if path.usesInterfaceType(.cellular) {
                 newStatus = .cellularConnected
+                newConnectionType = .cellular
             } else if path.usesInterfaceType(.wiredEthernet) {
                 newStatus = .ethernetConnected
+                newConnectionType = .ethernet
             } else {
                 newStatus = .connected
+                // Default to Wi‑Fi for unknown-but-connected paths (consistent with previous logic).
+                newConnectionType = .wifi
             }
         } else {
             newStatus = .disconnected
+            newConnectionType = .none
         }
+        
+        ProactiveNotificationService.shared.handleNetworkStatusTransition(previous: previous, current: newStatus)
         
         // Check if connection was restored
         if !previousNetworkStatus.isConnected && newStatus.isConnected {
@@ -397,6 +367,7 @@ class DeviceMetricsService: ObservableObject {
             networkStatus = newStatus
         }
         
+        currentConnectionType = newConnectionType
         previousNetworkStatus = newStatus
         
         // Update metrics when network status changes
