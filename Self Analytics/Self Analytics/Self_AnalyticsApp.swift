@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 @main
 struct Self_AnalyticsApp: App {
     init() {
         ProactiveNotificationService.shared.configure()
+        UNUserNotificationCenter.current().delegate = NotificationCenterDelegate.shared
     }
     
     var body: some Scene {

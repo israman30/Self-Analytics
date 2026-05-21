@@ -29,7 +29,7 @@ struct NotificationPermissionPromptView: View {
                         .font(.title2)
                         .fontWeight(.bold)
                     
-                    Text("Get alerts for low storage, high memory pressure, and unusual battery drain. You can change this any time in Settings.")
+                    Text("Get alerts for network changes, high CPU/memory, low storage, battery drain, and iOS update recommendations. You can change this any time in Settings.")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)

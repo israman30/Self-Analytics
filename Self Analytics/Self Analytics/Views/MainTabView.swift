@@ -84,7 +84,7 @@ struct MainTabView: View {
             }
             .disabled(isRequestingNotifications)
         } message: {
-            Text("Get alerts for low storage, high memory pressure, and unusual battery drain. You can change this any time in Settings.")
+            Text("Get alerts for network changes, high CPU/memory, low storage, battery drain, and iOS update recommendations. You can change this any time in Settings.")
         }
         .alert("Notifications are Disabled", isPresented: $showNotificationsDeniedAlert) {
             Button("Open iOS Settings") {
