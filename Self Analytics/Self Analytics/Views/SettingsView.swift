@@ -37,8 +37,11 @@ struct SettingsView: View {
     @State private var exportURLs: [URL] = []
     @State private var showingErrorAlert = false
     @State private var errorMessage = ""
+    @State private var showNotificationsDeniedAlert = false
     @StateObject private var dataUsageService = DataUsageService()
     private var deviceInformation = DeviceInformation()
+    
+    @Environment(\.openURL) private var openURL
     
     var body: some View {
         NavigationStack {
@@ -79,7 +82,15 @@ struct SettingsView: View {
                         )
                         .onChange(of: notificationsEnabled) { _, newValue in
                             if newValue {
-                                Task { _ = await ProactiveNotificationService.shared.handleUserEnabledNotifications() }
+                                Task {
+                                    let granted = await ProactiveNotificationService.shared.handleUserEnabledNotifications()
+                                    if !granted {
+                                        await MainActor.run {
+                                            notificationsEnabled = false
+                                            showNotificationsDeniedAlert = true
+                                        }
+                                    }
+                                }
                             } else {
                                 ProactiveNotificationService.shared.handleUserDisabledNotifications()
                             }
@@ -327,6 +338,16 @@ struct SettingsView: View {
                 Button("OK", role: .cancel) { }
             } message: {
                 Text(errorMessage)
+            }
+            .alert("Notifications are Disabled", isPresented: $showNotificationsDeniedAlert) {
+                Button("Open iOS Settings") {
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        openURL(url)
+                    }
+                }
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text("To turn them on, open iOS Settings → Notifications → Self Analytics.")
             }
             .navigationTitle(SettingViewLabels.settings)
             .navigationBarTitleDisplayMode(.large)
