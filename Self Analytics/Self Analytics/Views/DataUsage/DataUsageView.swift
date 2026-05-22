@@ -8,6 +8,16 @@
 import SwiftUI
 import Charts
 
+struct DataUsageView: View {
+    var body: some View {
+        NavigationStack {
+            DataUsageMainContent()
+                .navigationTitle(DataUsageLabels.dataUsage)
+                .navigationBarTitleDisplayMode(.large)
+        }
+    }
+}
+
 /// Scrollable data usage UI; embed inside a `NavigationStack` (see `DataUsageView` or `UsageAndHistoryView`).
 struct DataUsageMainContent: View {
     @StateObject private var dataUsageService = DataUsageService()
@@ -469,247 +479,6 @@ struct DataUsageMainContent: View {
     }
 }
 
-// MARK: - Supporting Views
-
-struct SummaryCard: View {
-    let title: String
-    let value: String
-    let subtitle: String
-    let color: Color
-    let icon: String
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                Image(systemName: icon)
-                    .foregroundColor(color)
-                    .font(.title2)
-                
-                Spacer()
-                
-                Text(title)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-            
-            Text(value)
-                .font(.title2)
-                .fontWeight(.bold)
-                .foregroundColor(.primary)
-            
-            Text(subtitle)
-                .font(.caption)
-                .foregroundColor(.secondary)
-        }
-        .padding()
-        .background(Color(.systemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-        .shadow(color: .black.opacity(0.06), radius: 4, x: 0, y: 2)
-    }
-}
-
-struct AlertRow: View {
-    let alert: DataUsageAlert
-    let onRead: () -> Void
-    
-    var body: some View {
-        HStack(spacing: 12) {
-            Image(systemName: alert.threshold.alertType == .critical ? DataUsageLabels.Icon.exclamationmark_triangle_fill : DataUsageLabels.Icon.exclamationmark_triangle)
-                .foregroundColor(alert.threshold.alertType == .critical ? .red : .orange)
-                .font(.title3)
-            
-            VStack(alignment: .leading, spacing: 4) {
-                Text(alert.limitType.description)
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.primary)
-                
-                Text(alert.alertMessage)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .lineLimit(2)
-            }
-            
-            Spacer()
-            
-            VStack(alignment: .trailing, spacing: 4) {
-                Text("\(Int(alert.usagePercentage))%")
-                    .font(.caption)
-                    .fontWeight(.bold)
-                    .foregroundColor(alert.threshold.alertType == .critical ? .red : .orange)
-                
-                if !alert.isRead {
-                    Circle()
-                        .fill(Color.red)
-                        .frame(width: 8, height: 8)
-                }
-            }
-        }
-        .padding(.vertical, 8)
-        .onTapGesture {
-            onRead()
-        }
-    }
-}
-
-struct AppUsageRow: View {
-    let app: AppDataUsage
-    
-    var body: some View {
-        HStack(spacing: 12) {
-            // App Icon Placeholder
-            RoundedRectangle(cornerRadius: 8)
-                .fill(Color.blue.opacity(0.2))
-                .frame(width: 40, height: 40)
-                .overlay(
-                    Text(String(app.appName.prefix(1)))
-                        .font(.headline)
-                        .foregroundColor(.blue)
-                )
-            
-            VStack(alignment: .leading, spacing: 4) {
-                Text(app.appName)
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.primary)
-                
-                HStack(spacing: 8) {
-                    if app.cellularBytes > 0 {
-                        HStack(spacing: 4) {
-                            Image(systemName: DataUsageLabels.Icon.antenna_radiowaves_left_and_right)
-                                .foregroundColor(.red)
-                                .font(.caption)
-                            Text(app.formattedCellularUsage)
-                                .font(.caption)
-                                .foregroundColor(.red)
-                        }
-                    }
-                    
-                    if app.wifiBytes > 0 {
-                        HStack(spacing: 4) {
-                            Image(systemName: DataUsageLabels.Icon.wifi)
-                                .foregroundColor(.green)
-                                .font(.caption)
-                            Text(app.formattedWifiUsage)
-                                .font(.caption)
-                                .foregroundColor(.green)
-                        }
-                    }
-                }
-            }
-            
-            Spacer()
-            
-            VStack(alignment: .trailing, spacing: 4) {
-                Text(app.formattedTotalUsage)
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.primary)
-                
-                Text(DataUsageLabels.total)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-        }
-        .padding(.vertical, 8)
-    }
-}
-
-struct DataLimitRow: View {
-    let limit: DataUsageLimit
-    let currentUsage: UInt64
-    
-    private var progress: Double {
-        guard limit.limitValue > 0 else { return 0 }
-        return Double(currentUsage) / Double(limit.limitValue)
-    }
-    
-    private var progressColor: Color {
-        if progress >= 0.9 {
-            return .red
-        } else if progress >= 0.75 {
-            return .orange
-        } else {
-            return .green
-        }
-    }
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                Image(systemName: limit.limitType.icon)
-                    .foregroundColor(.blue)
-                    .font(.title3)
-                
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(limit.limitType.description)
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.primary)
-                    
-                    Text(limit.periodType.description)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-                
-                Spacer()
-                
-                Text("\(Int(progress * 100))%")
-                    .font(.caption)
-                    .fontWeight(.bold)
-                    .foregroundColor(progressColor)
-            }
-            
-            ProgressView(value: progress)
-                .progressViewStyle(LinearProgressViewStyle(tint: progressColor))
-                .scaleEffect(x: 1, y: 1.5, anchor: .center)
-            
-            HStack {
-                Text(ByteCountFormatter.string(fromByteCount: Int64(currentUsage), countStyle: .file))
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                
-                Spacer()
-                
-                Text(limit.formattedLimit)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-        }
-        .padding(.vertical, 8)
-    }
-}
-
-struct StatisticCard: View {
-    let title: String
-    let value: String
-    let icon: String
-    let color: Color
-    
-    var body: some View {
-        VStack(spacing: 8) {
-            Image(systemName: icon)
-                .foregroundColor(color)
-                .font(.title2)
-            
-            Text(title)
-                .font(.caption)
-                .foregroundColor(.secondary)
-            
-            Text(value)
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .foregroundColor(.primary)
-                .lineLimit(1)
-                .minimumScaleFactor(0.8)
-        }
-        .padding()
-        .background(Color(.systemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-        .shadow(color: .black.opacity(0.06), radius: 2, x: 0, y: 1)
-    }
-}
-
 // MARK: - All Apps List Sheet
 
 private struct AllAppsListSheet: View {
@@ -739,16 +508,6 @@ private struct AllAppsListSheet: View {
             }
         }
         .presentationDetents([.medium, .large])
-    }
-}
-
-struct DataUsageView: View {
-    var body: some View {
-        NavigationStack {
-            DataUsageMainContent()
-                .navigationTitle(DataUsageLabels.dataUsage)
-                .navigationBarTitleDisplayMode(.large)
-        }
     }
 }
 
