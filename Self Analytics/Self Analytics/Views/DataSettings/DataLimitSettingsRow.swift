@@ -33,17 +33,7 @@ struct DataLimitSettingsRow: View {
                 if limit.isEnabled {
                     HStack {
                         ForEach(limit.alertThresholds, id: \.id) { threshold in
-                            if threshold.isEnabled {
-                                Text("\(Int(threshold.percentage))%")
-                                    .font(.caption2)
-                                    .padding(.horizontal, 6)
-                                    .padding(.vertical, 2)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 4)
-                                            .fill(threshold.alertType == .critical ? Color.red.opacity(0.2) : Color.orange.opacity(0.2))
-                                    )
-                                    .foregroundColor(threshold.alertType == .critical ? .red : .orange)
-                            }
+                            thresholdView(threshold: threshold)
                         }
                     }
                 }
@@ -65,6 +55,21 @@ struct DataLimitSettingsRow: View {
             }
         }
         .padding(.vertical, 4)
+    }
+    
+    @ViewBuilder
+    private func thresholdView(threshold: AlertThreshold) -> some View {
+        if threshold.isEnabled {
+            Text("\(Int(threshold.percentage))%")
+                .font(.caption2)
+                .padding(.horizontal, 6)
+                .padding(.vertical, 2)
+                .background(
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(threshold.alertType == .critical ? Color.red.opacity(0.2) : Color.orange.opacity(0.2))
+                )
+                .foregroundColor(threshold.alertType == .critical ? .red : .orange)
+        }
     }
 }
 
