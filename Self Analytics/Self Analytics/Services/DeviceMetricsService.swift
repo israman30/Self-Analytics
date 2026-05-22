@@ -31,8 +31,14 @@ class DeviceMetricsService: ObservableObject {
     /// UI-facing refresh cadence. Keep this modest to avoid battery/CPU churn.
     private let updateInterval: TimeInterval = 5.0 // Update every 5 seconds
     
-    init() {
-        startMonitoring()
+    init(shouldStartMonitoring: Bool = true) {
+        if shouldStartMonitoring {
+            startMonitoring()
+        }
+    }
+
+    convenience init(startMonitoring: Bool = true) {
+        self.init(shouldStartMonitoring: startMonitoring)
     }
     
     deinit {

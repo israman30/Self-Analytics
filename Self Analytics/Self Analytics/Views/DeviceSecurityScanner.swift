@@ -158,8 +158,8 @@ class DeviceSecurityScanner: ObservableObject {
                 30
             )
         }
-        #endif
         return (nil, nil, 0)
+        #endif
     }
 
     private func checkPasscodeStatus() -> (SecurityFinding?, SecurityRecommendation?, Int) {

@@ -38,9 +38,15 @@ class DataUsageService: ObservableObject {
     private var mockAppData: [String: AppDataUsage] = [:]
     private var lastUpdateTime: Date = Date()
     
-    init() {
+    init(shouldStartMonitoring: Bool = true) {
         setupInitialData()
-        startMonitoring()
+        if shouldStartMonitoring {
+            startMonitoring()
+        }
+    }
+
+    convenience init(startMonitoring: Bool = true) {
+        self.init(shouldStartMonitoring: startMonitoring)
     }
     
     deinit {

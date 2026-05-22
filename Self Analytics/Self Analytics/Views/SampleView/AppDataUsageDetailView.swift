@@ -12,7 +12,17 @@ struct AppDataUsageDetailView: View {
     let app: AppDataUsage
     @Environment(\.dismiss) private var dismiss
     @State private var selectedPeriod: DataUsagePeriod.PeriodType = .today
-    @StateObject private var dataUsageService = DataUsageService()
+    @StateObject private var dataUsageService: DataUsageService
+
+    init(app: AppDataUsage) {
+        self.app = app
+        self._dataUsageService = StateObject(wrappedValue: DataUsageService())
+    }
+
+    init(app: AppDataUsage, dataUsageService: DataUsageService) {
+        self.app = app
+        self._dataUsageService = StateObject(wrappedValue: dataUsageService)
+    }
     
     var body: some View {
         NavigationView {
@@ -464,12 +474,3 @@ struct UsageBreakdownRow: View {
     }
 }
 
-#Preview {
-    AppDataUsageDetailView(app: AppDataUsage(
-        bundleIdentifier: "com.example.app",
-        appName: "Example App",
-        iconData: nil,
-        cellularBytes: 100 * 1024 * 1024,
-        wifiBytes: 500 * 1024 * 1024
-    ))
-}

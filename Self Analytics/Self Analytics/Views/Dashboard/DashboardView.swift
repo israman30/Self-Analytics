@@ -8,26 +8,6 @@
 import SwiftUI
 import Charts
 
-/// Lightweight device-identifying strings for the dashboard header.
-///
-/// This is intentionally UI-focused (name + OS version) and does not attempt to perform hardware model lookups.
-struct DeviceInformation {
-    
-    static let shared = DeviceInformation()
-    
-    func getDeviceName() -> String {
-        return UIDevice.current.name
-    }
-    
-    func getDeviceModel() -> String {
-        let device = UIDevice.current
-        let systemName = device.systemName
-        let systemVersion = device.systemVersion
-        
-        return "\(systemName) \(systemVersion)"
-    }
-}
-
 /// Main dashboard showing the current `DeviceHealth` snapshot plus alerts, recommendations, and quick actions.
 ///
 /// **Implementation notes**
@@ -50,6 +30,13 @@ struct DashboardView: View {
         self._metricsService = StateObject(wrappedValue: metricsService)
         self._alertService = StateObject(
             wrappedValue: AlertService(metricsService: metricsService)
+        )
+    }
+
+    init(metricsService: DeviceMetricsService, alertService: AlertService? = nil) {
+        self._metricsService = StateObject(wrappedValue: metricsService)
+        self._alertService = StateObject(
+            wrappedValue: alertService ?? AlertService(metricsService: metricsService)
         )
     }
     
@@ -1007,420 +994,82 @@ struct DashboardView: View {
     }
 }
 
-// MARK: - QuickActionButton setup
-struct QuickActionButton: View {
-    let title: String
-    let icon: String
-    let color: Color
-    let action: () -> Void
-    @State private var isPressed = false
-    
-    var body: some View {
-        Button(action: action) {
-            VStack(spacing: 12) {
-                // Icon with background circle
-                ZStack {
-                    Circle()
-                        .fill(color.opacity(0.15))
-                        .frame(width: 48, height: 48)
-                    
-                    Image(systemName: icon)
-                        .font(.title2)
-                        .foregroundColor(color)
-                        .accessibilityHidden(true)
-                }
-                
-                // Title with better typography
-                Text(title)
-                    .font(.subheadline)
-                    .fontWeight(.medium)
-                    .foregroundColor(.primary)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(2)
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 16)
-            .padding(.horizontal, 12)
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(Color(.systemBackground))
-                    .shadow(
-                        color: color.opacity(0.1),
-                        radius: isPressed ? 2 : 6,
-                        x: 0,
-                        y: isPressed ? 1 : 3
-                    )
+#Preview("Dashboard (Mock)") {
+    let metricsService: DeviceMetricsService = {
+        let service = DeviceMetricsService(startMonitoring: false)
+        service.currentHealth = DeviceHealth(
+            memory: MemoryMetrics(
+                usedMemory: 6_300_000_000,
+                totalMemory: 8_000_000_000,
+                availableMemory: 1_700_000_000,
+                memoryPressure: .warning
+            ),
+            cpu: CPUMetrics(usagePercentage: 82.4, temperature: 41.0),
+            battery: BatteryMetrics(
+                level: 0.18,
+                isCharging: false,
+                isLowPowerMode: false,
+                health: .fair,
+                cycleCount: nil
+            ),
+            storage: StorageMetrics(
+                totalSpace: 128 * 1024 * 1024 * 1024,
+                usedSpace: 119 * 1024 * 1024 * 1024,
+                availableSpace: 9 * 1024 * 1024 * 1024,
+                systemSpace: 12 * 1024 * 1024 * 1024
+            ),
+            network: NetworkMetrics(
+                downloadSpeed: 3.2,
+                uploadSpeed: 0.7,
+                connectionType: .cellular,
+                isConnected: true,
+                status: .cellularConnected
+            ),
+            timestamp: Date().addingTimeInterval(-90)
+        )
+        return service
+    }()
+
+    let alertService: AlertService = {
+        let service = AlertService(metricsService: metricsService)
+        service.activeAlerts = [
+            DeviceAlert(
+                type: .lowStorage,
+                title: AlertServiceLabels.storageAlmostFull,
+                message: "Your device storage is 93.0% full. Consider freeing up space.",
+                severity: .high,
+                timestamp: Date().addingTimeInterval(-300),
+                isResolved: false
+            ),
+            DeviceAlert(
+                type: .highCPUUsage,
+                title: AlertServiceLabels.highCPUUsage,
+                message: "CPU usage is at 82.4%. This may affect battery life.",
+                severity: .medium,
+                timestamp: Date().addingTimeInterval(-180),
+                isResolved: false
             )
-            .overlay(
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(color.opacity(0.2), lineWidth: 1)
+        ]
+        service.recommendations = [
+            DeviceRecommendation(
+                type: .clearCache,
+                title: AlertServiceLabels.clearAppCache,
+                description: "Free up space by clearing cached data from apps",
+                action: "Clear Cache",
+                impact: .medium,
+                isCompleted: false
+            ),
+            DeviceRecommendation(
+                type: .runSpeedTest,
+                title: AlertServiceLabels.runNetworkSpeedTest,
+                description: "Check your actual network performance",
+                action: "Test Speed",
+                impact: .low,
+                isCompleted: false
             )
-            .scaleEffect(isPressed ? 0.95 : 1.0)
-            .animation(.easeInOut(duration: 0.1), value: isPressed)
-        }
-        .buttonStyle(PlainButtonStyle())
-        .onLongPressGesture(
-            minimumDuration: 0,
-            maximumDistance: .infinity,
-            pressing: { pressing in
-                withAnimation(.easeInOut(duration: 0.1)) {
-                    isPressed = pressing
-                }
-            },
-            perform: {})
-        .accessibilityLabel(title)
-        .accessibilityHint(AccessibilityLabels.tapToActivate)
-        .accessibilityAddTraits(.isButton)
-    }
+        ]
+        return service
+    }()
+
+    DashboardView(metricsService: metricsService, alertService: alertService)
 }
-
-struct SpeedTestView: View {
-    @Binding var result: (download: Double, upload: Double)?
-    @Environment(\.dismiss) private var dismiss
-    @State private var isRunning = false
-    @State private var progress = 0.0
-    @State private var testHistory: [(download: Double, upload: Double, timestamp: Date)] = []
-    @State private var showingHistory = false
-    
-    var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 32) {
-                    if isRunning {
-                        speedTestRunningView
-                    } else if let result = result {
-                        speedTestResultView(result: result)
-                    } else {
-                        speedTestIdleView
-                    }
-                    
-                    if !isRunning {
-                        Button(result == nil ? SpeedTestViewLabels.startTest : SpeedTestViewLabels.testAgain) {
-                            runSpeedTest()
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .controlSize(.large)
-                        .accessibilityLabel(result == nil ? SpeedTestViewLabels.startTest : SpeedTestViewLabels.testAgain)
-                        .accessibilityHint("Starts the network speed test")
-                    }
-                }
-                .padding(24)
-            }
-            .background(Color(.systemGroupedBackground))
-            .navigationTitle(SpeedTestViewLabels.speedTest)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(SpeedTestViewLabels.history) {
-                        showingHistory = true
-                    }
-                    .disabled(testHistory.isEmpty)
-                    .accessibilityLabel(SpeedTestViewLabels.history)
-                    .accessibilityHint(testHistory.isEmpty ? "No test history available" : "View past speed test results")
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(SpeedTestViewLabels.done) {
-                        dismiss()
-                    }
-                    .accessibilityLabel(SpeedTestViewLabels.done)
-                    .accessibilityHint("Closes the speed test view")
-                }
-            }
-            .sheet(isPresented: $showingHistory) {
-                SpeedTestHistoryView(history: testHistory)
-            }
-        }
-    }
-    
-    private var speedTestRunningView: some View {
-        VStack(spacing: 24) {
-            ProgressView(value: progress, total: 100)
-                .progressViewStyle(.linear)
-                .tint(.blue)
-                .scaleEffect(x: 1, y: 2, anchor: .center)
-            
-            Text(SpeedTestViewLabels.testingNetworkSpeed)
-                .font(.headline)
-            
-            Text("\(String(format: "%.0f", progress))%")
-                .font(.title2)
-                .fontWeight(.semibold)
-                .foregroundColor(.blue)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(32)
-        .background(Color(.systemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(SpeedTestViewLabels.testingNetworkSpeed) \(String(format: "%.0f", progress)) percent complete")
-    }
-    
-    private func speedTestResultView(result: (download: Double, upload: Double)) -> some View {
-        VStack(spacing: 24) {
-            Image(systemName: SpeedTestViewLabels.Icon.checkmark_circle_fill)
-                .font(.system(size: 60))
-                .foregroundColor(.green)
-            
-            Text(SpeedTestViewLabels.speedTestComplete)
-                .font(.title2)
-                .fontWeight(.semibold)
-            
-            VStack(spacing: 16) {
-                SpeedResultRow(
-                    title: SpeedTestViewLabels.download,
-                    speed: result.download,
-                    icon: SpeedTestViewLabels.Icon.arrow_down_circle_fill,
-                    color: .blue
-                )
-                
-                SpeedResultRow(
-                    title: SpeedTestViewLabels.upload,
-                    speed: result.upload,
-                    icon: SpeedTestViewLabels.Icon.arrow_up_circle_fill,
-                    color: .green
-                )
-            }
-            .padding(20)
-            .frame(maxWidth: .infinity)
-            .background(Color(.systemGray6))
-            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-        }
-        .frame(maxWidth: .infinity)
-        .padding(24)
-        .background(Color(.systemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(SpeedTestViewLabels.speedTestComplete). Download: \(String(format: "%.1f", result.download)) Mbps. Upload: \(String(format: "%.1f", result.upload)) Mbps")
-    }
-    
-    private var speedTestIdleView: some View {
-        VStack(spacing: 16) {
-            Image(systemName: SpeedTestViewLabels.Icon.speedometer)
-                .font(.system(size: 60))
-                .foregroundColor(.blue)
-            
-            Text(SpeedTestViewLabels.networkSpeedTest)
-                .font(.title2)
-                .fontWeight(.semibold)
-            
-            Text(SpeedTestViewLabels.testInternetConnectionPerformance)
-                .font(.body)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(32)
-        .background(Color(.systemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(SpeedTestViewLabels.networkSpeedTest). \(SpeedTestViewLabels.testInternetConnectionPerformance)")
-    }
-    
-    private func runSpeedTest() {
-        Task {
-            isRunning = true
-            progress = 0
-            
-            for i in 0...100 {
-                progress = Double(i)
-                try? await Task.sleep(nanoseconds: 50_000_000)
-            }
-            
-            let newResult = (
-                download: Double.random(in: 10...100),
-                upload: Double.random(in: 5...50)
-            )
-            
-            result = newResult
-            
-            testHistory.append((
-                download: newResult.download,
-                upload: newResult.upload,
-                timestamp: Date()
-            ))
-            
-            if testHistory.count > 10 {
-                testHistory.removeFirst()
-            }
-            
-            isRunning = false
-        }
-    }
-}
-
-// Speed Result Row
-struct SpeedResultRow: View {
-    let title: String
-    let speed: Double
-    let icon: String
-    let color: Color
-    
-    var body: some View {
-        HStack {
-            Image(systemName: icon)
-                .foregroundColor(color)
-                .font(.title3)
-            
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                
-                Text("\(String(format: "%.1f", speed)) Mbps")
-                    .font(.headline)
-                    .fontWeight(.semibold)
-            }
-
-            Spacer()
-            
-            Text(speedDescription)
-                .font(.caption)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
-                .background(speedColor.opacity(0.2))
-                .foregroundColor(speedColor)
-                .cornerRadius(8)
-        }
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(title): \(String(format: "%.1f", speed)) Mbps, \(speedDescription)")
-    }
-    // Speed Description helper
-    private var speedDescription: String {
-        if speed >= 50 {
-            return SpeedTestViewLabels.fast
-        } else if speed >= 25 {
-            return SpeedTestViewLabels.good
-        } else if speed >= 10 {
-            return SpeedTestViewLabels.fair
-        } else {
-            return SpeedTestViewLabels.slow
-        }
-    }
-    // Speed Color helper
-    private var speedColor: Color {
-        if speed >= 50 {
-            return .green
-        } else if speed >= 25 {
-            return .blue
-        } else if speed >= 10 {
-            return .orange
-        } else {
-            return .red
-        }
-    }
-}
-
-// MARK: - Speed Test History View
-struct SpeedTestHistoryView: View {
-    let history: [(download: Double, upload: Double, timestamp: Date)]
-    @Environment(\.dismiss) private var dismiss
-    
-    var body: some View {
-        NavigationStack {
-            List {
-                ForEach(Array(history.enumerated().reversed()), id: \.offset) { index, test in
-                    VStack(alignment: .leading, spacing: 8) {
-                        HStack {
-                            Text("Test #\(history.count - index)")
-                                .font(.headline)
-                                .foregroundColor(.primary)
-                            
-                            Spacer()
-                            
-                            Text(test.timestamp, style: .relative)
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                        }
-                        
-                        HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(SpeedTestViewLabels.download)
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                                Text("\(String(format: "%.1f", test.download)) Mbps")
-                                    .font(.subheadline)
-                                    .fontWeight(.semibold)
-                                    .foregroundColor(.blue)
-                            }
-                            
-                            Spacer()
-                            
-                            VStack(alignment: .trailing, spacing: 4) {
-                                Text(SpeedTestViewLabels.upload)
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                                Text("\(String(format: "%.1f", test.upload)) Mbps")
-                                    .font(.subheadline)
-                                    .fontWeight(.semibold)
-                                    .foregroundColor(.green)
-                            }
-                        }
-                        
-                        HStack {
-                            Text(speedDescription(for: test.download))
-                                .font(.caption)
-                                .padding(.horizontal, 8)
-                                .padding(.vertical, 4)
-                                .background(speedColor(for: test.download).opacity(0.2))
-                                .foregroundColor(speedColor(for: test.download))
-                                .cornerRadius(8)
-                            
-                            Spacer()
-                            
-                            Text(speedDescription(for: test.upload))
-                                .font(.caption)
-                                .padding(.horizontal, 8)
-                                .padding(.vertical, 4)
-                                .background(speedColor(for: test.upload).opacity(0.2))
-                                .foregroundColor(speedColor(for: test.upload))
-                                .cornerRadius(8)
-                        }
-                    }
-                    .padding(.vertical, 4)
-                    .accessibilityElement(children: .combine)
-                    .accessibilityLabel("Test \(history.count - index): Download \(String(format: "%.1f", test.download)) Mbps, Upload \(String(format: "%.1f", test.upload)) Mbps")
-                }
-            }
-            .scrollContentBackground(.hidden)
-            .background(Color(.systemGroupedBackground))
-            .navigationTitle(SpeedTestViewLabels.testHistory)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(SpeedTestViewLabels.done) {
-                        dismiss()
-                    }
-                }
-            }
-        }
-    }
-    
-    private func speedDescription(for speed: Double) -> String {
-        if speed >= 50 {
-            return SpeedTestViewLabels.fast
-        } else if speed >= 25 {
-            return SpeedTestViewLabels.good
-        } else if speed >= 10 {
-            return SpeedTestViewLabels.fair
-        } else {
-            return SpeedTestViewLabels.slow
-        }
-    }
-    
-    private func speedColor(for speed: Double) -> Color {
-        if speed >= 50 {
-            return .green
-        } else if speed >= 25 {
-            return .blue
-        } else if speed >= 10 {
-            return .orange
-        } else {
-            return .red
-        }
-    }
-}
-
-#Preview {
-    DashboardView()
-} 
