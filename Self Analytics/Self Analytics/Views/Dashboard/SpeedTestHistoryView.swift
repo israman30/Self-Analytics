@@ -116,3 +116,16 @@ struct SpeedTestHistoryView: View {
         }
     }
 }
+
+#Preview("Speed Test History") {
+    let now = Date()
+    let mockHistory: [(download: Double, upload: Double, timestamp: Date)] = [
+        (download: 96.4, upload: 24.7, timestamp: now.addingTimeInterval(-5 * 60)),
+        (download: 42.1, upload: 18.3, timestamp: now.addingTimeInterval(-35 * 60)),
+        (download: 22.8, upload: 9.6, timestamp: now.addingTimeInterval(-2 * 60 * 60)),
+        (download: 8.2, upload: 1.1, timestamp: now.addingTimeInterval(-8 * 60 * 60)),
+        (download: 3.9, upload: 0.6, timestamp: now.addingTimeInterval(-26 * 60 * 60))
+    ]
+    
+    SpeedTestHistoryView(history: mockHistory)
+}
