@@ -68,3 +68,30 @@ struct SpeedResultRow: View {
         }
     }
 }
+
+#Preview("SpeedResultRow") {
+    VStack(spacing: 12) {
+        SpeedResultRow(
+            title: SpeedTestViewLabels.download,
+            speed: 96.4,
+            icon: "arrow.down.circle.fill",
+            color: .blue
+        )
+
+        SpeedResultRow(
+            title: SpeedTestViewLabels.upload,
+            speed: 18.7,
+            icon: "arrow.up.circle.fill",
+            color: .purple
+        )
+
+        SpeedResultRow(
+            title: SpeedTestViewLabels.speed,
+            speed: 4.9,
+            icon: "speedometer",
+            color: .orange
+        )
+    }
+    .padding()
+    .background(Color(.systemGroupedBackground))
+}
