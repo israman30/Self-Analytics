@@ -8,6 +8,13 @@
 import SwiftUI
 import UIKit
 
+/// In-app notification opt-in screen.
+///
+/// This view provides context **before** triggering the system permission prompt, and offers a recovery path
+/// (deep link to iOS Settings) if the user previously denied authorization.
+///
+/// - `isPresented`: controls modal presentation.
+/// - `notificationsEnabled`: mirrors the in-app preference; turning this off also cancels scheduling.
 struct NotificationPermissionPromptView: View {
     @Binding var isPresented: Bool
     @Binding var notificationsEnabled: Bool
@@ -100,6 +107,7 @@ struct NotificationPermissionPromptView: View {
         authorizationDenied = false
         isRequesting = true
         Task {
+            // Permission prompts must be user-initiated. The service also refreshes background/weekly scheduling.
             let granted = await ProactiveNotificationService.shared.handleUserEnabledNotifications()
             await MainActor.run {
                 isRequesting = false

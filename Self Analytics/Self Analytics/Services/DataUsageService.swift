@@ -10,6 +10,15 @@ import UIKit
 import Network
 
 @MainActor
+/// Produces data-usage summaries, limit checks, and alerts for the Data Usage UI.
+///
+/// **Platform note**
+/// iOS does not generally provide third-party apps with true per-app network byte counts. This service therefore
+/// uses simulated per-app usage to demonstrate the UI/UX, while still modeling limits, thresholds, and history.
+///
+/// **Implementation**
+/// - Refreshes periodically on a timer and when network connectivity changes.
+/// - Maintains a short in-memory history for charts and statistics.
 class DataUsageService: ObservableObject {
     @Published var currentSummary: DataUsageSummary?
     @Published var dataUsageHistory: [DataUsageSummary] = []
@@ -19,12 +28,13 @@ class DataUsageService: ObservableObject {
     @Published var preferences: DataUsagePreferences = .default
     
     private var timer: Timer?
+    /// Data usage updates are less latency-sensitive than device health, so this is intentionally slower.
     private let updateInterval: TimeInterval = 30.0 // Update every 30 seconds
     private let dataQueue = DispatchQueue(label: "DataUsageService.dataQueue", qos: .userInitiated)
     private var networkMonitor: NWPathMonitor?
     private var networkQueue = DispatchQueue(label: "DataUsageService.networkQueue")
     
-    // Mock data for demonstration - in a real app, you'd integrate with system APIs
+    /// Mock data for demonstration (see platform note above).
     private var mockAppData: [String: AppDataUsage] = [:]
     private var lastUpdateTime: Date = Date()
     
@@ -37,6 +47,7 @@ class DataUsageService: ObservableObject {
         stop()
     }
     
+    /// Ensures the periodic timer and network monitor are stopped even if the service is released off-actor.
     nonisolated func stop() {
         Task { @MainActor in
             stopMonitoring()
@@ -218,7 +229,7 @@ class DataUsageService: ObservableObject {
     private func addToHistory(_ summary: DataUsageSummary) {
         dataUsageHistory.append(summary)
         
-        // Keep only last 100 entries to prevent memory issues
+        // Keep bounded history; charts/statistics only need recent samples.
         if dataUsageHistory.count > 100 {
             dataUsageHistory.removeFirst()
         }
@@ -451,8 +462,8 @@ class DataUsageService: ObservableObject {
     }
     
     private func savePreferences() {
-        // In a real app, you'd save to UserDefaults or Core Data
-        // For now, we'll just update the in-memory preferences
+        // Intentionally a stub: the UI is wired to the model, and persistence can be layered in later
+        // (e.g. `UserDefaults`, AppStorage, or a lightweight database) without changing call sites.
     }
     
     // MARK: - Reset Methods

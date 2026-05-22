@@ -1,6 +1,11 @@
 import WidgetKit
 import SwiftUI
 
+/// Legacy/demo widget implementation.
+///
+/// This widget generates placeholder/randomized values directly in the timeline provider. The production widget
+/// shipped by this repo is `DevicePerformanceWidget` (extension target), which reads a real snapshot written by
+/// the main app via `WidgetSnapshotStore`.
 struct DeviceHealthWidget: Widget {
     let kind: String = "DeviceHealthWidget"
 

@@ -9,6 +9,11 @@ import Foundation
 
 // MARK: - Data Usage Models
 
+/// App-scoped data usage record used by the Data Usage UI.
+///
+/// **Important platform note**
+/// iOS does not generally expose true per-app cellular/Wi‑Fi byte counts to third-party apps without restricted
+/// entitlements. In this project, per-app values may be illustrative/simulated depending on the data source.
 struct AppDataUsage: Identifiable, Codable, Hashable {
     let id: UUID
     let bundleIdentifier: String
@@ -83,6 +88,9 @@ struct AppDataUsage: Identifiable, Codable, Hashable {
     }
 }
 
+/// A time window used to summarize network usage.
+///
+/// `periodType` defines user intent (today/week/month/custom) and is used to derive a default `dateRange`.
 struct DataUsagePeriod: Codable {
     let startDate: Date
     let endDate: Date
@@ -130,6 +138,9 @@ struct DataUsagePeriod: Codable {
     }
 }
 
+/// Aggregated usage for a given period.
+///
+/// This is the primary model powering the Data Usage dashboard, statistics, and charts.
 struct DataUsageSummary: Codable {
     let period: DataUsagePeriod
     let totalCellularBytes: UInt64
@@ -168,6 +179,9 @@ struct DataUsageSummary: Codable {
     }
 }
 
+/// A user-configured limit (cellular, Wi‑Fi, or total) for a given period type.
+///
+/// Limits are used to generate in-app alerts (and can also drive notifications if wired to background checks).
 struct DataUsageLimit: Codable, Identifiable {
     let id: UUID?
     let limitType: LimitType
@@ -215,6 +229,9 @@ struct DataUsageLimit: Codable, Identifiable {
         ByteCountFormatter.string(fromByteCount: Int64(limitValue), countStyle: .file)
     }
     
+    /// Percent of usage consumed vs the configured limit.
+    ///
+    /// This is intentionally a placeholder here because it depends on the current `DataUsageSummary` snapshot.
     var progressPercentage: Double {
         // This would be calculated based on current usage vs limit
         // Implementation depends on current usage data
@@ -222,6 +239,7 @@ struct DataUsageLimit: Codable, Identifiable {
     }
 }
 
+/// Configurable threshold (e.g. 80%, 95%) for a `DataUsageLimit`.
 struct AlertThreshold: Codable, Identifiable {
     let id: UUID?
     let percentage: Double // 0-100
@@ -259,6 +277,9 @@ struct AlertThreshold: Codable, Identifiable {
     }
 }
 
+/// A generated alert when usage crosses a configured threshold.
+///
+/// This model is persisted so the UI can show a history of limit events.
 struct DataUsageAlert: Codable, Identifiable {
     let id: UUID?
     let limitType: DataUsageLimit.LimitType
@@ -304,6 +325,7 @@ struct DataUsageAlert: Codable, Identifiable {
 
 // MARK: - Data Usage Chart Models
 
+/// Denormalized chart-ready usage point (typically one per day or sampling interval).
 struct DataUsageChartData: Identifiable {
     let id = UUID()
     let date: Date
@@ -330,6 +352,7 @@ struct DataUsageChartData: Identifiable {
 
 // MARK: - Data Usage Statistics
 
+/// Derived statistics for a usage period (averages, peaks, and top apps).
 struct DataUsageStatistics: Codable {
     let period: DataUsagePeriod
     let averageDailyUsage: UInt64
@@ -357,6 +380,9 @@ struct DataUsageStatistics: Codable {
 
 // MARK: - Data Usage Preferences
 
+/// User preferences controlling how data usage is presented and evaluated.
+///
+/// This is intentionally lightweight (Codable) so it can be stored in `UserDefaults`/`AppStorage`.
 struct DataUsagePreferences: Codable {
     var autoResetPeriod: DataUsagePeriod.PeriodType = .thisMonth
     var showCellularWarnings: Bool = true

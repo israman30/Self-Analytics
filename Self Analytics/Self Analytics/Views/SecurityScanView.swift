@@ -6,6 +6,14 @@
 
 import SwiftUI
 
+/// On-demand security scan surface.
+///
+/// The scan is triggered:
+/// - automatically on first appear (to populate the screen)
+/// - manually via "Scan Now"
+/// - via pull-to-refresh
+///
+/// `DeviceSecurityScanner` owns the actual checks and produces a score + findings/recommendations.
 struct SecurityScanView: View {
     @StateObject private var scanner = DeviceSecurityScanner()
     @State private var isScanning = false

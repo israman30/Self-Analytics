@@ -7,6 +7,16 @@
 
 import Foundation
 
+/// A minimal, widget-friendly snapshot of device performance.
+///
+/// This type lives in `WidgetShared/` so it can be used by both:
+/// - the main app (writer)
+/// - the widget extension (reader)
+///
+/// **Field conventions**
+/// - Percent values are expressed as 0–100.
+/// - `batteryLevel` matches `UIDevice.batteryLevel` (0–1).
+/// - `updatedAt` is the app-side timestamp for when the snapshot was generated.
 struct DevicePerformanceWidgetPayload: Codable, Equatable, Sendable {
     enum HealthStatusKind: String, Codable, Sendable {
         case excellent

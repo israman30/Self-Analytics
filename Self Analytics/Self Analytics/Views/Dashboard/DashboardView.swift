@@ -8,7 +8,12 @@
 import SwiftUI
 import Charts
 
-class DeviceInformation {
+/// Lightweight device-identifying strings for the dashboard header.
+///
+/// This is intentionally UI-focused (name + OS version) and does not attempt to perform hardware model lookups.
+struct DeviceInformation {
+    
+    static let shared = DeviceInformation()
     
     func getDeviceName() -> String {
         return UIDevice.current.name
@@ -23,10 +28,17 @@ class DeviceInformation {
     }
 }
 
+/// Main dashboard showing the current `DeviceHealth` snapshot plus alerts, recommendations, and quick actions.
+///
+/// **Implementation notes**
+/// - Owns a `DeviceMetricsService` instance so the dashboard can start/stop monitoring with view lifecycle.
+/// - Creates `AlertService` with the same `DeviceMetricsService` so alerts/recommendations stay consistent with
+///   the currently published snapshot.
+/// - Uses sheets for speed test, storage details, and per-metric drill-down views.
 struct DashboardView: View {
     @StateObject private var metricsService: DeviceMetricsService
     @StateObject private var alertService: AlertService
-    private let deviceInformation = DeviceInformation()
+    private let deviceInformation: DeviceInformation = .shared
     
     @State private var activeSheet: ActiveSheet?
     @State private var speedTestResult: (download: Double, upload: Double)?

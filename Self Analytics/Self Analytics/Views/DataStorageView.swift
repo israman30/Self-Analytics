@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+/// Storage drill-down sheet presented from the dashboard.
+///
+/// This view depends on an existing `DeviceMetricsService` so it can display the same snapshot the dashboard is
+/// showing (and avoids collecting metrics twice).
 struct DataStorageView: View {
     @ObservedObject var metricsService: DeviceMetricsService
     @Environment(\.dismiss) private var dismiss

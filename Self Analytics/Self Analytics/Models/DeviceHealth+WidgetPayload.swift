@@ -6,6 +6,11 @@
 import Foundation
 
 extension DeviceHealth {
+    /// Converts the in-app `DeviceHealth` snapshot into a compact payload suitable for WidgetKit.
+    ///
+    /// **Usage**
+    /// - The main app writes this payload to shared storage.
+    /// - The widget extension reads and renders the latest snapshot (or a placeholder when unavailable).
     func makeWidgetPayload() -> DevicePerformanceWidgetPayload {
         let status: DevicePerformanceWidgetPayload.HealthStatusKind = switch healthStatus {
         case .excellent: .excellent

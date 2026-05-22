@@ -10,6 +10,15 @@ import UIKit
 import UniformTypeIdentifiers
 
 @MainActor
+/// Handles user-initiated data export and data clearing.
+///
+/// **Export**
+/// - Builds a single `ExportData` payload and emits both JSON and CSV renditions.
+/// - Writes files into a temporary folder with `completeFileProtection` so the Share Sheet can hand them off.
+///
+/// **Implementation note**
+/// This service is designed so "real" persistence (Core Data / file-backed history) can be wired in later.
+/// Today, some sections (historical data, stored alerts/recommendations) may be sample data placeholders.
 class DataManagementService: ObservableObject {
     @Published var isExporting = false
     @Published var isClearing = false

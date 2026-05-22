@@ -8,6 +8,9 @@
 import SwiftUI
 import UIKit
 
+/// Sheets presented from Settings.
+///
+/// Uses `Identifiable` so SwiftUI sheet presentation is driven by a single source of truth (`activeSheet`).
 enum SettingsSheet: Identifiable {
     case privacyPolicy
     case termsOfService
@@ -24,6 +27,11 @@ enum SettingsSheet: Identifiable {
     }
 }
 
+/// App settings + support + data management.
+///
+/// **Notification behavior**
+/// - The toggle drives both the in-app preference and the system authorization flow via `ProactiveNotificationService`.
+/// - When authorization is denied, Settings provides a deep link to iOS Settings for recovery.
 struct SettingsView: View {
     @AppStorage(StorageProperties.notificationsEnabled) private var notificationsEnabled = true
     @AppStorage(StorageProperties.autoRefreshInterval) private var autoRefreshInterval = 5.0

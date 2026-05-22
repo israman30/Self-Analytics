@@ -1,6 +1,6 @@
 
 //
-//  MemoryMetrics.swift
+//  DeviceMetrics.swift
 //  Self Analytics
 //
 //  Created by Israel Manzo on 7/9/25.
@@ -10,22 +10,31 @@ import Foundation
 import UIKit
 
 // MARK: - Device Metrics Models
+
+/// Memory snapshot for the current device.
+///
+/// Values are reported in bytes and intended for UI + scoring (not for low-level profiling).
 struct MemoryMetrics: Codable {
     let usedMemory: UInt64
     let totalMemory: UInt64
     let availableMemory: UInt64
     let memoryPressure: MemoryPressure
     
+    /// Percent of memory currently in use (0–100).
     var usagePercentage: Double {
         guard totalMemory > 0 else { return 0 }
         return Double(usedMemory) / Double(totalMemory) * 100
     }
     
+    /// UI-oriented threshold used by health scoring and alerts.
     var isHighUsage: Bool {
         usagePercentage > 80
     }
 }
 
+/// A coarse, user-facing memory pressure state.
+///
+/// The app uses this for color/status presentation; it is intentionally not a direct mapping to OS jetsam states.
 enum MemoryPressure: Codable {
     case normal
     case warning
@@ -40,6 +49,10 @@ enum MemoryPressure: Codable {
     }
 }
 
+/// CPU snapshot used by the dashboard, alerts, and health scoring.
+///
+/// - Note: iOS does not provide a public, reliable "CPU temperature" for third-party apps. The optional field
+///   exists to support future integrations or simulated data where appropriate.
 struct CPUMetrics: Codable {
     let usagePercentage: Double
     let temperature: Double?
@@ -52,6 +65,9 @@ struct CPUMetrics: Codable {
     }
 }
 
+/// Battery snapshot representing what iOS exposes publicly.
+///
+/// The `health` value is a heuristic used for trends/education (not a system-reported maximum capacity).
 struct BatteryMetrics: Codable {
     let level: Double
     let isCharging: Bool
@@ -64,6 +80,10 @@ struct BatteryMetrics: Codable {
     }
 }
 
+/// A user-friendly battery condition classification.
+///
+/// iOS does not expose true battery maximum capacity to typical third-party apps, so the app uses a conservative,
+/// explainable estimate to support "battery aging" charts and recommendations.
 enum BatteryHealth: Codable {
     case excellent
     case good
@@ -100,17 +120,22 @@ enum BatteryHealth: Codable {
     }
 }
 
+/// Storage snapshot derived from `FileManager` volume/resource values.
+///
+/// All values are device-level within the app sandbox's observable storage APIs.
 struct StorageMetrics: Codable {
     let totalSpace: UInt64
     let usedSpace: UInt64
     let availableSpace: UInt64
     let systemSpace: UInt64
     
+    /// Percent of storage currently in use (0–100).
     var usagePercentage: Double {
         guard totalSpace > 0 else { return 0 }
         return Double(usedSpace) / Double(totalSpace) * 100
     }
     
+    /// UI-oriented threshold used by health scoring and alerts.
     var isLowStorage: Bool {
         usagePercentage > 90
     }
@@ -128,6 +153,7 @@ struct StorageMetrics: Codable {
     }
 }
 
+/// High-level connection status used for UI and notifications.
 enum NetworkStatus: Codable {
     case unknown
     case connected
@@ -161,6 +187,9 @@ enum NetworkStatus: Codable {
     }
 }
 
+/// Network snapshot (connectivity + optionally a speed test result).
+///
+/// Speeds are expressed in Mbps and are only meaningful when the app performs a test.
 struct NetworkMetrics: Codable {
     let downloadSpeed: Double // Mbps
     let uploadSpeed: Double // Mbps
@@ -168,11 +197,13 @@ struct NetworkMetrics: Codable {
     let isConnected: Bool
     let status: NetworkStatus
     
+    /// UI-oriented threshold used by health scoring and alerts.
     var isSlowConnection: Bool {
         downloadSpeed < 5.0 || uploadSpeed < 1.0
     }
 }
 
+/// Connection type classification for UI/alerts.
 enum NetworkConnectionType: Codable {
     case wifi
     case cellular
@@ -189,6 +220,10 @@ enum NetworkConnectionType: Codable {
     }
 }
 
+/// A point-in-time "device health" snapshot used throughout the app.
+///
+/// - **Usage**: Dashboard cards, alerts/recommendations, history charts, and widget snapshot generation.
+/// - **Scoring**: `overallScore` intentionally favors interpretability over perfect precision.
 struct DeviceHealth: Identifiable, Codable {
     let memory: MemoryMetrics
     let cpu: CPUMetrics
@@ -199,6 +234,7 @@ struct DeviceHealth: Identifiable, Codable {
     
     var id: Date { timestamp }
     
+    /// Aggregate score (0–100) used as a simple health indicator.
     var overallScore: Int {
         var score = 100
         
@@ -235,6 +271,7 @@ struct DeviceHealth: Identifiable, Codable {
     }
 }
 
+/// Coarse bucket used for UI labels/colors derived from `overallScore`.
 enum HealthStatus: Codable {
     case excellent
     case good
@@ -261,10 +298,13 @@ enum HealthStatus: Codable {
 }
 
 // MARK: - Historical Data Models
+
+/// A collection of health snapshots and the date window they represent.
 struct MetricsHistory {
     let deviceHealth: [DeviceHealth]
     let dateRange: DateInterval
     
+    /// Average of `overallScore` across the sampled period.
     var averageScore: Double {
         guard !deviceHealth.isEmpty else {
             return 0
@@ -275,6 +315,10 @@ struct MetricsHistory {
 }
 
 // MARK: - Alert Models
+
+/// Persistable alert generated from a device health snapshot.
+///
+/// Alerts are intended to be user-facing and actionable; this keeps them separate from raw metric collection.
 struct DeviceAlert: Codable {
     var id = UUID()
     let type: AlertType
@@ -314,6 +358,9 @@ struct DeviceAlert: Codable {
 
 // MARK: - Recommendation Models
 
+/// Persistable recommendation derived from device state (or user actions).
+///
+/// Recommendations are phrased as "do X for Y impact" to keep them actionable in the UI.
 struct DeviceRecommendation: Codable {
     var id = UUID()
     let type: RecommendationType

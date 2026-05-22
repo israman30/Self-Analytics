@@ -6,11 +6,17 @@
 import SwiftUI
 import WidgetKit
 
+/// Renders a `DevicePerformanceEntry` for small/medium widget families.
+///
+/// **Data conventions**
+/// - Percent values are 0–100.
+/// - `batteryLevel` is 0–1 (matching `UIDevice.batteryLevel`).
 struct DevicePerformanceWidgetView: View {
     @Environment(\.widgetFamily) private var family
     var entry: DevicePerformanceEntry
 
     var body: some View {
+        // Keep layout selection centralized so both families share formatting + accessibility behavior.
         switch family {
         case .systemMedium:
             mediumLayout

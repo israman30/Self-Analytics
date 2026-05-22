@@ -9,6 +9,13 @@ import SwiftUI
 import UIKit
 import UserNotifications
 
+/// The main tab container for the app.
+///
+/// **Implementation notes**
+/// - Owns first-launch onboarding (`WelcomeView`) and the optional notification opt-in prompt.
+/// - Uses simple persisted flags (`@AppStorage`) to ensure one-time UI flows (welcome + first permission prompt)
+///   don't reappear on subsequent launches.
+/// - Defers the system notification prompt until after onboarding to avoid stacking multiple modal experiences.
 struct MainTabView: View {
     @AppStorage(StorageProperties.notificationsEnabled) private var notificationsEnabled = true
     @AppStorage("didShowNotificationsPermissionPrompt") private var didShowNotificationsPermissionPrompt = false
@@ -19,6 +26,10 @@ struct MainTabView: View {
     @State private var showNotificationsDeniedAlert = false
     @State private var isRequestingNotifications = false
     
+    /// Tracks full-screen flows presented above the tab UI.
+    ///
+    /// This uses `Identifiable` so SwiftUI can manage the presentation lifetime and avoid double-present issues
+    /// when the underlying state changes during async work.
     private enum ActiveSheet: Identifiable {
         case welcome
         
@@ -102,6 +113,10 @@ struct MainTabView: View {
         }
     }
     
+    /// Presents onboarding exactly once per install, before any other modal flow.
+    ///
+    /// Returning `true` makes the call-site short-circuit so we don't attempt to present onboarding and a
+    /// notification prompt at the same time.
     private func maybeShowWelcomeIfNeeded() -> Bool {
         guard !didShowWelcome else { return false }
         guard activeSheet == nil else { return false }
@@ -109,6 +124,11 @@ struct MainTabView: View {
         return true
     }
     
+    /// Decides whether we should show the *in-app* notification opt-in explanation.
+    ///
+    /// This intentionally checks `UNUserNotificationCenter` first and only shows the prompt if the system status
+    /// is still `.notDetermined` (i.e., we haven't asked yet). If the user has already denied, we avoid nagging
+    /// and instead provide a one-tap route to iOS Settings when needed.
     private func maybeShowNotificationsPermissionAlertIfNeeded() async {
         guard !didShowNotificationsPermissionPrompt else { return }
         
@@ -128,6 +148,10 @@ struct MainTabView: View {
         }
     }
     
+    /// Requests system notification permission via `ProactiveNotificationService`.
+    ///
+    /// The service is responsible for the exact authorization options and for any follow-up scheduling logic.
+    /// This view only owns the UI state machine (loading, success/failure, and the "open iOS settings" fallback).
     private func requestNotificationsPermission() {
         guard !isRequestingNotifications else { return }
         isRequestingNotifications = true

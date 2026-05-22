@@ -9,6 +9,16 @@ import Foundation
 import UIKit
 
 @MainActor
+/// Derives user-facing alerts and recommendations from `DeviceHealth` updates.
+///
+/// **Usage**
+/// Construct with the app's shared `DeviceMetricsService`. The service listens to `currentHealth` and produces:
+/// - `activeAlerts`: deduplicated by alert type while unresolved
+/// - `recommendations`: refreshed on each new snapshot
+///
+/// **Threading**
+/// Heavy analysis is pushed to background queues to keep SwiftUI updates smooth; results are applied on the
+/// `MainActor`.
 class AlertService: ObservableObject {
     @Published var activeAlerts: [DeviceAlert] = []
     @Published var recommendations: [DeviceRecommendation] = []

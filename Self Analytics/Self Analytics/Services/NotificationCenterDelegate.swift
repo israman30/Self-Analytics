@@ -8,6 +8,10 @@
 import Foundation
 import UserNotifications
 
+/// Foreground presentation policy for local notifications.
+///
+/// By default, iOS suppresses notification UI when the app is active. This delegate opts into showing a banner/
+/// list entry (plus sound/badge) so proactive alerts remain visible even during active use.
 final class NotificationCenterDelegate: NSObject, UNUserNotificationCenterDelegate {
     static let shared = NotificationCenterDelegate()
     

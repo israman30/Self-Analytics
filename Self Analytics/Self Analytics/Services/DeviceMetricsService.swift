@@ -12,11 +12,23 @@ import UIKit
 import WidgetKit
 
 @MainActor
+/// Collects device metrics on a timer and publishes the latest `DeviceHealth` snapshot.
+///
+/// **Implementation**
+/// - Runs on the `MainActor` because it drives SwiftUI state (`@Published`) and interacts with UIKit/WidgetKit.
+/// - Maintains an `NWPathMonitor` to classify connectivity changes (and to drive network-change notifications).
+/// - Produces a `DeviceHealth` snapshot every `updateInterval` seconds while monitoring.
+///
+/// **Side effects of each update**
+/// - Records daily battery/history snapshots for trend charts.
+/// - Evaluates foreground proactive notifications (cooldown protected).
+/// - Writes a compact widget snapshot and reloads widget timelines.
 class DeviceMetricsService: ObservableObject {
     @Published var currentHealth: DeviceHealth?
     @Published var isMonitoring = false
     
     private var timer: Timer?
+    /// UI-facing refresh cadence. Keep this modest to avoid battery/CPU churn.
     private let updateInterval: TimeInterval = 5.0 // Update every 5 seconds
     
     init() {
@@ -56,6 +68,10 @@ class DeviceMetricsService: ObservableObject {
         stopNetworkMonitoring()
     }
     
+    /// Computes a fresh `DeviceHealth` snapshot and publishes it.
+    ///
+    /// This is the central "tick" used by the dashboard. It also fans out into persistence (history),
+    /// notifications, and widget updates.
     func updateMetrics() {
         let memory = getMemoryMetrics()
         let cpu = getCPUMetrics()
@@ -140,8 +156,8 @@ class DeviceMetricsService: ObservableObject {
     
     // MARK: - CPU Metrics
     private func getCPUMetrics() -> CPUMetrics {
-        // Note: iOS doesn't provide direct CPU usage APIs
-        // This is a simplified implementation
+        // iOS does not expose a public, first-party "CPU usage %" for third-party apps.
+        // We use a stable heuristic so the UI can still demonstrate trends and drive thresholds.
         let usagePercentage = getEstimatedCPUUsage()
         return CPUMetrics(usagePercentage: usagePercentage)
     }
@@ -399,6 +415,10 @@ class DeviceMetricsService: ObservableObject {
     
     // MARK: - Network Speed Test
     
+    /// Performs a lightweight, user-initiated speed test.
+    ///
+    /// This implementation is currently simulated. If you replace it with a real test, keep it cancellable and
+    /// ensure it doesn't run automatically in the background.
     func performSpeedTest() async -> (download: Double, upload: Double) {
         // This is a simplified speed test
         // In a real app, you'd implement actual network testing

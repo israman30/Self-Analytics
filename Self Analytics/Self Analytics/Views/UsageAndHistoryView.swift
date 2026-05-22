@@ -7,6 +7,15 @@
 
 import SwiftUI
 
+/// Root for the Data Usage tab.
+///
+/// **Usage**
+/// - Shows the data-usage dashboard (`DataUsageMainContent`).
+/// - Presents device history as a full-screen cover so it can own its own navigation stack and lifecycle.
+///
+/// **Why full-screen?**
+/// History tends to be a "deep dive" experience; using a full-screen cover also ensures any `@StateObject`
+/// services created inside history are torn down when dismissed.
 struct UsageAndHistoryView: View {
     @State private var showDeviceHistory = false
 
@@ -42,6 +51,7 @@ struct UsageAndHistoryView: View {
 
 // MARK: - Full-screen history
 
+/// Wraps `HistoryMainContent` in its own navigation stack with a dedicated Done action.
 private struct DeviceHistoryFullScreenView: View {
     @Environment(\.dismiss) private var dismiss
 

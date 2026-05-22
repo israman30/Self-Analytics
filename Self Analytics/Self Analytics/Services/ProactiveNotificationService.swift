@@ -16,6 +16,16 @@ import Darwin
 
 /// Service that monitors device metrics in the background and sends proactive notifications
 /// when storage, battery drain, or RAM pressure exceed thresholds.
+///
+/// **Setup**
+/// - Call `configure()` at launch to register `BGTaskScheduler` handlers and (re)apply scheduling.
+///
+/// **Permission model**
+/// - Notification prompts must be user-initiated (`requestAuthorizationFromUser()`).
+/// - Scheduling is gated by both system authorization and in-app settings (`StorageProperties.*`).
+///
+/// **Safety**
+/// - Uses per-notification-type cooldown keys in `UserDefaults` to avoid spamming.
 final class ProactiveNotificationService {
     static let shared = ProactiveNotificationService()
     
@@ -168,6 +178,9 @@ final class ProactiveNotificationService {
     }
 
     @MainActor
+    /// Applies background/weekly scheduling based on current authorization + user settings.
+    ///
+    /// This is called at launch and after any user change that could affect notification delivery.
     func refreshScheduling() async {
         let settings = await getNotificationSettings()
         let authorized = settings.authorizationStatus == .authorized
@@ -225,6 +238,10 @@ final class ProactiveNotificationService {
         }
     }
     
+    /// Schedules the next background refresh window.
+    ///
+    /// iOS treats this as a hint; the actual execution time is system-controlled and depends on usage patterns,
+    /// battery, and Background App Refresh settings.
     func scheduleNextBackgroundRefresh() {
         let request = BGAppRefreshTaskRequest(identifier: "com.selfanalytics.metrics.refresh")
         request.earliestBeginDate = Date(timeIntervalSinceNow: 15 * 60) // 15 minutes minimum
@@ -243,6 +260,7 @@ final class ProactiveNotificationService {
             task.setTaskCompleted(success: false)
         }
         
+        // Do only quick, non-UI work here. The system may terminate this task at any time.
         checkMetricsAndNotifyIfNeeded()
         task.setTaskCompleted(success: true)
     }
@@ -256,6 +274,7 @@ final class ProactiveNotificationService {
         let cpuUsagePercent: Double
         let networkStatus: NetworkStatus
         let connectionType: NetworkConnectionType
+        /// Battery level expressed as a percent (0–100) for drain-rate math and messaging.
         let batteryLevel: Double
         let isCharging: Bool
     }
@@ -473,15 +492,23 @@ final class ProactiveNotificationService {
         content.body = body
         content.sound = .default
         
+        // Append a UUID so repeated notifications of the same kind appear as distinct entries.
         let request = UNNotificationRequest(identifier: "\(identifier)-\(UUID().uuidString)", content: content, trigger: nil)
         notificationCenter.add(request)
     }
     
+    /// App-level switch for whether proactive alerts should be produced at all.
+    ///
+    /// This intentionally combines the "notifications enabled" preference with an "alerts enabled" preference so
+    /// users can silence proactive alerts without disabling other notification scheduling.
     private var areAlertsEnabled: Bool {
         UserDefaults.standard.bool(forKey: StorageProperties.notificationsEnabled)
             && UserDefaults.standard.bool(forKey: StorageProperties.showAlerts)
     }
     
+    /// Captures a one-off connectivity snapshot.
+    ///
+    /// This uses `NWPathMonitor` + a short wait to produce a synchronous-ish result suitable for background tasks.
     private func getNetworkSnapshot() -> (status: NetworkStatus, connectionType: NetworkConnectionType) {
         let monitor = NWPathMonitor()
         let queue = DispatchQueue(label: "ProactiveNotificationService.NetworkSnapshot")
