@@ -19,6 +19,36 @@ import Network
 /// **Implementation**
 /// - Refreshes periodically on a timer and when network connectivity changes.
 /// - Maintains a short in-memory history for charts and statistics.
+protocol DataUsageProtocol {
+    var currentSummary: DataUsageSummary? { get set }
+    var dataUsageHistory: [DataUsageSummary] { get set }
+    var dataUsageLimits: [DataUsageLimit] { get set }
+    var activeAlerts: [DataUsageAlert] { get set }
+}
+
+protocol DataUsageMonitoring {
+    func startMonitoring()
+    func stopMonitoring()
+}
+
+protocol DataAlertProtocol {
+    func markAlertAsRead(_ alert: DataUsageAlert)
+    func dismissAlert(_ alert: DataUsageAlert)
+    func clearAllAlerts()
+}
+
+protocol DataManagementProtocol {
+    func getDataUsageForPeriod(_ period: DataUsagePeriod) -> DataUsageSummary?
+    func getChartData(for period: DataUsagePeriod.PeriodType) -> [DataUsageChartData]
+    func getStatistics(for period: DataUsagePeriod) -> DataUsageStatistics?
+    func addDataLimit(_ limit: DataUsageLimit)
+    func updateDataLimit(_ limit: DataUsageLimit)
+    func deleteDataLimit(_ limit: DataUsageLimit)
+    func toggleDataLimit(_ limit: DataUsageLimit)
+}
+
+extension DataUsageService: DataUsageProtocol, DataUsageMonitoring, DataManagementProtocol, DataAlertProtocol { }
+
 class DataUsageService: ObservableObject {
     @Published var currentSummary: DataUsageSummary?
     @Published var dataUsageHistory: [DataUsageSummary] = []
@@ -309,8 +339,9 @@ class DataUsageService: ObservableObject {
             }
         }
         
+        let alertsToAppend = newAlerts
         await MainActor.run {
-            self.activeAlerts.append(contentsOf: newAlerts)
+            self.activeAlerts.append(contentsOf: alertsToAppend)
             
             // Keep only recent alerts (last 50)
             if self.activeAlerts.count > 50 {
