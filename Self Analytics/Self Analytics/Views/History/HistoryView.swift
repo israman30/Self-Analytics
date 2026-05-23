@@ -8,6 +8,24 @@
 import SwiftUI
 import Charts
 
+struct PerformanceSummary {
+    let averageScore: Double
+    let peakMemoryUsage: Double
+    let peakCPUUsage: Double
+    let lowestBatteryLevel: Double
+    let dataPoints: Int
+}
+
+struct HistoryView: View {
+    var body: some View {
+        NavigationStack {
+            HistoryMainContent()
+                .navigationTitle(HistoryViewLabels.history)
+                .navigationBarTitleDisplayMode(.large)
+        }
+    }
+}
+
 /// Device metrics history UI; embed inside a `NavigationStack` (see `HistoryView` or `UsageAndHistoryView`).
 struct HistoryMainContent: View {
     @StateObject private var metricsService = DeviceMetricsService()
@@ -438,110 +456,6 @@ struct HistoryMainContent: View {
             lowestBatteryLevel: batteryLevels.min() ?? 0,
             dataPoints: historicalData.count
         )
-    }
-}
-
-
-
-struct StatCard: View {
-    let icon: String
-    let label: String
-    let value: String
-    let color: Color
-    let trend: TrendDirection
-    
-    enum TrendDirection {
-        case up, down, stable
-        
-        var icon: String {
-            switch self {
-            case .up: return HistoryViewLabels.Icon.arrow_up
-            case .down: return HistoryViewLabels.Icon.arrow_down
-            case .stable: return HistoryViewLabels.Icon.minus
-            }
-        }
-        
-        var color: Color {
-            switch self {
-            case .up: return .red
-            case .down: return .green
-            case .stable: return .blue
-            }
-        }
-    }
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            HStack(spacing: 4) {
-                Image(systemName: icon)
-                    .foregroundColor(color)
-                    .font(.caption)
-                    .accessibilityHidden(true)
-                
-                Spacer()
-                
-                Image(systemName: trend.icon)
-                    .foregroundColor(trend.color)
-                    .font(.caption2)
-                    .accessibilityHidden(true)
-            }
-            
-            Text(value)
-                .font(.subheadline)
-                .fontWeight(.bold)
-                .foregroundColor(color)
-            
-            Text(label)
-                .font(.caption2)
-                .foregroundColor(.secondary)
-        }
-        .padding(8)
-        .background(Color(.systemGray6))
-        .cornerRadius(8)
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(label): \(value)")
-        .accessibilityHint("Shows \(label.lowercased()) value with trend indicator")
-    }
-}
-
-struct SummaryRow: View {
-    let title: String
-    let value: String
-    let color: Color
-    
-    var body: some View {
-        HStack {
-            Text(title)
-                .font(.subheadline)
-                .foregroundColor(.primary)
-            
-            Spacer()
-            
-            Text(value)
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .foregroundColor(color)
-        }
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(title): \(value)")
-    }
-}
-
-struct PerformanceSummary {
-    let averageScore: Double
-    let peakMemoryUsage: Double
-    let peakCPUUsage: Double
-    let lowestBatteryLevel: Double
-    let dataPoints: Int
-}
-
-struct HistoryView: View {
-    var body: some View {
-        NavigationStack {
-            HistoryMainContent()
-                .navigationTitle(HistoryViewLabels.history)
-                .navigationBarTitleDisplayMode(.large)
-        }
     }
 }
 
